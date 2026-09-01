@@ -1,0 +1,70 @@
+{
+  "schema_version": "v26.0",
+  "source": "contracts/v26/skill_io_contract.yaml",
+  "skill_id": "S12",
+  "skill_name": "口碑管理",
+  "english_dir_name": "reputation-management",
+  "node_ids": [
+    "N008"
+  ],
+  "agent_id": "A1",
+  "blueprint_basis": "BP09/BP03",
+  "direct_trigger": "差评、评分、口碑",
+  "chain_trigger": "诊断、评论回复、经验进化",
+  "input_fields": [
+    "review_content",
+    "review_rating",
+    "review_time",
+    "reply_status",
+    "similar_history"
+  ],
+  "output_fields": [
+    "reputation_result",
+    "health_score_impact",
+    "reply_needed",
+    "reputation_tasks"
+  ],
+  "upstream_dependencies": [
+    "REP001 review_content",
+    "REP002 review_rating",
+    "REP003 review_time",
+    "REP004 room_type",
+    "REP005 stay_date",
+    "REP006 channel_source",
+    "REP010 reply_status",
+    "REP011 compensation_status",
+    "REP012 similar_history",
+    "HOT001 hotel_id"
+  ],
+  "downstream_dependencies": [
+    "N009/N017/N018/N019"
+  ],
+  "runtime_command": "reputation-diagnosis",
+  "demo_data_files": [
+    "examples/demo_data/demo_manifest.json",
+    "examples/demo_data/nodes/N008.json"
+  ],
+  "error_handling": "评论必须脱敏",
+  "acceptance_tests": [
+    "tests/contracts/test_v26_skill_io_contract.py"
+  ],
+  "node_registry_ref": "architecture/node_registry.json",
+  "edge_registry_ref": "architecture/edge_registry.json",
+  "scenario_registry_ref": "architecture/scenario_chain_registry.json",
+  "field_registry_ref": "contracts/v26/field_registry.yaml",
+  "node_io_contract_ref": "contracts/v26/node_io_contract.yaml",
+  "algorithm_rules_ref": "runtime/algorithm_rules/reputation_rules.yaml",
+  "demo_node_fixture": "examples/demo_data/nodes/N008.json",
+  "forbidden_actions": [
+    "treat_demo_data_as_real_today_data",
+    "create_formal_approval_from_demo_or_stale_data",
+    "bypass_data_gate_or_approval_guard"
+  ],
+  "demo_safety": {
+    "data_source_type": "demo_data",
+    "approval_data_allowed": false,
+    "live_allowed": false,
+    "formal_approval_created": false,
+    "live_execution_count": 0
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "schema_version": "0.2",
+  "purpose": "Track development-only documents.",
+  "dev_only_categories": {
+    "audits": {
+      "directory": "docs_dev/audits"
+    },
+    "plans": {
+      "directory": "docs_dev/plans"
+    },
+    "reviews": {
+      "directory": "docs_dev/reviews"
+    },
+    "legacy": {
+      "directory": "docs_dev/legacy"
+    }
+  },
+  "rules": [
+    "Development docs may guide maintainers but must not be required for runtime.",
+    "If runtime depends on a document, it must remain in runtime_manifest.",
+    "Legacy documents may be deleted only after explicit manual confirmation and migration of every active reference, test, and manifest entry."
+  ]
+}

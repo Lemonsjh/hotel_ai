@@ -1,0 +1,54 @@
+{
+  "schema_version": "0.1",
+  "skill_id": "S1",
+  "skill_dir": "s01-control-config",
+  "node_id": "N003",
+  "node_name": "S1 顶层配置与权限安全",
+  "agent_id": "A0",
+  "phase": "P0",
+  "node_registry_ref": "architecture/node_registry.json",
+  "edge_registry_ref": "architecture/edge_registry.json",
+  "scenario_registry_ref": "architecture/scenario_chain_registry.json",
+  "field_registry_ref": "contracts/field_registry.yaml",
+  "node_io_contract_ref": "contracts/node_io_contract.yaml",
+  "algorithm_rules_ref": "runtime/algorithm_rules/auth_policy.yaml",
+  "demo_node_fixture": "examples/demo_data/nodes/N003.json",
+  "demo_scenarios": [
+    "SC01",
+    "SC02",
+    "SC03",
+    "SC04",
+    "SC05",
+    "SC06",
+    "SC07",
+    "SC08",
+    "SC10"
+  ],
+  "upstream_edges": [
+    {
+      "edge_id": "E002",
+      "source_node_id": "N002",
+      "why": "所有业务链路必须先验权；权限不是记忆或用户自称决定。"
+    }
+  ],
+  "downstream_edges": [
+    {
+      "edge_id": "E003",
+      "target_node_id": "N004",
+      "why": "权限和配置通过后才能读取业务数据；读取前要检查字段需求。"
+    }
+  ],
+  "forbidden_actions": [
+    "treat_demo_data_as_real_today_data",
+    "create_formal_approval_from_demo_or_stale_data",
+    "bypass_data_gate_or_approval_guard"
+  ],
+  "demo_safety": {
+    "data_source_type": "demo_data",
+    "freshness_status": "demo_data",
+    "business_status": "demo_or_historical",
+    "today_label_allowed": false,
+    "approval_data_allowed": false,
+    "live_allowed": false
+  }
+}

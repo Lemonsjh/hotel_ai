@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "schema_version": "s13-review-reply.runtime.v1",
+  "authority": "S1-S17 field-and-algorithm MD / S13",
+  "legacy_contracts": {
+    "v27": "not_authoritative_for_s13",
+    "openclaw": "not_used_by_s13",
+    "node_agent_binding": "not_used_by_s13"
+  },
+  "roles": {
+    "allowed": ["admin", "owner", "operator"],
+    "blocked": ["frontdesk", "viewer"],
+    "legacy_roles_not_used": ["guest"]
+  },
+  "input": {
+    "locator": "opaque_review_ref_issued_by_s12",
+    "direct_review_fields_rejected": [
+      "review_id",
+      "review_content",
+      "platform",
+      "channel_source",
+      "guest_name",
+      "order_id",
+      "room_no"
+    ],
+    "confirmation_command": "request_id_only",
+    "server_sealed_fields": ["draft_version", "content_hash"]
+  },
+  "source": {
+    "exact_hotel_required": true,
+    "source_snapshot_revalidation_required": true,
+    "review_content_nullable": true,
+    "pure_rating_candidate": "deterministic_candidate",
+    "deterministic_template_keys": ["positive_review", "high_rating_negative_feedback", "negative_review", "neutral_feedback"],
+    "image_text_v1": "not_used"
+  },
+  "write_scope": {
+    "table": "ota_review_reply_task",
+    "platforms": ["meituan", "dianping"],
+    "channel_source_by_platform": {"meituan": "meituan", "dianping": "dianping"},
+    "other_platform_behavior": "copy_only",
+    "fixed_columns": [
+      "hotel_id",
+      "platform",
+      "channel_source",
+      "review_id",
+      "review_content",
+      "reply_content",
+      "status",
+      "error_message",
+      "created_at",
+      "replied_at"
+    ],
+    "insert_status": "pending",
+    "success_requires": ["affected_rows=1", "exact_pending_readback", "reply_content_exact_match"]
+  },
+  "retry": {
+    "allowed_old_statuses": ["failed", "cancelled"],
+    "mode": "compare_and_set_update",
+    "blind_insert_forbidden": true,
+    "pending_readback_required": true
+  },
+  "state_machine": [
+    "eligible",
+    "selected",
+    "deterministic_risk_check",
+    "blocked_escalation",
+    "draft_requested",
+    "ai_candidate|deterministic_candidate|human_draft",
+    "human_edited",
+    "confirmation_pending",
+    "confirmed|rejected|cancelled|expired|invalidated_by_new_version",
+    "fixed_task_dml",
+    "exact_pending_readback",
+    "provider_status_observed"
+  ],
+  "public_status_rule": "task_success_does_not_prove_public_ota_reply"
+}

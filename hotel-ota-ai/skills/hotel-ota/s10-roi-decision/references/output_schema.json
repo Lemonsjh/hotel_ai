@@ -1,0 +1,141 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "schema_version": "v27-wrapper",
+  "title": "S10 output wrapper",
+  "type": "object",
+  "canonical_source": "contracts/v27/node_io_contract.yaml",
+  "secondary_source": "contracts/v27/skill_io_contract.yaml",
+  "alignment_source": "references/v27_alignment.json",
+  "skill_id": "S10",
+  "skill_name": "S10",
+  "node_id": "N013",
+  "node_ids": [
+    "N013"
+  ],
+  "agent_id": "A3",
+  "agent_ids": [
+    "A3"
+  ],
+  "source_contract": "contracts/v27/contract.json",
+  "field_registry_ref": "contracts/v27/field_registry.yaml",
+  "node_io_contract_ref": "contracts/v27/node_io_contract.yaml",
+  "demo_safety_fields": [
+    "data_source_type=demo_data",
+    "freshness_status=demo_data",
+    "approval_data_allowed=false",
+    "live_allowed=false"
+  ],
+  "additionalProperties": true,
+  "output_field_ids": [
+    "N013_OUT001",
+    "N013_OUT002",
+    "N013_OUT003",
+    "N013_OUT004"
+  ],
+  "required_outputs": [
+    "N013_OUT001",
+    "N013_OUT002",
+    "N013_OUT003",
+    "N013_OUT004"
+  ],
+  "optional_outputs": [],
+  "downstream_node_outputs": [
+    "N013_OUT001",
+    "N013_OUT002",
+    "N013_OUT003",
+    "N013_OUT004"
+  ],
+  "deprecated_legacy_outputs": {
+    "actual_orders": {
+      "deprecated": true,
+      "legacy_path": "actual_orders",
+      "replacement_keys": [
+        "actual_room_nights"
+      ],
+      "description": "Compatibility output retained by runtime only; not canonical V27 output."
+    },
+    "target_orders": {
+      "deprecated": true,
+      "legacy_path": "target_orders",
+      "replacement_keys": [
+        "target_room_nights"
+      ],
+      "description": "Compatibility output retained by runtime only; not canonical V27 output."
+    },
+    "checkpoint_target_orders": {
+      "deprecated": true,
+      "legacy_path": "checkpoint_target_orders",
+      "replacement_keys": [
+        "checkpoint_target_room_nights"
+      ],
+      "description": "Compatibility output retained by runtime only; not canonical V27 output."
+    },
+    "direction": {
+      "deprecated": true,
+      "legacy_path": "direction",
+      "replacement_keys": [
+        "progress_status"
+      ],
+      "description": "Compatibility output retained by runtime only; not canonical V27 output."
+    },
+    "completion_rate": {
+      "deprecated": true,
+      "legacy_path": "completion_rate",
+      "replacement_keys": [
+        "progress_status",
+        "room_night_gap"
+      ],
+      "description": "Compatibility output retained by runtime only; not canonical V27 output."
+    }
+  },
+  "properties": {
+    "N013_OUT001": {
+      "type": "object",
+      "canonical_key": "promotion_roi",
+      "project_field_name": "promotion_roi",
+      "field_status": "upstream_output",
+      "required_level": "节点输出",
+      "source_node": "N013",
+      "source_skill": "S10",
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "description": "promotion_roi from V27 contract"
+    },
+    "N013_OUT002": {
+      "type": "object",
+      "canonical_key": "profit_simulation",
+      "project_field_name": "profit_simulation",
+      "field_status": "upstream_output",
+      "required_level": "节点输出",
+      "source_node": "N013",
+      "source_skill": "S10",
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "description": "profit_simulation from V27 contract"
+    },
+    "N013_OUT003": {
+      "type": "object",
+      "canonical_key": "roi_decision",
+      "project_field_name": "roi_decision",
+      "field_status": "upstream_output",
+      "required_level": "节点输出",
+      "source_node": "N013",
+      "source_skill": "S10",
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "description": "roi_decision from V27 contract"
+    },
+    "N013_OUT004": {
+      "type": "array",
+      "canonical_key": "data_gaps",
+      "project_field_name": "data_gaps",
+      "field_status": "upstream_output",
+      "required_level": "节点输出",
+      "source_node": "N013",
+      "source_skill": "S10",
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "description": "data_gaps from V27 contract",
+      "items": {
+        "type": "object"
+      }
+    }
+  },
+  "required": []
+}

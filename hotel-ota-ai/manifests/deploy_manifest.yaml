@@ -1,0 +1,47 @@
+{
+  "schema_version": "0.1",
+  "purpose": "Define deployment package boundaries.",
+  "include": [
+    "AGENTS.md",
+    "S15_S16_AI_OUTPUT.md",
+    "BOOTSTRAP.md",
+    "TOOLS.md",
+    "README.md",
+    "skills/hotel-ota/**",
+    "runtime/**",
+    "contracts/**",
+    "router/**",
+    "architecture/*.json",
+    "config/*.example.json",
+    "config/env.example",
+    "data/holiday-seeds/holiday-seed-2026.json",
+    "examples/demo_data/**",
+    "ops/openclaw-hotel-ota-production.patch.json5",
+    "ops/sql/**",
+    "ops/price-task-outbox-deployment.md"
+  ],
+  "exclude": [
+    "docs_dev/**",
+    "tests/**",
+    ".pytest_cache/**",
+    "__pycache__/**",
+    "*.pyc",
+    "references/source/*.xlsx",
+    "references/source/*.drawio",
+    "references/source/raw/**",
+    ".env",
+    ".env.*",
+    "logs/**",
+    "*.db",
+    "*.sqlite",
+    "*.sqlite3"
+  ],
+  "notes": [
+    "Repository is not the same as deployment package.",
+    "Source files and audit docs stay in repository, not in deployment package.",
+    "The 2026 holiday seed is a required runtime fact file, not demo data.",
+    "Demo data is included only for demo mode and must never allow formal approval or live execution.",
+    "The Feishu inbound plugin is an optional deployment component installed separately after isolated validation; it is not copied by the default deployment package and has no S2 timer dependency.",
+    "No S2 timer, cron environment file, or scheduled S2 push is required for normal gateway and Feishu business routing."
+  ]
+}

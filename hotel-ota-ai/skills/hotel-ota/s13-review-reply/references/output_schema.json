@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "schema_version": "s13-review-reply.output.v2",
+  "title": "S13 评论智能回复输出",
+  "type": "object",
+  "additionalProperties": true,
+  "properties": {
+    "status": {
+      "type": "string",
+      "enum": ["ok", "partial", "blocked", "data_gap", "active_conflict", "already_handled", "write_failed"]
+    },
+    "action": {
+      "type": "string",
+      "enum": ["list_pending", "generate_draft", "submit_human_draft", "confirm", "reject", "cancel", "query_status", "retry"]
+    },
+    "review_ref": {"type": ["string", "null"]},
+    "platform": {
+      "type": ["string", "null"],
+      "enum": ["meituan", "dianping", "ctrip", "qunar", "tongcheng", "zhixing", null]
+    },
+    "star_rating": {"type": ["number", "null"], "minimum": 0, "maximum": 5},
+    "review_content_present": {"type": ["boolean", "null"]},
+    "redacted_excerpt": {"type": ["string", "null"], "maxLength": 500},
+    "eligibility_status": {
+      "type": ["string", "null"],
+      "enum": ["eligible", "blocked_escalation", "active_conflict", "already_handled", "expired_ref", "permission_denied", "source_changed", null]
+    },
+    "draft_candidate": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "properties": {
+        "draft": {"type": "string", "minLength": 1, "maxLength": 2000},
+        "tone": {"type": "string", "enum": ["neutral", "professional", "warm", "apologetic"]},
+        "template_key": {"type": "string", "enum": ["positive_review", "high_rating_negative_feedback", "negative_review", "neutral_feedback"]},
+        "acknowledged_topics": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "risk_flags": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "requires_human_escalation": {"type": "boolean"},
+        "candidate_origin": {"type": "string", "enum": ["ai_candidate", "deterministic_candidate", "human_draft"]},
+        "draft_version": {"type": "integer", "minimum": 1},
+        "content_hash": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}
+      },
+      "required": ["draft", "tone", "template_key", "acknowledged_topics", "risk_flags", "requires_human_escalation", "candidate_origin", "draft_version", "content_hash"]
+    },
+    "confirmation": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "properties": {
+        "request_id": {"type": "string", "pattern": "^REQ-[A-Za-z0-9_-]+$"},
+        "status": {"type": "string", "enum": ["confirmation_pending", "confirmed", "rejected", "cancelled", "expired", "invalidated_by_new_version"]},
+        "expires_at": {"type": ["string", "null"], "format": "date-time"},
+        "draft_version": {"type": "integer", "minimum": 1},
+        "content_hash": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}
+      },
+      "required": ["request_id", "status", "draft_version", "content_hash"]
+    },
+    "task": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "properties": {
+        "task_ref": {"type": ["string", "null"]},
+        "platform": {"type": "string", "const": "meituan"},
+        "channel_source": {"type": "string", "const": "meituan"},
+        "status": {"type": "string", "enum": ["pending", "processing", "success", "failed", "cancelled"]},
+        "write_performed": {"type": "boolean"},
+        "affected_rows": {"type": "integer", "minimum": 0},
+        "pending_readback_verified": {"type": "boolean"},
+        "provider_status_observed": {"type": "boolean"},
+        "public_reply_verified": {"type": "boolean", "const": false},
+        "retry_mode": {"type": ["string", "null"], "enum": ["cas_update", null]},
+        "reconciliation_status": {"type": "string", "enum": ["verified", "recovered", "conflict", "unknown", "pending"]},
+        "idempotency_verified": {"type": "boolean"}
+      },
+      "required": ["platform", "channel_source", "status", "write_performed", "affected_rows", "pending_readback_verified", "provider_status_observed", "public_reply_verified"]
+    },
+    "copy_only": {"type": "boolean"},
+    "blocked_reason": {"type": ["string", "null"]},
+    "risk_flags": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "data_gaps": {"type": "array", "items": {"type": "string"}, "uniqueItems": true}
+  },
+  "required": ["status", "action", "copy_only", "risk_flags", "data_gaps"],
+  "prohibited_outputs": [
+    "compensation_suggestion",
+    "need_compensation",
+    "need_private_message",
+    "approved_by",
+    "admin_approval",
+    "guest_role",
+    "ota_public_reply_succeeded"
+  ],
+  "notes": [
+    "非美团平台必须 copy_only=true 且 task=null。",
+    "任务 success 仅代表 task row 状态，不代表 OTA 页面公开回复成功。",
+    "纯评分评论允许 review_content_present=false，并使用 deterministic_candidate。",
+    "写入成功必须同时有 affected_rows=1、pending_readback_verified=true 和 idempotency/reconciliation 证据。"
+  ]
+}

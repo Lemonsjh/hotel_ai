@@ -1,0 +1,2413 @@
+<!doctype html>
+<!DOCTYPE html>
+
+<!DOCTYPE html>
+
+<!DOCTYPE html>
+
+<!DOCTYPE html>
+
+<!DOCTYPE html>
+
+<!DOCTYPE html>
+
+<!DOCTYPE html>
+
+<!DOCTYPE html>
+
+<!DOCTYPE html>
+
+<!DOCTYPE html>
+
+<!DOCTYPE html>
+
+<!DOCTYPE html>
+
+<!DOCTYPE html>
+
+<!DOCTYPE html>
+
+<!DOCTYPE html>
+
+<!DOCTYPE html>
+
+<!DOCTYPE html>
+
+<!DOCTYPE html>
+
+<!DOCTYPE html>
+
+<!DOCTYPE html>
+
+<!DOCTYPE html>
+
+<!DOCTYPE html>
+
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>酒店 OTA 全面诊断报告</title>
+<style>
+:root{--bg:#f3f6f5;--paper:#fff;--ink:#1f2933;--muted:#68747f;--line:#dfe7e4;--soft:#f7faf9;--mint:#e8f5ef;--mint2:#f2faf6;--green:#16845b;--teal:#0f9b82;--blue:#2563eb;--amber:#a96810;--red:#c43e38;--purple:#7654c4;--shadow:0 10px 28px rgba(29,56,47,.08)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,Arial,"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;line-height:1.55}a{color:inherit}button,input,select{font:inherit}
+.topbar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);border-bottom:1px solid var(--line);backdrop-filter:blur(12px)}.topbar-inner{max-width:1600px;margin:auto;padding:13px 24px;display:flex;justify-content:space-between;gap:18px;align-items:center}.brand h1{margin:0;font-size:21px}.brand p{margin:2px 0 0;color:var(--muted);font-size:12px}.top-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.btn{height:36px;padding:0 13px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink);font-weight:700;cursor:pointer}.btn.primary{background:var(--ink);border-color:var(--ink);color:#fff}.scope-select{height:36px;border:1px solid var(--line);border-radius:8px;padding:0 10px;background:#fff}
+.page{max-width:1600px;margin:auto;padding:20px 24px 60px;display:grid;grid-template-columns:250px minmax(0,1fr);gap:20px}.side{position:sticky;top:82px;align-self:start;max-height:calc(100vh - 100px);overflow:auto;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow)}.side-title{padding:14px 14px 9px;font-size:12px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.08em}.side>a{display:flex;gap:9px;align-items:center;padding:9px 13px;text-decoration:none;border-top:1px solid #eef2f1;font-size:12px;font-weight:650;color:#3f4b55}.side>a:hover{background:var(--mint2);color:var(--green)}.side>a span{width:26px;height:22px;border-radius:6px;background:#edf4f1;display:grid;place-items:center;font-size:11px;color:var(--green)}
+main{display:grid;gap:18px;min-width:0}section,.diagnosis-card{background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);overflow:hidden}.section-head{padding:17px 19px;border-bottom:1px solid #edf2f0;display:flex;align-items:flex-start;justify-content:space-between;gap:14px}.section-head h2{margin:0;font-size:18px}.section-head p{margin:4px 0 0;color:var(--muted);font-size:13px}.section-body{padding:18px}
+.hero{padding:24px;background:linear-gradient(135deg,#173d34,#245e50 55%,#358b72);color:#fff;position:relative;overflow:hidden}.hero:after{content:"";position:absolute;width:320px;height:320px;border-radius:50%;right:-90px;top:-140px;background:rgba(255,255,255,.08)}.hero-grid{display:grid;grid-template-columns:1.25fr 1fr;gap:22px;position:relative;z-index:1}.hero h2{margin:0;font-size:28px}.hero p{margin:8px 0 0;color:rgba(255,255,255,.78)}.source-standard{margin-top:18px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.source-standard div{padding:11px 12px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:9px}.source-standard small{display:block;color:rgba(255,255,255,.68)}.source-standard b{display:block;margin-top:3px}.hero-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}.hero-stat{padding:14px;background:#fff;color:var(--ink);border-radius:10px}.hero-stat small{color:var(--muted);font-weight:700}.hero-stat strong{display:block;font-size:25px;margin-top:8px}.hero-stat em{display:block;font-style:normal;color:var(--muted);font-size:12px;margin-top:5px}
+.formula-panel{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}.formula-box{border:1px solid #cfe5dc;background:#f4fbf7;border-radius:9px;padding:13px}.formula-box b{display:block;color:#125d45;margin-bottom:5px}.formula-box code{font-family:inherit;font-weight:800;color:#173d34}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap}.search{height:36px;min-width:230px;border:1px solid var(--line);border-radius:8px;padding:0 10px}.filter{height:36px;border:1px solid var(--line);border-radius:8px;padding:0 9px;background:#fff}
+.table-scroll{overflow:auto}table{width:100%;border-collapse:collapse;min-width:680px}th,td{padding:10px 10px;border-bottom:1px solid #eaf0ed;text-align:left;vertical-align:middle}th{font-size:12px;color:#53616b;background:#f7faf9;position:sticky;top:0}tbody tr:nth-child(even){background:#fbfdfc}tbody tr:hover{background:#f1faf6}.summary-table a{font-weight:800;color:var(--green);text-decoration:none}.row-low{background:#fff2ef!important}.row-watch{background:#fff9ec!important}
+.status-badge,.score-chip,.data-pill,.mini-status{display:inline-flex;align-items:center;justify-content:center;min-height:24px;padding:2px 8px;border-radius:999px;font-size:11px;font-weight:800;white-space:nowrap}.status-badge.ok{background:#e5f5ed;color:#15734e}.status-badge.pending{background:#fff4d9;color:#92610f}.status-badge.manual{background:#eee8fb;color:#6644a7}.status-badge.disabled{background:#eef1f3;color:#59636c}.status-badge.neutral{background:#edf2f7;color:#475569}.score-chip{background:#eef5f2;color:#31584b}.score-chip.display-only{background:#edf2f7;color:#53616b}.data-pill.demo{background:#eaf1ff;color:#2457b5}.data-pill.partial,.data-pill.pending{background:#fff4d9;color:#92610f}.data-pill.disabled{background:#eef1f3;color:#59636c}.data-pill.conflict{background:#fdebea;color:#aa302c}.mini-status.good{background:#e5f5ed;color:#15734e}.mini-status.warn{background:#fff4d9;color:#92610f}.mini-status.danger{background:#fdebea;color:#aa302c}
+.conflict-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.conflict-item{border:1px solid #f0c5c1;background:#fff7f6;border-radius:9px;padding:12px}.conflict-item b{color:#9d302b}.conflict-item p{margin:5px 0 0;color:#6f4a47;font-size:13px}
+.diagnosis-card{scroll-margin-top:90px}.card-top{display:grid;grid-template-columns:48px minmax(0,1fr) auto;gap:13px;align-items:start;padding:17px 18px;border-bottom:1px solid #edf2f0}.rule-no{width:42px;height:42px;display:grid;place-items:center;border-radius:10px;background:var(--mint);color:var(--green);font-weight:900;font-size:16px}.card-title h3{margin:0;font-size:18px}.card-title p{margin:4px 0 0;color:var(--muted);font-size:13px}.card-tags{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end;max-width:420px}.conflict-banner{padding:10px 18px;background:#fff1ef;color:#8e302b;border-bottom:1px solid #f0c5c1}.result-area{padding:17px 18px;background:#fbfdfc}
+.visual-grid.two{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(360px,.8fr);gap:13px}.viz-card{border:1px solid var(--line);border-radius:10px;background:#fff;padding:14px;min-width:0}.viz-card h4{margin:0 0 12px;font-size:14px}.viz-head{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:11px}.viz-head h4{margin:0}.viz-card.center{display:grid;place-items:center;align-content:center;gap:14px}.native-chart{width:100%;height:auto}.grid-line{stroke:#e8eeec;stroke-width:1;stroke-dasharray:4 4}.axis-label{fill:#7b8790;font-size:10px}.legend{display:flex;gap:16px;margin-top:5px;color:var(--muted);font-size:12px}.legend i{width:9px;height:9px;border-radius:50%;display:inline-block;margin-right:5px}.metric-row{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin:11px 0}.metric-row.five{grid-template-columns:repeat(5,1fr)}.metric-row>div,.source-cards>div{border:1px solid #e3ebe8;background:#f8fbfa;border-radius:8px;padding:11px}.metric-row small,.source-cards small{display:block;color:var(--muted);font-weight:700}.metric-row b,.source-cards b{display:block;margin-top:5px;font-size:19px}.notice{margin-top:11px;padding:10px 11px;border-left:3px solid #9cb5ab;background:#f5f8f7;color:#54616a;font-size:12px}.pending-note{border-left-color:#d39a32;background:#fff9ec}.conflict-note{border-left-color:#d2564d;background:#fff3f2;color:#873833}
+.formula-card{padding:12px;border-radius:8px;background:#eff7f3;border:1px dashed #b8d3c7;color:#275949;font-weight:800}.formula-card.small{margin-top:10px;font-size:12px}.donut{width:160px;height:160px;border-radius:50%;background:conic-gradient(var(--green) calc(var(--p)*1%),#e8eeec 0);display:grid;place-items:center;position:relative}.donut:before{content:"";position:absolute;inset:20px;background:#fff;border-radius:50%}.donut div{position:relative;text-align:center}.donut strong{font-size:30px;display:block}.donut span{font-size:12px;color:var(--muted)}.score-result{display:grid;gap:3px;padding:10px 12px;border-radius:8px}.score-result span{font-size:12px}.danger-box{background:#fdebea;color:#99332e}.warn-box{background:#fff4d9;color:#88590e}
+.funnel-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px}.funnel-strip div{position:relative;background:linear-gradient(135deg,#edf8f3,#f8fbfa);border:1px solid #d7e7e0;border-radius:9px;padding:13px}.funnel-strip small{display:block;color:var(--muted)}.funnel-strip b{display:block;font-size:22px;margin-top:5px}.funnel-strip em{display:block;font-style:normal;color:#65716a;font-size:11px;margin-top:4px}.source-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.segmented{display:flex;height:34px;border-radius:8px;overflow:hidden;margin-top:12px;background:#e8eeec}.segmented span{display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:800;background:#20a47a}.segmented span+span{background:#6f88cb}.score-orb{width:160px;height:160px;border-radius:50%;display:grid;place-items:center;align-content:center;background:radial-gradient(circle,#fff 55%,transparent 56%),conic-gradient(#d68a28 0 96%,#e9eeec 96%);box-shadow:inset 0 0 0 1px #e1e7e4}.score-orb strong{font-size:42px}.score-orb span{color:var(--muted);font-size:12px}.threshold-list{display:grid;gap:8px}.threshold-list div{display:flex;justify-content:space-between;padding:11px;border:1px solid #e4ebe8;border-radius:8px}.threshold-list .unknown{background:#fff8e9;border-color:#eed8a5}
+.audit-line{display:grid;grid-template-columns:130px 1fr;gap:10px;padding:10px 0;border-bottom:1px solid #edf1ef}.audit-line span{color:var(--muted)}.muted-value{color:#9b6a13}.room-thumb{width:42px;height:28px;border-radius:5px;background:linear-gradient(135deg,#c8d8d1,#edf3f0);display:inline-grid;place-items:center;font-size:10px;color:#67746e;margin-right:7px}.review-bottom{display:grid;grid-template-columns:220px 1fr;gap:12px;align-items:stretch}.review-bottom>div:first-child{border:1px solid var(--line);border-radius:8px;padding:12px}.review-bottom small{display:block;color:var(--muted)}.review-bottom strong{font-size:25px}.check-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.check-item{display:grid;grid-template-columns:28px 1fr;column-gap:8px;align-items:center;border:1px solid #dfe7e4;border-radius:8px;padding:10px}.check-item span{grid-row:1/3;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:#edf2f0;color:#7c8782}.check-item.on span{background:#dff3e9;color:#14734e}.check-item small{color:var(--muted)}.manual-options{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}.manual-options label{border:1px solid var(--line);border-radius:8px;padding:11px;background:#fafcfb}.boolean-state{display:flex;gap:12px;align-items:center;padding:16px;border-radius:9px;margin-bottom:10px}.pending-state{background:#fff8e9;border:1px solid #ead6a5}.boolean-state>span{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:#fff;color:#9c6a12;font-size:24px}.boolean-state b{display:block;font-size:17px}.boolean-state small{display:block;color:#7e6a43;margin-top:3px}
+.rule-detail{border-top:1px solid #edf2f0}.rule-detail summary{cursor:pointer;padding:13px 18px;font-weight:850;color:#315348;background:#fff}.detail-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;padding:0 18px 18px}.detail-block{border:1px solid var(--line);border-radius:9px;padding:13px;background:#fff}.detail-block h4{margin:0 0 8px;font-size:13px;color:#24483c}.detail-block p{margin:0;color:#53616b}.detail-block ul{margin:0;padding-left:18px;color:#53616b}.detail-block li{margin:4px 0}.sub-title{margin-top:13px!important}.path-text{padding:10px;background:#f2f7f5;border-radius:7px;color:#254f41!important;font-weight:700}.field-chips{display:flex;gap:6px;flex-wrap:wrap}.field-chips span{padding:4px 8px;border-radius:6px;background:#edf4f1;color:#36594d;font-size:11px;font-weight:700}
+.priority-grid{display:grid;grid-template-columns:1.3fr 1fr .7fr;gap:12px}.priority-box{border:1px solid var(--line);border-radius:9px;padding:13px}.priority-box h3{margin:0 0 8px;font-size:15px}.priority-box ul{margin:0;padding-left:18px}.priority-box.primary{border-top:4px solid var(--green)}.priority-box.secondary{border-top:4px solid var(--amber)}.priority-box.manual{border-top:4px solid var(--purple)}
+.delivery-list{display:grid;grid-template-columns:repeat(5,1fr);gap:9px}.delivery-list div{border:1px solid var(--line);border-radius:8px;padding:12px;background:#fafcfb}.delivery-list b{display:block;color:var(--green)}.delivery-list span{display:block;color:var(--muted);font-size:12px;margin-top:4px}
+.hidden-card{display:none!important}.empty-search{display:none;padding:25px;text-align:center;color:var(--muted)}
+@media(max-width:1100px){.page{grid-template-columns:1fr}.side{position:static;max-height:none;display:none}.hero-grid,.visual-grid.two{grid-template-columns:1fr}.detail-grid{grid-template-columns:1fr}.card-top{grid-template-columns:48px 1fr}.card-tags{grid-column:2;justify-content:flex-start}.metric-row,.metric-row.five,.source-cards{grid-template-columns:repeat(2,1fr)}.priority-grid,.delivery-list{grid-template-columns:1fr 1fr}}
+@media(max-width:650px){.topbar-inner{padding:11px 13px;align-items:flex-start;flex-direction:column}.page{padding:13px}.hero-grid,.source-standard,.formula-panel,.conflict-grid,.funnel-strip,.check-grid,.manual-options,.priority-grid,.delivery-list{grid-template-columns:1fr}.metric-row,.metric-row.five,.source-cards{grid-template-columns:1fr 1fr}.card-top{grid-template-columns:40px 1fr;padding:14px}.rule-no{width:36px;height:36px}.card-title h3{font-size:16px}.review-bottom{grid-template-columns:1fr}.section-head{flex-direction:column}.search{min-width:0;width:100%}}
+@media print{body{background:#fff}.topbar,.side,.toolbar{display:none!important}.page{display:block;max-width:none;padding:0}main{display:block}section,.diagnosis-card{box-shadow:none;border-radius:0;margin:0 0 14px;break-inside:avoid}.diagnosis-card{break-before:page}.rule-detail{display:block}details>summary{display:none}.result-area{background:#fff}}
+
+
+/* v3：完整输出字段 */
+.field-standard-note{margin-top:14px;padding:12px 14px;border:1px solid #b8d8ca;background:#f1fbf6;border-radius:10px;color:#245c49;font-size:13px}
+.common-field-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.common-field{border:1px solid var(--line,#d9dee8);border-radius:9px;padding:11px 12px;background:#fff}
+.common-field b{display:block;font-size:13px;margin-bottom:4px}.common-field span{font-size:12px;color:#667085}
+.output-fields-panel{margin:0 18px 18px;border:1px solid #cbd8e8;border-radius:10px;overflow:hidden;background:#fff}
+.output-fields-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:13px 14px;background:#f4f8fd;border-bottom:1px solid #dce6f2}
+.output-fields-head h4{margin:0;font-size:14px;color:#1f3e64}.output-fields-head p{margin:4px 0 0;font-size:12px;color:#667085}
+.field-count{display:inline-flex;min-height:25px;align-items:center;padding:0 9px;border-radius:999px;background:#e5efff;color:#2458a6;font-size:12px;font-weight:800;white-space:nowrap}
+.output-table{width:100%;border-collapse:collapse;font-size:12px}
+.output-table th{background:#fbfcfe;color:#475467;font-size:11px;letter-spacing:.02em}
+.output-table th,.output-table td{padding:8px 9px;border-bottom:1px solid #edf0f5;vertical-align:top}
+.output-table tr:last-child td{border-bottom:0}
+.output-table .field-name{font-weight:800;color:#25364d;min-width:128px}
+.output-table code{font-size:11px;color:#35516f;background:#eef3f8;border-radius:4px;padding:2px 5px;white-space:normal;word-break:break-all}
+.field-source{display:inline-flex;align-items:center;min-height:22px;padding:0 7px;border-radius:5px;font-size:11px;font-weight:800;white-space:nowrap}
+.field-source.md{background:#e8f6ef;color:#14734b}.field-source.word{background:#fff3dd;color:#956000}.field-source.calc{background:#eaf1ff;color:#2458a6}.field-source.common{background:#f0ecff;color:#6547b5}
+.value-demo{color:#1f6c50;font-weight:700}.value-pending{color:#a15c16;font-weight:700}.value-manual{color:#8b3a63;font-weight:700}.value-rule{color:#344054;font-weight:700}
+.master-field-table td:last-child{min-width:320px}
+.field-list-inline{display:flex;flex-wrap:wrap;gap:5px}.field-list-inline span{display:inline-flex;min-height:22px;align-items:center;padding:0 7px;border-radius:5px;background:#f3f6f9;color:#43536a;font-size:11px}
+.scope-warning{margin-top:10px;padding:10px 12px;border-left:4px solid #d99a2b;background:#fff9eb;color:#77520e;font-size:12px}
+@media(max-width:980px){.common-field-grid{grid-template-columns:1fr}.output-fields-panel{margin:0 12px 14px}.output-table{min-width:820px}.master-field-table{min-width:900px}}
+@media print{.output-fields-panel{break-inside:avoid}.output-table{font-size:10px}.output-fields-head{background:#f5f5f5!important}}
+
+/* v4 客户展示版 */
+.client-summary-grid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:10px;
+  padding:14px 18px;
+  border-bottom:1px solid var(--line-soft);
+  background:#fbfcfe;
+}
+.client-summary-item{
+  border:1px solid var(--line);
+  border-radius:8px;
+  padding:11px 12px;
+  background:#fff;
+}
+.client-summary-item small{
+  display:block;
+  color:var(--muted);
+  font-size:12px;
+  margin-bottom:5px;
+}
+.client-summary-item b{
+  display:block;
+  color:var(--ink);
+  font-size:13px;
+  line-height:1.55;
+}
+.output-table th:nth-child(1){width:30%}
+.output-table th:nth-child(2){width:24%}
+.output-table th:nth-child(3){width:46%}
+@media(max-width:980px){
+  .client-summary-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:640px){
+  .client-summary-grid{grid-template-columns:1fr}
+}
+
+/* v5 诊断指标明细：默认收起，按需展开 */
+details.metric-details {
+  margin: 0 18px 18px;
+  border: 1px solid #cbd8e8;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+}
+
+details.metric-details > summary {
+  list-style: none;
+}
+
+details.metric-details > summary::-webkit-details-marker {
+  display: none;
+}
+
+.metric-details-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 13px 14px;
+  background: #f4f8fd;
+  border-bottom: 0;
+  cursor: pointer;
+  user-select: none;
+  transition: background .18s ease, color .18s ease;
+}
+
+.metric-details-summary:hover {
+  background: #eaf2fc;
+}
+
+.metric-details-summary:focus-visible {
+  outline: 3px solid rgba(37, 99, 235, .22);
+  outline-offset: -3px;
+}
+
+details.metric-details[open] .metric-details-summary {
+  border-bottom: 1px solid #dce6f2;
+  background: #eef5fd;
+}
+
+.metric-details-summary-right {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.metric-details-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 28px;
+  padding: 0 9px;
+  border: 1px solid #cbd8e8;
+  border-radius: 999px;
+  background: #fff;
+  color: #315b88;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.metric-details-arrow {
+  display: inline-block;
+  font-size: 17px;
+  line-height: 1;
+  transform: translateY(-1px);
+  transition: transform .2s ease;
+}
+
+details.metric-details[open] .metric-details-arrow {
+  transform: rotate(180deg) translateY(1px);
+}
+
+details.metric-details[open] .metric-details-action-text {
+  font-size: 0;
+}
+
+details.metric-details[open] .metric-details-action-text::after {
+  content: "点击收起";
+  font-size: 12px;
+}
+
+.metric-details-content {
+  background: #fff;
+}
+
+@media (max-width: 980px) {
+  details.metric-details {
+    margin: 0 12px 14px;
+  }
+
+  .metric-details-summary {
+    align-items: flex-start;
+  }
+
+  .metric-details-summary-right {
+    gap: 6px;
+  }
+
+  .metric-details-action-text {
+    display: none;
+  }
+
+  details.metric-details[open] .metric-details-action-text::after {
+    display: none;
+  }
+}
+
+@media print {
+  details.metric-details {
+    break-inside: avoid;
+  }
+
+  details.metric-details > summary {
+    display: none !important;
+  }
+
+  details.metric-details > .metric-details-content {
+    display: block !important;
+  }
+}
+
+/* v6 判断类指标：由普通表格改为三态状态卡片 */
+.judgement-panel {
+  margin: 0 18px 16px;
+  border: 1px solid #d8e1ec;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.judgement-panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 14px;
+  border-bottom: 1px solid #e8edf4;
+  background: #fafcff;
+}
+
+.judgement-panel-head h4 {
+  margin: 0;
+  font-size: 14px;
+  color: #253247;
+}
+
+.judgement-panel-head p {
+  margin: 3px 0 0;
+  color: #78869a;
+  font-size: 12px;
+}
+
+.judgement-legend {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: #667085;
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.legend-item i {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: #98a2b3;
+}
+
+.legend-item.positive i { background: #16a05d; }
+.legend-item.negative i { background: #d4483e; }
+.legend-item.unknown i { background: #98a2b3; }
+
+.judgement-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  padding: 12px 14px 14px;
+}
+
+.judgement-grid.compact {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.judgement-card {
+  min-height: 68px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 12px;
+  border: 1px solid #d8e1ec;
+  border-radius: 9px;
+  background: #f8fafc;
+}
+
+.judgement-card.positive {
+  border-color: #b8e2cc;
+  background: #effaf4;
+}
+
+.judgement-card.negative {
+  border-color: #f0c6c2;
+  background: #fff3f2;
+}
+
+.judgement-card.unknown {
+  border-color: #d7dde5;
+  background: #f6f7f9;
+}
+
+.judgement-icon {
+  width: 28px;
+  height: 28px;
+  flex: 0 0 28px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: #98a2b3;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 900;
+}
+
+.judgement-card.positive .judgement-icon { background: #16a05d; }
+.judgement-card.negative .judgement-icon { background: #d4483e; }
+.judgement-card.unknown .judgement-icon { background: #98a2b3; }
+
+.judgement-card-content {
+  min-width: 0;
+}
+
+.judgement-card-content small {
+  display: block;
+  margin-bottom: 3px;
+  color: #667085;
+  font-size: 12px;
+}
+
+.judgement-card-content strong {
+  display: block;
+  color: #27364a;
+  font-size: 14px;
+  line-height: 1.35;
+}
+
+.judgement-card.positive strong { color: #117a48; }
+.judgement-card.negative strong { color: #b83831; }
+.judgement-card.unknown strong { color: #667085; }
+
+@media (max-width: 1180px) {
+  .judgement-grid.compact {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .judgement-panel {
+    margin: 0 12px 14px;
+  }
+
+  .judgement-panel-head {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .judgement-legend {
+    justify-content: flex-start;
+  }
+
+  .judgement-grid,
+  .judgement-grid.compact {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .judgement-grid,
+  .judgement-grid.compact {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media print {
+  .judgement-panel {
+    break-inside: avoid;
+  }
+}
+
+/* v7：MD建议输出字段完整展示 */
+.complete-field-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 0 8px;
+  border-radius: 999px;
+  background: #eaf4ff;
+  color: #2463a5;
+  font-size: 11px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+@media (max-width: 760px) {
+  .complete-field-badge {
+    display: none;
+  }
+}
+
+/* v8：诊断指标区域简化为单一折叠入口 */
+details.metric-details {
+  margin: 0 18px 18px;
+  border: 1px solid #d8e1ec;
+  border-radius: 9px;
+  background: #fff;
+}
+
+.metric-details-summary {
+  min-height: 58px;
+  padding: 12px 14px;
+  background: #f8fafc;
+}
+
+.metric-details-summary:hover {
+  background: #f1f5f9;
+}
+
+details.metric-details[open] .metric-details-summary {
+  background: #f4f7fb;
+  border-bottom: 1px solid #e3e9f1;
+}
+
+.metric-details-summary h4 {
+  font-size: 14px;
+}
+
+.metric-details-summary p {
+  margin-top: 2px;
+  font-size: 12px;
+  color: #7b8798;
+}
+
+.simple-count {
+  background: transparent !important;
+  color: #667085 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  font-weight: 600 !important;
+}
+
+.metric-details-content {
+  padding: 0;
+  background: #fff;
+}
+
+.detail-group {
+  padding: 14px;
+}
+
+.detail-group + .detail-group {
+  border-top: 1px solid #edf0f5;
+}
+
+.detail-group-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+  color: #344054;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.detail-group-title span {
+  color: #98a2b3;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.status-group {
+  background: #fbfcfe;
+}
+
+.embedded-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 8px;
+  padding: 0 !important;
+}
+
+.embedded-grid .judgement-card {
+  min-height: 52px;
+  padding: 8px 10px;
+  border-radius: 7px;
+}
+
+.embedded-grid .judgement-icon {
+  width: 22px;
+  height: 22px;
+  flex: 0 0 22px;
+  font-size: 13px;
+}
+
+.embedded-grid .judgement-card-content small {
+  font-size: 11px;
+  margin-bottom: 1px;
+}
+
+.embedded-grid .judgement-card-content strong {
+  font-size: 13px;
+}
+
+.data-group .table-scroll {
+  border: 1px solid #edf0f5;
+  border-radius: 7px;
+  overflow: auto;
+}
+
+.data-group .output-table th,
+.data-group .output-table td {
+  padding: 8px 9px;
+}
+
+details.metric-details[open] .metric-details-action-text {
+  font-size: 0;
+}
+
+details.metric-details[open] .metric-details-action-text::after {
+  content: "收起内容";
+  font-size: 12px;
+}
+
+@media (max-width: 980px) {
+  .embedded-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+@media (max-width: 640px) {
+  details.metric-details {
+    margin: 0 12px 14px;
+  }
+
+  .detail-group {
+    padding: 12px;
+  }
+
+  .detail-group-title {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .embedded-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media print {
+  details.metric-details > summary {
+    display: none !important;
+  }
+
+  details.metric-details > .metric-details-content {
+    display: block !important;
+  }
+}
+
+/* v9：第1项取消折线图，改为完整月度经营数据表 */
+#rule-1 .visual-grid.one {
+  display: block;
+}
+
+#rule-1 .monthly-business-card {
+  width: 100%;
+}
+
+#rule-1 .monthly-business-card > h4 {
+  margin-bottom: 12px;
+}
+
+#rule-1 .monthly-business-table {
+  min-width: 1180px;
+}
+
+#rule-1 .monthly-business-table th {
+  white-space: nowrap;
+  background: #f4f7fb;
+}
+
+#rule-1 .monthly-business-table td {
+  white-space: nowrap;
+}
+
+#rule-1 .monthly-business-table .current-period-row {
+  background: #f2f7ff;
+}
+
+#rule-1 .monthly-business-table .current-period-row td:first-child {
+  color: #2563eb;
+  font-weight: 800;
+}
+
+#rule-1 .cell-pending {
+  display: inline-flex;
+  align-items: center;
+  min-height: 23px;
+  padding: 0 7px;
+  border-radius: 5px;
+  background: #f1f3f6;
+  color: #788497;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+#rule-1 .monthly-data-note {
+  margin-top: 11px;
+  color: #667085;
+  background: #f8fafc;
+  border-color: #e3e8ef;
+}
+
+/* v10：月度经营YOY使用JL02实际数据 */
+#rule-1 .monthly-report-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+  color: #667085;
+  font-size: 12px;
+}
+
+#rule-1 .monthly-yoy-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+#rule-1 .monthly-yoy-card {
+  min-height: 104px;
+  padding: 13px;
+  border: 1px solid #dbe4ef;
+  border-radius: 9px;
+  background: #f8fbff;
+}
+
+#rule-1 .monthly-yoy-card.pending {
+  background: #f8f9fb;
+  border-color: #e0e4ea;
+}
+
+#rule-1 .monthly-yoy-card small {
+  display: block;
+  color: #667085;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+#rule-1 .monthly-yoy-card strong {
+  display: block;
+  margin-top: 10px;
+  color: #1f3f63;
+  font-size: 22px;
+  line-height: 1.1;
+}
+
+#rule-1 .monthly-yoy-card.pending strong {
+  color: #788497;
+}
+
+#rule-1 .monthly-yoy-card span {
+  display: block;
+  margin-top: 8px;
+  color: #7a8798;
+  font-size: 12px;
+}
+
+#rule-1 .monthly-actual-card {
+  width: 100%;
+}
+
+#rule-1 .monthly-actual-table {
+  width: 100%;
+  min-width: 680px;
+}
+
+#rule-1 .monthly-actual-table th {
+  background: #f4f7fb;
+  white-space: nowrap;
+}
+
+#rule-1 .monthly-actual-table td:first-child {
+  color: #344054;
+  font-weight: 800;
+}
+
+#rule-1 .monthly-actual-table td:not(:first-child) {
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 980px) {
+  #rule-1 .monthly-yoy-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  #rule-1 .monthly-report-meta {
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  #rule-1 .monthly-yoy-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* v11：移除诊断结论与改进建议；统计周期、得分放到标题右侧 */
+.card-top {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 13px;
+}
+
+.card-tags {
+  display: flex;
+  align-items: stretch;
+  justify-content: flex-end;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.title-meta-item {
+  min-width: 126px;
+  min-height: 54px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 8px 11px;
+  border: 1px solid #dce4ed;
+  border-radius: 8px;
+  background: #f8fafc;
+}
+
+.title-meta-item small {
+  display: block;
+  margin-bottom: 3px;
+  color: #7a8798;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.title-meta-item strong {
+  color: #344054;
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.title-period {
+  min-width: 148px;
+}
+
+.title-score {
+  min-width: 132px;
+  border-color: #cddff3;
+  background: #f1f7fe;
+}
+
+.title-score small {
+  color: #5f7894;
+}
+
+.title-score-value {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.title-score-value strong {
+  color: #1f5f9d;
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.title-score-value span {
+  color: #74869a;
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.title-score.pending {
+  border-color: #dfe3e9;
+  background: #f6f7f9;
+}
+
+.title-score.pending .title-score-value strong {
+  color: #667085;
+}
+
+.title-score.display-only {
+  border-color: #d7e7df;
+  background: #f3faf6;
+}
+
+.title-score.display-only .title-score-value strong {
+  color: #357354;
+}
+
+.card-tags > .status-badge {
+  align-self: center;
+}
+
+/* 旧摘要区已经移除 */
+.client-summary-grid {
+  display: none !important;
+}
+
+@media (max-width: 1050px) {
+  .card-top {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .card-tags {
+    grid-column: 2;
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 700px) {
+  .card-top {
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .card-tags {
+    grid-column: 1 / -1;
+    width: 100%;
+  }
+
+  .title-meta-item {
+    flex: 1 1 145px;
+    min-width: 0;
+  }
+}
+
+/* v12：YOY本日/本月/本年切换 */
+#rule-1 .yoy-granularity-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+#rule-1 .yoy-granularity-tabs {
+  display: inline-flex;
+  padding: 4px;
+  border: 1px solid #d7e0ea;
+  border-radius: 9px;
+  background: #f7f9fc;
+}
+
+#rule-1 .yoy-granularity-btn {
+  min-width: 72px;
+  height: 32px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  color: #667085;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+#rule-1 .yoy-granularity-btn:hover {
+  color: #2563eb;
+}
+
+#rule-1 .yoy-granularity-btn.active {
+  background: #fff;
+  color: #1f5f9d;
+  box-shadow: 0 1px 4px rgba(31, 67, 106, .14);
+}
+
+#rule-1 .yoy-score-note {
+  color: #7a8798;
+  font-size: 12px;
+}
+
+#rule-1 .monthly-actual-table td:nth-child(n+2) {
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 640px) {
+  #rule-1 .yoy-granularity-bar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  #rule-1 .yoy-granularity-tabs {
+    width: 100%;
+  }
+
+  #rule-1 .yoy-granularity-btn {
+    flex: 1;
+  }
+}
+
+/* v13：JL01实际数据与最近30天口径提示 */
+#rule-2 .room-report-meta {
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:10px;
+  color:#667085;
+  font-size:12px;
+}
+
+#rule-2 .room-kpi-grid {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:10px;
+  margin-bottom:12px;
+}
+
+#rule-2 .room-kpi-card {
+  min-height:100px;
+  padding:13px;
+  border:1px solid #d8e4df;
+  border-radius:9px;
+  background:#f4faf7;
+}
+
+#rule-2 .room-kpi-card.pending {
+  border-color:#e0e4ea;
+  background:#f7f8fa;
+}
+
+#rule-2 .room-kpi-card small {
+  display:block;
+  color:#667085;
+  font-size:12px;
+  font-weight:700;
+}
+
+#rule-2 .room-kpi-card strong {
+  display:block;
+  margin-top:9px;
+  color:#196b50;
+  font-size:23px;
+}
+
+#rule-2 .room-kpi-card.pending strong {
+  color:#788497;
+}
+
+#rule-2 .room-kpi-card span {
+  display:block;
+  margin-top:7px;
+  color:#7a8798;
+  font-size:12px;
+}
+
+#rule-2 .room-actual-table {
+  min-width:980px;
+}
+
+#rule-2 .room-actual-table th {
+  white-space:nowrap;
+  background:#f4f7fb;
+}
+
+#rule-2 .room-actual-table td:first-child {
+  font-weight:700;
+  color:#344054;
+}
+
+@media(max-width:980px){
+  #rule-2 .room-kpi-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+}
+
+@media(max-width:640px){
+  #rule-2 .room-report-meta{flex-direction:column;gap:3px;}
+  #rule-2 .room-kpi-grid{grid-template-columns:1fr;}
+}
+
+/* v14：房型RevPAR支持本日/本月切换 */
+#rule-2 .room-granularity-bar {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:12px;
+}
+
+#rule-2 .room-granularity-tabs {
+  display:inline-flex;
+  padding:4px;
+  border:1px solid #d7e0ea;
+  border-radius:9px;
+  background:#f7f9fc;
+}
+
+#rule-2 .room-granularity-btn {
+  min-width:82px;
+  height:32px;
+  padding:0 16px;
+  border:0;
+  border-radius:7px;
+  background:transparent;
+  color:#667085;
+  font-size:13px;
+  font-weight:800;
+  cursor:pointer;
+}
+
+#rule-2 .room-granularity-btn:hover {
+  color:#2563eb;
+}
+
+#rule-2 .room-granularity-btn.active {
+  background:#fff;
+  color:#1f5f9d;
+  box-shadow:0 1px 4px rgba(31,67,106,.14);
+}
+
+#rule-2 .room-score-note {
+  color:#7a8798;
+  font-size:12px;
+}
+
+#rule-2 .cell-neutral {
+  display:inline-flex;
+  align-items:center;
+  min-height:23px;
+  padding:0 7px;
+  border-radius:5px;
+  background:#eef2f6;
+  color:#667085;
+  font-size:12px;
+  white-space:nowrap;
+}
+
+@media(max-width:640px){
+  #rule-2 .room-granularity-bar{
+    align-items:flex-start;
+    flex-direction:column;
+  }
+  #rule-2 .room-granularity-tabs{
+    width:100%;
+  }
+  #rule-2 .room-granularity-btn{
+    flex:1;
+  }
+}
+
+/* v15：流量数据输出字段与子项评分清晰化 */
+#rule-4 .traffic-score-summary {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:10px;
+  margin-bottom:12px;
+}
+
+#rule-4 .traffic-summary-card {
+  min-height:94px;
+  padding:12px;
+  border:1px solid #dce4ed;
+  border-radius:9px;
+  background:#f8fafc;
+}
+
+#rule-4 .traffic-summary-card small {
+  display:block;
+  color:#667085;
+  font-size:12px;
+  font-weight:700;
+}
+
+#rule-4 .traffic-summary-card strong {
+  display:block;
+  margin-top:8px;
+  color:#315b88;
+  font-size:21px;
+}
+
+#rule-4 .traffic-summary-card span {
+  display:block;
+  margin-top:6px;
+  color:#7a8798;
+  font-size:12px;
+}
+
+#rule-4 .traffic-score-table {
+  min-width:1040px;
+}
+
+#rule-4 .traffic-score-table th {
+  white-space:nowrap;
+  background:#f4f7fb;
+}
+
+#rule-4 .traffic-score-table td:first-child {
+  color:#344054;
+  font-weight:800;
+}
+
+#rule-4 .traffic-chip {
+  display:inline-flex;
+  align-items:center;
+  min-height:24px;
+  padding:0 8px;
+  border-radius:999px;
+  background:#eef1f5;
+  color:#667085;
+  font-size:12px;
+  font-weight:800;
+  white-space:nowrap;
+}
+
+#rule-4 .traffic-chip.good {
+  background:#e8f5ee;
+  color:#168a4a;
+}
+
+#rule-4 .traffic-chip.warn {
+  background:#fff4dc;
+  color:#a96810;
+}
+
+#rule-4 .traffic-chip.bad {
+  background:#fdebea;
+  color:#c2413a;
+}
+
+#rule-4 .traffic-chip.pending {
+  background:#eef1f5;
+  color:#667085;
+}
+
+#rule-4 .traffic-chip.neutral {
+  background:#edf3f9;
+  color:#526b84;
+}
+
+@media(max-width:980px){
+  #rule-4 .traffic-score-summary {
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+}
+
+@media(max-width:640px){
+  #rule-4 .traffic-score-summary {
+    grid-template-columns:1fr;
+  }
+}
+
+/* v16：用户来源数据改为本地/异地/新客/老客四项 */
+#rule-5 .user-source-group + .user-source-group {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid #edf0f4;
+}
+
+#rule-5 .user-source-group-title {
+  margin-bottom: 9px;
+  color: #475467;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+#rule-5 .user-source-four {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+#rule-5 .pending-source {
+  border-color: #e1e5eb;
+  background: #f7f8fa;
+}
+
+#rule-5 .pending-source b {
+  color: #7a8798;
+  font-size: 17px;
+}
+
+#rule-5 .user-location-segmented {
+  margin-top: 10px;
+}
+
+@media (max-width: 640px) {
+  #rule-5 .user-source-four {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* v17：扫码订单按月累计，口径与未定义区间明确展示 */
+#rule-7 .scan-order-core-grid {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:10px;
+  margin-bottom:12px;
+}
+
+#rule-7 .scan-order-core-card {
+  min-height:108px;
+  padding:13px;
+  border:1px solid #dce4ed;
+  border-radius:9px;
+  background:#f8fafc;
+}
+
+#rule-7 .scan-order-core-card small {
+  display:block;
+  color:#667085;
+  font-size:12px;
+  font-weight:700;
+}
+
+#rule-7 .scan-order-core-card strong {
+  display:block;
+  margin-top:10px;
+  color:#315b88;
+  font-size:22px;
+}
+
+#rule-7 .scan-order-core-card span {
+  display:block;
+  margin-top:8px;
+  color:#7a8798;
+  font-size:12px;
+}
+
+#rule-7 .scan-order-core-card.pending {
+  border-color:#e0e4ea;
+  background:#f7f8fa;
+}
+
+#rule-7 .scan-order-core-card.pending strong {
+  color:#788497;
+}
+
+#rule-7 .scan-score-rule-table {
+  min-width:620px;
+}
+
+#rule-7 .scan-score-rule-table th {
+  background:#f4f7fb;
+  white-space:nowrap;
+}
+
+#rule-7 .scan-rule-chip {
+  display:inline-flex;
+  align-items:center;
+  min-height:24px;
+  padding:0 8px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:800;
+  white-space:nowrap;
+}
+
+#rule-7 .scan-rule-chip.good {
+  background:#e8f5ee;
+  color:#168a4a;
+}
+
+#rule-7 .scan-rule-chip.pending {
+  background:#eef1f5;
+  color:#667085;
+}
+
+@media(max-width:760px){
+  #rule-7 .scan-order-core-grid {
+    grid-template-columns:1fr;
+  }
+}
+
+/* v18：推广数据主展示仅保留投入、订单金额、ROI和本项得分 */
+#rule-9 .promotion-output-grid {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:10px;
+  margin-bottom:12px;
+}
+
+#rule-9 .promotion-output-card {
+  min-height:108px;
+  padding:13px;
+  border:1px solid #dce4ed;
+  border-radius:9px;
+  background:#f8fafc;
+}
+
+#rule-9 .promotion-output-card small {
+  display:block;
+  color:#667085;
+  font-size:12px;
+  font-weight:700;
+}
+
+#rule-9 .promotion-output-card strong {
+  display:block;
+  margin-top:10px;
+  color:#315b88;
+  font-size:22px;
+}
+
+#rule-9 .promotion-output-card span {
+  display:block;
+  margin-top:8px;
+  color:#7a8798;
+  font-size:12px;
+}
+
+#rule-9 .promotion-output-card.pending {
+  border-color:#e0e4ea;
+  background:#f7f8fa;
+}
+
+#rule-9 .promotion-output-card.pending strong {
+  color:#788497;
+}
+
+#rule-9 .promotion-output-note {
+  color:#667085;
+  background:#f8fafc;
+  border-color:#e3e8ef;
+}
+
+@media(max-width:980px){
+  #rule-9 .promotion-output-grid {
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+}
+
+@media(max-width:640px){
+  #rule-9 .promotion-output-grid {
+    grid-template-columns:1fr;
+  }
+}
+
+/* v19：竞争对手分析完整输出，纯展示不计分 */
+#rule-12 .competitor-overview-grid {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:10px;
+  margin-bottom:12px;
+}
+
+#rule-12 .competitor-overview-card {
+  min-height:106px;
+  padding:13px;
+  border:1px solid #dce4ed;
+  border-radius:9px;
+  background:#f8fafc;
+}
+
+#rule-12 .competitor-overview-card small {
+  display:block;
+  color:#667085;
+  font-size:12px;
+  font-weight:700;
+}
+
+#rule-12 .competitor-overview-card strong {
+  display:block;
+  margin-top:10px;
+  color:#315b88;
+  font-size:22px;
+}
+
+#rule-12 .competitor-overview-card span {
+  display:block;
+  margin-top:8px;
+  color:#7a8798;
+  font-size:12px;
+}
+
+#rule-12 .competitor-overview-card.pending {
+  border-color:#e0e4ea;
+  background:#f7f8fa;
+}
+
+#rule-12 .competitor-overview-card.pending strong {
+  color:#788497;
+}
+
+#rule-12 .competitor-trend-card,
+#rule-12 .competitor-detail-card {
+  margin-top:12px;
+}
+
+#rule-12 .competitor-empty-state {
+  display:flex;
+  min-height:150px;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+  border:1px dashed #d5dce5;
+  border-radius:8px;
+  background:#fafbfc;
+  text-align:center;
+}
+
+#rule-12 .competitor-empty-icon {
+  display:flex;
+  width:34px;
+  height:34px;
+  align-items:center;
+  justify-content:center;
+  margin-bottom:8px;
+  border-radius:50%;
+  background:#eef1f5;
+  color:#7a8798;
+  font-size:22px;
+  font-weight:800;
+}
+
+#rule-12 .competitor-empty-state strong {
+  color:#475467;
+  font-size:14px;
+}
+
+#rule-12 .competitor-empty-state p {
+  max-width:520px;
+  margin:6px 0 0;
+  color:#8a95a5;
+  font-size:12px;
+  line-height:1.6;
+}
+
+#rule-12 .competitor-loss-table {
+  min-width:820px;
+}
+
+#rule-12 .competitor-loss-table th {
+  background:#f4f7fb;
+  white-space:nowrap;
+}
+
+#rule-12 .competitor-loss-table .empty-row td {
+  padding:28px 12px;
+  text-align:center;
+}
+
+#rule-12 .table-empty-text {
+  color:#8a95a5;
+  font-size:13px;
+}
+
+@media(max-width:980px){
+  #rule-12 .competitor-overview-grid {
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+}
+
+@media(max-width:640px){
+  #rule-12 .competitor-overview-grid {
+    grid-template-columns:1fr;
+  }
+}
+
+/* v20：竞争对手分析移除流失原因 */
+#rule-12 .competitor-loss-table {
+  min-width: 700px;
+}
+
+/* v21：口碑分析正式输出 */
+#rule-13 .reputation-platform-grid {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:10px;
+}
+
+#rule-13 .reputation-score-card,
+#rule-13 .reputation-output-card {
+  min-height:104px;
+  padding:13px;
+  border:1px solid #dce4ed;
+  border-radius:9px;
+  background:#f8fafc;
+}
+
+#rule-13 .reputation-score-card small,
+#rule-13 .reputation-output-card small {
+  display:block;
+  color:#667085;
+  font-size:12px;
+  font-weight:700;
+}
+
+#rule-13 .reputation-score-card strong,
+#rule-13 .reputation-output-card strong {
+  display:block;
+  margin-top:10px;
+  color:#315b88;
+  font-size:22px;
+}
+
+#rule-13 .reputation-score-card span,
+#rule-13 .reputation-output-card span {
+  display:block;
+  margin-top:8px;
+  color:#7a8798;
+  font-size:12px;
+}
+
+#rule-13 .reputation-score-card.pending,
+#rule-13 .reputation-output-card.pending {
+  border-color:#e0e4ea;
+  background:#f7f8fa;
+}
+
+#rule-13 .reputation-score-card.pending strong,
+#rule-13 .reputation-output-card.pending strong {
+  color:#788497;
+}
+
+#rule-13 .reputation-operation-card {
+  margin-top:12px;
+}
+
+#rule-13 .reputation-output-grid {
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:10px;
+}
+
+#rule-13 .reputation-platform-note,
+#rule-13 .reputation-score-note {
+  margin-top:11px;
+  color:#667085;
+  background:#f8fafc;
+  border-color:#e3e8ef;
+}
+
+@media(max-width:1080px){
+  #rule-13 .reputation-output-grid {
+    grid-template-columns:repeat(3,minmax(0,1fr));
+  }
+}
+
+@media(max-width:760px){
+  #rule-13 .reputation-platform-grid,
+  #rule-13 .reputation-output-grid {
+    grid-template-columns:1fr;
+  }
+}
+
+/* v22：第15—23项统一为有无判断型展示 */
+.binary-check-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.binary-check-card {
+  min-height: 106px;
+  padding: 13px;
+  border: 1px solid #dce4ed;
+  border-radius: 9px;
+  background: #f8fafc;
+}
+
+.binary-check-card small {
+  display: block;
+  color: #667085;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.binary-check-card strong {
+  display: block;
+  margin-top: 10px;
+  color: #315b88;
+  font-size: 22px;
+}
+
+.binary-check-card span {
+  display: block;
+  margin-top: 8px;
+  color: #7a8798;
+  font-size: 12px;
+}
+
+.binary-check-card.pending {
+  border-color: #e0e4ea;
+  background: #f7f8fa;
+}
+
+.binary-check-card.pending strong {
+  color: #788497;
+}
+
+.binary-rule-box {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 9px;
+}
+
+.binary-rule-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 74px;
+  padding: 11px 12px;
+  border: 1px solid #e0e4ea;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.binary-rule-icon {
+  display: flex;
+  width: 26px;
+  height: 26px;
+  flex: 0 0 26px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.binary-rule-item strong {
+  display: block;
+  color: #344054;
+  font-size: 13px;
+}
+
+.binary-rule-item small {
+  display: block;
+  margin-top: 3px;
+  color: #7a8798;
+  font-size: 11px;
+}
+
+.binary-rule-item.good {
+  border-color: #cee8da;
+  background: #f4fbf7;
+}
+
+.binary-rule-item.good .binary-rule-icon {
+  background: #dff3e8;
+  color: #168a4a;
+}
+
+.binary-rule-item.bad {
+  border-color: #f0d4d2;
+  background: #fff7f6;
+}
+
+.binary-rule-item.bad .binary-rule-icon {
+  background: #fbe2df;
+  color: #c2413a;
+}
+
+.binary-rule-item.pending {
+  background: #f8f9fb;
+}
+
+.binary-rule-item.pending .binary-rule-icon {
+  background: #e9edf2;
+  color: #667085;
+}
+
+@media (max-width: 760px) {
+  .binary-check-grid,
+  .binary-rule-box {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* v23：配置状态统一聚合 */
+.config-status-group {
+  overflow: visible;
+}
+
+.config-group-no {
+  min-width: 54px;
+  font-size: 13px;
+}
+
+.config-status-legend {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  padding: 0 18px 12px;
+}
+
+.config-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 42px;
+  padding: 8px 10px;
+  border: 1px solid #e0e4ea;
+  border-radius: 8px;
+  background: #f8f9fb;
+}
+
+.config-legend-item strong {
+  font-size: 12px;
+}
+
+.config-legend-item span {
+  color: #475467;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.config-legend-item small {
+  margin-left: auto;
+  color: #7a8798;
+  font-size: 11px;
+}
+
+.config-legend-item.open {
+  border-color: #cee8da;
+  background: #f4fbf7;
+}
+
+.config-legend-item.open strong {
+  color: #168a4a;
+}
+
+.config-legend-item.closed {
+  border-color: #f0d4d2;
+  background: #fff7f6;
+}
+
+.config-legend-item.closed strong {
+  color: #c2413a;
+}
+
+.config-legend-item.pending strong {
+  color: #667085;
+}
+
+.config-status-result {
+  padding-top: 0;
+}
+
+.config-status-card {
+  margin-top: 0;
+}
+
+.config-status-table {
+  min-width: 980px;
+}
+
+.config-status-table th {
+  white-space: nowrap;
+  background: #f4f7fb;
+}
+
+.config-status-table td {
+  vertical-align: middle;
+}
+
+.config-rule-number {
+  width: 56px;
+  color: #7a8798;
+  font-weight: 800;
+}
+
+.config-item-name {
+  min-width: 126px;
+  color: #344054;
+  font-weight: 800;
+}
+
+.config-status-cell {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-width: 145px;
+}
+
+.config-status-cell small {
+  color: #667085;
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.config-status-chip,
+.config-result-chip,
+.config-score-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 0 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.config-status-chip.pending,
+.config-result-chip.pending,
+.config-score-chip.pending {
+  background: #eef1f5;
+  color: #667085;
+}
+
+.config-status-chip.open,
+.config-result-chip.open,
+.config-score-chip.open {
+  background: #e8f5ee;
+  color: #168a4a;
+}
+
+.config-status-chip.closed,
+.config-result-chip.closed,
+.config-score-chip.closed {
+  background: #fdebea;
+  color: #c2413a;
+}
+
+.config-full-score {
+  color: #315b88;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.config-status-note {
+  margin-top: 10px;
+  padding: 9px 11px;
+  color: #667085;
+  background: #f8fafc;
+  border-color: #e3e8ef;
+}
+
+@media (max-width: 760px) {
+  .config-status-legend {
+    grid-template-columns: 1fr;
+    padding: 0 12px 10px;
+  }
+}
+
+/* v24：首页视频数据库字段展示 */
+#rule-21 .video-summary-grid {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:10px;
+  margin-bottom:12px;
+}
+
+#rule-21 .video-summary-card {
+  min-height:104px;
+  padding:13px;
+  border:1px solid #dce4ed;
+  border-radius:9px;
+  background:#f8fafc;
+}
+
+#rule-21 .video-summary-card small {
+  display:block;
+  color:#667085;
+  font-size:12px;
+  font-weight:700;
+}
+
+#rule-21 .video-summary-card strong {
+  display:block;
+  margin-top:10px;
+  color:#315b88;
+  font-size:22px;
+}
+
+#rule-21 .video-summary-card span {
+  display:block;
+  margin-top:8px;
+  color:#7a8798;
+  font-size:12px;
+}
+
+#rule-21 .video-summary-card.pending {
+  border-color:#e0e4ea;
+  background:#f7f8fa;
+}
+
+#rule-21 .video-summary-card.pending strong {
+  color:#788497;
+}
+
+#rule-21 .video-summary-card.open {
+  border-color:#cee8da;
+  background:#f4fbf7;
+}
+
+#rule-21 .video-summary-card.open strong {
+  color:#168a4a;
+}
+
+#rule-21 .video-summary-card.closed {
+  border-color:#f0d4d2;
+  background:#fff7f6;
+}
+
+#rule-21 .video-summary-card.closed strong {
+  color:#c2413a;
+}
+
+#rule-21 .video-status-table {
+  min-width:980px;
+}
+
+#rule-21 .video-status-table th {
+  white-space:nowrap;
+  background:#f4f7fb;
+}
+
+#rule-21 .video-status-table td:first-child {
+  color:#344054;
+  font-weight:800;
+}
+
+#rule-21 .video-cell-pending,
+#rule-21 .video-cell-open,
+#rule-21 .video-cell-closed,
+#rule-21 .video-cell-neutral {
+  display:inline-flex;
+  align-items:center;
+  min-height:24px;
+  padding:0 8px;
+  border-radius:999px;
+  font-size:11px;
+  font-weight:800;
+  white-space:nowrap;
+}
+
+#rule-21 .video-cell-pending {
+  background:#eef1f5;
+  color:#667085;
+}
+
+#rule-21 .video-cell-open {
+  background:#e8f5ee;
+  color:#168a4a;
+}
+
+#rule-21 .video-cell-closed {
+  background:#fdebea;
+  color:#c2413a;
+}
+
+#rule-21 .video-cell-neutral {
+  background:#edf3f9;
+  color:#526b84;
+}
+
+#rule-21 .video-status-note {
+  margin-top:10px;
+  color:#667085;
+  background:#f8fafc;
+  border-color:#e3e8ef;
+}
+
+@media(max-width:980px){
+  #rule-21 .video-summary-grid {
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+}
+
+@media(max-width:640px){
+  #rule-21 .video-summary-grid {
+    grid-template-columns:1fr;
+  }
+}
+</style>
+</head>
+<body>
+<header class="topbar"><div class="topbar-inner"><div class="brand"><h1>酒店 OTA 全面诊断报告</h1><p>贵阳璞悦·奢电竞酒店｜诊断周期：近30天｜报告数据为页面示例</p></div><div class="top-actions"><select class="scope-select"><option>综合诊断</option><option>PMS经营数据</option><option>美团EB数据</option></select><button class="btn primary" onclick="window.print()">导出报告</button></div></div></header>
+<div class="page">
+<nav class="side"><div class="side-title">报告目录</div><a href="#overview"><span>00</span>诊断概览</a><a href="#summary"><span>表</span>诊断结果总览</a><a href="#rule-1"><span>01</span>月度经营趋势 YOY</a><a href="#rule-2"><span>02</span>房型 RevPAR 与低效房型</a><a href="#rule-3"><span>03</span>曝光数据分析</a><a href="#rule-4"><span>04</span>流量数据分析</a><a href="#rule-5"><span>05</span>用户来源数据</a><a href="#rule-6"><span>06</span>HOS 历史得分</a><a href="#rule-7"><span>07</span>扫码订单数据</a><a href="#rule-8"><span>08</span>信息分数据</a><a href="#rule-9"><span>09</span>推广数据</a><a href="#rule-10"><span>10</span>页面展示和入口基础</a><a href="#rule-11"><span>11</span>房型名称卖点优化</a><a href="#rule-12"><span>12</span>竞争对手分析</a><a href="#rule-13"><span>13</span>口碑分析</a><a href="#rule-14"><span>14</span>权益中心</a><a href="#rule-15"><span>15</span>优美会</a><a href="#rule-16"><span>16</span>商旅专享价</a><a href="#rule-17"><span>17</span>公益流量</a><a href="#rule-18"><span>18</span>钟点房</a><a href="#rule-19"><span>19</span>酒店亮点</a><a href="#rule-20"><span>20</span>预约开票</a><a href="#rule-21"><span>21</span>首页视频</a><a href="#rule-22"><span>22</span>酒店挂冠</a><a href="#rule-23"><span>23</span>自动接单</a></nav>
+<main>
+<section id="overview"><div class="hero"><div class="hero-grid"><div><h2>酒店经营与线上运营综合诊断</h2><p>报告覆盖经营趋势、房型收益、曝光转化、客群、推广、口碑及基础配置等23项内容，帮助快速识别问题并形成改进方向。</p></div><div class="hero-stats"><div class="hero-stat"><small>综合得分</small><strong>待计算</strong><em>数据完整后生成</em></div><div class="hero-stat"><small>诊断项目</small><strong>23项</strong><em>覆盖经营与运营全链路</em></div><div class="hero-stat"><small>评分项目</small><strong>21项</strong><em>计入综合得分</em></div><div class="hero-stat"><small>展示项目</small><strong>2项</strong><em>用于辅助判断</em></div></div></div></div><div class="section-body"><div class="notice">暂无数据的指标会保留展示位置，并标记为“暂无数据”或“待确认”；不会用0代替缺失数据。</div></div></section>
+<section id="summary"><div class="section-head"><div><h2>23项诊断结果总览</h2><p>快速查看各项当前得分、数据状态和诊断方向，点击项目名称可查看详细数据。</p></div></div><div class="section-body"><div class="table-scroll"><table class="summary-table"><thead><tr><th>编号</th><th>诊断项目</th><th>满分</th><th>当前得分</th><th>当前状态</th><th>诊断内容</th></tr></thead><tbody><tr><td>01</td><td><a href="#rule-1">月度经营趋势 YOY</a></td><td>10分</td><td>待计算</td><td><span class="status-badge pending">数据待补充</span></td><td>对比本期与去年同期经营表现，观察收入与收益质量变化。</td></tr><tr><td>02</td><td><a href="#rule-2">房型 RevPAR 与低效房型</a></td><td>8分</td><td>页面示例为60%档</td><td><span class="status-badge ok">已形成结果</span></td><td>识别出租率偏低的房型，评估房型经营效率。</td></tr><tr><td>03</td><td><a href="#rule-3">曝光数据分析</a></td><td>4分</td><td>页面已有示例</td><td><span class="status-badge ok">已形成结果</span></td><td>分析广告曝光与自然曝光的结构及占比。</td></tr><tr><td>04</td><td><a href="#rule-4">流量数据分析</a></td><td>15分</td><td>待确认</td><td><span class="status-badge pending">数据待补充</span></td><td>对比酒店流量、转化与同行水平，定位转化环节的差距。</td></tr><tr><td>05</td><td><a href="#rule-5">用户来源数据</a></td><td>仅展示</td><td>仅展示</td><td><span class="status-badge ok">展示分析</span></td><td>展示客源地域、出行目的及新老客户结构。</td></tr><tr><td>06</td><td><a href="#rule-6">HOS 历史得分</a></td><td>3分</td><td>待计算</td><td><span class="status-badge pending">数据待补充</span></td><td>展示近一个月HOS得分趋势、平均分与排名表现。</td></tr><tr><td>07</td><td><a href="#rule-7">扫码订单数据</a></td><td>8分</td><td>待计算</td><td><span class="status-badge pending">数据待补充</span></td><td>展示扫码订单趋势、月累计及订单完成情况。</td></tr><tr><td>08</td><td><a href="#rule-8">信息分数据</a></td><td>5分</td><td>待计算</td><td><span class="status-badge pending">数据待补充</span></td><td>展示酒店信息完整度及当前信息分表现。</td></tr><tr><td>09</td><td><a href="#rule-9">推广数据</a></td><td>8分</td><td>待计算</td><td><span class="status-badge pending">数据待补充</span></td><td>分析推广投入、订单产出和投资回报率。</td></tr><tr><td>10</td><td><a href="#rule-10">页面展示和入口基础</a></td><td>3分</td><td>待计算</td><td><span class="status-badge pending">数据待补充</span></td><td>检查酒店名称、商圈词及页面入口配置情况。</td></tr><tr><td>11</td><td><a href="#rule-11">房型名称卖点优化</a></td><td>4分</td><td>待计算</td><td><span class="status-badge pending">数据待补充</span></td><td>检查房型名称长度、卖点表达和命名质量。</td></tr><tr><td>12</td><td><a href="#rule-12">竞争对手分析</a></td><td>仅展示</td><td>仅展示</td><td><span class="status-badge ok">展示分析</span></td><td>展示订单流失去向、主要竞争对手及流失原因。</td></tr><tr><td>13</td><td><a href="#rule-13">口碑分析</a></td><td>10分</td><td>待计算</td><td><span class="status-badge pending">数据待补充</span></td><td>综合展示平台评分、点评数量、新增点评及回复情况。</td></tr><tr><td>14</td><td><a href="#rule-14">权益中心</a></td><td>4分</td><td>待确认</td><td><span class="status-badge pending">数据待补充</span></td><td>展示已报名权益数量、权益内容及生效情况。</td></tr><tr><td>15</td><td><a href="#rule-15">优美会</a></td><td>3分</td><td>待计算</td><td><span class="status-badge pending">数据待补充</span></td><td>展示优美会开通、报名和生效状态。</td></tr><tr><td>16</td><td><a href="#rule-16">商旅专享价</a></td><td>2分</td><td>待计算</td><td><span class="status-badge pending">数据待补充</span></td><td>展示商旅专享价开通、价格及可售状态。</td></tr><tr><td>17</td><td><a href="#rule-17">公益流量</a></td><td>2分</td><td>待计算</td><td><span class="status-badge pending">数据待补充</span></td><td>展示公益流量报名和生效状态。</td></tr><tr><td>18</td><td><a href="#rule-18">钟点房</a></td><td>4分</td><td>待计算</td><td><span class="status-badge pending">数据待补充</span></td><td>展示钟点房产品、价格、库存及可售情况。</td></tr><tr><td>19</td><td><a href="#rule-19">酒店亮点</a></td><td>2分</td><td>待计算</td><td><span class="status-badge pending">数据待补充</span></td><td>展示酒店亮点配置数量、内容及完整度。</td></tr><tr><td>20</td><td><a href="#rule-20">预约开票</a></td><td>2分</td><td>待计算</td><td><span class="status-badge pending">数据待补充</span></td><td>展示预约开票开关、入口和服务状态。</td></tr><tr><td>21</td><td><a href="#rule-21">首页视频</a></td><td>1分</td><td>待计算</td><td><span class="status-badge pending">数据待补充</span></td><td>展示首页视频上传、审核及展示状态。</td></tr><tr><td>22</td><td><a href="#rule-22">酒店挂冠</a></td><td>1分</td><td>待确认</td><td><span class="status-badge pending">数据待补充</span></td><td>展示酒店挂冠等级及相关证明材料。</td></tr><tr><td>23</td><td><a href="#rule-23">自动接单</a></td><td>1分</td><td>待计算</td><td><span class="status-badge pending">数据待补充</span></td><td>展示自动接单开关、生效状态及适用范围。</td></tr></tbody></table></div></div></section>
+<div class="empty-search" id="emptySearch">没有匹配的诊断项</div>
+<article class="diagnosis-card" data-status="已确认入口，字段待核" data-title="月度经营趋势 YOY" id="rule-1">
+<div class="card-top">
+<div class="rule-no">01</div>
+<div class="card-title"><h3>月度经营趋势 YOY</h3><p>展示本日、本月累计和本年累计经营数据，并与去年同期进行同比比较。</p></div>
+<div class="card-tags"><div class="title-meta-item title-period"><small>统计周期</small><strong id="yoyTitlePeriod">2026-07-01 至 2026-07-13</strong></div><div class="title-meta-item title-score pending"><small>当前得分</small><div class="title-score-value"><strong>待计算</strong><span>满分 10分</span></div></div></div>
+</div>
+<div class="result-area"><div class="yoy-granularity-bar"><div aria-label="YOY时间粒度" class="yoy-granularity-tabs" role="tablist"><button aria-selected="false" class="yoy-granularity-btn" data-yoy-granularity="day" onclick="switchYoyGranularity('day')" role="tab" type="button">本日</button><button aria-selected="true" class="yoy-granularity-btn active" data-yoy-granularity="month" onclick="switchYoyGranularity('month')" role="tab" type="button">本月</button><button aria-selected="false" class="yoy-granularity-btn" data-yoy-granularity="year" onclick="switchYoyGranularity('year')" role="tab" type="button">本年</button></div><div class="yoy-score-note">本项评分默认按本月同比</div></div><div class="monthly-report-meta"><span id="yoyCurrentPeriod">当前周期：2026-07-01 至 2026-07-13</span><span id="yoyComparePeriod">对比周期：2025-07-01 至 2025-07-13</span></div><div class="monthly-yoy-grid"><div class="monthly-yoy-card"><small>当前累计房费</small><strong id="yoyCurrentRevenue">¥56,301.80</strong><span id="yoyCurrentRevenueNote">当前选定周期</span></div><div class="monthly-yoy-card pending"><small>去年同期房费</small><strong id="yoyPreviousRevenue">暂无数据</strong><span id="yoyPreviousRevenueNote">2025-07-01 至 2025-07-13</span></div><div class="monthly-yoy-card pending"><small>房费同比 YOY</small><strong id="yoyRate">待计算</strong><span id="yoyRateNote">补充去年同期房费后计算</span></div><div class="monthly-yoy-card"><small>收益质量</small><strong id="yoyQuality">RevPAR 139.71</strong><span id="yoyQualityNote">ADR 148.55 · 出租率 94.04%</span></div></div><div class="viz-card monthly-actual-card"><h4>经营同比数据</h4><div class="table-scroll"><table class="monthly-actual-table"><thead><tr><th>经营指标</th><th>本期</th><th>去年同期</th><th>YOY</th></tr></thead><tbody><tr><td>房费</td><td id="yoyTableCurrent_roomRevenue">¥56,301.80</td><td><span class="cell-pending">暂无数据</span></td><td><span class="cell-pending">待计算</span></td></tr><tr><td>平均房价 ADR</td><td id="yoyTableCurrent_adr">148.55</td><td><span class="cell-pending">暂无数据</span></td><td><span class="cell-pending">待计算</span></td></tr><tr><td>出租率</td><td id="yoyTableCurrent_occupancy">94.04%</td><td><span class="cell-pending">暂无数据</span></td><td><span class="cell-pending">待计算</span></td></tr><tr><td>RevPAR</td><td id="yoyTableCurrent_revpar">139.71</td><td><span class="cell-pending">暂无数据</span></td><td><span class="cell-pending">待计算</span></td></tr></tbody></table></div><div class="notice monthly-data-note" id="yoyMissingNote">当前展示本月累计数据；去年同期数据尚未补充，因此同比和本项得分暂不计算。</div></div></div><details class="output-fields-panel metric-details"><summary aria-label="展开或收起诊断指标明细" class="output-fields-head metric-details-summary"><div><h4>查看全部诊断指标</h4><p>包含状态判断、核心数据及详细结果</p></div><div class="metric-details-summary-right"><span class="field-count simple-count">12项核心指标</span><span class="metric-details-action"><span class="metric-details-action-text">展开查看</span><span aria-hidden="true" class="metric-details-arrow">⌄</span></span></div></summary><div class="metric-details-content"><div class="detail-group data-group"><div class="detail-group-title"><div>数据明细</div><span>展示本项全部输出指标</span></div><div class="table-scroll"><table class="output-table"><thead><tr><th>指标</th><th>当前结果</th><th>说明</th></tr></thead><tbody><tr><td class="field-name">当前统计口径</td><td><span class="value-rule" id="yoyDetailGranularity">本月</span></td><td>可切换本日、本月、本年</td></tr><tr><td class="field-name">本期房费</td><td><span class="value-rule" id="yoyDetailCurrentRevenue">¥56,301.80</span></td><td>本月累计房费，作为YOY主口径</td></tr><tr><td class="field-name">去年同期房费</td><td><span class="value-pending" id="yoyDetailPreviousRevenue">暂无数据</span></td><td>需补充2025-07-01至2025-07-13累计房费</td></tr><tr><td class="field-name">房费YOY</td><td><span class="value-pending" id="yoyDetailRate">待计算</span></td><td>（本期房费－去年同期房费）÷去年同期房费</td></tr><tr><td class="field-name">平均房价 ADR</td><td><span class="value-rule" id="yoyDetailAdr">148.55</span></td><td>本月累计平均房价</td></tr><tr><td class="field-name">出租率</td><td><span class="value-rule" id="yoyDetailOccupancy">94.04%</span></td><td>本月累计出租率</td></tr><tr><td class="field-name">RevPAR</td><td><span class="value-rule" id="yoyDetailRevpar">139.71</span></td><td>本月累计RevPAR</td></tr><tr><td class="field-name">本日累计</td><td><span class="value-rule">房费 ¥4,657.70；ADR 150.25；出租率 100.00%；RevPAR 150.25</span></td><td>营业日 2026-07-13</td></tr><tr><td class="field-name">本月累计</td><td><span class="value-rule">房费 ¥56,301.80；ADR 148.55；出租率 94.04%；RevPAR 139.71</span></td><td>2026-07-01 至 2026-07-13</td></tr><tr><td class="field-name">本年累计</td><td><span class="value-rule">房费 ¥695,281.51；ADR 139.46；出租率 82.90%；RevPAR 115.61</span></td><td>2026-01-01 至 2026-07-13</td></tr><tr><td class="field-name">本项评分比例</td><td><span class="value-pending">待计算</span></td><td>补充去年同期房费后自动计算</td></tr><tr><td class="field-name">本项得分</td><td><span class="value-pending">待计算</span></td><td>本项满分10分</td></tr></tbody></table></div></div></div></details>
+</article>
+<article class="diagnosis-card" data-status="已确认入口，字段待核" data-title="房型 RevPAR 与低效房型" id="rule-2">
+<div class="card-top">
+<div class="rule-no">02</div>
+<div class="card-title"><h3>房型 RevPAR 与低效房型</h3><p>支持本日与本月切换；本日用于查看当天表现，本月用于低效房型统计与正式评分。</p></div>
+<div class="card-tags"><div class="title-meta-item title-period"><small>统计周期</small><strong id="roomTitlePeriod">2026-07-01 至 2026-07-13</strong></div><div class="title-meta-item title-score pending" id="roomTitleScoreBox"><small>当前得分</small><div class="title-score-value"><strong id="roomTitleScore">待计算</strong><span>满分 8分</span></div></div></div>
+</div>
+<div class="result-area"><div class="room-granularity-bar"><div aria-label="房型数据时间粒度" class="room-granularity-tabs" role="tablist"><button aria-selected="false" class="room-granularity-btn" data-room-granularity="day" onclick="switchRoomGranularity('day')" role="tab" type="button">本日</button><button aria-selected="true" class="room-granularity-btn active" data-room-granularity="month" onclick="switchRoomGranularity('month')" role="tab" type="button">本月</button></div><div class="room-score-note">正式评分按本月口径</div></div><div class="room-report-meta"><span id="roomCurrentPeriod">当前周期：2026-07-01 至 2026-07-13</span><span>数据更新时间：2026-07-14 09:41:55</span></div><div class="room-kpi-grid"><div class="room-kpi-card pending"><small>当前房型记录数</small><strong id="roomKpiRoomCount">待聚合</strong><span>当前周期有数据的房型</span></div><div class="room-kpi-card pending"><small>在售房型数</small><strong id="roomKpiActiveCount">待聚合</strong><span>正式评分分母</span></div><div class="room-kpi-card pending"><small>低效房型数</small><strong id="roomKpiLowCount">待计算</strong><span>本月出租率低于60%</span></div><div class="room-kpi-card pending"><small>低效房型占比</small><strong id="roomKpiLowRatio">待计算</strong><span>低效房型数 ÷ 在售房型数</span></div></div><div class="viz-card room-actual-card"><h4 id="roomTableTitle">本月房型经营数据</h4><div class="table-scroll"><table class="room-actual-table"><thead><tr><th>房型名称</th><th>间夜数</th><th>房费</th><th>平均房价 ADR</th><th>出租率</th><th>RevPAR</th><th>低效判断</th></tr></thead><tbody id="roomPerformanceBody"></tbody></table></div><div class="notice room-data-note" id="roomDataNote">本月数据由数据库按房型汇总当月每日JL01记录。正式评分使用本月出租率和全部在售房型数。</div></div></div><details class="output-fields-panel metric-details"><summary aria-label="展开或收起诊断指标明细" class="output-fields-head metric-details-summary"><div><h4>查看全部诊断指标</h4><p>包含状态判断、核心数据及详细结果</p></div><div class="metric-details-summary-right"><span class="field-count simple-count">12项核心指标</span><span class="metric-details-action"><span class="metric-details-action-text">展开查看</span><span aria-hidden="true" class="metric-details-arrow">⌄</span></span></div></summary><div class="metric-details-content"><div class="detail-group data-group"><div class="detail-group-title"><div>数据明细</div><span>展示本项全部输出指标</span></div><div class="table-scroll"><table class="output-table"><thead><tr><th>指标</th><th>当前结果</th><th>说明</th></tr></thead><tbody><tr><td class="field-name">统计周期</td><td><span class="value-rule" id="roomDetailPeriod">2026-07-01 至 2026-07-13</span></td><td>可切换本日与本月</td></tr><tr><td class="field-name">房型名称</td><td><span class="value-pending" id="roomDetailCount">待聚合</span></td><td>当前周期有数据的房型</td></tr><tr><td class="field-name">间夜数</td><td><span class="value-pending" id="roomDetailNights">待数据库聚合</span></td><td>本月按房型汇总每日间夜数</td></tr><tr><td class="field-name">房费</td><td><span class="value-pending" id="roomDetailFee">待数据库聚合</span></td><td>本月按房型汇总每日房费</td></tr><tr><td class="field-name">平均房价</td><td><span class="value-pending" id="roomDetailAdr">待计算</span></td><td>本月房费 ÷ 本月间夜数</td></tr><tr><td class="field-name">出租率</td><td><span class="value-pending" id="roomDetailOccupancy">待计算</span></td><td>本月已售间夜 ÷ 本月可售间夜</td></tr><tr><td class="field-name">RevPAR</td><td><span class="value-pending" id="roomDetailRevpar">待计算</span></td><td>本月房费 ÷ 本月可售间夜</td></tr><tr><td class="field-name">是否低效</td><td><span class="value-pending" id="roomDetailLowFlag">待计算</span></td><td>本月出租率低于60%</td></tr><tr><td class="field-name">在售房型数</td><td><span class="value-pending" id="roomDetailActiveCount">待数据库聚合</span></td><td>需结合在售状态或完整房型主数据</td></tr><tr><td class="field-name">低效房型数</td><td><span class="value-pending" id="roomDetailLowCount">待计算</span></td><td>本月出租率低于60%的在售房型数量</td></tr><tr><td class="field-name">低效房型占比</td><td><span class="value-pending" id="roomDetailLowRatio">待计算</span></td><td>低效房型数 ÷ 全部在售房型数</td></tr><tr><td class="field-name">本项得分</td><td><span class="value-pending" id="roomDetailScore">待计算</span></td><td>正式评分使用本月口径</td></tr></tbody></table></div></div></div></details>
+</article>
+<article class="diagnosis-card" data-status="已确认入口，字段待核" data-title="曝光数据分析" id="rule-3">
+<div class="card-top">
+<div class="rule-no">03</div>
+<div class="card-title"><h3>曝光数据分析</h3><p>分析广告曝光与自然曝光的结构及占比。</p></div>
+<div class="card-tags"><div class="title-meta-item title-period"><small>统计周期</small><strong>近30天</strong></div><div class="title-meta-item title-score pending"><small>当前得分</small><div class="title-score-value"><strong>页面已有示例</strong><span>满分 4分</span></div></div></div>
+</div>
+<div class="result-area"><div class="visual-grid two"><div class="viz-card"><h4>近5日广告/非广告曝光</h4><div class="table-scroll"><table><thead><tr><th>日期</th><th>广告曝光</th><th>非广告曝光</th><th>整体曝光</th><th>广告占比</th></tr></thead><tbody><tr><td>2026-06-26</td><td>0</td><td>2,419</td><td>2,419</td><td>0.0%</td></tr><tr><td>2026-06-27</td><td>0</td><td>2,303</td><td>2,303</td><td>0.0%</td></tr><tr><td>2026-06-28</td><td>0</td><td>1,280</td><td>1,280</td><td>0.0%</td></tr><tr><td>2026-06-29</td><td>0</td><td>1,656</td><td>1,656</td><td>0.0%</td></tr><tr><td>2026-06-30</td><td>0</td><td>1,636</td><td>1,636</td><td>0.0%</td></tr></tbody></table></div></div><div class="viz-card center"><div class="donut" style="--p:0"><div><strong>0%</strong><span>广告占比</span></div></div><div class="score-result danger-box"><b>示例结果：0分档</b><span>整体曝光不为0，但广告曝光为0。</span></div></div></div></div><details class="output-fields-panel metric-details"><summary aria-label="展开或收起诊断指标明细" class="output-fields-head metric-details-summary"><div><h4>查看全部诊断指标</h4><p>包含状态判断、核心数据及详细结果</p></div><div class="metric-details-summary-right"><span class="field-count simple-count">7项核心指标</span><span class="metric-details-action"><span class="metric-details-action-text">展开查看</span><span aria-hidden="true" class="metric-details-arrow">⌄</span></span></div></summary><div class="metric-details-content"><div class="detail-group status-group"><div class="detail-group-title"><div>状态判断</div><span>绿色为已满足，红色为未满足，灰色为待确认</span></div><div class="judgement-grid embedded-grid"><div class="judgement-card unknown" data-field="曝光数据状态" data-state="unknown" title="当前原始结果：自动判断"><span aria-hidden="true" class="judgement-icon">·</span><div class="judgement-card-content"><small>曝光数据状态</small><strong>待确认</strong></div></div></div></div><div class="detail-group data-group"><div class="detail-group-title"><div>数据明细</div><span>展示本项全部输出指标</span></div><div class="table-scroll"><table class="output-table"><thead><tr><th>指标</th><th>当前结果</th><th>说明</th></tr></thead><tbody><tr><td class="field-name">统计周期</td><td><span class="value-rule">近30天</span></td><td>可同时展示日明细与月汇总</td></tr><tr><td class="field-name">日期</td><td><span class="value-rule">逐日展示</span></td><td>曝光明细日期</td></tr><tr><td class="field-name">整体曝光</td><td><span class="value-rule">页面已有示例</span></td><td>月合计/日明细</td></tr><tr><td class="field-name">广告曝光</td><td><span class="value-rule">页面已有示例</span></td><td>月合计/日明细</td></tr><tr><td class="field-name">非广告曝光</td><td><span class="value-rule">页面已有示例</span></td><td>月合计/日明细</td></tr><tr><td class="field-name">广告曝光占比</td><td><span class="value-rule">页面已有示例</span></td><td>广告曝光÷整体曝光</td></tr><tr><td class="field-name">本项得分</td><td><span class="value-rule">页面已有示例</span></td><td>满分4分</td></tr></tbody></table></div></div></div></details>
+</article>
+<article class="diagnosis-card" data-status="已确认可开发" data-title="流量数据分析" id="rule-4">
+<div class="card-top">
+<div class="rule-no">04</div>
+<div class="card-title"><h3>流量数据分析</h3><p>展示酒店流量、转化效率、同行对比、子项得分及同行排名。</p></div>
+<div class="card-tags"><div class="title-meta-item title-period"><small>统计周期</small><strong>近30天</strong></div><div class="title-meta-item title-score pending"><small>当前得分</small><div class="title-score-value"><strong>待确认</strong><span>满分 15分</span></div></div></div>
+</div>
+<div class="result-area"><div class="traffic-score-summary"><div class="traffic-summary-card"><small>可计算评分项</small><strong>2项</strong><span>浏览人数、浏览→支付转化率</span></div><div class="traffic-summary-card"><small>待确认评分项</small><strong>1项</strong><span>曝光→浏览转化率</span></div><div class="traffic-summary-card"><small>不可计算项</small><strong>1项</strong><span>曝光人数缺少商圈均值</span></div><div class="traffic-summary-card"><small>本项总得分</small><strong>待确认</strong><span>15分重分配方式未确定</span></div></div><div class="viz-card"><div class="viz-head"><h4>流量与同行评分明细</h4><span class="data-pill partial">评分口径待确认</span></div><div class="funnel-strip"><div><small>曝光人数</small><b>暂无数据</b><em>商圈均值暂不可获取</em></div><div><small>浏览人数</small><b>2,628</b><em>同行均值 1,098</em></div><div><small>支付订单</small><b>27</b><em>同行均值 11</em></div></div><div class="table-scroll"><table class="traffic-score-table"><thead><tr><th>指标</th><th>酒店值</th><th>同行均值</th><th>相对比例</th><th>子项得分</th><th>同行排名</th><th>评分状态</th></tr></thead><tbody><tr class="traffic-row pending"><td>曝光人数</td><td><span class="cell-pending">暂无数据</span></td><td><span class="cell-pending">暂不可稳定获取</span></td><td><span class="traffic-chip pending">不可计算</span></td><td><span class="traffic-chip pending">不可计算</span></td><td><span class="cell-pending">暂无数据</span></td><td><span class="traffic-chip pending">仅展示</span></td></tr><tr class="traffic-row good"><td>浏览人数</td><td>2,628</td><td>1,098</td><td><span class="traffic-chip good">2.39</span></td><td><span class="traffic-chip good">100%</span></td><td>第3名</td><td><span class="traffic-chip good">参与评分</span></td></tr><tr class="traffic-row warn"><td>曝光→浏览转化率</td><td>12.29%</td><td>11.02%</td><td><span class="traffic-chip warn">1.12</span></td><td><span class="traffic-chip warn">60%</span></td><td>第7名</td><td><span class="traffic-chip warn">是否计分待确认</span></td></tr><tr class="traffic-row bad"><td>浏览→支付转化率</td><td>8.36%</td><td>9.00%</td><td><span class="traffic-chip bad">0.93</span></td><td><span class="traffic-chip bad">0%</span></td><td>第18名</td><td><span class="traffic-chip bad">参与评分</span></td></tr><tr class="traffic-row neutral"><td>支付订单数</td><td>27</td><td>11</td><td><span class="traffic-chip neutral">2.45</span></td><td><span class="traffic-chip neutral">不单独计分</span></td><td>第2名</td><td><span class="traffic-chip neutral">辅助展示</span></td></tr></tbody></table></div><div class="notice">曝光人数保留展示位，但商圈平均曝光人数暂不可稳定获取，因此该子项不可计算；支付订单数用于辅助展示，不替代原始四个评分子项。本项15分的缺失子项重分配方式尚未确定，当前总分保持待确认。</div></div></div><details class="output-fields-panel metric-details"><summary aria-label="展开或收起诊断指标明细" class="output-fields-head metric-details-summary"><div><h4>查看全部诊断指标</h4><p>包含状态判断、核心数据及详细结果</p></div><div class="metric-details-summary-right"><span class="field-count simple-count">15项核心指标</span><span class="metric-details-action"><span class="metric-details-action-text">展开查看</span><span aria-hidden="true" class="metric-details-arrow">⌄</span></span></div></summary><div class="metric-details-content"><div class="detail-group data-group"><div class="detail-group-title"><div>数据明细</div><span>展示本项全部输出指标</span></div><div class="table-scroll"><table class="output-table"><thead><tr><th>指标</th><th>当前结果</th><th>说明</th></tr></thead><tbody><tr><td class="field-name">统计周期</td><td><span class="value-rule">近30天</span></td><td>建议展示明确起止日期</td></tr><tr><td class="field-name">酒店曝光人数</td><td><span class="value-pending">暂无数据</span></td><td>保留展示位，不进入当前评分</td></tr><tr><td class="field-name">商圈平均曝光人数</td><td><span class="value-pending">暂不可稳定获取</span></td><td>对应曝光人数比例不可计算</td></tr><tr><td class="field-name">酒店浏览人数</td><td><span class="value-rule">2,628</span></td><td>当前示例值</td></tr><tr><td class="field-name">同行平均浏览人数</td><td><span class="value-rule">1,098</span></td><td>当前示例值</td></tr><tr><td class="field-name">浏览人数相对比例</td><td><span class="value-rule">2.39</span></td><td>子项得分100%</td></tr><tr><td class="field-name">支付订单数</td><td><span class="value-rule">27</span></td><td>辅助展示，不单独作为原始评分子项</td></tr><tr><td class="field-name">曝光浏览转化率</td><td><span class="value-rule">12.29%</span></td><td>当前示例值</td></tr><tr><td class="field-name">同行曝光浏览转化率</td><td><span class="value-rule">11.02%</span></td><td>当前示例值</td></tr><tr><td class="field-name">浏览支付转化率</td><td><span class="value-rule">8.36%</span></td><td>当前示例值</td></tr><tr><td class="field-name">同行浏览支付转化率</td><td><span class="value-rule">9.00%</span></td><td>当前示例值</td></tr><tr><td class="field-name">浏览人数同行排名</td><td><span class="value-rule">第3名</span></td><td>辅助展示</td></tr><tr><td class="field-name">支付转化率同行排名</td><td><span class="value-rule">第18名</span></td><td>辅助展示</td></tr><tr><td class="field-name">各子项评分</td><td><span class="value-pending">浏览人数100%；曝光→浏览60%；浏览→支付0%；曝光人数不可计算</span></td><td>支付订单数不单独计分</td></tr><tr><td class="field-name">本项得分</td><td><span class="value-pending">待确认</span></td><td>缺失子项的15分重分配方式尚未确定</td></tr></tbody></table></div></div></div></details>
+</article>
+<article class="diagnosis-card" data-status="已确认入口，字段待核" data-title="用户来源数据" id="rule-5">
+<div class="card-top">
+<div class="rule-no">05</div>
+<div class="card-title"><h3>用户来源数据</h3><p>展示本地、异地及新老客户的月度来源结构。</p></div>
+<div class="card-tags"><div class="title-meta-item title-period"><small>统计周期</small><strong>当前月份</strong></div><div class="title-meta-item title-score display-only"><small>当前得分</small><div class="title-score-value"><strong>仅展示</strong><span>不计入总分</span></div></div></div>
+</div>
+<div class="result-area"><div class="viz-card user-source-card"><h4>月度用户来源结构</h4><div class="user-source-group"><div class="user-source-group-title">地域来源</div><div class="source-cards user-source-four"><div><small>本地占比</small><b>64.92%</b></div><div><small>异地占比</small><b>35.08%</b></div></div><div class="segmented user-location-segmented"><span style="width:64.92%">本地 64.92%</span><span style="width:35.08%">异地 35.08%</span></div></div><div class="user-source-group"><div class="user-source-group-title">新老客户结构</div><div class="source-cards user-source-four"><div class="pending-source"><small>新客占比</small><b>暂无数据</b></div><div class="pending-source"><small>老客占比</small><b>暂无数据</b></div></div></div><div class="notice">本项按月展示用户来源结构，不计入总分。新客、老客占比将在数据接入后展示。</div></div></div><details class="output-fields-panel metric-details"><summary aria-label="展开或收起诊断指标明细" class="output-fields-head metric-details-summary"><div><h4>查看全部诊断指标</h4><p>包含状态判断、核心数据及详细结果</p></div><div class="metric-details-summary-right"><span class="field-count simple-count">6项核心指标</span><span class="metric-details-action"><span class="metric-details-action-text">展开查看</span><span aria-hidden="true" class="metric-details-arrow">⌄</span></span></div></summary><div class="metric-details-content"><div class="detail-group data-group"><div class="detail-group-title"><div>数据明细</div><span>展示本项全部输出指标</span></div><div class="table-scroll"><table class="output-table"><thead><tr><th>指标</th><th>当前结果</th><th>说明</th></tr></thead><tbody><tr><td class="field-name">统计周期</td><td><span class="value-rule">当前月份</span></td><td>按月统计</td></tr><tr><td class="field-name">本地用户占比</td><td><span class="value-rule">64.92%</span></td><td>本地用户占全部用户的比例</td></tr><tr><td class="field-name">异地用户占比</td><td><span class="value-rule">35.08%</span></td><td>异地用户占全部用户的比例</td></tr><tr><td class="field-name">新客户占比</td><td><span class="value-pending">暂无数据</span></td><td>新客户占全部用户的比例</td></tr><tr><td class="field-name">老客户占比</td><td><span class="value-pending">暂无数据</span></td><td>老客户占全部用户的比例</td></tr><tr><td class="field-name">计分状态</td><td><span class="value-rule">不计分</span></td><td>本项仅用于展示分析</td></tr></tbody></table></div></div></div></details>
+</article>
+<article class="diagnosis-card" data-status="暂不建议首版开发" data-title="HOS 历史得分" id="rule-6">
+<div class="card-top">
+<div class="rule-no">06</div>
+<div class="card-title"><h3>HOS 历史得分</h3><p>展示近一个月HOS得分趋势、平均分与排名表现。</p></div>
+<div class="card-tags"><div class="title-meta-item title-period"><small>统计周期</small><strong>近30天</strong></div><div class="title-meta-item title-score pending"><small>当前得分</small><div class="title-score-value"><strong>待计算</strong><span>满分 3分</span></div></div></div>
+</div>
+<div class="result-area"><div class="viz-card"><div class="viz-head"><h4>近一个月HOS得分趋势参考位</h4><span class="data-pill disabled">暂无正式数据</span></div><svg class="native-chart" role="img" viewbox="0 0 760 210"><line class="grid-line" x1="48" x2="742" y1="22.0" y2="22.0"></line><text class="axis-label" text-anchor="end" x="40" y="26.0">5</text><line class="grid-line" x1="48" x2="742" y1="59.5" y2="59.5"></line><text class="axis-label" text-anchor="end" x="40" y="63.5">5</text><line class="grid-line" x1="48" x2="742" y1="97.0" y2="97.0"></line><text class="axis-label" text-anchor="end" x="40" y="101.0">5</text><line class="grid-line" x1="48" x2="742" y1="134.5" y2="134.5"></line><text class="axis-label" text-anchor="end" x="40" y="138.5">5</text><line class="grid-line" x1="48" x2="742" y1="172.0" y2="172.0"></line><text class="axis-label" text-anchor="end" x="40" y="176.0">5</text><polyline fill="none" points="48.0,72.0 71.9,53.3 95.9,59.5 119.8,47.0 143.7,65.8 167.7,40.8 191.6,53.3 215.5,59.5 239.4,34.5 263.4,47.0 287.3,53.3 311.2,59.5 335.2,47.0 359.1,22.0 383.0,28.3 407.0,34.5 430.9,40.8 454.8,47.0 478.8,53.3 502.7,59.5 526.6,65.8 550.6,147.0 574.5,159.5 598.4,153.2 622.3,147.0 646.3,72.0 670.2,172.0 694.1,90.8 718.1,165.8 742.0,159.5" stroke="#5b6fd8" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></polyline><circle cx="48.0" cy="72.0" fill="#5b6fd8" r="4"><title>06-01：5.28</title></circle><circle cx="71.9" cy="53.3" fill="#5b6fd8" r="4"><title>06-02：5.31</title></circle><circle cx="95.9" cy="59.5" fill="#5b6fd8" r="4"><title>06-03：5.3</title></circle><circle cx="119.8" cy="47.0" fill="#5b6fd8" r="4"><title>06-04：5.32</title></circle><circle cx="143.7" cy="65.8" fill="#5b6fd8" r="4"><title>06-05：5.29</title></circle><circle cx="167.7" cy="40.8" fill="#5b6fd8" r="4"><title>06-06：5.33</title></circle><circle cx="191.6" cy="53.3" fill="#5b6fd8" r="4"><title>06-07：5.31</title></circle><circle cx="215.5" cy="59.5" fill="#5b6fd8" r="4"><title>06-08：5.3</title></circle><circle cx="239.4" cy="34.5" fill="#5b6fd8" r="4"><title>06-09：5.34</title></circle><circle cx="263.4" cy="47.0" fill="#5b6fd8" r="4"><title>06-10：5.32</title></circle><circle cx="287.3" cy="53.3" fill="#5b6fd8" r="4"><title>06-11：5.31</title></circle><circle cx="311.2" cy="59.5" fill="#5b6fd8" r="4"><title>06-12：5.3</title></circle><circle cx="335.2" cy="47.0" fill="#5b6fd8" r="4"><title>06-13：5.32</title></circle><circle cx="359.1" cy="22.0" fill="#5b6fd8" r="4"><title>06-14：5.36</title></circle><circle cx="383.0" cy="28.3" fill="#5b6fd8" r="4"><title>06-15：5.35</title></circle><circle cx="407.0" cy="34.5" fill="#5b6fd8" r="4"><title>06-16：5.34</title></circle><circle cx="430.9" cy="40.8" fill="#5b6fd8" r="4"><title>06-17：5.33</title></circle><circle cx="454.8" cy="47.0" fill="#5b6fd8" r="4"><title>06-18：5.32</title></circle><circle cx="478.8" cy="53.3" fill="#5b6fd8" r="4"><title>06-19：5.31</title></circle><circle cx="502.7" cy="59.5" fill="#5b6fd8" r="4"><title>06-20：5.3</title></circle><circle cx="526.6" cy="65.8" fill="#5b6fd8" r="4"><title>06-21：5.29</title></circle><circle cx="550.6" cy="147.0" fill="#5b6fd8" r="4"><title>06-22：5.16</title></circle><circle cx="574.5" cy="159.5" fill="#5b6fd8" r="4"><title>06-23：5.14</title></circle><circle cx="598.4" cy="153.2" fill="#5b6fd8" r="4"><title>06-24：5.15</title></circle><circle cx="622.3" cy="147.0" fill="#5b6fd8" r="4"><title>06-25：5.16</title></circle><circle cx="646.3" cy="72.0" fill="#5b6fd8" r="4"><title>06-26：5.28</title></circle><circle cx="670.2" cy="172.0" fill="#5b6fd8" r="4"><title>06-27：5.12</title></circle><circle cx="694.1" cy="90.8" fill="#5b6fd8" r="4"><title>06-28：5.25</title></circle><circle cx="718.1" cy="165.8" fill="#5b6fd8" r="4"><title>06-29：5.13</title></circle><circle cx="742.0" cy="159.5" fill="#5b6fd8" r="4"><title>06-30：5.14</title></circle><text class="axis-label" text-anchor="middle" x="48.0" y="198"></text><text class="axis-label" text-anchor="middle" x="71.9" y="198"></text><text class="axis-label" text-anchor="middle" x="95.9" y="198"></text><text class="axis-label" text-anchor="middle" x="119.8" y="198"></text><text class="axis-label" text-anchor="middle" x="143.7" y="198"></text><text class="axis-label" text-anchor="middle" x="167.7" y="198"></text><text class="axis-label" text-anchor="middle" x="191.6" y="198"></text><text class="axis-label" text-anchor="middle" x="215.5" y="198"></text><text class="axis-label" text-anchor="middle" x="239.4" y="198"></text><text class="axis-label" text-anchor="middle" x="263.4" y="198"></text><text class="axis-label" text-anchor="middle" x="287.3" y="198"></text><text class="axis-label" text-anchor="middle" x="311.2" y="198"></text><text class="axis-label" text-anchor="middle" x="335.2" y="198"></text><text class="axis-label" text-anchor="middle" x="359.1" y="198"></text><text class="axis-label" text-anchor="middle" x="383.0" y="198"></text><text class="axis-label" text-anchor="middle" x="407.0" y="198"></text><text class="axis-label" text-anchor="middle" x="430.9" y="198"></text><text class="axis-label" text-anchor="middle" x="454.8" y="198"></text><text class="axis-label" text-anchor="middle" x="478.8" y="198"></text><text class="axis-label" text-anchor="middle" x="502.7" y="198"></text><text class="axis-label" text-anchor="middle" x="526.6" y="198"></text><text class="axis-label" text-anchor="middle" x="550.6" y="198"></text><text class="axis-label" text-anchor="middle" x="574.5" y="198"></text><text class="axis-label" text-anchor="middle" x="598.4" y="198"></text><text class="axis-label" text-anchor="middle" x="622.3" y="198"></text><text class="axis-label" text-anchor="middle" x="646.3" y="198"></text><text class="axis-label" text-anchor="middle" x="670.2" y="198"></text><text class="axis-label" text-anchor="middle" x="694.1" y="198"></text><text class="axis-label" text-anchor="middle" x="718.1" y="198"></text><text class="axis-label" text-anchor="middle" x="742.0" y="198"></text></svg><div class="notice pending-note">当前图形为展示示例，正式数据补充后生成实际趋势和得分。</div></div></div><details class="output-fields-panel metric-details"><summary aria-label="展开或收起诊断指标明细" class="output-fields-head metric-details-summary"><div><h4>查看全部诊断指标</h4><p>包含状态判断、核心数据及详细结果</p></div><div class="metric-details-summary-right"><span class="field-count simple-count">7项核心指标</span><span class="metric-details-action"><span class="metric-details-action-text">展开查看</span><span aria-hidden="true" class="metric-details-arrow">⌄</span></span></div></summary><div class="metric-details-content"><div class="detail-group data-group"><div class="detail-group-title"><div>数据明细</div><span>展示本项全部输出指标</span></div><div class="table-scroll"><table class="output-table"><thead><tr><th>指标</th><th>当前结果</th><th>说明</th></tr></thead><tbody><tr><td class="field-name">统计周期</td><td><span class="value-rule">近30天</span></td><td>近一个月</td></tr><tr><td class="field-name">日期</td><td><span class="value-pending">暂无数据</span></td><td>趋势横轴</td></tr><tr><td class="field-name">每日HOS得分</td><td><span class="value-pending">暂无数据</span></td><td>历史趋势</td></tr><tr><td class="field-name">近一个月平均分</td><td><span class="value-pending">暂无数据</span></td><td>评分主值</td></tr><tr><td class="field-name">商圈/同行排名</td><td><span class="value-pending">暂无数据</span></td><td>“前3”判断</td></tr><tr><td class="field-name">本项评分比例</td><td><span class="value-pending">待计算</span></td><td>根据当前诊断结果自动计算</td></tr><tr><td class="field-name">本项得分</td><td><span class="value-pending">待计算</span></td><td>满分3分</td></tr></tbody></table></div></div></div></details>
+</article>
+<article class="diagnosis-card" data-status="已确认入口，字段待核" data-title="扫码订单数据" id="rule-7">
+<div class="card-top">
+<div class="rule-no">07</div>
+<div class="card-title"><h3>扫码订单数据</h3><p>展示当前月份扫码订单累计规模；统计口径确认后再计算本项得分。</p></div>
+<div class="card-tags"><div class="title-meta-item title-period"><small>统计周期</small><strong>当前月份（月累计）</strong></div><div class="title-meta-item title-score pending"><small>当前得分</small><div class="title-score-value"><strong>待确认</strong><span>满分 8分</span></div></div></div>
+</div>
+<div class="result-area"><div class="scan-order-core-grid"><div class="scan-order-core-card pending"><small>月扫码订单数</small><strong>待接入</strong><span>当前月份最终确认口径的订单累计数</span></div><div class="scan-order-core-card pending"><small>统计口径</small><strong>待确认</strong><span>扫码下单数 / 扫码订单完成数</span></div><div class="scan-order-core-card pending"><small>本项得分</small><strong>待确认</strong><span>满分8分，口径及区间规则确认后计算</span></div></div><div class="viz-card scan-score-rule-card"><h4>当前已明确的评分节点</h4><div class="table-scroll"><table class="scan-score-rule-table"><thead><tr><th>月扫码订单数</th><th>评分比例</th><th>可否自动计算</th></tr></thead><tbody><tr><td>0单</td><td>0%</td><td><span class="scan-rule-chip good">可以</span></td></tr><tr><td>1–59单</td><td><span class="scan-rule-chip pending">规则未定义</span></td><td><span class="scan-rule-chip pending">不可以</span></td></tr><tr><td>60单</td><td>50%</td><td><span class="scan-rule-chip good">可以</span></td></tr><tr><td>61–119单</td><td><span class="scan-rule-chip pending">规则未定义</span></td><td><span class="scan-rule-chip pending">不可以</span></td></tr><tr><td>120单</td><td><span class="scan-rule-chip pending">规则未定义</span></td><td><span class="scan-rule-chip pending">不可以</span></td></tr><tr><td>大于120单</td><td>100%</td><td><span class="scan-rule-chip good">可以</span></td></tr></tbody></table></div><div class="notice scan-order-notice">在最终确认采用“扫码下单数”还是“扫码订单完成数”之前，月扫码订单数标记为待接入；当订单数量落在未定义区间时，本项得分必须标记为待确认，不能按比例插值。</div></div></div><details class="output-fields-panel metric-details"><summary aria-label="展开或收起诊断指标明细" class="output-fields-head metric-details-summary"><div><h4>查看全部诊断指标</h4><p>包含状态判断、核心数据及详细结果</p></div><div class="metric-details-summary-right"><span class="field-count simple-count">5项核心指标</span><span class="metric-details-action"><span class="metric-details-action-text">展开查看</span><span aria-hidden="true" class="metric-details-arrow">⌄</span></span></div></summary><div class="metric-details-content"><div class="detail-group data-group"><div class="detail-group-title"><div>数据明细</div><span>展示本项全部输出指标</span></div><div class="table-scroll"><table class="output-table"><thead><tr><th>指标</th><th>当前结果</th><th>说明</th></tr></thead><tbody><tr><td>统计月份</td><td><span class="value-rule">当前月份</span></td><td>按自然月累计</td></tr><tr><td>月扫码订单数</td><td><span class="value-pending">待接入</span></td><td>采用最终确认口径后的月累计订单数</td></tr><tr><td>口径名称</td><td><span class="value-pending">待确认</span></td><td>扫码下单数或扫码订单完成数</td></tr><tr><td>本项评分比例</td><td><span class="value-pending">待确认</span></td><td>未定义区间不得自行插值</td></tr><tr><td>本项得分</td><td><span class="value-pending">待确认</span></td><td>满分8分</td></tr></tbody></table></div></div></div></details>
+</article>
+<article class="diagnosis-card" data-status="已确认入口，字段待核" data-title="信息分数据" id="rule-8">
+<div class="card-top">
+<div class="rule-no">08</div>
+<div class="card-title"><h3>信息分数据</h3><p>展示酒店信息完整度及当前信息分表现。</p></div>
+<div class="card-tags"><div class="title-meta-item title-period"><small>统计周期</small><strong>当前状态</strong></div><div class="title-meta-item title-score pending"><small>当前得分</small><div class="title-score-value"><strong>待计算</strong><span>满分 5分</span></div></div></div>
+</div>
+<div class="result-area"><div class="visual-grid two"><div class="viz-card center"><div class="score-orb"><strong>96</strong><span>当前信息分（示例）</span></div></div><div class="viz-card"><h4>阈值判定</h4><div class="threshold-list"><div><b>&gt; 100</b><span>满分（5分）</span></div><div><b>&lt; 100</b><span>0分</span></div><div class="unknown"><b>= 100</b><span>原文未定义，待确认</span></div></div></div></div></div><details class="output-fields-panel metric-details"><summary aria-label="展开或收起诊断指标明细" class="output-fields-head metric-details-summary"><div><h4>查看全部诊断指标</h4><p>包含状态判断、核心数据及详细结果</p></div><div class="metric-details-summary-right"><span class="field-count simple-count">4项核心指标</span><span class="metric-details-action"><span class="metric-details-action-text">展开查看</span><span aria-hidden="true" class="metric-details-arrow">⌄</span></span></div></summary><div class="metric-details-content"><div class="detail-group status-group"><div class="detail-group-title"><div>状态判断</div><span>绿色为已满足，红色为未满足，灰色为待确认</span></div><div class="judgement-grid embedded-grid"><div class="judgement-card unknown" data-field="信息分是否达标" data-state="unknown" title="当前原始结果：待计算"><span aria-hidden="true" class="judgement-icon">·</span><div class="judgement-card-content"><small>信息分是否达标</small><strong>待确认</strong></div></div></div></div><div class="detail-group data-group"><div class="detail-group-title"><div>数据明细</div><span>展示本项全部输出指标</span></div><div class="table-scroll"><table class="output-table"><thead><tr><th>指标</th><th>当前结果</th><th>说明</th></tr></thead><tbody><tr><td class="field-name">数据日期</td><td><span class="value-pending">暂无数据</span></td><td>显示采集时间</td></tr><tr><td class="field-name">当前信息分</td><td><span class="value-pending">暂无数据</span></td><td>单值</td></tr><tr><td class="field-name">本项评分比例</td><td><span class="value-pending">待计算</span></td><td>根据当前诊断结果自动计算</td></tr><tr><td class="field-name">本项得分</td><td><span class="value-pending">待计算</span></td><td>满分5分</td></tr></tbody></table></div></div></div></details>
+</article>
+<article class="diagnosis-card" data-status="已确认入口，字段待核" data-title="推广数据" id="rule-9">
+<div class="card-top">
+<div class="rule-no">09</div>
+<div class="card-title"><h3>推广数据</h3><p>展示推广投入、订单产出、ROI及本项得分。</p></div>
+<div class="card-tags"><div class="title-meta-item title-period"><small>统计周期</small><strong>近30天</strong></div><div class="title-meta-item title-score pending"><small>当前得分</small><div class="title-score-value"><strong>待计算</strong><span>满分 8分</span></div></div></div>
+</div>
+<div class="result-area"><div class="promotion-output-grid"><div class="promotion-output-card pending"><small>投入总额</small><strong>待接入</strong><span>近30天推广实际消耗金额</span></div><div class="promotion-output-card pending"><small>订单金额</small><strong>待接入</strong><span>推广产生的订单成交金额</span></div><div class="promotion-output-card pending"><small>ROI</small><strong>待计算</strong><span>订单金额 ÷ 投入总额</span></div><div class="promotion-output-card pending"><small>本项得分</small><strong>待计算</strong><span>满分8分</span></div></div><div class="notice promotion-output-note">投入总额和订单金额接入后自动计算ROI；当投入总额为0或缺失时，ROI标记为不可计算，不直接按0处理。</div></div><details class="output-fields-panel metric-details"><summary aria-label="展开或收起诊断指标明细" class="output-fields-head metric-details-summary"><div><h4>查看全部诊断指标</h4><p>包含状态判断、核心数据及详细结果</p></div><div class="metric-details-summary-right"><span class="field-count simple-count">6项核心指标</span><span class="metric-details-action"><span class="metric-details-action-text">展开查看</span><span aria-hidden="true" class="metric-details-arrow">⌄</span></span></div></summary><div class="metric-details-content"><div class="detail-group status-group"><div class="detail-group-title"><div>状态判断</div><span>绿色为已满足，红色为未满足，灰色为待确认</span></div><div class="judgement-grid embedded-grid"><div class="judgement-card unknown" data-field="推广投入门槛" data-state="unknown" title="当前原始结果：待计算"><span aria-hidden="true" class="judgement-icon">·</span><div class="judgement-card-content"><small>推广投入门槛</small><strong>待接入</strong></div></div></div></div><div class="detail-group data-group"><div class="detail-group-title"><div>数据明细</div><span>展示本项全部输出指标</span></div><div class="table-scroll"><table class="output-table"><thead><tr><th>指标</th><th>当前结果</th><th>说明</th></tr></thead><tbody><tr><td class="field-name">统计周期</td><td><span class="value-rule">近30天</span></td><td>最近一个月</td></tr><tr><td class="field-name">投入总额</td><td><span class="value-pending">待接入</span></td><td>推广实际消耗金额</td></tr><tr><td class="field-name">产生订单金额</td><td><span class="value-pending">待接入</span></td><td>推广产生的订单成交金额</td></tr><tr><td class="field-name">ROI</td><td><span class="value-pending">待计算</span></td><td>订单金额÷投入总额</td></tr><tr><td class="field-name">本项评分比例</td><td><span class="value-pending">待计算</span></td><td>根据正式评分规则计算</td></tr><tr><td class="field-name">本项得分</td><td><span class="value-pending">待计算</span></td><td>满分8分</td></tr></tbody></table></div></div></div></details>
+</article>
+<article class="diagnosis-card" data-status="已确认入口，字段待核" data-title="页面展示和入口基础" id="rule-10">
+<div class="card-top">
+<div class="rule-no">10</div>
+<div class="card-title"><h3>页面展示和入口基础</h3><p>检查酒店名称、商圈词及页面入口配置情况。</p></div>
+<div class="card-tags"><div class="title-meta-item title-period"><small>统计周期</small><strong>当前状态</strong></div><div class="title-meta-item title-score pending"><small>当前得分</small><div class="title-score-value"><strong>待计算</strong><span>满分 3分</span></div></div></div>
+</div>
+<div class="result-area"><div class="viz-card"><h4>页面标题与入口检查</h4><div class="audit-line"><span>当前展示名称</span><b>贵阳璞悦·奢电竞酒店（花溪公园店）</b></div><div class="audit-line"><span>名称后缀</span><b class="muted-value">待识别</b></div><div class="audit-line"><span>热门商圈词</span><b class="muted-value">暂无热门词匹配结果</b></div><div class="notice pending-note">当前尚未形成热门商圈词匹配结果，本项得分暂未生成。</div></div></div><details class="output-fields-panel metric-details"><summary aria-label="展开或收起诊断指标明细" class="output-fields-head metric-details-summary"><div><h4>查看全部诊断指标</h4><p>包含状态判断、核心数据及详细结果</p></div><div class="metric-details-summary-right"><span class="field-count simple-count">5项核心指标</span><span class="metric-details-action"><span class="metric-details-action-text">展开查看</span><span aria-hidden="true" class="metric-details-arrow">⌄</span></span></div></summary><div class="metric-details-content"><div class="detail-group status-group"><div class="detail-group-title"><div>状态判断</div><span>绿色为已满足，红色为未满足，灰色为待确认</span></div><div class="judgement-grid embedded-grid"><div class="judgement-card unknown" data-field="名称后缀" data-state="unknown" title="当前原始结果：待计算"><span aria-hidden="true" class="judgement-icon">·</span><div class="judgement-card-content"><small>名称后缀</small><strong>待确认</strong></div></div><div class="judgement-card unknown" data-field="热门商圈词" data-state="unknown" title="当前原始结果：待判断"><span aria-hidden="true" class="judgement-icon">·</span><div class="judgement-card-content"><small>热门商圈词</small><strong>待确认</strong></div></div></div></div><div class="detail-group data-group"><div class="detail-group-title"><div>数据明细</div><span>展示本项全部输出指标</span></div><div class="table-scroll"><table class="output-table"><thead><tr><th>指标</th><th>当前结果</th><th>说明</th></tr></thead><tbody><tr><td class="field-name">酒店当前展示名称</td><td><span class="value-pending">暂无数据</span></td><td>完整标题</td></tr><tr><td class="field-name">名称后缀</td><td><span class="value-pending">暂无数据</span></td><td>商圈/地标等</td></tr><tr><td class="field-name">命中热门商圈词</td><td><span class="value-pending">暂无数据</span></td><td>命中的词</td></tr><tr><td class="field-name">本项评分比例</td><td><span class="value-pending">待计算</span></td><td>根据当前诊断结果自动计算</td></tr><tr><td class="field-name">本项得分</td><td><span class="value-pending">待计算</span></td><td>满分3分</td></tr></tbody></table></div></div></div></details>
+</article>
+<article class="diagnosis-card" data-status="已确认入口，字段待核" data-title="房型名称卖点优化" id="rule-11">
+<div class="card-top">
+<div class="rule-no">11</div>
+<div class="card-title"><h3>房型名称卖点优化</h3><p>检查房型名称长度、卖点表达和命名质量。</p></div>
+<div class="card-tags"><div class="title-meta-item title-period"><small>统计周期</small><strong>当前在售房型</strong></div><div class="title-meta-item title-score pending"><small>当前得分</small><div class="title-score-value"><strong>待计算</strong><span>满分 4分</span></div></div></div>
+</div>
+<div class="result-area"><div class="viz-card"><h4>房型名称检查</h4><div class="table-scroll"><table><thead><tr><th>房型名称</th><th>字符数</th><th>卖点命中</th><th>结果</th></tr></thead><tbody><tr><td>至臻·电竞大床房</td><td>8</td><td>电竞</td><td><span class="mini-status good">通过</span></td></tr><tr><td>开黑·电竞双床房</td><td>8</td><td>电竞</td><td><span class="mini-status good">通过</span></td></tr><tr><td>大床房</td><td>3</td><td>未命中</td><td><span class="mini-status danger">不通过</span></td></tr><tr><td>汇赢·麻将四人间</td><td>8</td><td>麻将</td><td><span class="mini-status good">通过</span></td></tr></tbody></table></div><div class="notice">卖点词典尚未确定；示例只展示页面交互形式。</div></div></div><details class="output-fields-panel metric-details"><summary aria-label="展开或收起诊断指标明细" class="output-fields-head metric-details-summary"><div><h4>查看全部诊断指标</h4><p>包含状态判断、核心数据及详细结果</p></div><div class="metric-details-summary-right"><span class="field-count simple-count">6项核心指标</span><span class="metric-details-action"><span class="metric-details-action-text">展开查看</span><span aria-hidden="true" class="metric-details-arrow">⌄</span></span></div></summary><div class="metric-details-content"><div class="detail-group status-group"><div class="detail-group-title"><div>状态判断</div><span>绿色为已满足，红色为未满足，灰色为待确认</span></div><div class="judgement-grid embedded-grid"><div class="judgement-card unknown" data-field="房型卖点" data-state="unknown" title="当前原始结果：待计算"><span aria-hidden="true" class="judgement-icon">·</span><div class="judgement-card-content"><small>房型卖点</small><strong>待确认</strong></div></div><div class="judgement-card unknown" data-field="房型名称检查" data-state="unknown" title="当前原始结果：待计算"><span aria-hidden="true" class="judgement-icon">·</span><div class="judgement-card-content"><small>房型名称检查</small><strong>待确认</strong></div></div></div></div><div class="detail-group data-group"><div class="detail-group-title"><div>数据明细</div><span>展示本项全部输出指标</span></div><div class="table-scroll"><table class="output-table"><thead><tr><th>指标</th><th>当前结果</th><th>说明</th></tr></thead><tbody><tr><td class="field-name">房型名称</td><td><span class="value-rule">逐房型展示</span></td><td>来源批量改房价</td></tr><tr><td class="field-name">名称字符数</td><td><span class="value-rule">自动计算</span></td><td>大于5个字</td></tr><tr><td class="field-name">卖点词</td><td><span class="value-manual">自动识别/人工核</span></td><td>电竞、投影、景观等</td></tr><tr><td class="field-name">合格房型数量</td><td><span class="value-pending">待计算</span></td><td>页面汇总</td></tr><tr><td class="field-name">不合格房型清单</td><td><span class="value-pending">待计算</span></td><td>便于整改</td></tr><tr><td class="field-name">本项得分</td><td><span class="value-pending">待计算</span></td><td>满分4分</td></tr></tbody></table></div></div></div></details>
+</article>
+<article class="diagnosis-card" data-status="已确认入口，字段待核" data-title="竞争对手分析" id="rule-12">
+<div class="card-top">
+<div class="rule-no">12</div>
+<div class="card-title"><h3>竞争对手分析</h3><p>展示近一个月流失订单趋势、主要竞争对手、流失订单数及流失金额。</p></div>
+<div class="card-tags"><div class="title-meta-item title-period"><small>统计周期</small><strong>近一个月</strong></div><div class="title-meta-item title-score display-only"><small>当前得分</small><div class="title-score-value"><strong>仅展示</strong><span>不计入总分</span></div></div></div>
+</div>
+<div class="result-area"><div class="competitor-overview-grid"><div class="competitor-overview-card pending"><small>数据状态</small><strong>待接入</strong><span>当前尚未取得流失订单数据</span></div><div class="competitor-overview-card pending"><small>流失订单数</small><strong>待接入</strong><span>近一个月流失订单累计数</span></div><div class="competitor-overview-card pending"><small>流失金额</small><strong>待接入</strong><span>近一个月流失订单金额合计</span></div><div class="competitor-overview-card pending"><small>主要竞对</small><strong>待接入</strong><span>按流失订单数或金额排序</span></div></div><div class="viz-card competitor-trend-card"><h4>流失订单趋势</h4><div class="competitor-empty-state"><div class="competitor-empty-icon">·</div><strong>流失趋势数据待接入</strong><p>接入后按日期展示每日流失订单数与流失金额，支持识别异常波动。</p></div></div><div class="viz-card competitor-detail-card"><h4>主要竞对与流失明细</h4><div class="table-scroll"><table class="competitor-loss-table"><thead><tr><th>主要竞对</th><th>流失房型/产品</th><th>流失订单数</th><th>流失金额</th></tr></thead><tbody><tr class="empty-row"><td colspan="4"><div class="table-empty-text">暂无已接入的竞对流失明细</div></td></tr></tbody></table></div><div class="notice competitor-status-notice">“无流失订单”表示已成功获取数据且订单数为0；“待接入/未取到数据”表示尚未取得结果，两者不能混为一类。</div></div></div><details class="output-fields-panel metric-details"><summary aria-label="展开或收起诊断指标明细" class="output-fields-head metric-details-summary"><div><h4>查看全部诊断指标</h4><p>包含状态判断、核心数据及详细结果</p></div><div class="metric-details-summary-right"><span class="field-count simple-count">8项核心指标</span><span class="metric-details-action"><span class="metric-details-action-text">展开查看</span><span aria-hidden="true" class="metric-details-arrow">⌄</span></span></div></summary><div class="metric-details-content"><div class="detail-group data-group"><div class="detail-group-title"><div>数据明细</div><span>展示本项全部输出指标</span></div><div class="table-scroll"><table class="output-table"><thead><tr><th>指标</th><th>当前结果</th><th>说明</th></tr></thead><tbody><tr><td>统计周期</td><td><span class="value-rule">近一个月</span></td><td>按自然月或最近30天展示</td></tr><tr><td>数据状态</td><td><span class="value-pending">待接入</span></td><td>用于区分无流失订单与未取到数据</td></tr><tr><td>流失订单趋势</td><td><span class="value-pending">待接入</span></td><td>按日期展示订单数与金额</td></tr><tr><td>主要竞对</td><td><span class="value-pending">待接入</span></td><td>按流失订单数或金额排序</td></tr><tr><td>流失房型/产品</td><td><span class="value-pending">待接入</span></td><td>展示具体流失去向</td></tr><tr><td>流失订单数</td><td><span class="value-pending">待接入</span></td><td>近一个月累计</td></tr><tr><td>流失订单金额</td><td><span class="value-pending">待接入</span></td><td>近一个月累计</td></tr><tr><td>计分状态</td><td><span class="value-rule">不计分</span></td><td>本项只展示，不进入总分</td></tr></tbody></table></div></div></div></details>
+</article>
+<article class="diagnosis-card" data-status="已确认入口，字段待核" data-title="口碑分析" id="rule-13">
+<div class="card-top">
+<div class="rule-no">13</div>
+<div class="card-title"><h3>口碑分析</h3><p>展示美团与大众点评评分、点评数量、昨日新增及评价回复情况。</p></div>
+<div class="card-tags"><div class="title-meta-item title-period"><small>统计周期</small><strong>当前值 + 昨日增量</strong></div><div class="title-meta-item title-score pending"><small>当前得分</small><div class="title-score-value"><strong>待确认</strong><span>满分 10分</span></div></div></div>
+</div>
+<div class="result-area"><div class="viz-card reputation-platform-card"><h4>平台评分</h4><div class="reputation-platform-grid"><div class="reputation-score-card pending"><small>美团点评分</small><strong>待接入</strong><span>平台数据状态：未取到数据</span></div><div class="reputation-score-card pending"><small>大众点评评分</small><strong>待接入</strong><span>平台数据状态：未取到数据</span></div></div><div class="notice reputation-platform-note">两个平台评分分别展示。任一平台评分缺失时不得按0处理；在评分合并方式未确认前，不生成统一口碑评分和本项得分。</div></div><div class="viz-card reputation-operation-card"><h4>点评运营数据</h4><div class="reputation-output-grid"><div class="reputation-output-card pending"><small>点评条数</small><strong>待接入</strong><span>当前累计点评总数</span></div><div class="reputation-output-card pending"><small>昨日新增</small><strong>待接入</strong><span>昨日新增点评数量</span></div><div class="reputation-output-card pending"><small>未回复数</small><strong>待接入</strong><span>当前未回复点评数量</span></div><div class="reputation-output-card pending"><small>点评回复率</small><strong>待计算</strong><span>已回复点评数 ÷ 点评总条数</span></div><div class="reputation-output-card pending"><small>本项得分</small><strong>待确认</strong><span>满分10分</span></div></div><div class="notice reputation-score-note">已明确评分节点：点评分大于4.9为100%；4.7至4.9为80%；低于4.7为0%。评分恰好4.9属于80%区间。由于两平台评分合并方法尚未确定，当前不自动评分。</div></div></div><details class="output-fields-panel metric-details"><summary aria-label="展开或收起诊断指标明细" class="output-fields-head metric-details-summary"><div><h4>查看全部诊断指标</h4><p>包含状态判断、核心数据及详细结果</p></div><div class="metric-details-summary-right"><span class="field-count simple-count">10项核心指标</span><span class="metric-details-action"><span class="metric-details-action-text">展开查看</span><span aria-hidden="true" class="metric-details-arrow">⌄</span></span></div></summary><div class="metric-details-content"><div class="detail-group data-group"><div class="detail-group-title"><div>数据明细</div><span>展示本项全部输出指标</span></div><div class="table-scroll"><table class="output-table"><thead><tr><th>指标</th><th>当前结果</th><th>说明</th></tr></thead><tbody><tr><td>统计周期</td><td><span class="value-rule">当前值 + 昨日增量</span></td><td>近一个月可作为辅助趋势展示</td></tr><tr><td>美团点评分</td><td><span class="value-pending">待接入</span></td><td>单独展示平台评分及数据状态</td></tr><tr><td>美团数据状态</td><td><span class="value-pending">未取到数据</span></td><td>不得按0分处理</td></tr><tr><td>大众点评评分</td><td><span class="value-pending">待接入</span></td><td>单独展示平台评分及数据状态</td></tr><tr><td>大众点评数据状态</td><td><span class="value-pending">未取到数据</span></td><td>不得按0分处理</td></tr><tr><td>点评条数</td><td><span class="value-pending">待接入</span></td><td>当前累计点评总数</td></tr><tr><td>昨日新增</td><td><span class="value-pending">待接入</span></td><td>昨日新增点评数量</td></tr><tr><td>未回复数</td><td><span class="value-pending">待接入</span></td><td>当前未回复点评数量</td></tr><tr><td>回复率</td><td><span class="value-pending">待计算</span></td><td>已回复点评数÷点评总条数</td></tr><tr><td>本项得分</td><td><span class="value-pending">待确认</span></td><td>两平台评分合并方式确认后计算，满分10分</td></tr></tbody></table></div></div></div></details>
+</article>
+<article class="diagnosis-card" data-status="已确认入口，字段待核" data-title="权益中心" id="rule-14">
+<div class="card-top">
+<div class="rule-no">14</div>
+<div class="card-title"><h3>权益中心</h3><p>展示已报名权益数量、权益内容及生效情况。</p></div>
+<div class="card-tags"><div class="title-meta-item title-period"><small>统计周期</small><strong>当前状态</strong></div><div class="title-meta-item title-score pending"><small>当前得分</small><div class="title-score-value"><strong>待确认</strong><span>满分 4分</span></div></div></div>
+</div>
+<div class="result-area"><div class="viz-card"><div class="viz-head"><h4>已报名权益清单</h4><span class="data-pill conflict">当前得分待确认</span></div><div class="check-grid"><div class="check-item on"><span>✓</span><b>免费升房</b><small>已报名</small></div><div class="check-item on"><span>✓</span><b>延迟退房</b><small>已报名</small></div><div class="check-item on"><span>✓</span><b>会员积分抵房费</b><small>已报名</small></div><div class="check-item on"><span>✓</span><b>无忧取消</b><small>已报名</small></div><div class="check-item off"><span>—</span><b>住就送·外卖券</b><small>未报名</small></div><div class="check-item off"><span>—</span><b>提前入住</b><small>未报名</small></div></div><div class="metric-row"><div><small>已报名</small><b>4项</b></div><div><small>当前状态</small><b>得分待确认</b></div></div><div class="notice conflict-note">当前仅展示已报名权益数量和清单，最终得分待确认。</div></div></div><details class="output-fields-panel metric-details"><summary aria-label="展开或收起诊断指标明细" class="output-fields-head metric-details-summary"><div><h4>查看全部诊断指标</h4><p>包含状态判断、核心数据及详细结果</p></div><div class="metric-details-summary-right"><span class="field-count simple-count">4项核心指标</span><span class="metric-details-action"><span class="metric-details-action-text">展开查看</span><span aria-hidden="true" class="metric-details-arrow">⌄</span></span></div></summary><div class="metric-details-content"><div class="detail-group status-group"><div class="detail-group-title"><div>状态判断</div><span>绿色为已满足，红色为未满足，灰色为待确认</span></div><div class="judgement-grid embedded-grid"><div class="judgement-card unknown" data-field="免费升房" data-state="unknown" title="当前原始结果：暂无数据"><span aria-hidden="true" class="judgement-icon">·</span><div class="judgement-card-content"><small>免费升房</small><strong>待确认</strong></div></div><div class="judgement-card unknown" data-field="延迟退房" data-state="unknown" title="当前原始结果：暂无数据"><span aria-hidden="true" class="judgement-icon">·</span><div class="judgement-card-content"><small>延迟退房</small><strong>待确认</strong></div></div><div class="judgement-card unknown" data-field="积分抵房费" data-state="unknown" title="当前原始结果：暂无数据"><span aria-hidden="true" class="judgement-icon">·</span><div class="judgement-card-content"><small>积分抵房费</small><strong>待确认</strong></div></div><div class="judgement-card unknown" data-field="无忧取消" data-state="unknown" title="当前原始结果：暂无数据"><span aria-hidden="true" class="judgement-icon">·</span><div class="judgement-card-content"><small>无忧取消</small><strong>待确认</strong></div></div><div class="judgement-card unknown" data-field="外卖券权益" data-state="unknown" title="当前原始结果：暂无数据"><span aria-hidden="true" class="judgement-icon">·</span><div class="judgement-card-content"><small>外卖券权益</small><strong>待确认</strong></div></div></div></div><div class="detail-group data-group"><div class="detail-group-title"><div>数据明细</div><span>展示本项全部输出指标</span></div><div class="table-scroll"><table class="output-table"><thead><tr><th>指标</th><th>当前结果</th><th>说明</th></tr></thead><tbody><tr><td class="field-name">已报名权益数量</td><td><span class="value-pending">暂无数据</span></td><td>评分主值</td></tr><tr><td class="field-name">已报名权益清单</td><td><span class="value-pending">暂无数据</span></td><td>完整列出</td></tr><tr><td class="field-name">本项评分比例</td><td><span class="value-pending">待确认</span></td><td>根据当前诊断结果自动计算</td></tr><tr><td class="field-name">本项得分</td><td><span class="value-pending">待确认</span></td><td>满分4分</td></tr></tbody></table></div></div></div></details>
+</article>
+<article class="diagnosis-card config-status-group" id="config-status-group"><div class="card-top"><div class="rule-no config-group-no">15–20</div><div class="card-title"><h3>配置状态汇总</h3><p>统一展示各功能当前状态和得分。</p></div><div class="card-tags"><div class="title-meta-item title-period"><small>统计周期</small><strong>当前配置快照</strong></div><div class="title-meta-item title-score pending"><small>当前得分</small><div class="title-score-value"><strong>待计算</strong><span>合计16分</span></div></div></div></div><div class="config-status-legend"><div class="config-legend-item open"><strong>OPEN</strong><span>已开通 / 已参与</span><small>满分</small></div><div class="config-legend-item closed"><strong>CLOSED</strong><span>未开通 / 未参与</span><small>0分</small></div><div class="config-legend-item pending"><strong>PENDING</strong><span>未确定</span><small>待计算</small></div></div><div class="result-area config-status-result"><div class="viz-card config-status-card"><div class="table-scroll"><table class="config-status-table"><thead><tr><th>编号</th><th>配置项</th><th>主状态</th><th>补充状态</th><th>判定结果</th><th>满分</th><th>当前得分</th></tr></thead><tbody><tr class="config-status-row" id="rule-15"><td class="config-rule-number">15</td><td class="config-item-name">优美会</td><td><div class="config-status-cell"><small>开通状态</small><span class="config-status-chip pending">PENDING</span></div></td><td><div class="config-status-cell"><small>报名 / 生效状态</small><span class="config-status-chip pending">PENDING</span></div></td><td><span class="config-result-chip pending">未确定</span></td><td class="config-full-score">3分</td><td><span class="config-score-chip pending">待计算</span></td></tr><tr class="config-status-row" id="rule-16"><td class="config-rule-number">16</td><td class="config-item-name">商旅专享价</td><td><div class="config-status-cell"><small>开通状态</small><span class="config-status-chip pending">PENDING</span></div></td><td><div class="config-status-cell"><small>报名 / 生效状态</small><span class="config-status-chip pending">PENDING</span></div></td><td><span class="config-result-chip pending">未确定</span></td><td class="config-full-score">2分</td><td><span class="config-score-chip pending">待计算</span></td></tr><tr class="config-status-row" id="rule-17"><td class="config-rule-number">17</td><td class="config-item-name">公益流量</td><td><div class="config-status-cell"><small>开通状态</small><span class="config-status-chip pending">PENDING</span></div></td><td><div class="config-status-cell"><small>报名 / 生效状态</small><span class="config-status-chip pending">PENDING</span></div></td><td><span class="config-result-chip pending">未确定</span></td><td class="config-full-score">2分</td><td><span class="config-score-chip pending">待计算</span></td></tr><tr class="config-status-row" id="rule-18"><td class="config-rule-number">18</td><td class="config-item-name">钟点房</td><td><div class="config-status-cell"><small>配置状态</small><span class="config-status-chip pending">PENDING</span></div></td><td><div class="config-status-cell"><small>可售状态</small><span class="config-status-chip pending">PENDING</span></div></td><td><span class="config-result-chip pending">未确定</span></td><td class="config-full-score">4分</td><td><span class="config-score-chip pending">待计算</span></td></tr><tr class="config-status-row" id="rule-19"><td class="config-rule-number">19</td><td class="config-item-name">酒店亮点</td><td><div class="config-status-cell"><small>配置状态</small><span class="config-status-chip pending">PENDING</span></div></td><td><div class="config-status-cell"><small>完整 / 生效状态</small><span class="config-status-chip pending">PENDING</span></div></td><td><span class="config-result-chip pending">未确定</span></td><td class="config-full-score">2分</td><td><span class="config-score-chip pending">待计算</span></td></tr><tr class="config-status-row" id="rule-20"><td class="config-rule-number">20</td><td class="config-item-name">预约开票</td><td><div class="config-status-cell"><small>开关状态</small><span class="config-status-chip pending">PENDING</span></div></td><td><div class="config-status-cell"><small>生效状态</small><span class="config-status-chip pending">PENDING</span></div></td><td><span class="config-result-chip pending">未确定</span></td><td class="config-full-score">2分</td><td><span class="config-score-chip pending">待计算</span></td></tr><tr class="config-status-row" id="rule-23"><td class="config-rule-number">23</td><td class="config-item-name">自动接单</td><td><div class="config-status-cell"><small>开关状态</small><span class="config-status-chip pending">PENDING</span></div></td><td><div class="config-status-cell"><small>生效状态</small><span class="config-status-chip pending">PENDING</span></div></td><td><span class="config-result-chip pending">未确定</span></td><td class="config-full-score">1分</td><td><span class="config-score-chip pending">待计算</span></td></tr></tbody></table></div><div class="notice config-status-note">状态缺失时保持 PENDING，不按未开通处理。</div></div></div></article>
+<article class="diagnosis-card" data-status="已确认入口，字段待核" data-title="首页视频" id="rule-21">
+<div class="card-top">
+<div class="rule-no">21</div>
+<div class="card-title"><h3>首页视频</h3><p>展示各类视频的已上传数量、要求数量及上传状态。</p></div>
+<div class="card-tags"><div class="title-meta-item title-period"><small>统计周期</small><strong>当前配置快照</strong></div><div class="title-meta-item title-score pending" id="videoTitleScoreBox"><small>当前得分</small><div class="title-score-value"><strong id="videoTitleScore">待计算</strong><span>满分 1分</span></div></div></div>
+</div>
+<div class="result-area"><div class="video-summary-grid"><div class="video-summary-card pending"><small>酒店预览视频</small><strong id="videoHotelStatus">待接入</strong><span>本项评分依据</span></div><div class="video-summary-card pending"><small>已上传数量</small><strong id="videoHotelUploaded">待接入</strong><span>uploaded_count</span></div><div class="video-summary-card pending"><small>要求数量</small><strong id="videoHotelRequired">待接入</strong><span>required_count</span></div><div class="video-summary-card pending"><small>本项得分</small><strong id="videoScore">待计算</strong><span>满分1分</span></div></div><div class="viz-card video-status-card"><h4>视频上传状态</h4><div class="table-scroll"><table class="video-status-table"><thead><tr><th>视频类型</th><th>数据库值</th><th>已上传数量</th><th>要求数量</th><th>上传进度</th><th>状态</th><th>评分作用</th></tr></thead><tbody id="videoStatusBody"><tr data-video-type="room_type_video"><td>房型视频</td><td>room_type_video</td><td><span class="video-cell-pending" data-field="uploaded_count">待接入</span></td><td><span class="video-cell-pending" data-field="required_count">待接入</span></td><td><span class="video-cell-pending" data-field="progress">待计算</span></td><td><span class="video-cell-pending" data-field="status">PENDING</span></td><td>辅助展示</td></tr><tr data-video-type="hotel_preview_video"><td>酒店预览视频</td><td>hotel_preview_video</td><td><span class="video-cell-pending" data-field="uploaded_count">待接入</span></td><td><span class="video-cell-pending" data-field="required_count">待接入</span></td><td><span class="video-cell-pending" data-field="progress">待计算</span></td><td><span class="video-cell-pending" data-field="status">PENDING</span></td><td>本项评分依据</td></tr><tr data-video-type="room_type_preview_video"><td>房型预览视频</td><td>room_type_preview_video</td><td><span class="video-cell-pending" data-field="uploaded_count">待接入</span></td><td><span class="video-cell-pending" data-field="required_count">待接入</span></td><td><span class="video-cell-pending" data-field="progress">待计算</span></td><td><span class="video-cell-pending" data-field="status">PENDING</span></td><td>辅助展示</td></tr></tbody></table></div><div class="notice video-status-note">uploaded_count 大于0表示已上传，等于0表示未上传；required_count表示要求上传数量。本项得分以酒店预览视频（hotel_preview_video）是否已上传为判断依据。</div></div></div><details class="output-fields-panel metric-details"><summary aria-label="展开或收起诊断指标明细" class="output-fields-head metric-details-summary"><div><h4>查看全部诊断指标</h4><p>包含状态判断、核心数据及详细结果</p></div><div class="metric-details-summary-right"><span class="field-count simple-count">6项核心指标</span><span class="metric-details-action"><span class="metric-details-action-text">展开查看</span><span aria-hidden="true" class="metric-details-arrow">⌄</span></span></div></summary><div class="metric-details-content"><div class="detail-group data-group"><div class="detail-group-title"><div>数据明细</div><span>展示本项全部输出指标</span></div><div class="table-scroll"><table class="output-table"><thead><tr><th>指标</th><th>当前结果</th><th>说明</th></tr></thead><tbody><tr><td>房型视频</td><td><span class="value-pending">待接入</span></td><td>video_type=room_type_video</td></tr><tr><td>酒店预览视频</td><td><span class="value-pending">待接入</span></td><td>video_type=hotel_preview_video，本项评分依据</td></tr><tr><td>房型预览视频</td><td><span class="value-pending">待接入</span></td><td>video_type=room_type_preview_video</td></tr><tr><td>已上传数量</td><td><span class="value-pending">待接入</span></td><td>uploaded_count</td></tr><tr><td>要求数量</td><td><span class="value-pending">待接入</span></td><td>required_count</td></tr><tr><td>本项得分</td><td><span class="value-pending">待计算</span></td><td>酒店预览视频已上传得1分，未上传得0分</td></tr></tbody></table></div></div></div></details>
+</article>
+<article class="diagnosis-card" data-status="需人工录入" data-title="酒店挂冠" id="rule-22">
+<div class="card-top">
+<div class="rule-no">22</div>
+<div class="card-title"><h3>酒店挂冠</h3><p>根据人工录入结果判断酒店当前是否有挂冠。</p></div>
+<div class="card-tags"><div class="title-meta-item title-period"><small>统计周期</small><strong>当前挂冠状态</strong></div><div class="title-meta-item title-score pending"><small>当前得分</small><div class="title-score-value"><strong>待计算</strong><span>满分 1分</span></div></div><span class="status-badge manual">人工确认</span></div>
+</div>
+<div class="result-area"><div class="binary-check-grid"><div class="binary-check-card pending"><small>酒店挂冠状态</small><strong>待人工录入</strong><span>尚未取得当前配置状态</span></div><div class="binary-check-card pending"><small>本项得分</small><strong>待计算</strong><span>满分1分</span></div></div><div class="binary-rule-box"><div class="binary-rule-item good"><span class="binary-rule-icon">✓</span><div><strong>有挂冠（黑金或普通）</strong><small>本项得满分 1分</small></div></div><div class="binary-rule-item bad"><span class="binary-rule-icon">×</span><div><strong>无挂冠</strong><small>本项得0分</small></div></div><div class="binary-rule-item pending"><span class="binary-rule-icon">·</span><div><strong>待人工录入</strong><small>不按未配置处理，暂不计算得分</small></div></div></div></div><details class="output-fields-panel metric-details"><summary aria-label="展开或收起诊断指标明细" class="output-fields-head metric-details-summary"><div><h4>查看全部诊断指标</h4><p>包含状态判断、核心数据及详细结果</p></div><div class="metric-details-summary-right"><span class="field-count simple-count">3项核心指标</span><span class="metric-details-action"><span class="metric-details-action-text">展开查看</span><span aria-hidden="true" class="metric-details-arrow">⌄</span></span></div></summary><div class="metric-details-content"><div class="detail-group data-group"><div class="detail-group-title"><div>数据明细</div><span>展示本项全部输出指标</span></div><div class="table-scroll"><table class="output-table"><thead><tr><th>指标</th><th>当前结果</th><th>说明</th></tr></thead><tbody><tr><td>挂冠状态</td><td><span class="value-pending">待人工录入</span></td><td>有挂冠则满分，无挂冠则0分</td></tr><tr><td>人工录入信息</td><td><span class="value-pending">待人工录入</span></td><td>记录录入人和录入时间</td></tr><tr><td>本项得分</td><td><span class="value-pending">待计算</span></td><td>满分1分</td></tr></tbody></table></div></div></div></details>
+</article>
+</main></div>
+<script>
+const yoyGranularityData = {"day": {"label": "本日", "period": "2026-07-13", "comparePeriod": "2025-07-13", "roomRevenue": "¥4,657.70", "adr": "150.25", "occupancy": "100.00%", "revpar": "150.25"}, "month": {"label": "本月", "period": "2026-07-01 至 2026-07-13", "comparePeriod": "2025-07-01 至 2025-07-13", "roomRevenue": "¥56,301.80", "adr": "148.55", "occupancy": "94.04%", "revpar": "139.71"}, "year": {"label": "本年", "period": "2026-01-01 至 2026-07-13", "comparePeriod": "2025-01-01 至 2025-07-13", "roomRevenue": "¥695,281.51", "adr": "139.46", "occupancy": "82.90%", "revpar": "115.61"}};
+
+function switchYoyGranularity(key) {
+  const data = yoyGranularityData[key];
+  if (!data) return;
+
+  document.querySelectorAll('[data-yoy-granularity]').forEach(btn => {
+    const active = btn.dataset.yoyGranularity === key;
+    btn.classList.toggle('active', active);
+    btn.setAttribute('aria-selected', active ? 'true' : 'false');
+  });
+
+  const setText = (id, value) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = value;
+  };
+
+  setText('yoyTitlePeriod', data.period);
+  setText('yoyCurrentPeriod', `当前周期：${data.period}`);
+  setText('yoyComparePeriod', `对比周期：${data.comparePeriod}`);
+
+  setText('yoyCurrentRevenue', data.roomRevenue);
+  setText('yoyCurrentRevenueNote', `${data.label}累计房费`);
+  setText('yoyPreviousRevenue', '暂无数据');
+  setText('yoyPreviousRevenueNote', data.comparePeriod);
+  setText('yoyRate', '待计算');
+  setText('yoyRateNote', '补充去年同期房费后计算');
+  setText('yoyQuality', `RevPAR ${data.revpar}`);
+  setText('yoyQualityNote', `ADR ${data.adr} · 出租率 ${data.occupancy}`);
+
+  setText('yoyTableCurrent_roomRevenue', data.roomRevenue);
+  setText('yoyTableCurrent_adr', data.adr);
+  setText('yoyTableCurrent_occupancy', data.occupancy);
+  setText('yoyTableCurrent_revpar', data.revpar);
+
+  setText('yoyMissingNote', `当前展示${data.label}经营数据；${data.comparePeriod}的数据尚未补充，因此同比和本项得分暂不计算。`);
+
+  setText('yoyDetailGranularity', data.label);
+  setText('yoyDetailCurrentRevenue', data.roomRevenue);
+  setText('yoyDetailPreviousRevenue', '暂无数据');
+  setText('yoyDetailRate', '待计算');
+  setText('yoyDetailAdr', data.adr);
+  setText('yoyDetailOccupancy', data.occupancy);
+  setText('yoyDetailRevpar', data.revpar);
+}
+</script><script>
+const roomPerformanceData = {"day": {"label": "本日", "period": "2026-07-13", "score": "仅展示", "roomCount": "9", "activeRoomCount": "暂无数据", "lowRoomCount": "不计算", "lowRatio": "不计算", "rows": [{"room_type": "汇赢·麻将双床房", "nights": "1", "room_fee": "¥188.17", "adr": "188.17", "occupancy": "100.00%", "revpar": "188.17", "judgement": "待30天数据"}, {"room_type": "乐享·亲子三人间", "nights": "1", "room_fee": "¥133.32", "adr": "133.32", "occupancy": "100.00%", "revpar": "133.32", "judgement": "待30天数据"}, {"room_type": "征途·电竞五人套房", "nights": "1", "room_fee": "¥235.42", "adr": "235.42", "occupancy": "100.00%", "revpar": "235.42", "judgement": "待30天数据"}, {"room_type": "竞技·电竞四人间", "nights": "1", "room_fee": "¥245.36", "adr": "245.36", "occupancy": "100.00%", "revpar": "245.36", "judgement": "待30天数据"}, {"room_type": "开黑·电竞双床房", "nights": "6", "room_fee": "¥901.54", "adr": "150.26", "occupancy": "100.00%", "revpar": "150.26", "judgement": "待30天数据"}, {"room_type": "至臻·电竞双床房", "nights": "5", "room_fee": "¥719.69", "adr": "143.94", "occupancy": "100.00%", "revpar": "143.94", "judgement": "待30天数据"}, {"room_type": "至臻·电竞大床房", "nights": "11", "room_fee": "¥1,569.13", "adr": "142.65", "occupancy": "100.00%", "revpar": "142.65", "judgement": "待30天数据"}, {"room_type": "舒享丨上下铺麻将房", "nights": "1", "room_fee": "¥127.78", "adr": "127.78", "occupancy": "100.00%", "revpar": "127.78", "judgement": "待30天数据"}, {"room_type": "独享·电竞单人间", "nights": "4", "room_fee": "¥537.29", "adr": "134.32", "occupancy": "100.00%", "revpar": "134.32", "judgement": "待30天数据"}], "note": "本日数据用于查看当天房型表现，不参与低效房型正式评分。零销量房型可能未出现在JL01明细中。"}, "month": {"label": "本月", "period": "2026-07-01 至 2026-07-13", "score": "待计算", "roomCount": "待聚合", "activeRoomCount": "待聚合", "lowRoomCount": "待计算", "lowRatio": "待计算", "rows": [{"room_type": "汇赢·麻将双床房", "nights": "待聚合", "room_fee": "待聚合", "adr": "待聚合", "occupancy": "待聚合", "revpar": "待聚合", "judgement": "待计算"}, {"room_type": "乐享·亲子三人间", "nights": "待聚合", "room_fee": "待聚合", "adr": "待聚合", "occupancy": "待聚合", "revpar": "待聚合", "judgement": "待计算"}, {"room_type": "征途·电竞五人套房", "nights": "待聚合", "room_fee": "待聚合", "adr": "待聚合", "occupancy": "待聚合", "revpar": "待聚合", "judgement": "待计算"}, {"room_type": "竞技·电竞四人间", "nights": "待聚合", "room_fee": "待聚合", "adr": "待聚合", "occupancy": "待聚合", "revpar": "待聚合", "judgement": "待计算"}, {"room_type": "开黑·电竞双床房", "nights": "待聚合", "room_fee": "待聚合", "adr": "待聚合", "occupancy": "待聚合", "revpar": "待聚合", "judgement": "待计算"}, {"room_type": "至臻·电竞双床房", "nights": "待聚合", "room_fee": "待聚合", "adr": "待聚合", "occupancy": "待聚合", "revpar": "待聚合", "judgement": "待计算"}, {"room_type": "至臻·电竞大床房", "nights": "待聚合", "room_fee": "待聚合", "adr": "待聚合", "occupancy": "待聚合", "revpar": "待聚合", "judgement": "待计算"}, {"room_type": "舒享丨上下铺麻将房", "nights": "待聚合", "room_fee": "待聚合", "adr": "待聚合", "occupancy": "待聚合", "revpar": "待聚合", "judgement": "待计算"}, {"room_type": "独享·电竞单人间", "nights": "待聚合", "room_fee": "待聚合", "adr": "待聚合", "occupancy": "待聚合", "revpar": "待聚合", "judgement": "待计算"}], "note": "本月数据由数据库按房型汇总当月每日JL01记录。正式评分使用本月出租率和全部在售房型数。"}};
+
+function renderRoomRows(rows, granularity) {
+  const tbody = document.getElementById('roomPerformanceBody');
+  if (!tbody) return;
+  tbody.innerHTML = '';
+
+  rows.forEach(row => {
+    const tr = document.createElement('tr');
+    const values = [
+      row.room_type,
+      row.nights,
+      row.room_fee,
+      row.adr,
+      row.occupancy,
+      row.revpar,
+      row.judgement
+    ];
+
+    values.forEach((value, index) => {
+      const td = document.createElement('td');
+      if (
+        granularity === 'month' &&
+        index > 0 &&
+        (String(value).includes('待') || String(value).includes('暂无'))
+      ) {
+        const span = document.createElement('span');
+        span.className = 'cell-pending';
+        span.textContent = value;
+        td.appendChild(span);
+      } else if (index === 6) {
+        const span = document.createElement('span');
+        span.className = granularity === 'day' ? 'cell-neutral' : 'cell-pending';
+        span.textContent = value;
+        td.appendChild(span);
+      } else {
+        td.textContent = value;
+      }
+      tr.appendChild(td);
+    });
+
+    tbody.appendChild(tr);
+  });
+}
+
+function switchRoomGranularity(key) {
+  const data = roomPerformanceData[key];
+  if (!data) return;
+
+  document.querySelectorAll('[data-room-granularity]').forEach(btn => {
+    const active = btn.dataset.roomGranularity === key;
+    btn.classList.toggle('active', active);
+    btn.setAttribute('aria-selected', active ? 'true' : 'false');
+  });
+
+  const setText = (id, value) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = value;
+  };
+
+  setText('roomTitlePeriod', data.period);
+  setText('roomTitleScore', data.score);
+  setText('roomCurrentPeriod', `当前周期：${data.period}`);
+  setText('roomKpiRoomCount', data.roomCount);
+  setText('roomKpiActiveCount', data.activeRoomCount);
+  setText('roomKpiLowCount', data.lowRoomCount);
+  setText('roomKpiLowRatio', data.lowRatio);
+  setText('roomTableTitle', `${data.label}房型经营数据`);
+  setText('roomDataNote', data.note);
+
+  const scoreBox = document.getElementById('roomTitleScoreBox');
+  if (scoreBox) {
+    scoreBox.classList.add('pending');
+    scoreBox.classList.toggle('display-only', key === 'day');
+  }
+
+  renderRoomRows(data.rows, key);
+
+  setText('roomDetailPeriod', data.period);
+  setText('roomDetailCount', data.roomCount);
+  setText('roomDetailActiveCount', data.activeRoomCount);
+  setText('roomDetailLowCount', data.lowRoomCount);
+  setText('roomDetailLowRatio', data.lowRatio);
+  setText('roomDetailScore', data.score);
+
+  if (key === 'day') {
+    setText('roomDetailNights', '已获取');
+    setText('roomDetailFee', '已获取');
+    setText('roomDetailAdr', '已获取');
+    setText('roomDetailOccupancy', '已获取（本日）');
+    setText('roomDetailRevpar', '已获取（本日）');
+    setText('roomDetailLowFlag', '不参与正式判断');
+  } else {
+    setText('roomDetailNights', '待数据库聚合');
+    setText('roomDetailFee', '待数据库聚合');
+    setText('roomDetailAdr', '待计算');
+    setText('roomDetailOccupancy', '待计算');
+    setText('roomDetailRevpar', '待计算');
+    setText('roomDetailLowFlag', '待计算');
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  switchRoomGranularity('month');
+});
+</script><script>
+const videoTypeNames = {
+  room_type_video: '房型视频',
+  hotel_preview_video: '酒店预览视频',
+  room_type_preview_video: '房型预览视频'
+};
+
+function renderVideoUploadStatus(records) {
+  const byType = {};
+  (records || []).forEach(item => {
+    if (item && item.video_type) byType[item.video_type] = item;
+  });
+
+  document.querySelectorAll('#videoStatusBody tr[data-video-type]').forEach(row => {
+    const type = row.dataset.videoType;
+    const item = byType[type];
+
+    const uploadedEl = row.querySelector('[data-field="uploaded_count"]');
+    const requiredEl = row.querySelector('[data-field="required_count"]');
+    const progressEl = row.querySelector('[data-field="progress"]');
+    const statusEl = row.querySelector('[data-field="status"]');
+
+    if (!item) {
+      [uploadedEl, requiredEl, progressEl, statusEl].forEach(el => {
+        if (!el) return;
+        el.textContent = 'PENDING';
+        el.className = 'video-cell-pending';
+      });
+      return;
+    }
+
+    const uploaded = Number(item.uploaded_count || 0);
+    const required = Number(item.required_count || 0);
+    const uploadedStatus = uploaded > 0;
+    const progress = required > 0
+      ? `${uploaded}/${required}`
+      : `${uploaded}`;
+
+    uploadedEl.textContent = uploaded;
+    requiredEl.textContent = required;
+    progressEl.textContent = progress;
+    statusEl.textContent = uploadedStatus ? '已上传' : '未上传';
+
+    uploadedEl.className = uploadedStatus ? 'video-cell-open' : 'video-cell-closed';
+    requiredEl.className = 'video-cell-neutral';
+    progressEl.className = uploadedStatus ? 'video-cell-open' : 'video-cell-closed';
+    statusEl.className = uploadedStatus ? 'video-cell-open' : 'video-cell-closed';
+  });
+
+  const hotel = byType.hotel_preview_video;
+  const titleScore = document.getElementById('videoTitleScore');
+  const score = document.getElementById('videoScore');
+  const status = document.getElementById('videoHotelStatus');
+  const uploaded = document.getElementById('videoHotelUploaded');
+  const required = document.getElementById('videoHotelRequired');
+  const scoreBox = document.getElementById('videoTitleScoreBox');
+
+  if (!hotel) {
+    if (status) status.textContent = '待接入';
+    if (uploaded) uploaded.textContent = '待接入';
+    if (required) required.textContent = '待接入';
+    if (score) score.textContent = '待计算';
+    if (titleScore) titleScore.textContent = '待计算';
+    if (scoreBox) {
+      scoreBox.classList.add('pending');
+      scoreBox.classList.remove('display-only');
+    }
+    return;
+  }
+
+  const uploadedCount = Number(hotel.uploaded_count || 0);
+  const requiredCount = Number(hotel.required_count || 0);
+  const isUploaded = uploadedCount > 0;
+
+  if (status) status.textContent = isUploaded ? '已上传' : '未上传';
+  if (uploaded) uploaded.textContent = uploadedCount;
+  if (required) required.textContent = requiredCount;
+  if (score) score.textContent = isUploaded ? '1分' : '0分';
+  if (titleScore) titleScore.textContent = isUploaded ? '1分' : '0分';
+
+  if (scoreBox) {
+    scoreBox.classList.remove('pending');
+  }
+
+  document.querySelectorAll('#rule-21 .video-summary-card').forEach(card => {
+    card.classList.remove('pending', 'open', 'closed');
+  });
+
+  const statusCard = status ? status.closest('.video-summary-card') : null;
+  const scoreCard = score ? score.closest('.video-summary-card') : null;
+  if (statusCard) statusCard.classList.add(isUploaded ? 'open' : 'closed');
+  if (scoreCard) scoreCard.classList.add(isUploaded ? 'open' : 'closed');
+}
+</script></body></html>

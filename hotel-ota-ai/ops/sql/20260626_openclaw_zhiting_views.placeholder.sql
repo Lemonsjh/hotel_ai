@@ -1,0 +1,21 @@
+-- manual_review_required
+-- Purpose:
+--   Placeholder for previously created v_openclaw_* views reported during
+--   Feishu testing. Agents must not create, replace, drop, or alter views.
+--
+-- Required human steps:
+--   1. Export SHOW CREATE VIEW for any existing v_openclaw_* view from the
+--      production database using a DBA-controlled session.
+--   2. Remove credentials, host names, private aliases, and customer data.
+--   3. Add the reviewed SQL to a dated migration file with rollback notes.
+--   4. Add view_migration_version to the private database-source profile if
+--      the view remains an approved runtime source.
+--
+-- Known view names from test records:
+--   v_openclaw_operating_snapshot
+--   v_openclaw_price_data
+--   v_openclaw_operation_diagnosis
+--   v_openclaw_sales_baseline
+--   v_openclaw_demand_context
+--
+-- No executable DDL is included here by design.

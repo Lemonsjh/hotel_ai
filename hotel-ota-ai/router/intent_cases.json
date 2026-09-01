@@ -1,0 +1,75 @@
+{
+  "schema_version": "0.1",
+  "cases": [
+    {
+      "case_id": "intent_sc01",
+      "scenario_id": "SC01",
+      "utterance": "今天经营怎么样 / 经营快报链路",
+      "expected_route": "SC01",
+      "demo_fixture_id": "demo_sc01"
+    },
+    {
+      "case_id": "intent_sc02",
+      "scenario_id": "SC02",
+      "utterance": "做一次 OTA 诊断 / 酒店运营诊断链路",
+      "expected_route": "SC02",
+      "demo_fixture_id": "demo_sc02"
+    },
+    {
+      "case_id": "intent_sc03",
+      "scenario_id": "SC03",
+      "utterance": "今天要不要调价 / 收益决策链路",
+      "expected_route": "SC03",
+      "demo_fixture_id": "demo_sc03"
+    },
+    {
+      "case_id": "intent_sc04",
+      "scenario_id": "SC04",
+      "utterance": "每小时进度巡检 / 偏差链路",
+      "expected_route": "SC04",
+      "demo_fixture_id": "demo_sc04"
+    },
+    {
+      "case_id": "intent_sc05",
+      "scenario_id": "SC05",
+      "utterance": "竞对降价怎么办 / 竞对预警链路",
+      "expected_route": "SC05",
+      "demo_fixture_id": "demo_sc05"
+    },
+    {
+      "case_id": "intent_sc06",
+      "scenario_id": "SC06",
+      "utterance": "要不要开活动 / 活动推广链路",
+      "expected_route": "SC06",
+      "demo_fixture_id": "demo_sc06"
+    },
+    {
+      "case_id": "intent_sc07",
+      "scenario_id": "SC07",
+      "utterance": "出现差评怎么处理 / 口碑回复链路",
+      "expected_route": "SC07",
+      "demo_fixture_id": "demo_sc07"
+    },
+    {
+      "case_id": "intent_sc08",
+      "scenario_id": "SC08",
+      "utterance": "客户订单分析 / 客群链路",
+      "expected_route": "SC08",
+      "demo_fixture_id": "demo_sc08"
+    },
+    {
+      "case_id": "intent_sc09",
+      "scenario_id": "SC09",
+      "utterance": "沉淀这次复盘 / 经验进化链路",
+      "expected_route": "SC09",
+      "demo_fixture_id": "demo_sc09"
+    },
+    {
+      "case_id": "intent_sc10",
+      "scenario_id": "SC10",
+      "utterance": "第三方酒店 OTA 诊断 / S14-EXT 链路",
+      "expected_route": "SC10",
+      "demo_fixture_id": "demo_sc10"
+    }
+  ]
+}

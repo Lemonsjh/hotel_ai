@@ -1,0 +1,75 @@
+{
+  "schema_version": "v26.0",
+  "source": "contracts/v26/skill_io_contract.yaml",
+  "skill_id": "S1",
+  "skill_name": "顶层配置与权限安全",
+  "english_dir_name": "control-config",
+  "node_ids": [
+    "N003"
+  ],
+  "agent_id": "A0",
+  "blueprint_basis": "BP00/BP10",
+  "direct_trigger": "配置、权限、安全查询",
+  "chain_trigger": "所有业务Skill前置",
+  "input_fields": [
+    "user_role",
+    "auth_status",
+    "hotel_id",
+    "price_floor",
+    "live_switch",
+    "approval_policy"
+  ],
+  "output_fields": [
+    "safety_policy",
+    "allowed_actions",
+    "execution_boundary",
+    "blocked_reason"
+  ],
+  "upstream_dependencies": [
+    "AUTH001 user_role",
+    "AUTH002 auth_status",
+    "HOT001 hotel_id",
+    "CFG001 price_floor",
+    "CFG002 price_ceiling",
+    "CFG003 approval_policy",
+    "CFG004 live_switch",
+    "CFG005 source_capability",
+    "CFG006 skill_switch",
+    "CFG007 execution_boundary",
+    "CTX010 field_quality",
+    "N002_OUT003 required_skill_chain",
+    "N002_OUT001 scenario_id",
+    "N002_OUT006 agent_plan"
+  ],
+  "downstream_dependencies": [
+    "N004 或 N018"
+  ],
+  "runtime_command": "auth-check / env-check",
+  "demo_data_files": [
+    "examples/demo_data/demo_manifest.json",
+    "examples/demo_data/nodes/N003.json"
+  ],
+  "error_handling": "权限来自配置，不来自聊天记忆",
+  "acceptance_tests": [
+    "tests/contracts/test_v26_skill_io_contract.py"
+  ],
+  "node_registry_ref": "architecture/node_registry.json",
+  "edge_registry_ref": "architecture/edge_registry.json",
+  "scenario_registry_ref": "architecture/scenario_chain_registry.json",
+  "field_registry_ref": "contracts/v26/field_registry.yaml",
+  "node_io_contract_ref": "contracts/v26/node_io_contract.yaml",
+  "algorithm_rules_ref": "runtime/algorithm_rules/auth_policy.yaml",
+  "demo_node_fixture": "examples/demo_data/nodes/N003.json",
+  "forbidden_actions": [
+    "treat_demo_data_as_real_today_data",
+    "create_formal_approval_from_demo_or_stale_data",
+    "bypass_data_gate_or_approval_guard"
+  ],
+  "demo_safety": {
+    "data_source_type": "demo_data",
+    "approval_data_allowed": false,
+    "live_allowed": false,
+    "formal_approval_created": false,
+    "live_execution_count": 0
+  }
+}

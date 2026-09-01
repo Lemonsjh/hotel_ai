@@ -1,0 +1,58 @@
+{
+  "scenario_id": "SC07",
+  "fixture_id": "demo_sc07",
+  "name": "出现差评怎么处理 / 口碑回复链路",
+  "nodes": [
+    "N001",
+    "N002",
+    "N003",
+    "N004",
+    "N008",
+    "N017",
+    "N009",
+    "N018",
+    "N019"
+  ],
+  "required_edges": [
+    "E001",
+    "E002",
+    "E003",
+    "E007",
+    "E042",
+    "E009",
+    "E025",
+    "E023",
+    "E026"
+  ],
+  "optional_edges": [
+    "E051",
+    "E066",
+    "E064"
+  ],
+  "demo_meta": {
+    "data_source_type": "demo_data",
+    "freshness_status": "demo_data",
+    "business_status": "demo_or_historical",
+    "today_label_allowed": false,
+    "approval_data_allowed": false,
+    "live_allowed": false
+  },
+  "fixture_refs": [
+    "competitor_snapshot",
+    "execution_preview",
+    "experience_preview",
+    "external_diagnosis",
+    "market_context",
+    "operating_snapshot",
+    "progress_deviation",
+    "reputation_snapshot",
+    "revenue_decision",
+    "sales_baseline"
+  ],
+  "expected_outputs": [
+    "data_source_type=demo_data",
+    "freshness_status=demo_data",
+    "approval_data_allowed=false",
+    "live_allowed=false"
+  ]
+}

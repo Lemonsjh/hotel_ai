@@ -1,0 +1,31 @@
+{
+  "schema_version": "v27.0",
+  "source_version": "V27_project_repair_executable_contract",
+  "machine_contract": "contracts/v27/contract.json",
+  "policy": {
+    "field_contract_role": "V27 JSON 是项目修复的 machine-readable contract；Excel/drawio 是协作视图；当前项目证据只能参考，不能反向定义字段。",
+    "status_definitions": {
+      "confirmed_exact": "真实来源字段与 canonical 字段精确匹配。",
+      "confirmed_alias": "真实来源字段是 canonical 字段的已确认别名。",
+      "candidate_inferred": "根据蓝图/来源候选推断，待数据源负责人确认。",
+      "project_only": "项目运行时上下文字段，不要求 PMS/OTA 提供。",
+      "config_only": "系统配置字段。",
+      "algorithm_output": "算法派生字段或计算结果。",
+      "upstream_output": "上游节点输出字段。",
+      "manual_required": "需要人工配置、上传或确认。",
+      "not_available": "当前来源不存在。",
+      "deprecated": "旧字段，保留迁移记录但不再作为新契约。"
+    },
+    "naming_policy": {
+      "runtime_key_style": "snake_case",
+      "no_mixed_chinese_english_runtime_keys": true,
+      "zh_name_required": true,
+      "project_field_name_required": true
+    },
+    "source_mapping_policy": {
+      "algorithm_blueprint_first": true,
+      "source_inventory_as_candidate_pool": true,
+      "current_project_evidence_reference_only": true
+    }
+  }
+}

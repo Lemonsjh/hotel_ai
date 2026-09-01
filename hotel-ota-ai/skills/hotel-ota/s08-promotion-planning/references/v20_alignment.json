@@ -1,0 +1,93 @@
+{
+  "schema_version": "0.1",
+  "skill_id": "S8",
+  "skill_dir": "s08-promotion-planning",
+  "node_id": "N012",
+  "node_name": "S8 推广投放与活动建议",
+  "agent_id": "A3",
+  "phase": "P2",
+  "node_registry_ref": "architecture/node_registry.json",
+  "edge_registry_ref": "architecture/edge_registry.json",
+  "scenario_registry_ref": "architecture/scenario_chain_registry.json",
+  "field_registry_ref": "contracts/field_registry.yaml",
+  "node_io_contract_ref": "contracts/node_io_contract.yaml",
+  "algorithm_rules_ref": "runtime/algorithm_rules/promotion_rules.yaml",
+  "demo_node_fixture": "examples/demo_data/nodes/N012.json",
+  "demo_scenarios": [
+    "SC03",
+    "SC04",
+    "SC06"
+  ],
+  "upstream_edges": [
+    {
+      "edge_id": "E033",
+      "source_node_id": "N020",
+      "why": "低谷时段和流量缺口决定推广投放窗口与预算建议。"
+    },
+    {
+      "edge_id": "E035",
+      "source_node_id": "N015",
+      "why": "收益决策发现降价不合适或转化风险高时，可改用活动/推广候选动作。"
+    },
+    {
+      "edge_id": "E041",
+      "source_node_id": "N011",
+      "why": "进度落后但不宜立即降价时，可触发推广/活动候选。"
+    },
+    {
+      "edge_id": "E056",
+      "source_node_id": "N005",
+      "why": "活动/推广建议需要经营、价格、库存快照判断活动后到手价和库存压力。"
+    },
+    {
+      "edge_id": "E057",
+      "source_node_id": "N006",
+      "why": "环境行情和需求指数影响活动/推广是否开启、保留或调整。"
+    },
+    {
+      "edge_id": "E058",
+      "source_node_id": "N009",
+      "why": "诊断弱项和转化瓶颈会影响活动/推广建议，避免用推广掩盖内容或转化问题。"
+    },
+    {
+      "edge_id": "E059",
+      "source_node_id": "N007",
+      "why": "竞对价格、活动、排名变化可作为活动/推广建议的参考输入。"
+    }
+  ],
+  "downstream_edges": [
+    {
+      "edge_id": "E017",
+      "target_node_id": "N015",
+      "why": "活动可能替代直接降价，也可能影响到手价和底价安全。"
+    },
+    {
+      "edge_id": "E024",
+      "target_node_id": "N018",
+      "why": "活动/推广建议需要输出风险、预算和执行建议。"
+    },
+    {
+      "edge_id": "E036",
+      "target_node_id": "N013",
+      "why": "推广计划涉及预算和收益时，需要 ROI 决策补充。"
+    },
+    {
+      "edge_id": "E037",
+      "target_node_id": "N021",
+      "why": "只有推广计划产出可执行动作后，S11 才允许生成 dry-run/任务/审批执行。"
+    }
+  ],
+  "forbidden_actions": [
+    "treat_demo_data_as_real_today_data",
+    "create_formal_approval_from_demo_or_stale_data",
+    "bypass_data_gate_or_approval_guard"
+  ],
+  "demo_safety": {
+    "data_source_type": "demo_data",
+    "freshness_status": "demo_data",
+    "business_status": "demo_or_historical",
+    "today_label_allowed": false,
+    "approval_data_allowed": false,
+    "live_allowed": false
+  }
+}

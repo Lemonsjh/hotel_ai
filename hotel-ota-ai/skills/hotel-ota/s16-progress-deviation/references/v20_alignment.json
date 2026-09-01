@@ -1,0 +1,68 @@
+{
+  "schema_version": "0.1",
+  "skill_id": "S16",
+  "skill_dir": "s16-progress-deviation",
+  "node_id": "N011",
+  "node_name": "S16 进度偏差诊断",
+  "agent_id": "A2",
+  "phase": "P0",
+  "node_registry_ref": "architecture/node_registry.json",
+  "edge_registry_ref": "architecture/edge_registry.json",
+  "scenario_registry_ref": "architecture/scenario_chain_registry.json",
+  "field_registry_ref": "contracts/field_registry.yaml",
+  "node_io_contract_ref": "contracts/node_io_contract.yaml",
+  "algorithm_rules_ref": "runtime/algorithm_rules/progress_deviation_rules.yaml",
+  "demo_node_fixture": "examples/demo_data/nodes/N011.json",
+  "demo_scenarios": [
+    "SC03",
+    "SC04",
+    "SC09"
+  ],
+  "upstream_edges": [
+    {
+      "edge_id": "E011",
+      "source_node_id": "N010",
+      "why": "有基准线后才能判断当前进度偏差。"
+    },
+    {
+      "edge_id": "E012",
+      "source_node_id": "N005",
+      "why": "偏差诊断需要当前实际进度与基准线比较。"
+    }
+  ],
+  "downstream_edges": [
+    {
+      "edge_id": "E016",
+      "target_node_id": "N015",
+      "why": "进度落后/超前会改变收益策略，比如补救、观察或涨价。"
+    },
+    {
+      "edge_id": "E041",
+      "target_node_id": "N012",
+      "why": "进度落后但不宜立即降价时，可触发推广/活动候选。"
+    },
+    {
+      "edge_id": "E053",
+      "target_node_id": "N018",
+      "why": "进度偏差诊断可以直接输出偏差预警和原因，不一定触发收益动作。"
+    },
+    {
+      "edge_id": "E065",
+      "target_node_id": "N019",
+      "why": "偏差原因和补救效果可脱敏沉淀为进度巡检经验。"
+    }
+  ],
+  "forbidden_actions": [
+    "treat_demo_data_as_real_today_data",
+    "create_formal_approval_from_demo_or_stale_data",
+    "bypass_data_gate_or_approval_guard"
+  ],
+  "demo_safety": {
+    "data_source_type": "demo_data",
+    "freshness_status": "demo_data",
+    "business_status": "demo_or_historical",
+    "today_label_allowed": false,
+    "approval_data_allowed": false,
+    "live_allowed": false
+  }
+}

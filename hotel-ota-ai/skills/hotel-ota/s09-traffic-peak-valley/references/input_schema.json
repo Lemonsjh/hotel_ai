@@ -1,0 +1,247 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "schema_version": "v27-wrapper",
+  "title": "S9 input wrapper",
+  "type": "object",
+  "canonical_source": "contracts/v27/node_io_contract.yaml",
+  "secondary_source": "contracts/v27/skill_io_contract.yaml",
+  "alignment_source": "references/v27_alignment.json",
+  "skill_id": "S9",
+  "skill_name": "S9",
+  "node_id": "N020",
+  "node_ids": [
+    "N020"
+  ],
+  "agent_id": "A1",
+  "agent_ids": [
+    "A1"
+  ],
+  "source_contract": "contracts/v27/contract.json",
+  "field_registry_ref": "contracts/v27/field_registry.yaml",
+  "node_io_contract_ref": "contracts/v27/node_io_contract.yaml",
+  "demo_safety_fields": [
+    "data_source_type=demo_data",
+    "freshness_status=demo_data",
+    "approval_data_allowed=false",
+    "live_allowed=false"
+  ],
+  "additionalProperties": true,
+  "input_field_ids": [
+    "CTX003",
+    "FNL014",
+    "OP014",
+    "FNL001",
+    "FNL002",
+    "OP002",
+    "DEM012",
+    "DEM007",
+    "N005_OUT001",
+    "N005_OUT007",
+    "N005_OUT011",
+    "N005_OUT008",
+    "N010_OUT002",
+    "N010_OUT005"
+  ],
+  "required_inputs": [
+    "CTX003",
+    "FNL014",
+    "OP014",
+    "FNL001",
+    "FNL002",
+    "OP002",
+    "DEM012",
+    "DEM007",
+    "N005_OUT001",
+    "N005_OUT007",
+    "N005_OUT011",
+    "N005_OUT008",
+    "N010_OUT002",
+    "N010_OUT005"
+  ],
+  "optional_inputs": [],
+  "upstream_node_outputs": [
+    "N005_OUT001",
+    "N005_OUT007",
+    "N005_OUT011",
+    "N005_OUT008",
+    "N010_OUT002",
+    "N010_OUT005"
+  ],
+  "deprecated_legacy_fields": {
+    "hourly_exposure": {
+      "deprecated": true,
+      "legacy_path": "business_fields.hourly_exposure",
+      "replacement_field_ids": [],
+      "description": "hourly_exposure from unified data contract"
+    },
+    "hourly_views": {
+      "deprecated": true,
+      "legacy_path": "business_fields.hourly_views",
+      "replacement_field_ids": [],
+      "description": "hourly_views from unified data contract"
+    },
+    "hourly_paid_orders": {
+      "deprecated": true,
+      "legacy_path": "business_fields.hourly_paid_orders",
+      "replacement_field_ids": [],
+      "description": "hourly_paid_orders from unified data contract"
+    },
+    "payment_conversion_rate": {
+      "deprecated": true,
+      "legacy_path": "business_fields.payment_conversion_rate",
+      "replacement_field_ids": [],
+      "description": "payment_conversion_rate from unified data contract"
+    },
+    "traffic_peak_windows": {
+      "deprecated": true,
+      "legacy_path": "business_fields.traffic_peak_windows",
+      "replacement_field_ids": [],
+      "description": "traffic_peak_windows from unified data contract"
+    }
+  },
+  "properties": {
+    "CTX003": {
+      "type": "string",
+      "canonical_key": "business_date",
+      "project_field_name": "business_date",
+      "field_status": "project_only",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "business_date from V27 contract",
+      "format": "date-time"
+    },
+    "FNL014": {
+      "type": "string",
+      "canonical_key": "traffic_peak_valley_window",
+      "project_field_name": "traffic_peak_valley_window",
+      "field_status": "algorithm_output",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "traffic_peak_valley_window from V27 contract"
+    },
+    "OP014": {
+      "type": "string",
+      "canonical_key": "hourly_order_progress",
+      "project_field_name": "hourly_order_progress",
+      "field_status": "algorithm_output",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "hourly_order_progress from V27 contract"
+    },
+    "FNL001": {
+      "type": "string",
+      "canonical_key": "exposure",
+      "project_field_name": "exposure",
+      "field_status": "candidate_inferred",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "exposure from V27 contract"
+    },
+    "FNL002": {
+      "type": "string",
+      "canonical_key": "views",
+      "project_field_name": "views",
+      "field_status": "candidate_inferred",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "views from V27 contract"
+    },
+    "OP002": {
+      "type": "number",
+      "canonical_key": "paid_orders",
+      "project_field_name": "paid_orders",
+      "field_status": "candidate_inferred",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "paid_orders from V27 contract"
+    },
+    "DEM012": {
+      "type": "object",
+      "canonical_key": "historical_same_weekday_curve",
+      "project_field_name": "historical_same_weekday_curve",
+      "field_status": "algorithm_output",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "historical_same_weekday_curve from V27 contract"
+    },
+    "DEM007": {
+      "type": "number",
+      "canonical_key": "demand_index",
+      "project_field_name": "demand_index",
+      "field_status": "algorithm_output",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "demand_index from V27 contract"
+    },
+    "N005_OUT001": {
+      "type": "object",
+      "canonical_key": "operating_snapshot",
+      "project_field_name": "operating_snapshot",
+      "field_status": "upstream_output",
+      "required_level": "按链路触发必需",
+      "source_node": "N005",
+      "source_skill": "S2",
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "description": "operating_snapshot from V27 contract"
+    },
+    "N005_OUT007": {
+      "type": "string",
+      "canonical_key": "exposure",
+      "project_field_name": "exposure",
+      "field_status": "upstream_output",
+      "required_level": "按链路触发必需",
+      "source_node": "N005",
+      "source_skill": "S2",
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "description": "exposure from V27 contract"
+    },
+    "N005_OUT011": {
+      "type": "string",
+      "canonical_key": "views",
+      "project_field_name": "views",
+      "field_status": "upstream_output",
+      "required_level": "按链路触发必需",
+      "source_node": "N005",
+      "source_skill": "S2",
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "description": "views from V27 contract"
+    },
+    "N005_OUT008": {
+      "type": "number",
+      "canonical_key": "paid_orders",
+      "project_field_name": "paid_orders",
+      "field_status": "upstream_output",
+      "required_level": "按链路触发必需",
+      "source_node": "N005",
+      "source_skill": "S2",
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "description": "paid_orders from V27 contract"
+    },
+    "N010_OUT002": {
+      "type": "array",
+      "canonical_key": "hourly_target_curve",
+      "project_field_name": "hourly_target_curve",
+      "field_status": "upstream_output",
+      "required_level": "按链路触发必需",
+      "source_node": "N010",
+      "source_skill": "S15",
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "description": "hourly_target_curve from V27 contract",
+      "items": {
+        "type": "object"
+      }
+    },
+    "N010_OUT005": {
+      "type": "object",
+      "canonical_key": "historical_same_weekday_curve",
+      "project_field_name": "historical_same_weekday_curve",
+      "field_status": "upstream_output",
+      "required_level": "按链路触发必需",
+      "source_node": "N010",
+      "source_skill": "S15",
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "description": "historical_same_weekday_curve from V27 contract"
+    }
+  },
+  "required": []
+}

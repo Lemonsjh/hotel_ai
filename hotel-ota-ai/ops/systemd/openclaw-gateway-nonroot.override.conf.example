@@ -1,0 +1,20 @@
+# Copy only after backing up the effective server unit and validating paths.
+# This is a drop-in template, not a unit installer.
+[Service]
+User=openclaw
+Group=openclaw
+UMask=0077
+NoNewPrivileges=true
+CapabilityBoundingSet=
+AmbientCapabilities=
+ProtectSystem=strict
+ProtectHome=read-only
+PrivateTmp=true
+PrivateDevices=true
+ReadOnlyPaths=/etc/hotel-ota-ai
+ReadWritePaths=/var/lib/openclaw /var/lib/hotel-ota-ai /var/log/hotel-ota-ai
+Environment="PATH=/usr/local/bin:/usr/bin:/bin"
+Environment="HOTEL_OTA_RUNTIME_ENTRY=/opt/openclaw/workspaces/hotel-ota-ai/runtime/hotel_ota_runtime.py"
+Environment="HOTEL_OTA_PYTHON=/opt/openclaw/workspaces/hotel-ota-ai/.venv/bin/python"
+Environment="HOTEL_OTA_AUTH_CONFIG=/etc/hotel-ota-ai/feishu-role-map.json"
+Environment="HOTEL_OTA_DB=/var/lib/hotel-ota-ai/hotel_ops.sqlite"

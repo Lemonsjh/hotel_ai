@@ -1,0 +1,82 @@
+{
+  "manifest_ref": "demo_manifest.json",
+  "field_contract_source": "contracts/v27/contract.json#N022",
+  "hotel_id": "puyue-demo",
+  "demo_business_date": "2026-06-11",
+  "ota_health_score": 83,
+  "hos_score": 82,
+  "psi_score": 78,
+  "content_score": 86,
+  "conversion_rate": 0.034,
+  "confirmation_rate": 0.91,
+  "ranking": 4,
+  "exposure_score": 76,
+  "field_coverage_required_fields": [
+    "exposure",
+    "views",
+    "clicks",
+    "search_conversion_rate",
+    "first_conversion_rate",
+    "second_conversion_rate",
+    "payment_conversion_rate",
+    "submit_orders",
+    "paid_orders",
+    "lost_orders",
+    "lost_room_nights",
+    "hos_score",
+    "merchant_operation_score",
+    "peer_competitiveness_score",
+    "peer_rank",
+    "rating_total",
+    "bad_review_rate"
+  ],
+  "field_coverage_available_fields": [
+    "exposure",
+    "views",
+    "clicks",
+    "search_conversion_rate",
+    "first_conversion_rate",
+    "second_conversion_rate",
+    "payment_conversion_rate",
+    "submit_orders",
+    "paid_orders",
+    "hos_score",
+    "merchant_operation_score",
+    "peer_competitiveness_score",
+    "peer_rank",
+    "rating_total"
+  ],
+  "field_coverage_missing_fields": [
+    "lost_orders",
+    "lost_room_nights",
+    "bad_review_rate"
+  ],
+  "field_coverage_partial_fields": [],
+  "html_report_preview_available": true,
+  "html_report_preview_status": "generated",
+  "html_report_preview_note": "已由 runtime 生成 HTML 预览文件；仍为 demo_data，不代表今日真实经营。",
+  "html_report_sections": [
+    "诊断摘要",
+    "字段覆盖率",
+    "转化漏斗",
+    "内容与口碑风险",
+    "后续采购建议"
+  ],
+  "data_source_type": "demo_data",
+  "freshness_status": "demo_data",
+  "today_label_allowed": false,
+  "approval_data_allowed": false,
+  "live_allowed": false,
+  "ota_funnel": {
+    "exposure": 12000,
+    "views": 3600,
+    "clicks": 620,
+    "submit_orders": 41,
+    "paid_orders": 33
+  },
+  "content_quality": {
+    "image_score": 84,
+    "title_score": 88,
+    "amenity_completeness": 0.92
+  }
+}

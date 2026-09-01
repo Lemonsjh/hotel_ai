@@ -1,0 +1,31 @@
+intent: operating_snapshot
+phrases:
+  - 实时出租率
+  - 经营快照
+  - operating_snapshot
+required_role: operator
+required_permission: business_snapshot_read
+command_name: feishu-route
+runtime_command: python runtime/hotel_ota_runtime.py feishu-route --message "实时出租率" --production-feishu --chat-id <trusted_chat_id> --open-id <trusted_sender_id>
+data_guardrails:
+  - 生产 Feishu 必须使用 verified role；需要时由 HOTEL_OTA_REQUIRE_VERIFIED_ROLE 强制
+  - 缺少可信会话或发送人身份时返回 missing_required_feishu_auth_context / missing_trusted_business_chat_id，不得误报群未绑定
+  - target_business_date 是 runtime 目标业务日期，不是 jd01.business_date 字段；jd01 当日预订和取消按 DATE(arrival_time)=target_business_date 统计
+  - 实时出租率必须使用 jd01 已入住且 departure_time > as_of_time + jd01 当日有效预订扣取消 + jd04 续住，分母使用 kf11 总房减维修房
+  - snapshot / jy01_hotel_statistics_daily.occupancy_rate 只能作为历史经营快照，不能回答当前实时出租率
+  - 只能调用 runtime 已暴露的受控命令；agent 不得自行执行 SQL、改文件或直接调用 OTA/PMS live API
+  - demo/sample/synthetic/hardcoded 数据不得用于 production Feishu 业务结论
+  - 缺少必要数据必须返回 data_gap，不得编造成 0 或继续给正式结论
+  - 禁用渠道不得参与读取、分析和展示
+  - data_gap_on_missing_data
+output_guardrails:
+  - 生产飞书输出必须遵守 feishu-output-gate 语义
+  - 不得输出 DSN、token、服务器私有路径、原始订单行、payload_hash 或内部 request payload；no private path
+  - runtime 未返回 write_performed=true、affected_rows>0、config_change_applied=true 或 audit_id 时，不得声称已执行、已删除、已写入或已配置
+examples:
+  - user: 实时出租率
+    route: feishu-route
+    command: python runtime/hotel_ota_runtime.py feishu-route --message "实时出租率" --production-feishu --chat-id <trusted_chat_id> --open-id <trusted_sender_id>
+  - user: 本地诊断实时出租率
+    route: expected-occupancy
+    command: python runtime/hotel_ota_runtime.py expected-occupancy --hotel-id <hotel_id> --date <target_business_date> --as-of-time <as_of_time>

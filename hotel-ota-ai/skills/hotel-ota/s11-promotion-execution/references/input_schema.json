@@ -1,0 +1,120 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "schema_version": "v27-wrapper",
+  "title": "S11 deterministic PromotionPlan input wrapper",
+  "type": "object",
+  "canonical_source": "contracts/v27/node_io_contract.yaml",
+  "secondary_source": "contracts/v27/skill_io_contract.yaml",
+  "alignment_source": "references/v27_alignment.json",
+  "skill_id": "S11",
+  "skill_name": "S11",
+  "node_id": "N021",
+  "node_ids": ["N021"],
+  "agent_id": "A4",
+  "agent_ids": ["A4"],
+  "source_contract": "contracts/v27/contract.json",
+  "field_registry_ref": "contracts/v27/field_registry.yaml",
+  "node_io_contract_ref": "contracts/v27/node_io_contract.yaml",
+  "demo_safety_fields": [
+    "data_source_type=demo_data",
+    "freshness_status=demo_data",
+    "approval_data_allowed=false",
+    "live_allowed=false"
+  ],
+  "input_field_ids": [],
+  "required_inputs": ["hotel_id"],
+  "optional_inputs": [
+    "channel",
+    "message",
+    "target_date",
+    "as_of_time",
+    "s8_result",
+    "s9_result",
+    "s10_result",
+    "s16_result"
+  ],
+  "upstream_node_outputs": ["S8", "S9", "S10", "S16"],
+  "deprecated_legacy_fields": {
+    "business_fields": {
+      "deprecated": true,
+      "description": "Legacy execution payload wrapper is retired from the current S11 runtime."
+    },
+    "approval_id": {
+      "deprecated": true,
+      "description": "Approval is not an S11 input and cannot enable execution."
+    },
+    "live_switch": {
+      "deprecated": true,
+      "description": "S11 has no live execution mode."
+    },
+    "readback_check": {
+      "deprecated": true,
+      "description": "S11 never performs or simulates OTA readback."
+    },
+    "source_capability": {
+      "deprecated": true,
+      "description": "Source write capability is irrelevant because S11 is always read-only."
+    },
+    "promotion_action_from_s8": {
+      "deprecated": true,
+      "legacy_field_id": "N012_OUT006",
+      "description": "S8 is display-only and no longer emits promotion actions."
+    },
+    "budget_range_from_s8": {
+      "deprecated": true,
+      "legacy_field_id": "N012_OUT005",
+      "description": "S8 is display-only and no longer emits budget advice."
+    },
+    "time_windows_from_s8": {
+      "deprecated": true,
+      "legacy_field_id": "N012_OUT008",
+      "description": "S8 is display-only and no longer emits execution windows."
+    },
+    "approval_required_from_s8": {
+      "deprecated": true,
+      "legacy_field_id": "N012_OUT004",
+      "description": "S8 no longer produces a business approval signal."
+    }
+  },
+  "properties": {
+    "hotel_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Trusted exact hotel scope."
+    },
+    "channel": {
+      "const": "meituan",
+      "description": "Current S11 promotion facts are scoped to the Meituan promotion path."
+    },
+    "message": {
+      "type": "string",
+      "description": "User request interpreted only as a suggestion-plan intent, never as an execution command."
+    },
+    "target_date": {
+      "type": "string",
+      "description": "Target business date for deterministic source alignment."
+    },
+    "as_of_time": {
+      "type": ["string", "null"],
+      "description": "Optional deterministic source cutoff."
+    },
+    "s8_result": {
+      "type": ["object", "null"],
+      "description": "S8 promotion-display facts only."
+    },
+    "s9_result": {
+      "type": ["object", "null"],
+      "description": "S9 traffic/conversion facts."
+    },
+    "s10_result": {
+      "type": ["object", "null"],
+      "description": "S10 promotion-effect/ROI observations."
+    },
+    "s16_result": {
+      "type": ["object", "null"],
+      "description": "S16 sales-progress facts."
+    }
+  },
+  "required": ["hotel_id"],
+  "additionalProperties": false
+}

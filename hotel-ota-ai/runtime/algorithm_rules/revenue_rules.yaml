@@ -1,0 +1,181 @@
+{
+  "schema_version": "1.1",
+  "owner_skill": "S5",
+  "status": "implemented",
+  "placement": "runtime/algorithm_rules",
+  "node_id": "N015",
+  "agent_id": "A3",
+  "phase": "P1",
+  "source_refs": {
+    "node_registry": "architecture/node_registry.json",
+    "edge_registry": "architecture/edge_registry.json",
+    "scenario_registry": "architecture/scenario_chain_registry.json",
+    "field_registry": "contracts/v27/field_registry.yaml",
+    "node_io_contract": "contracts/v27/node_io_contract.yaml",
+    "skill_alignment": "skills/hotel-ota/s05-revenue-decision/references/v27_alignment.json"
+  },
+  "demo_safety": {
+    "data_source_type": "demo_data",
+    "freshness_status": "demo_data",
+    "business_status": "demo_or_historical",
+    "today_label_allowed": false,
+    "approval_data_allowed": false,
+    "live_allowed": false
+  },
+  "data_gate": {
+    "hard_required": [
+      "hotel_id",
+      "data_business_date",
+      "current_price",
+      "floor_price",
+      "ceiling_price"
+    ],
+    "soft_required": [
+      "sales_progress_delta_pp",
+      "room_type_inventory",
+      "browse_ratio",
+      "second_conversion",
+      "baseline_price_p20"
+    ],
+    "missing_policy": "Strong price actions require all direction-specific evidence; otherwise preserve the legacy weighted result as reference only and hold execution."
+  },
+  "algorithm": {
+    "objective": "Generate product-specific bounded price recommendations using strong business gates before any S6 handoff, without writing channel prices.",
+    "ordered_steps": [
+      {
+        "step_id": "s5_01",
+        "action": "Collect current product mapping, active price guard, S15 room transaction references, and S16 hotel and room-type evidence."
+      },
+      {
+        "step_id": "s5_02",
+        "action": "Exclude hour-room and super-deal products before recommendation calculation."
+      },
+      {
+        "step_id": "s5_03",
+        "action": "Classify browse traffic as weak below 0.80, recovering from 0.80 to below 0.90, and healthy at or above 0.90."
+      },
+      {
+        "step_id": "s5_04",
+        "action": "Trigger raise_price only when sales_progress_delta_pp is at least +8, target room inventory is tight, market is not cold, product is healthy, mapping and guard are valid, and the effective ceiling is not reached."
+      },
+      {
+        "step_id": "s5_05",
+        "action": "Trigger lower_room_price only when sales_progress_delta_pp is at most -8, target room inventory is loose, traffic is healthy, second conversion is weak with valid sample, product price is high, product is sellable, mapping and guard are valid, and current price is above the effective floor."
+      },
+      {
+        "step_id": "s5_06",
+        "action": "When traffic is weak, forbid price decrease and prefer promotion review; when traffic is recovering, allow diagnosis or manual preview only."
+      },
+      {
+        "step_id": "s5_07",
+        "action": "Use +3% to +5% for strong raises and -5% to -8% for strong decreases, then clamp to the configured directional guard and a 10% single-change hard cap."
+      },
+      {
+        "step_id": "s5_08",
+        "action": "For decreases, calculate effective_price_floor as the maximum of the configured floor and the room P20 reference multiplied by 1.02; after rounding, the target must remain at or above that floor."
+      },
+      {
+        "step_id": "s5_09",
+        "action": "Keep the legacy weighted candidate as reference only when no strong rule is satisfied; executable candidates require approval and hand off only to S6."
+      }
+    ],
+    "thresholds": {
+      "max_increase_pct": 0.12,
+      "max_decrease_pct": 0.15,
+      "min_increase_pct": 0.01,
+      "min_decrease_pct": 0.01,
+      "strong_raise_progress_pp": 8.0,
+      "strong_lower_progress_pp": -8.0,
+      "inventory_tight_ratio": 0.30,
+      "inventory_loose_ratio": 0.50,
+      "market_not_cold_ratio": 0.90,
+      "browse_weak_ratio": 0.80,
+      "browse_healthy_ratio": 0.90,
+      "price_high_ratio": 1.08,
+      "price_p20_floor_factor": 1.02,
+      "raise_pct_min": 0.03,
+      "raise_pct_mid": 0.04,
+      "raise_pct_max": 0.05,
+      "lower_pct_min": 0.05,
+      "lower_pct_mid": 0.06,
+      "lower_pct_max": 0.08,
+      "single_change_hard_cap": 0.10,
+      "large_gap_pct": 0.1,
+      "low_coverage_blocks_action": 0.8
+    },
+    "degradation": [
+      "When strong-rule evidence is incomplete, return hold and expose the old weighted recommendation as reference only.",
+      "When browse_ratio is below 0.80, forbid price decrease and recommend traffic or promotion review.",
+      "When browse_ratio is from 0.80 to below 0.90, permit diagnosis or manual preview only and block S6 handoff.",
+      "When input is demo, sample, stale, or read-only, block formal approval and live execution."
+    ],
+    "output_contract": [
+      "action_type",
+      "action_target",
+      "candidate_price",
+      "configured_change_pct",
+      "effective_price_floor",
+      "effective_price_ceiling",
+      "observe_minutes",
+      "observe_until",
+      "auto_execution_eligible",
+      "approval_required",
+      "handoff_to",
+      "decision_ref"
+    ]
+  },
+  "forbidden_actions": [
+    "treat_demo_data_as_real_today_data",
+    "create_formal_approval_from_demo_or_stale_data",
+    "bypass_product_type_filter",
+    "decrease_price_when_traffic_is_weak",
+    "auto_decrease_price_when_traffic_is_recovering",
+    "decrease_below_effective_price_floor",
+    "exceed_single_change_hard_cap",
+    "write_channel_price_directly",
+    "call_live_execution_without_S6"
+  ],
+  "demo_behavior_cases": [
+    {
+      "case_id": "s5_demo_preview",
+      "fixture": "examples/demo_data/nodes/N015.json",
+      "expected": {
+        "data_source_type": "demo_data",
+        "approval_data_allowed": false,
+        "live_allowed": false,
+        "status_in": [
+          "preview_only",
+          "dry_run",
+          "simulation_only",
+          "ok"
+        ]
+      }
+    },
+    {
+      "case_id": "s5_weak_traffic_no_price_down",
+      "input": {
+        "sales_progress_delta_pp": -12,
+        "browse_ratio": 0.75
+      },
+      "expected": {
+        "price_action": "hold",
+        "blocked_reason": "traffic_weak_price_down_forbidden"
+      }
+    },
+    {
+      "case_id": "s5_missing_hard_required",
+      "input": {
+        "hotel_id": "puyue-demo"
+      },
+      "expected": {
+        "allowed": false,
+        "reason": "missing_hard_required_fields"
+      }
+    }
+  ],
+  "executed_by_runtime": [
+    "runtime/algorithms/s5_real_candidates.py",
+    "runtime/s5_strong_pricing_rules_patch.py"
+  ],
+  "runtime_execution_status": "executed"
+}

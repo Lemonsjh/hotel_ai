@@ -1,0 +1,43 @@
+{
+  "field_contract_role": "xlsx/json/drawio用于协作开发，字段必须能回答：蓝图需要、真实候选、英文名、节点输入、节点输出、边payload、缺失策略。",
+  "status_definitions": {
+    "confirmed_exact": "真实来源字段与 canonical_key 精确匹配，可直接开发使用。",
+    "confirmed_alias": "真实来源字段为别名，已映射到 canonical_key，但需要在adapter中保留native alias。",
+    "candidate_inferred": "候选推断映射，需数据源负责人确认口径。",
+    "project_only": "项目运行时/上下文字段，不要求PMS/OTA提供。",
+    "config_only": "系统配置字段，由 /etc/hotel-ota-ai 或配置表提供。",
+    "algorithm_output": "算法输出字段，由节点/Skill产生。",
+    "upstream_output": "上游节点输出字段，作为下游输入。",
+    "manual_required": "需人工配置、人工上传或业务确认。",
+    "not_available": "当前来源不存在，必须降级或阻断。",
+    "deprecated": "保留迁移记录，不作为开发字段。"
+  },
+  "required_contract_columns": [
+    "field_id",
+    "canonical_key",
+    "project_field_name",
+    "zh_name",
+    "data_type",
+    "blueprint_ids",
+    "actual_source_candidates",
+    "source_match_status",
+    "used_by_nodes",
+    "used_by_skills",
+    "missing_policy"
+  ],
+  "data_type_policy": [
+    "string",
+    "number",
+    "integer",
+    "boolean",
+    "datetime",
+    "date",
+    "object",
+    "array",
+    "enum",
+    "money",
+    "ratio"
+  ],
+  "naming_policy": "V26 policy text sanitized",
+  "source_mapping_policy": "先从蓝图抽算法字段，再从整体架构分析/数据列表匹配真实字段或别名；不能用项目当前字段反向覆盖蓝图。"
+}

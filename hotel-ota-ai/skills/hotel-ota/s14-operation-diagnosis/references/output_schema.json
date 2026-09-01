@@ -1,0 +1,264 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "s14-operation-diagnosis-output.schema.json",
+  "schema_version": "s14-capability-results.v1",
+  "title": "S14 综合运营诊断输出",
+  "description": "S14 输出按职责唯一来源投影：actual 来自领域 capability，baseline 来自 S15，deviation/diagnosis 来自 S16；不得并排展示 S15/S16 重复值或由 S14 自行重算。",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "status",
+    "skill_id",
+    "schema_version",
+    "organization_id",
+    "hotel_id",
+    "target_business_date",
+    "as_of_datetime",
+    "contract_revision",
+    "policy_revision",
+    "source_policy",
+    "modules",
+    "coverage_score",
+    "observed_health_score",
+    "items",
+    "decision_axes",
+    "room_type_exceptions",
+    "product_layer",
+    "handoffs",
+    "data_limitations",
+    "direct_execution_allowed",
+    "write_performed",
+    "live_allowed"
+  ],
+  "properties": {
+    "status": {"enum": ["ok", "partial", "conflict", "data_gap"]},
+    "skill_id": {"const": "S14"},
+    "schema_version": {"const": "s14-capability-results.v1"},
+    "organization_id": {"type": "string"},
+    "hotel_id": {"type": "string"},
+    "target_business_date": {"type": "string", "format": "date"},
+    "as_of_datetime": {"type": "string", "format": "date-time"},
+    "time_zone": {"const": "Asia/Shanghai"},
+    "contract_revision": {"type": "string"},
+    "policy_revision": {"type": "string"},
+    "source_policy": {"const": "versioned_capability_results_only"},
+    "direct_business_table_read_allowed": {"const": false},
+    "excel_source_allowed": {"const": false},
+    "capability_result_count": {"type": "integer", "minimum": 0},
+    "required_capability_count": {"const": 10},
+    "modules": {"type": "array", "items": {"$ref": "#/$defs/module"}},
+    "coverage_score": {"type": "number", "minimum": 0, "maximum": 1},
+    "min_score_coverage": {"type": "number", "minimum": 0, "maximum": 1},
+    "observed_risk_score": {"type": ["number", "null"], "minimum": 0, "maximum": 100},
+    "observed_health_score": {
+      "oneOf": [
+        {"type": "number", "minimum": 0, "maximum": 100},
+        {"const": "not_computable"}
+      ]
+    },
+    "severity_counts": {"type": "object", "additionalProperties": {"type": "integer", "minimum": 0}},
+    "items": {"type": "array", "items": {"$ref": "#/$defs/item"}},
+    "top_items": {"type": "array", "maxItems": 5, "items": {"$ref": "#/$defs/item"}},
+    "root_cause_clusters": {"type": "array", "items": {"$ref": "#/$defs/root_cluster"}},
+    "decision_axes": {
+      "description": "七轴业务投影。actual 使用领域 owner，baseline 只使用 S15，delta/gap/status/reason 在存在正式 S16 输出时使用 S16；不得跨 owner 回退或自行重算。",
+      "type": "array",
+      "minItems": 7,
+      "maxItems": 7,
+      "items": {"$ref": "#/$defs/decision_axis"}
+    },
+    "room_type_exceptions": {"type": "array", "items": {"type": "object", "additionalProperties": true}},
+    "product_layer": {"type": "array", "items": {"type": "object", "additionalProperties": true}},
+    "handoffs": {"type": "array", "items": {"$ref": "#/$defs/handoff"}},
+    "data_limitations": {"type": "array", "items": {"type": "string"}},
+    "ai_analysis_status": {"enum": ["not_requested", "valid", "invalid", "failed"]},
+    "write_performed": {"const": false},
+    "direct_execution_allowed": {"const": false},
+    "approval_requested": {"const": false},
+    "live_allowed": {"const": false},
+    "business_result_generated": {"type": "boolean"}
+  },
+  "$defs": {
+    "module": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["module_id", "weight", "observed", "module_risk", "item_count"],
+      "properties": {
+        "module_id": {
+          "enum": [
+            "operating_revenue",
+            "traffic_competition",
+            "conversion_orders",
+            "price_inventory",
+            "promotion_roi",
+            "content_entry",
+            "reputation_service",
+            "execution_data_quality"
+          ]
+        },
+        "weight": {"type": "integer", "minimum": 0},
+        "observed": {"type": "boolean"},
+        "module_risk": {"type": ["number", "null"], "minimum": 0, "maximum": 100},
+        "item_count": {"type": "integer", "minimum": 0}
+      }
+    },
+    "item": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "item_id",
+        "module_id",
+        "issue_code",
+        "issue_type",
+        "severity",
+        "status",
+        "confidence",
+        "impact",
+        "evidence_refs",
+        "conflicts",
+        "missing_inputs",
+        "next_checks",
+        "eligible_handoff",
+        "forbidden_conclusions",
+        "direct_execution_allowed",
+        "scope",
+        "blocked_by",
+        "root_cause_cluster_id"
+      ],
+      "properties": {
+        "item_id": {"type": "string", "pattern": "^diag-sha256:[0-9a-f]{64}$"},
+        "module_id": {
+          "enum": [
+            "operating_revenue",
+            "traffic_competition",
+            "conversion_orders",
+            "price_inventory",
+            "promotion_roi",
+            "content_entry",
+            "reputation_service",
+            "execution_data_quality"
+          ]
+        },
+        "issue_code": {"type": "string", "minLength": 1},
+        "issue_type": {"enum": ["anomaly", "conflict", "data_gap", "stale", "observe", "normal"]},
+        "severity": {"enum": ["critical", "high", "medium", "low", "info"]},
+        "status": {"enum": ["open", "needs_check", "observing", "resolved", "not_applicable"]},
+        "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+        "impact": {
+          "type": "object",
+          "additionalProperties": true,
+          "required": ["metric", "value", "unit"],
+          "properties": {
+            "metric": {"type": "string"},
+            "value": {},
+            "unit": {"type": "string"}
+          }
+        },
+        "evidence_refs": {"type": "array", "items": {"type": "string"}},
+        "conflicts": {"type": "array"},
+        "missing_inputs": {"type": "array", "items": {"type": "string"}},
+        "next_checks": {"type": "array", "items": {"type": "string"}},
+        "eligible_handoff": {"type": ["string", "null"]},
+        "forbidden_conclusions": {"type": "array", "items": {"type": "string"}},
+        "direct_execution_allowed": {"const": false},
+        "scope": {},
+        "blocked_by": {"type": ["string", "null"]},
+        "root_cause_cluster_id": {"type": "string", "pattern": "^diag-cluster-sha256:[0-9a-f]{64}$"}
+      }
+    },
+    "root_cluster": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["cluster_id", "root_code", "item_ids", "evidence_refs"],
+      "properties": {
+        "cluster_id": {"type": "string", "pattern": "^diag-cluster-sha256:[0-9a-f]{64}$"},
+        "root_code": {"type": "string"},
+        "item_ids": {"type": "array", "items": {"type": "string"}},
+        "evidence_refs": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "decision_axis": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "axis_id",
+        "status",
+        "actual",
+        "baseline",
+        "delta",
+        "maturity",
+        "effective_window",
+        "gap",
+        "unit",
+        "source_capabilities",
+        "evidence_refs",
+        "candidates"
+      ],
+      "properties": {
+        "axis_id": {
+          "enum": [
+            "sales_progress",
+            "market_orders",
+            "market_share",
+            "browse_users",
+            "first_conversion",
+            "second_conversion",
+            "price"
+          ]
+        },
+        "status": {"enum": ["ok", "data_gap", "conflict", "stale"]},
+        "actual": {"description": "当前值，只能来自该指标正式领域 capability；不得从 S15/S16 副本回填。"},
+        "baseline": {"description": "基准值，只能来自 S15 owner。"},
+        "delta": {"description": "偏差值；如合同要求由 S16 提供，则 S14 不得自行计算。"},
+        "maturity": {"description": "基准成熟度优先来自 S15。"},
+        "effective_window": {},
+        "gap": {"description": "gap/偏差由 S16 正式结果提供；S16 缺失时保持缺口。"},
+        "unit": {},
+        "source_capabilities": {"type": "array", "items": {"type": "string"}},
+        "evidence_refs": {"type": "array", "items": {"type": "string"}},
+        "candidates": {"type": "array", "items": {"type": "object", "additionalProperties": true}}
+      }
+    },
+    "handoff": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "capability_id",
+        "handoff_ref",
+        "hotel_id",
+        "scope",
+        "target_business_date",
+        "candidate_hash",
+        "direct_execution_allowed"
+      ],
+      "properties": {
+        "capability_id": {"enum": ["S5", "S6", "S8", "S13"]},
+        "handoff_ref": {"type": "string"},
+        "hotel_id": {"type": "string"},
+        "scope": {},
+        "target_business_date": {"type": "string", "format": "date"},
+        "candidate_hash": {"type": "string"},
+        "display_text": {"type": ["string", "null"]},
+        "direct_execution_allowed": {"const": false}
+      }
+    }
+  },
+  "x-s14-contract-rules": {
+    "health_score_display_only": true,
+    "coverage_below_threshold": "observed_health_score=not_computable",
+    "ai_may_not_change_deterministic_fields": true,
+    "handoffs_must_preexist": true,
+    "no_task_creation": true,
+    "no_direct_sql": true,
+    "source_role_ownership": {
+      "actual": "domain_capability",
+      "baseline": "S15",
+      "deviation_and_diagnosis": "S16"
+    },
+    "s15_s16_parallel_business_values_allowed": false,
+    "non_owner_value_fallback_allowed": false,
+    "s14_may_recompute_delta_gap": false,
+    "owner_mismatch_behavior": "emit_internal_data_quality_conflict_and_block_axis_without_parallel_value_display",
+    "s16_requires_valid_s15": true
+  }
+}

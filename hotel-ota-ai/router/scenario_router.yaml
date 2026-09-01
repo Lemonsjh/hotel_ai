@@ -1,0 +1,408 @@
+{
+  "schema_version": "0.1",
+  "source": "architecture/scenario_chain_registry.json",
+  "routing_policy": {
+    "authority_order": [
+      "auth_context",
+      "scenario_router",
+      "data_gate",
+      "skill_runtime"
+    ],
+    "main_edges_only_for_default_route": true,
+    "optional_edges_require_explicit_condition": true,
+    "demo_mode_must_not_enable_live": true
+  },
+  "routes": [
+    {
+      "scenario_id": "SC01",
+      "name": "今天经营怎么样 / 经营快报链路",
+      "trigger": "direct_trigger",
+      "type": "主干链路",
+      "required_edges": [
+        "E001",
+        "E002",
+        "E003",
+        "E004",
+        "E046",
+        "E026"
+      ],
+      "optional_edges": [],
+      "nodes": [
+        "N001",
+        "N002",
+        "N003",
+        "N004",
+        "N005",
+        "N018",
+        "N019"
+      ],
+      "demo_fixture_id": "demo_sc01"
+    },
+    {
+      "scenario_id": "SC02",
+      "name": "做一次 OTA 诊断 / 酒店运营诊断链路",
+      "trigger": "direct + chain",
+      "type": "并行采集 → 汇聚诊断 → 输出",
+      "required_edges": [
+        "E001",
+        "E002",
+        "E003",
+        "E004",
+        "E005",
+        "E006",
+        "E007",
+        "E008",
+        "E009",
+        "E023",
+        "E026",
+        "E030",
+        "E032",
+        "E062",
+        "E063"
+      ],
+      "optional_edges": [],
+      "nodes": [
+        "N001",
+        "N002",
+        "N003",
+        "N004",
+        "N005",
+        "N006",
+        "N007",
+        "N008",
+        "N020",
+        "N009",
+        "N018",
+        "N019"
+      ],
+      "demo_fixture_id": "demo_sc02"
+    },
+    {
+      "scenario_id": "SC03",
+      "name": "今天要不要调价 / 收益决策链路",
+      "trigger": "direct + chain",
+      "type": "并行采集 → 诊断/基准/偏差 → 收益决策 → 执行边界",
+      "required_edges": [
+        "E001",
+        "E002",
+        "E003",
+        "E004",
+        "E005",
+        "E006",
+        "E007",
+        "E047",
+        "E010",
+        "E011",
+        "E012",
+        "E030",
+        "E031",
+        "E008",
+        "E009",
+        "E032",
+        "E062",
+        "E063",
+        "E013",
+        "E014",
+        "E015",
+        "E016",
+        "E019",
+        "E034",
+        "E061",
+        "E020",
+        "E021",
+        "E022",
+        "E026",
+        "E027",
+        "E028"
+      ],
+      "optional_edges": [
+        "E035",
+        "E036",
+        "E037",
+        "E038",
+        "E039",
+        "E040"
+      ],
+      "nodes": [
+        "N001",
+        "N002",
+        "N003",
+        "N004",
+        "N005",
+        "N006",
+        "N007",
+        "N008",
+        "N014",
+        "N010",
+        "N011",
+        "N020",
+        "N009",
+        "N015",
+        "N016",
+        "N018",
+        "N019",
+        "N012",
+        "N013",
+        "N021"
+      ],
+      "demo_fixture_id": "demo_sc03"
+    },
+    {
+      "scenario_id": "SC04",
+      "name": "每小时进度巡检 / 偏差链路",
+      "trigger": "cron + chain",
+      "type": "定时采集 → 基准/偏差/峰谷 → 输出或补救",
+      "required_edges": [
+        "E001",
+        "E002",
+        "E003",
+        "E004",
+        "E010",
+        "E011",
+        "E012",
+        "E030",
+        "E031",
+        "E053",
+        "E055",
+        "E026"
+      ],
+      "optional_edges": [
+        "E016",
+        "E034",
+        "E041",
+        "E021",
+        "E024",
+        "E027"
+      ],
+      "nodes": [
+        "N001",
+        "N002",
+        "N003",
+        "N004",
+        "N005",
+        "N010",
+        "N011",
+        "N020",
+        "N018",
+        "N015",
+        "N012",
+        "N019"
+      ],
+      "demo_fixture_id": "demo_sc04"
+    },
+    {
+      "scenario_id": "SC05",
+      "name": "竞对降价怎么办 / 竞对预警链路",
+      "trigger": "direct + chain",
+      "type": "竞对直接触发 → 补采经营/行情 → 综合收益判断",
+      "required_edges": [
+        "E001",
+        "E002",
+        "E003",
+        "E006",
+        "E004",
+        "E005",
+        "E008",
+        "E062",
+        "E063",
+        "E013",
+        "E014",
+        "E015",
+        "E021",
+        "E026",
+        "E027"
+      ],
+      "optional_edges": [
+        "E050"
+      ],
+      "nodes": [
+        "N001",
+        "N002",
+        "N003",
+        "N004",
+        "N007",
+        "N005",
+        "N006",
+        "N009",
+        "N015",
+        "N018",
+        "N019"
+      ],
+      "demo_fixture_id": "demo_sc05"
+    },
+    {
+      "scenario_id": "SC06",
+      "name": "要不要开活动 / 活动推广链路",
+      "trigger": "direct + chain",
+      "type": "并行采集 → 活动建议 → ROI → 推广执行边界",
+      "required_edges": [
+        "E001",
+        "E002",
+        "E003",
+        "E004",
+        "E005",
+        "E006",
+        "E007",
+        "E008",
+        "E009",
+        "E030",
+        "E032",
+        "E056",
+        "E057",
+        "E058",
+        "E059",
+        "E033",
+        "E024",
+        "E026"
+      ],
+      "optional_edges": [
+        "E036",
+        "E037",
+        "E038",
+        "E039",
+        "E040"
+      ],
+      "nodes": [
+        "N001",
+        "N002",
+        "N003",
+        "N004",
+        "N005",
+        "N006",
+        "N007",
+        "N008",
+        "N009",
+        "N020",
+        "N012",
+        "N013",
+        "N021",
+        "N018",
+        "N019"
+      ],
+      "demo_fixture_id": "demo_sc06"
+    },
+    {
+      "scenario_id": "SC07",
+      "name": "出现差评怎么处理 / 口碑回复链路",
+      "trigger": "direct + chain",
+      "type": "口碑识别 → 回复草稿/诊断回流 → 输出",
+      "required_edges": [
+        "E001",
+        "E002",
+        "E003",
+        "E007",
+        "E042",
+        "E009",
+        "E025",
+        "E023",
+        "E026"
+      ],
+      "optional_edges": [
+        "E051",
+        "E066",
+        "E064"
+      ],
+      "nodes": [
+        "N001",
+        "N002",
+        "N003",
+        "N004",
+        "N008",
+        "N017",
+        "N009",
+        "N018",
+        "N019"
+      ],
+      "demo_fixture_id": "demo_sc07"
+    },
+    {
+      "scenario_id": "SC08",
+      "name": "客户订单分析 / 客群链路",
+      "trigger": "direct + chain",
+      "type": "客户字段采集 → 直接输出 / 可选收益参考",
+      "required_edges": [
+        "E001",
+        "E002",
+        "E003",
+        "E047",
+        "E048",
+        "E026"
+      ],
+      "optional_edges": [
+        "E019",
+        "E021",
+        "E027",
+        "E067"
+      ],
+      "nodes": [
+        "N001",
+        "N002",
+        "N003",
+        "N004",
+        "N014",
+        "N018",
+        "N019",
+        "N015"
+      ],
+      "demo_fixture_id": "demo_sc08"
+    },
+    {
+      "scenario_id": "SC09",
+      "name": "沉淀这次复盘 / 经验进化链路",
+      "trigger": "direct_or_async",
+      "type": "多来源异步汇入 N019 → 按需召回输出",
+      "required_edges": [
+        "E026",
+        "E027",
+        "E028",
+        "E040",
+        "E064",
+        "E065",
+        "E066",
+        "E067",
+        "E045",
+        "E029"
+      ],
+      "optional_edges": [],
+      "nodes": [
+        "N018",
+        "N019",
+        "N015",
+        "N016",
+        "N021",
+        "N009",
+        "N011",
+        "N008",
+        "N014",
+        "N022"
+      ],
+      "demo_fixture_id": "demo_sc09"
+    },
+    {
+      "scenario_id": "SC10",
+      "name": "第三方酒店 OTA 诊断 / S14-EXT 链路",
+      "trigger": "direct + upload",
+      "type": "外部 Excel/抓取数据 → 字段覆盖率 → HTML诊断报告",
+      "required_edges": [
+        "E001",
+        "E002",
+        "E003",
+        "E043",
+        "E044",
+        "E026",
+        "E045"
+      ],
+      "optional_edges": [],
+      "nodes": [
+        "N001",
+        "N002",
+        "N003",
+        "N004",
+        "N022",
+        "N018",
+        "N019"
+      ],
+      "demo_fixture_id": "demo_sc10"
+    }
+  ]
+}

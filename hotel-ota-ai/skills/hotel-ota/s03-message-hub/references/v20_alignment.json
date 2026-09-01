@@ -1,0 +1,137 @@
+{
+  "schema_version": "0.1",
+  "skill_id": "S3",
+  "skill_dir": "s03-message-hub",
+  "node_id": "N018",
+  "node_name": "S3 消息中台",
+  "agent_id": "A5",
+  "phase": "P0",
+  "node_registry_ref": "architecture/node_registry.json",
+  "edge_registry_ref": "architecture/edge_registry.json",
+  "scenario_registry_ref": "architecture/scenario_chain_registry.json",
+  "field_registry_ref": "contracts/field_registry.yaml",
+  "node_io_contract_ref": "contracts/node_io_contract.yaml",
+  "algorithm_rules_ref": "runtime/algorithm_rules/message_templates_policy.yaml",
+  "demo_node_fixture": "examples/demo_data/nodes/N018.json",
+  "demo_scenarios": [
+    "SC01",
+    "SC02",
+    "SC03",
+    "SC04",
+    "SC05",
+    "SC06",
+    "SC07",
+    "SC08",
+    "SC09",
+    "SC10"
+  ],
+  "upstream_edges": [
+    {
+      "edge_id": "E021",
+      "source_node_id": "N015",
+      "why": "不需要执行或执行被阻断时，直接把收益建议输出给用户。"
+    },
+    {
+      "edge_id": "E022",
+      "source_node_id": "N016",
+      "why": "dry-run、审批校验、执行结果都必须通过消息中台输出。"
+    },
+    {
+      "edge_id": "E023",
+      "source_node_id": "N009",
+      "why": "诊断结果需要生成老板/运营可读报告。"
+    },
+    {
+      "edge_id": "E024",
+      "source_node_id": "N012",
+      "why": "活动/推广建议需要输出风险、预算和执行建议。"
+    },
+    {
+      "edge_id": "E025",
+      "source_node_id": "N017",
+      "why": "评论回复草稿和补偿建议需要人工确认后输出。"
+    },
+    {
+      "edge_id": "E029",
+      "source_node_id": "N019",
+      "why": "用户询问历史经验或复盘结论时，经验层只提供脱敏摘要给消息中台。"
+    },
+    {
+      "edge_id": "E039",
+      "source_node_id": "N021",
+      "why": "推广执行任务、阻断原因、复核清单必须通过消息中台输出。"
+    },
+    {
+      "edge_id": "E044",
+      "source_node_id": "N022",
+      "why": "第三方诊断报告需要通过飞书/HTML载体输出。"
+    },
+    {
+      "edge_id": "E046",
+      "source_node_id": "N005",
+      "why": "用户只问经营快报时，经营房态采集结果直接进入消息中台输出，不进入收益决策。"
+    },
+    {
+      "edge_id": "E048",
+      "source_node_id": "N014",
+      "why": "客户订单分析如果只需要分层/流失预警，可直接输出给用户，不必强制进入收益决策。"
+    },
+    {
+      "edge_id": "E049",
+      "source_node_id": "N006",
+      "why": "用户只问行情/天气/节假日/市场热度时，环境行情结果直接进入消息中台输出。"
+    },
+    {
+      "edge_id": "E050",
+      "source_node_id": "N007",
+      "why": "用户只问竞对情况时，竞态监控结果直接输出；不得直接执行价格变更。"
+    },
+    {
+      "edge_id": "E051",
+      "source_node_id": "N008",
+      "why": "用户只问口碑概览时，口碑管理结果直接输出；评论内容需脱敏。"
+    },
+    {
+      "edge_id": "E052",
+      "source_node_id": "N010",
+      "why": "用户只问销售基准线/目标曲线时，基准线结果直接输出。"
+    },
+    {
+      "edge_id": "E053",
+      "source_node_id": "N011",
+      "why": "进度偏差诊断可以直接输出偏差预警和原因，不一定触发收益动作。"
+    },
+    {
+      "edge_id": "E054",
+      "source_node_id": "N013",
+      "why": "用户只问 ROI/利润模拟时，ROI 决策结果直接输出。"
+    },
+    {
+      "edge_id": "E055",
+      "source_node_id": "N020",
+      "why": "用户只问流量峰谷/进单时段时，峰谷结果直接输出。"
+    }
+  ],
+  "downstream_edges": [
+    {
+      "edge_id": "E026",
+      "target_node_id": "N019",
+      "why": "用户可见输出可形成脱敏复盘事件，但不阻塞业务主链路。"
+    }
+  ],
+  "forbidden_actions": [
+    "treat_demo_data_as_real_today_data",
+    "create_formal_approval_from_demo_or_stale_data",
+    "bypass_data_gate_or_approval_guard",
+    "send_raw_order_rows",
+    "send_private_config_or_runtime_json"
+  ],
+  "demo_safety": {
+    "data_source_type": "demo_data",
+    "freshness_status": "demo_data",
+    "business_status": "demo_or_historical",
+    "today_label_allowed": false,
+    "approval_data_allowed": false,
+    "live_allowed": false
+  }
+}

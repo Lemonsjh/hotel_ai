@@ -1,0 +1,182 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "schema_version": "v27-wrapper",
+  "title": "S12 input wrapper",
+  "type": "object",
+  "canonical_source": "contracts/v27/node_io_contract.yaml",
+  "secondary_source": "contracts/v27/skill_io_contract.yaml",
+  "alignment_source": "references/v27_alignment.json",
+  "skill_id": "S12",
+  "skill_name": "S12",
+  "node_id": "N008",
+  "node_ids": [
+    "N008"
+  ],
+  "agent_id": "A1",
+  "agent_ids": [
+    "A1"
+  ],
+  "source_contract": "contracts/v27/contract.json",
+  "field_registry_ref": "contracts/v27/field_registry.yaml",
+  "node_io_contract_ref": "contracts/v27/node_io_contract.yaml",
+  "demo_safety_fields": [
+    "data_source_type=demo_data",
+    "freshness_status=demo_data",
+    "approval_data_allowed=false",
+    "live_allowed=false"
+  ],
+  "additionalProperties": true,
+  "input_field_ids": [
+    "REP001",
+    "REP002",
+    "REP003",
+    "REP004",
+    "REP005",
+    "REP006",
+    "REP010",
+    "REP011",
+    "REP012",
+    "HOT001"
+  ],
+  "required_inputs": [
+    "REP001",
+    "REP002",
+    "REP003",
+    "REP004",
+    "REP005",
+    "REP006",
+    "REP010",
+    "REP011",
+    "REP012",
+    "HOT001"
+  ],
+  "optional_inputs": [],
+  "upstream_node_outputs": [],
+  "deprecated_legacy_fields": {
+    "rating_total": {
+      "deprecated": true,
+      "legacy_path": "business_fields.rating_total",
+      "replacement_field_ids": [],
+      "description": "rating_total from unified data contract"
+    },
+    "bad_review_rate": {
+      "deprecated": true,
+      "legacy_path": "business_fields.bad_review_rate",
+      "replacement_field_ids": [],
+      "description": "bad_review_rate from unified data contract"
+    },
+    "review_content": {
+      "deprecated": true,
+      "legacy_path": "business_fields.review_content",
+      "replacement_field_ids": [],
+      "description": "review_content from unified data contract"
+    },
+    "guest_impression_keywords": {
+      "deprecated": true,
+      "legacy_path": "business_fields.guest_impression_keywords",
+      "replacement_field_ids": [],
+      "description": "guest_impression_keywords from unified data contract"
+    },
+    "bad_review_followup_status": {
+      "deprecated": true,
+      "legacy_path": "business_fields.bad_review_followup_status",
+      "replacement_field_ids": [],
+      "description": "bad_review_followup_status from unified data contract"
+    }
+  },
+  "properties": {
+    "REP001": {
+      "type": "string",
+      "canonical_key": "review_content",
+      "project_field_name": "review_content",
+      "field_status": "candidate_inferred",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "review_content from V27 contract"
+    },
+    "REP002": {
+      "type": "string",
+      "canonical_key": "review_rating",
+      "project_field_name": "review_rating",
+      "field_status": "candidate_inferred",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "review_rating from V27 contract"
+    },
+    "REP003": {
+      "type": "string",
+      "canonical_key": "review_time",
+      "project_field_name": "review_time",
+      "field_status": "candidate_inferred",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "review_time from V27 contract",
+      "format": "date-time"
+    },
+    "REP004": {
+      "type": "string",
+      "canonical_key": "room_type",
+      "project_field_name": "room_type",
+      "field_status": "candidate_inferred",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "room_type from V27 contract"
+    },
+    "REP005": {
+      "type": "string",
+      "canonical_key": "stay_date",
+      "project_field_name": "stay_date",
+      "field_status": "candidate_inferred",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "stay_date from V27 contract",
+      "format": "date-time"
+    },
+    "REP006": {
+      "type": "string",
+      "canonical_key": "channel_source",
+      "project_field_name": "channel_source",
+      "field_status": "project_only",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "channel_source from V27 contract"
+    },
+    "REP010": {
+      "type": "string",
+      "canonical_key": "reply_status",
+      "project_field_name": "reply_status",
+      "field_status": "candidate_inferred",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "reply_status from V27 contract"
+    },
+    "REP011": {
+      "type": "string",
+      "canonical_key": "compensation_status",
+      "project_field_name": "compensation_status",
+      "field_status": "candidate_inferred",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "compensation_status from V27 contract"
+    },
+    "REP012": {
+      "type": "string",
+      "canonical_key": "similar_history",
+      "project_field_name": "similar_history",
+      "field_status": "candidate_inferred",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "similar_history from V27 contract"
+    },
+    "HOT001": {
+      "type": "string",
+      "canonical_key": "hotel_id",
+      "project_field_name": "hotel_id",
+      "field_status": "manual_required",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "hotel_id from V27 contract"
+    }
+  },
+  "required": []
+}

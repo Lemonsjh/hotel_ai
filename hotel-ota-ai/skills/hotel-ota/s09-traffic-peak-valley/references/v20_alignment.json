@@ -1,0 +1,69 @@
+{
+  "schema_version": "0.1",
+  "skill_id": "S9",
+  "skill_dir": "s09-traffic-peak-valley",
+  "node_id": "N020",
+  "node_name": "S9 流量峰谷",
+  "agent_id": "A1",
+  "phase": "P2",
+  "node_registry_ref": "architecture/node_registry.json",
+  "edge_registry_ref": "architecture/edge_registry.json",
+  "scenario_registry_ref": "architecture/scenario_chain_registry.json",
+  "field_registry_ref": "contracts/field_registry.yaml",
+  "node_io_contract_ref": "contracts/node_io_contract.yaml",
+  "algorithm_rules_ref": "runtime/algorithm_rules/traffic_rules.yaml",
+  "demo_node_fixture": "examples/demo_data/nodes/N020.json",
+  "demo_scenarios": [
+    "SC02",
+    "SC03",
+    "SC04",
+    "SC06"
+  ],
+  "upstream_edges": [
+    {
+      "edge_id": "E030",
+      "source_node_id": "N005",
+      "why": "流量峰谷必须基于当前经营、订单、曝光/浏览/支付转化快照。"
+    },
+    {
+      "edge_id": "E031",
+      "source_node_id": "N010",
+      "why": "小时峰谷需要和销售基准线/上周同小时曲线比较。"
+    }
+  ],
+  "downstream_edges": [
+    {
+      "edge_id": "E032",
+      "target_node_id": "N009",
+      "why": "峰谷异常和转化异常需要回流到运营诊断，避免只靠调价解决。"
+    },
+    {
+      "edge_id": "E033",
+      "target_node_id": "N012",
+      "why": "低谷时段和流量缺口决定推广投放窗口与预算建议。"
+    },
+    {
+      "edge_id": "E034",
+      "target_node_id": "N015",
+      "why": "小时级需求和进单节奏会影响调价时点和动作强度。"
+    },
+    {
+      "edge_id": "E055",
+      "target_node_id": "N018",
+      "why": "用户只问流量峰谷/进单时段时，峰谷结果直接输出。"
+    }
+  ],
+  "forbidden_actions": [
+    "treat_demo_data_as_real_today_data",
+    "create_formal_approval_from_demo_or_stale_data",
+    "bypass_data_gate_or_approval_guard"
+  ],
+  "demo_safety": {
+    "data_source_type": "demo_data",
+    "freshness_status": "demo_data",
+    "business_status": "demo_or_historical",
+    "today_label_allowed": false,
+    "approval_data_allowed": false,
+    "live_allowed": false
+  }
+}

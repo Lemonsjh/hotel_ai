@@ -1,0 +1,70 @@
+# Skill dependency contract for production orchestration.
+# S15 provides the cacheable baseline package. S16 keeps its existing name and
+# uses that package plus current facts to explain the day's progress deviation.
+
+S16_PROGRESS_DEVIATION:
+  description: Progress deviation reads current hotel/room facts and current market/funnel/product facts, then consumes the cache-first S15 baseline package to explain the day's deviation.
+  requires:
+    - S15_SALES_BASELINE
+  policy: fail_fast
+  blocked_when_dependency_status:
+    - data_gap
+    - stale
+    - schema_drift
+    - blocked
+  does_not_require:
+    - S14_OPERATION_DIAGNOSIS
+
+S5_REVENUE_DECISION:
+  description: Revenue decision consumes an S16 price-direction handoff when available and revalidates the exact OTA product, its own comparable price history, mapping, current price and guard. Missing exact-product history blocks a pricing candidate rather than inventing a room-type comparison.
+  requires:
+    - S2_OPERATING_SNAPSHOT
+    - S15_SALES_BASELINE
+    - S16_PROGRESS_DEVIATION
+    - OTA_PRICE_MAPPING
+  optional_evidence:
+    - S4_MARKET_CONTEXT
+  policy: collect_all_and_degrade_modules
+  dependency_status_handling:
+    ok: use_as_evidence
+    partial: use_as_limited_evidence
+    data_gap: emit_reference_only_candidate
+    stale: emit_reference_only_candidate
+    schema_drift: emit_reference_only_candidate
+    blocked: emit_reference_only_candidate
+  does_not_require:
+    - S14_OPERATION_DIAGNOSIS
+
+S14_OPERATION_DIAGNOSIS:
+  description: S14 remains independently invokable. When a static review needs them, it may consume versioned S15/S16 and other capability results; it is not an obligatory layer in the S15/S16/S5/S6 dynamic path.
+  source_policy: versioned_capability_results_only
+  requires:
+    - S2_OPERATING_SNAPSHOT
+    - S4_MARKET_CONTEXT
+    - S7_COMPETITIVE_MONITORING
+    - S8_PROMOTION_PLANNING
+    - S9_TRAFFIC_PEAK_VALLEY
+    - S10_ROI_DECISION
+    - S12_REPUTATION_MANAGEMENT
+    - S15_SALES_BASELINE
+    - S16_PROGRESS_DEVIATION
+    - S17_CUSTOMER_ORDER_ANALYSIS
+  policy: collect_all_and_degrade_modules
+  dependency_status_handling:
+    ok: observe_module
+    partial: observe_module_and_emit_data_gap_item
+    data_gap: emit_missing_input_item
+    conflict: emit_conflict_item
+    stale: emit_stale_item
+    blocked: emit_blocked_item
+    not_applicable: mark_not_applicable
+  direct_business_table_read_allowed: false
+  excel_source_allowed: false
+  sample_manual_rpa_fallback_allowed: false
+
+S14_EXT_THIRD_PARTY:
+  description: Third-party diagnosis has migrated to an independent service.
+  migrated: true
+  blocked_reason: s14_ext_migrated_to_independent_service
+  requires: []
+  policy: deprecated

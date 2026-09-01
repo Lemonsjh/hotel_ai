@@ -1,0 +1,172 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "schema_version": "v27-wrapper",
+  "title": "S5 output wrapper",
+  "type": "object",
+  "canonical_source": "contracts/v27/node_io_contract.yaml",
+  "secondary_source": "contracts/v27/skill_io_contract.yaml",
+  "alignment_source": "references/v27_alignment.json",
+  "skill_id": "S5",
+  "skill_name": "S5",
+  "node_id": "N015",
+  "node_ids": [
+    "N015"
+  ],
+  "agent_id": "A3",
+  "agent_ids": [
+    "A3"
+  ],
+  "source_contract": "contracts/v27/contract.json",
+  "field_registry_ref": "contracts/v27/field_registry.yaml",
+  "node_io_contract_ref": "contracts/v27/node_io_contract.yaml",
+  "demo_safety_fields": [
+    "data_source_type=demo_data",
+    "freshness_status=demo_data",
+    "approval_data_allowed=false",
+    "live_allowed=false"
+  ],
+  "additionalProperties": true,
+  "output_field_ids": [
+    "N015_OUT001",
+    "N015_OUT002",
+    "N015_OUT003",
+    "N015_OUT004",
+    "N015_OUT005",
+    "N015_OUT006"
+  ],
+  "required_outputs": [
+    "N015_OUT001",
+    "N015_OUT002",
+    "N015_OUT003",
+    "N015_OUT004",
+    "N015_OUT005",
+    "N015_OUT006"
+  ],
+  "optional_outputs": [],
+  "downstream_node_outputs": [
+    "N015_OUT001",
+    "N015_OUT002",
+    "N015_OUT003",
+    "N015_OUT004",
+    "N015_OUT005",
+    "N015_OUT006"
+  ],
+  "deprecated_legacy_outputs": {
+    "actual_orders": {
+      "deprecated": true,
+      "legacy_path": "actual_orders",
+      "replacement_keys": [
+        "actual_room_nights"
+      ],
+      "description": "Compatibility output retained by runtime only; not canonical V27 output."
+    },
+    "target_orders": {
+      "deprecated": true,
+      "legacy_path": "target_orders",
+      "replacement_keys": [
+        "target_room_nights"
+      ],
+      "description": "Compatibility output retained by runtime only; not canonical V27 output."
+    },
+    "checkpoint_target_orders": {
+      "deprecated": true,
+      "legacy_path": "checkpoint_target_orders",
+      "replacement_keys": [
+        "checkpoint_target_room_nights"
+      ],
+      "description": "Compatibility output retained by runtime only; not canonical V27 output."
+    },
+    "direction": {
+      "deprecated": true,
+      "legacy_path": "direction",
+      "replacement_keys": [
+        "progress_status"
+      ],
+      "description": "Compatibility output retained by runtime only; not canonical V27 output."
+    },
+    "completion_rate": {
+      "deprecated": true,
+      "legacy_path": "completion_rate",
+      "replacement_keys": [
+        "progress_status",
+        "room_night_gap"
+      ],
+      "description": "Compatibility output retained by runtime only; not canonical V27 output."
+    }
+  },
+  "properties": {
+    "N015_OUT001": {
+      "type": "object",
+      "canonical_key": "revenue_decision",
+      "project_field_name": "revenue_decision",
+      "field_status": "upstream_output",
+      "required_level": "节点输出",
+      "source_node": "N015",
+      "source_skill": "S5",
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "description": "revenue_decision from V27 contract"
+    },
+    "N015_OUT002": {
+      "type": "array",
+      "canonical_key": "price_recommendations",
+      "project_field_name": "price_recommendations",
+      "field_status": "upstream_output",
+      "required_level": "节点输出",
+      "source_node": "N015",
+      "source_skill": "S5",
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "description": "price_recommendations from V27 contract",
+      "items": {
+        "type": "object"
+      }
+    },
+    "N015_OUT003": {
+      "type": "boolean",
+      "canonical_key": "approval_required",
+      "project_field_name": "approval_required",
+      "field_status": "upstream_output",
+      "required_level": "节点输出",
+      "source_node": "N015",
+      "source_skill": "S5",
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "description": "approval_required from V27 contract"
+    },
+    "N015_OUT004": {
+      "type": "array",
+      "canonical_key": "risk_warnings",
+      "project_field_name": "risk_warnings",
+      "field_status": "upstream_output",
+      "required_level": "节点输出",
+      "source_node": "N015",
+      "source_skill": "S5",
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "description": "risk_warnings from V27 contract",
+      "items": {
+        "type": "object"
+      }
+    },
+    "N015_OUT005": {
+      "type": "number",
+      "canonical_key": "price_confidence",
+      "project_field_name": "price_confidence",
+      "field_status": "upstream_output",
+      "required_level": "节点输出",
+      "source_node": "N015",
+      "source_skill": "S5",
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "description": "price_confidence from V27 contract"
+    },
+    "N015_OUT006": {
+      "type": "boolean",
+      "canonical_key": "alternative_action_needed",
+      "project_field_name": "alternative_action_needed",
+      "field_status": "upstream_output",
+      "required_level": "节点输出",
+      "source_node": "N015",
+      "source_skill": "S5",
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "description": "alternative_action_needed from V27 contract"
+    }
+  },
+  "required": []
+}

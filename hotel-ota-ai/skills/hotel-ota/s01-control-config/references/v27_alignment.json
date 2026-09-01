@@ -1,0 +1,383 @@
+{
+  "skill_id": "S1",
+  "skill_name": "S1",
+  "node_ids": [
+    "N003"
+  ],
+  "agent_id": "A0",
+  "agent_ids": [
+    "A0"
+  ],
+  "blueprint_basis": [
+    "BP00",
+    "BP10"
+  ],
+  "input_field_ids": [
+    "AUTH001",
+    "AUTH002",
+    "HOT001",
+    "CFG001",
+    "CFG002",
+    "CFG003",
+    "CFG004",
+    "CFG005",
+    "CFG006",
+    "CFG007",
+    "CTX010",
+    "N002_OUT003",
+    "N002_OUT001",
+    "N002_OUT006"
+  ],
+  "output_field_ids": [
+    "N003_OUT001",
+    "N003_OUT002",
+    "N003_OUT003",
+    "N003_OUT004",
+    "N003_OUT005",
+    "N003_OUT006"
+  ],
+  "input_fields": [
+    {
+      "field_id": "AUTH001",
+      "canonical_key": "user_role",
+      "project_field_name": "user_role",
+      "zh_name": "用户角色",
+      "data_type": "string",
+      "required_level": "必选/增强",
+      "source_type": "candidate_inferred",
+      "source_node": "",
+      "source_skill": "",
+      "downstream_node": [
+        "N004 或 N018"
+      ],
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "evidence": "V25字段契约直接输入"
+    },
+    {
+      "field_id": "AUTH002",
+      "canonical_key": "auth_status",
+      "project_field_name": "auth_status",
+      "zh_name": "授权状态",
+      "data_type": "string",
+      "required_level": "必选/增强",
+      "source_type": "manual_required",
+      "source_node": "",
+      "source_skill": "",
+      "downstream_node": [
+        "N004 或 N018"
+      ],
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "evidence": "V25字段契约直接输入"
+    },
+    {
+      "field_id": "HOT001",
+      "canonical_key": "hotel_id",
+      "project_field_name": "hotel_id",
+      "zh_name": "酒店编号",
+      "data_type": "string",
+      "required_level": "必选/增强",
+      "source_type": "manual_required",
+      "source_node": "",
+      "source_skill": "",
+      "downstream_node": [
+        "N004 或 N018"
+      ],
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "evidence": "V25字段契约直接输入"
+    },
+    {
+      "field_id": "CFG001",
+      "canonical_key": "price_floor",
+      "project_field_name": "price_floor",
+      "zh_name": "价格底线",
+      "data_type": "number",
+      "required_level": "必选",
+      "source_type": "config_only",
+      "source_node": "",
+      "source_skill": "",
+      "downstream_node": [
+        "N004 或 N018"
+      ],
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "evidence": "V25字段契约直接输入"
+    },
+    {
+      "field_id": "CFG002",
+      "canonical_key": "price_ceiling",
+      "project_field_name": "price_ceiling",
+      "zh_name": "价格封顶价",
+      "data_type": "number",
+      "required_level": "必选",
+      "source_type": "config_only",
+      "source_node": "",
+      "source_skill": "",
+      "downstream_node": [
+        "N004 或 N018"
+      ],
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "evidence": "V25字段契约直接输入"
+    },
+    {
+      "field_id": "CFG003",
+      "canonical_key": "approval_policy",
+      "project_field_name": "approval_policy",
+      "zh_name": "审批策略",
+      "data_type": "string",
+      "required_level": "必选",
+      "source_type": "config_only",
+      "source_node": "",
+      "source_skill": "",
+      "downstream_node": [
+        "N004 或 N018"
+      ],
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "evidence": "V25字段契约直接输入"
+    },
+    {
+      "field_id": "CFG004",
+      "canonical_key": "live_switch",
+      "project_field_name": "live_switch",
+      "zh_name": "正式执行开关",
+      "data_type": "boolean",
+      "required_level": "必选",
+      "source_type": "config_only",
+      "source_node": "",
+      "source_skill": "",
+      "downstream_node": [
+        "N004 或 N018"
+      ],
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "evidence": "V25字段契约直接输入"
+    },
+    {
+      "field_id": "CFG005",
+      "canonical_key": "source_capability",
+      "project_field_name": "source_capability",
+      "zh_name": "数据源能力",
+      "data_type": "string",
+      "required_level": "必选",
+      "source_type": "config_only",
+      "source_node": "",
+      "source_skill": "",
+      "downstream_node": [
+        "N004 或 N018"
+      ],
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "evidence": "V25字段契约直接输入"
+    },
+    {
+      "field_id": "CFG006",
+      "canonical_key": "skill_switch",
+      "project_field_name": "skill_switch",
+      "zh_name": "Skill 开关",
+      "data_type": "boolean",
+      "required_level": "必选",
+      "source_type": "config_only",
+      "source_node": "",
+      "source_skill": "",
+      "downstream_node": [
+        "N004 或 N018"
+      ],
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "evidence": "V25字段契约直接输入"
+    },
+    {
+      "field_id": "CFG007",
+      "canonical_key": "execution_boundary",
+      "project_field_name": "execution_boundary",
+      "zh_name": "执行边界",
+      "data_type": "string",
+      "required_level": "必选",
+      "source_type": "config_only",
+      "source_node": "",
+      "source_skill": "",
+      "downstream_node": [
+        "N004 或 N018"
+      ],
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "evidence": "V25字段契约直接输入"
+    },
+    {
+      "field_id": "CTX010",
+      "canonical_key": "field_quality",
+      "project_field_name": "field_quality",
+      "zh_name": "字段质量",
+      "data_type": "string",
+      "required_level": "必选/增强",
+      "source_type": "project_only",
+      "source_node": "",
+      "source_skill": "",
+      "downstream_node": [
+        "N004 或 N018"
+      ],
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "evidence": "V25字段契约直接输入"
+    },
+    {
+      "field_id": "N002_OUT003",
+      "canonical_key": "required_skill_chain",
+      "project_field_name": "required_skill_chain",
+      "zh_name": "所需Skill链",
+      "data_type": "array",
+      "required_level": "按链路触发必需",
+      "source_type": "upstream_output",
+      "source_node": "N002",
+      "source_skill": "-",
+      "downstream_node": [
+        "N004 或 N018"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "15_上游输出展开 E002"
+    },
+    {
+      "field_id": "N002_OUT001",
+      "canonical_key": "scenario_id",
+      "project_field_name": "scenario_id",
+      "zh_name": "场景编号",
+      "data_type": "string",
+      "required_level": "按链路触发必需",
+      "source_type": "upstream_output",
+      "source_node": "N002",
+      "source_skill": "-",
+      "downstream_node": [
+        "N004 或 N018"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "15_上游输出展开 E002"
+    },
+    {
+      "field_id": "N002_OUT006",
+      "canonical_key": "agent_plan",
+      "project_field_name": "agent_plan",
+      "zh_name": "Agent执行计划",
+      "data_type": "array",
+      "required_level": "按链路触发必需",
+      "source_type": "upstream_output",
+      "source_node": "N002",
+      "source_skill": "-",
+      "downstream_node": [
+        "N004 或 N018"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "15_上游输出展开 E002"
+    }
+  ],
+  "output_fields": [
+    {
+      "field_id": "N003_OUT001",
+      "canonical_key": "safety_policy",
+      "project_field_name": "safety_policy",
+      "zh_name": "安全策略",
+      "data_type": "object",
+      "required_level": "节点输出",
+      "source_type": "upstream_output",
+      "source_node": "N003",
+      "source_skill": "S1",
+      "downstream_node": [
+        "N004 或 N018"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "14_输出字段字典"
+    },
+    {
+      "field_id": "N003_OUT002",
+      "canonical_key": "allowed_actions",
+      "project_field_name": "allowed_actions",
+      "zh_name": "允许动作",
+      "data_type": "array",
+      "required_level": "节点输出",
+      "source_type": "upstream_output",
+      "source_node": "N003",
+      "source_skill": "S1",
+      "downstream_node": [
+        "N004 或 N018"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "14_输出字段字典"
+    },
+    {
+      "field_id": "N003_OUT003",
+      "canonical_key": "execution_boundary",
+      "project_field_name": "execution_boundary",
+      "zh_name": "执行边界",
+      "data_type": "object",
+      "required_level": "节点输出",
+      "source_type": "upstream_output",
+      "source_node": "N003",
+      "source_skill": "S1",
+      "downstream_node": [
+        "N004 或 N018"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "14_输出字段字典"
+    },
+    {
+      "field_id": "N003_OUT004",
+      "canonical_key": "blocked_reason",
+      "project_field_name": "blocked_reason",
+      "zh_name": "阻断原因",
+      "data_type": "array",
+      "required_level": "节点输出",
+      "source_type": "upstream_output",
+      "source_node": "N003",
+      "source_skill": "S1",
+      "downstream_node": [
+        "N004 或 N018"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "14_输出字段字典"
+    },
+    {
+      "field_id": "N003_OUT005",
+      "canonical_key": "config_status",
+      "project_field_name": "config_status",
+      "zh_name": "配置状态",
+      "data_type": "string",
+      "required_level": "节点输出",
+      "source_type": "upstream_output",
+      "source_node": "N003",
+      "source_skill": "S1",
+      "downstream_node": [
+        "N004 或 N018"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "14_输出字段字典"
+    },
+    {
+      "field_id": "N003_OUT006",
+      "canonical_key": "required_field_packages",
+      "project_field_name": "required_field_packages",
+      "zh_name": "所需字段包",
+      "data_type": "array",
+      "required_level": "节点输出",
+      "source_type": "upstream_output",
+      "source_node": "N003",
+      "source_skill": "S1",
+      "downstream_node": [
+        "N004 或 N018"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "14_输出字段字典"
+    }
+  ],
+  "runtime_command": "",
+  "demo_data_files": [
+    "examples/demo_data/demo_manifest.json",
+    "examples/demo_data/nodes/N003.json"
+  ],
+  "error_handling": "",
+  "acceptance_tests": [
+    "tests/contracts/test_v27_skill_io_contract.py"
+  ],
+  "schema_version": "v27.0",
+  "source": "contracts/v27/contract.json",
+  "field_registry_ref": "contracts/v27/field_registry.yaml",
+  "node_io_contract_ref": "contracts/v27/node_io_contract.yaml",
+  "legacy_v26_alignment_ref": "references/v26_alignment.json",
+  "demo_safety_fields": [
+    "data_source_type=demo_data",
+    "freshness_status=demo_data",
+    "approval_data_allowed=false",
+    "live_allowed=false"
+  ]
+}

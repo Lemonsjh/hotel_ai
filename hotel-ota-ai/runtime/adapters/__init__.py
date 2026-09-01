@@ -1,0 +1,18 @@
+"""Channel and PMS adapter helpers."""
+
+from runtime.adapters.s14_source_guard import install_s14_direct_database_source_guard
+from runtime.adapters.schema_drift_guard import install_database_schema_drift_guard
+from runtime.adapters.s6_fast_outbox_guard import install_s6_fast_outbox_guard
+from runtime.adapters.auto_only_mapping_guard import install_auto_only_mapping_guard
+
+
+install_database_schema_drift_guard()
+install_s14_direct_database_source_guard()
+install_s6_fast_outbox_guard()
+install_auto_only_mapping_guard()
+
+
+del install_database_schema_drift_guard
+del install_s14_direct_database_source_guard
+del install_s6_fast_outbox_guard
+del install_auto_only_mapping_guard

@@ -1,0 +1,50 @@
+{
+  "scenario_id": "SC10",
+  "fixture_id": "demo_sc10",
+  "name": "第三方酒店 OTA 诊断 / S14-EXT 链路",
+  "nodes": [
+    "N001",
+    "N002",
+    "N003",
+    "N004",
+    "N022",
+    "N018",
+    "N019"
+  ],
+  "required_edges": [
+    "E001",
+    "E002",
+    "E003",
+    "E043",
+    "E044",
+    "E026",
+    "E045"
+  ],
+  "optional_edges": [],
+  "demo_meta": {
+    "data_source_type": "demo_data",
+    "freshness_status": "demo_data",
+    "business_status": "demo_or_historical",
+    "today_label_allowed": false,
+    "approval_data_allowed": false,
+    "live_allowed": false
+  },
+  "fixture_refs": [
+    "competitor_snapshot",
+    "execution_preview",
+    "experience_preview",
+    "external_diagnosis",
+    "market_context",
+    "operating_snapshot",
+    "progress_deviation",
+    "reputation_snapshot",
+    "revenue_decision",
+    "sales_baseline"
+  ],
+  "expected_outputs": [
+    "data_source_type=demo_data",
+    "freshness_status=demo_data",
+    "approval_data_allowed=false",
+    "live_allowed=false"
+  ]
+}

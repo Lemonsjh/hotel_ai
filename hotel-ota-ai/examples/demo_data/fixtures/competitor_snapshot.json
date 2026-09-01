@@ -1,0 +1,16 @@
+{
+  "competitors": [
+    {
+      "name": "Demo Competitor A",
+      "price": 179,
+      "rank": 4
+    }
+  ],
+  "warning_level": "watch",
+  "data_source_type": "demo_data",
+  "freshness_status": "demo_data",
+  "business_status": "demo_or_historical",
+  "today_label_allowed": false,
+  "approval_data_allowed": false,
+  "live_allowed": false
+}

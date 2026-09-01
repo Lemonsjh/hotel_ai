@@ -1,0 +1,109 @@
+{
+  "schema_version": "1.0",
+  "owner_skill": "S3",
+  "status": "implemented",
+  "placement": "runtime/algorithm_rules",
+  "node_id": "N018",
+  "agent_id": "A5",
+  "phase": "P0",
+  "source_refs": {
+    "node_registry": "architecture/node_registry.json",
+    "edge_registry": "architecture/edge_registry.json",
+    "scenario_registry": "architecture/scenario_chain_registry.json",
+    "field_registry": "contracts/v27/field_registry.yaml",
+    "node_io_contract": "contracts/v27/node_io_contract.yaml",
+    "skill_alignment": "skills/hotel-ota/s03-message-hub/references/v27_alignment.json"
+  },
+  "demo_safety": {
+    "data_source_type": "demo_data",
+    "freshness_status": "demo_data",
+    "business_status": "demo_or_historical",
+    "today_label_allowed": false,
+    "approval_data_allowed": false,
+    "live_allowed": false
+  },
+  "data_gate": {
+    "hard_required": [
+      "template_id",
+      "recipient_role",
+      "payload_summary"
+    ],
+    "soft_required": [],
+    "missing_policy": "block_business_conclusion_or_live; allow demo preview only when demo safety flags are present"
+  },
+  "algorithm": {
+    "objective": "Render role-safe Feishu/business messages from approved templates.",
+    "ordered_steps": [
+      {
+        "step_id": "s3_01",
+        "action": "Select production/development template by environment and content_kind."
+      },
+      {
+        "step_id": "s3_02",
+        "action": "Block raw order rows, private config, source bundles, runtime JSON dumps, and secret-like content."
+      },
+      {
+        "step_id": "s3_03",
+        "action": "Render demo/stale/sample disclosure when freshness_status is not fresh."
+      },
+      {
+        "step_id": "s3_04",
+        "action": "Return only role-appropriate summary fields and approval card previews."
+      }
+    ],
+    "thresholds": {
+      "raw_order_rows_allowed": false,
+      "private_config_export_allowed": false,
+      "demo_disclosure_required": true
+    },
+    "degradation": [
+      "When hard-required fields are missing, return missing_fields and confidence=low.",
+      "When input is demo/sample/stale, return preview_only or dry_run and block formal approval/live.",
+      "When source capability is read-only/manual, produce recommendation or task only."
+    ],
+    "output_contract": [
+      "template_id",
+      "rendered_message",
+      "blocked_reason",
+      "disclosure"
+    ]
+  },
+  "forbidden_actions": [
+    "treat_demo_data_as_real_today_data",
+    "create_formal_approval_from_demo_or_stale_data",
+    "bypass_data_gate_or_approval_guard",
+    "send_raw_order_rows",
+    "send_private_config_or_runtime_json"
+  ],
+  "demo_behavior_cases": [
+    {
+      "case_id": "s3_demo_preview",
+      "fixture": "examples/demo_data/nodes/N018.json",
+      "expected": {
+        "data_source_type": "demo_data",
+        "approval_data_allowed": false,
+        "live_allowed": false,
+        "status_in": [
+          "preview_only",
+          "dry_run",
+          "simulation_only",
+          "ok"
+        ]
+      }
+    },
+    {
+      "case_id": "s3_missing_hard_required",
+      "input": {
+        "hotel_id": "puyue-demo"
+      },
+      "expected": {
+        "allowed": false,
+        "reason": "missing_hard_required_fields"
+      }
+    }
+  ],
+  "executed_by_runtime": [
+    "runtime.safety.feishu_output.feishu_output_gate"
+  ],
+  "runtime_execution_status": "executed"
+}

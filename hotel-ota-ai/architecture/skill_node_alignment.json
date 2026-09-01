@@ -1,0 +1,1393 @@
+{
+  "schema_version": "0.1",
+  "source": "V19 node/edge/scenario registries",
+  "skills": [
+    {
+      "schema_version": "0.1",
+      "skill_id": "S1",
+      "skill_dir": "s01-control-config",
+      "node_id": "N003",
+      "node_name": "S1 顶层配置与权限安全",
+      "agent_id": "A0",
+      "phase": "P0",
+      "node_registry_ref": "architecture/node_registry.json",
+      "edge_registry_ref": "architecture/edge_registry.json",
+      "scenario_registry_ref": "architecture/scenario_chain_registry.json",
+      "field_registry_ref": "contracts/field_registry.yaml",
+      "node_io_contract_ref": "contracts/node_io_contract.yaml",
+      "algorithm_rules_ref": "runtime/algorithm_rules/auth_policy.yaml",
+      "demo_node_fixture": "examples/demo_data/nodes/N003.json",
+      "demo_scenarios": [
+        "SC01",
+        "SC02",
+        "SC03",
+        "SC04",
+        "SC05",
+        "SC06",
+        "SC07",
+        "SC08",
+        "SC10"
+      ],
+      "upstream_edges": [
+        {
+          "edge_id": "E002",
+          "source_node_id": "N002",
+          "why": "所有业务链路必须先验权；权限不是记忆或用户自称决定。"
+        }
+      ],
+      "downstream_edges": [
+        {
+          "edge_id": "E003",
+          "target_node_id": "N004",
+          "why": "权限和配置通过后才能读取业务数据；读取前要检查字段需求。"
+        }
+      ],
+      "forbidden_actions": [
+        "treat_demo_data_as_real_today_data",
+        "create_formal_approval_from_demo_or_stale_data",
+        "bypass_data_gate_or_approval_guard"
+      ],
+      "demo_safety": {
+        "data_source_type": "demo_data",
+        "freshness_status": "demo_data",
+        "business_status": "demo_or_historical",
+        "today_label_allowed": false,
+        "approval_data_allowed": false,
+        "live_allowed": false
+      }
+    },
+    {
+      "schema_version": "0.1",
+      "skill_id": "S2",
+      "skill_dir": "s02-operating-snapshot",
+      "node_id": "N005",
+      "node_name": "S2 经营房态采集",
+      "agent_id": "A1",
+      "phase": "P0",
+      "node_registry_ref": "architecture/node_registry.json",
+      "edge_registry_ref": "architecture/edge_registry.json",
+      "scenario_registry_ref": "architecture/scenario_chain_registry.json",
+      "field_registry_ref": "contracts/field_registry.yaml",
+      "node_io_contract_ref": "contracts/node_io_contract.yaml",
+      "algorithm_rules_ref": "runtime/algorithm_rules/operating_snapshot_rules.yaml",
+      "demo_node_fixture": "examples/demo_data/nodes/N005.json",
+      "demo_scenarios": [
+        "SC01",
+        "SC02",
+        "SC03",
+        "SC04",
+        "SC05",
+        "SC06"
+      ],
+      "upstream_edges": [
+        {
+          "edge_id": "E004",
+          "source_node_id": "N004",
+          "why": "经营/诊断/调价/基准线/峰谷都需要统一经营快照作为数据底座。"
+        }
+      ],
+      "downstream_edges": [
+        {
+          "edge_id": "E008",
+          "target_node_id": "N009",
+          "why": "OTA健康诊断需要经营、库存、价格快照作为基础证据。"
+        },
+        {
+          "edge_id": "E010",
+          "target_node_id": "N010",
+          "why": "销售基准线需要房量、历史指标和经营快照。"
+        },
+        {
+          "edge_id": "E012",
+          "target_node_id": "N011",
+          "why": "偏差诊断需要当前实际进度与基准线比较。"
+        },
+        {
+          "edge_id": "E030",
+          "target_node_id": "N020",
+          "why": "流量峰谷必须基于当前经营、订单、曝光/浏览/支付转化快照。"
+        },
+        {
+          "edge_id": "E046",
+          "target_node_id": "N018",
+          "why": "用户只问经营快报时，经营房态采集结果直接进入消息中台输出，不进入收益决策。"
+        },
+        {
+          "edge_id": "E056",
+          "target_node_id": "N012",
+          "why": "活动/推广建议需要经营、价格、库存快照判断活动后到手价和库存压力。"
+        }
+      ],
+      "forbidden_actions": [
+        "treat_demo_data_as_real_today_data",
+        "create_formal_approval_from_demo_or_stale_data",
+        "bypass_data_gate_or_approval_guard"
+      ],
+      "demo_safety": {
+        "data_source_type": "demo_data",
+        "freshness_status": "demo_data",
+        "business_status": "demo_or_historical",
+        "today_label_allowed": false,
+        "approval_data_allowed": false,
+        "live_allowed": false
+      }
+    },
+    {
+      "schema_version": "0.1",
+      "skill_id": "S4",
+      "skill_dir": "s04-market-context",
+      "node_id": "N006",
+      "node_name": "S4 环境行情感知",
+      "agent_id": "A1",
+      "phase": "P1",
+      "node_registry_ref": "architecture/node_registry.json",
+      "edge_registry_ref": "architecture/edge_registry.json",
+      "scenario_registry_ref": "architecture/scenario_chain_registry.json",
+      "field_registry_ref": "contracts/field_registry.yaml",
+      "node_io_contract_ref": "contracts/node_io_contract.yaml",
+      "algorithm_rules_ref": "runtime/algorithm_rules/demand_rules.yaml",
+      "demo_node_fixture": "examples/demo_data/nodes/N006.json",
+      "demo_scenarios": [
+        "SC02",
+        "SC03",
+        "SC05",
+        "SC06"
+      ],
+      "upstream_edges": [
+        {
+          "edge_id": "E005",
+          "source_node_id": "N004",
+          "why": "需求、行情、调价、活动和基准线需要需求指数。"
+        }
+      ],
+      "downstream_edges": [
+        {
+          "edge_id": "E013",
+          "target_node_id": "N015",
+          "why": "需求指数决定调价动作强度和策略保守程度。"
+        },
+        {
+          "edge_id": "E049",
+          "target_node_id": "N018",
+          "why": "用户只问行情/天气/节假日/市场热度时，环境行情结果直接进入消息中台输出。"
+        },
+        {
+          "edge_id": "E057",
+          "target_node_id": "N012",
+          "why": "环境行情和需求指数影响活动/推广是否开启、保留或调整。"
+        },
+        {
+          "edge_id": "E060",
+          "target_node_id": "N010",
+          "why": "销售基准线需要日期属性、节假日、天气、活动等需求背景修正目标曲线。"
+        },
+        {
+          "edge_id": "E063",
+          "target_node_id": "N009",
+          "why": "需求环境影响诊断结论解释，避免把外部行情误判为酒店自身问题。"
+        }
+      ],
+      "forbidden_actions": [
+        "treat_demo_data_as_real_today_data",
+        "create_formal_approval_from_demo_or_stale_data",
+        "bypass_data_gate_or_approval_guard"
+      ],
+      "demo_safety": {
+        "data_source_type": "demo_data",
+        "freshness_status": "demo_data",
+        "business_status": "demo_or_historical",
+        "today_label_allowed": false,
+        "approval_data_allowed": false,
+        "live_allowed": false
+      }
+    },
+    {
+      "schema_version": "0.1",
+      "skill_id": "S7",
+      "skill_dir": "s07-competitive-monitoring",
+      "node_id": "N007",
+      "node_name": "S7 竞态监控",
+      "agent_id": "A1",
+      "phase": "P2",
+      "node_registry_ref": "architecture/node_registry.json",
+      "edge_registry_ref": "architecture/edge_registry.json",
+      "scenario_registry_ref": "architecture/scenario_chain_registry.json",
+      "field_registry_ref": "contracts/field_registry.yaml",
+      "node_io_contract_ref": "contracts/node_io_contract.yaml",
+      "algorithm_rules_ref": "runtime/algorithm_rules/competition_rules.yaml",
+      "demo_node_fixture": "examples/demo_data/nodes/N007.json",
+      "demo_scenarios": [
+        "SC02",
+        "SC03",
+        "SC05",
+        "SC06"
+      ],
+      "upstream_edges": [
+        {
+          "edge_id": "E006",
+          "source_node_id": "N004",
+          "why": "用户问竞对时直接触发；调价/活动需要竞对参考时链路触发。"
+        }
+      ],
+      "downstream_edges": [
+        {
+          "edge_id": "E014",
+          "target_node_id": "N015",
+          "why": "竞对只作为收益决策参考，不允许直接进入执行。"
+        },
+        {
+          "edge_id": "E050",
+          "target_node_id": "N018",
+          "why": "用户只问竞对情况时，竞态监控结果直接输出；不得直接执行价格变更。"
+        },
+        {
+          "edge_id": "E059",
+          "target_node_id": "N012",
+          "why": "竞对价格、活动、排名变化可作为活动/推广建议的参考输入。"
+        },
+        {
+          "edge_id": "E062",
+          "target_node_id": "N009",
+          "why": "竞对排名、评分和价格变化会影响 OTA 健康诊断中的竞态维度。"
+        }
+      ],
+      "forbidden_actions": [
+        "treat_demo_data_as_real_today_data",
+        "create_formal_approval_from_demo_or_stale_data",
+        "bypass_data_gate_or_approval_guard"
+      ],
+      "demo_safety": {
+        "data_source_type": "demo_data",
+        "freshness_status": "demo_data",
+        "business_status": "demo_or_historical",
+        "today_label_allowed": false,
+        "approval_data_allowed": false,
+        "live_allowed": false
+      }
+    },
+    {
+      "schema_version": "0.1",
+      "skill_id": "S12",
+      "skill_dir": "s12-reputation-management",
+      "node_id": "N008",
+      "node_name": "S12 口碑管理",
+      "agent_id": "A1",
+      "phase": "P2",
+      "node_registry_ref": "architecture/node_registry.json",
+      "edge_registry_ref": "architecture/edge_registry.json",
+      "scenario_registry_ref": "architecture/scenario_chain_registry.json",
+      "field_registry_ref": "contracts/field_registry.yaml",
+      "node_io_contract_ref": "contracts/node_io_contract.yaml",
+      "algorithm_rules_ref": "runtime/algorithm_rules/reputation_rules.yaml",
+      "demo_node_fixture": "examples/demo_data/nodes/N008.json",
+      "demo_scenarios": [
+        "SC02",
+        "SC03",
+        "SC06",
+        "SC07",
+        "SC09"
+      ],
+      "upstream_edges": [
+        {
+          "edge_id": "E007",
+          "source_node_id": "N004",
+          "why": "用户问口碑时直接触发；诊断需要口碑维度时链路触发。"
+        }
+      ],
+      "downstream_edges": [
+        {
+          "edge_id": "E009",
+          "target_node_id": "N009",
+          "why": "口碑结果会影响 OTA 健康分和诊断动作。"
+        },
+        {
+          "edge_id": "E042",
+          "target_node_id": "N017",
+          "why": "口碑管理识别需要回复的评论后，进入回复草稿生成。"
+        },
+        {
+          "edge_id": "E051",
+          "target_node_id": "N018",
+          "why": "用户只问口碑概览时，口碑管理结果直接输出；评论内容需脱敏。"
+        },
+        {
+          "edge_id": "E066",
+          "target_node_id": "N019",
+          "why": "口碑分类和处理结果可脱敏沉淀为评论处理经验。"
+        }
+      ],
+      "forbidden_actions": [
+        "treat_demo_data_as_real_today_data",
+        "create_formal_approval_from_demo_or_stale_data",
+        "bypass_data_gate_or_approval_guard"
+      ],
+      "demo_safety": {
+        "data_source_type": "demo_data",
+        "freshness_status": "demo_data",
+        "business_status": "demo_or_historical",
+        "today_label_allowed": false,
+        "approval_data_allowed": false,
+        "live_allowed": false
+      }
+    },
+    {
+      "schema_version": "0.1",
+      "skill_id": "S14",
+      "skill_dir": "s14-operation-diagnosis",
+      "node_id": "N009",
+      "node_name": "S14 酒店运营诊断",
+      "agent_id": "A2",
+      "phase": "P0",
+      "node_registry_ref": "architecture/node_registry.json",
+      "edge_registry_ref": "architecture/edge_registry.json",
+      "scenario_registry_ref": "architecture/scenario_chain_registry.json",
+      "field_registry_ref": "contracts/field_registry.yaml",
+      "node_io_contract_ref": "contracts/node_io_contract.yaml",
+      "algorithm_rules_ref": "runtime/algorithm_rules/operation_diagnosis_rules.yaml",
+      "demo_node_fixture": "examples/demo_data/nodes/N009.json",
+      "demo_scenarios": [
+        "SC02",
+        "SC03",
+        "SC05",
+        "SC06",
+        "SC07",
+        "SC09"
+      ],
+      "upstream_edges": [
+        {
+          "edge_id": "E008",
+          "source_node_id": "N005",
+          "why": "OTA健康诊断需要经营、库存、价格快照作为基础证据。"
+        },
+        {
+          "edge_id": "E009",
+          "source_node_id": "N008",
+          "why": "口碑结果会影响 OTA 健康分和诊断动作。"
+        },
+        {
+          "edge_id": "E032",
+          "source_node_id": "N020",
+          "why": "峰谷异常和转化异常需要回流到运营诊断，避免只靠调价解决。"
+        },
+        {
+          "edge_id": "E062",
+          "source_node_id": "N007",
+          "why": "竞对排名、评分和价格变化会影响 OTA 健康诊断中的竞态维度。"
+        },
+        {
+          "edge_id": "E063",
+          "source_node_id": "N006",
+          "why": "需求环境影响诊断结论解释，避免把外部行情误判为酒店自身问题。"
+        }
+      ],
+      "downstream_edges": [
+        {
+          "edge_id": "E015",
+          "target_node_id": "N015",
+          "why": "健康诊断和转化瓶颈决定是否先修转化、口碑或库存，再调价。"
+        },
+        {
+          "edge_id": "E023",
+          "target_node_id": "N018",
+          "why": "诊断结果需要生成老板/运营可读报告。"
+        },
+        {
+          "edge_id": "E058",
+          "target_node_id": "N012",
+          "why": "诊断弱项和转化瓶颈会影响活动/推广建议，避免用推广掩盖内容或转化问题。"
+        },
+        {
+          "edge_id": "E064",
+          "target_node_id": "N019",
+          "why": "诊断结论、弱项和整改动作可脱敏沉淀为运营案例和测试候选。"
+        }
+      ],
+      "forbidden_actions": [
+        "treat_demo_data_as_real_today_data",
+        "create_formal_approval_from_demo_or_stale_data",
+        "bypass_data_gate_or_approval_guard"
+      ],
+      "demo_safety": {
+        "data_source_type": "demo_data",
+        "freshness_status": "demo_data",
+        "business_status": "demo_or_historical",
+        "today_label_allowed": false,
+        "approval_data_allowed": false,
+        "live_allowed": false
+      }
+    },
+    {
+      "schema_version": "0.1",
+      "skill_id": "S15",
+      "skill_dir": "s15-sales-baseline",
+      "node_id": "N010",
+      "node_name": "S15 销售基准线",
+      "agent_id": "A2",
+      "phase": "P0",
+      "node_registry_ref": "architecture/node_registry.json",
+      "edge_registry_ref": "architecture/edge_registry.json",
+      "scenario_registry_ref": "architecture/scenario_chain_registry.json",
+      "field_registry_ref": "contracts/field_registry.yaml",
+      "node_io_contract_ref": "contracts/node_io_contract.yaml",
+      "algorithm_rules_ref": "runtime/algorithm_rules/baseline_rules.yaml",
+      "demo_node_fixture": "examples/demo_data/nodes/N010.json",
+      "demo_scenarios": [
+        "SC03",
+        "SC04"
+      ],
+      "upstream_edges": [
+        {
+          "edge_id": "E010",
+          "source_node_id": "N005",
+          "why": "销售基准线需要房量、历史指标和经营快照。"
+        },
+        {
+          "edge_id": "E060",
+          "source_node_id": "N006",
+          "why": "销售基准线需要日期属性、节假日、天气、活动等需求背景修正目标曲线。"
+        }
+      ],
+      "downstream_edges": [
+        {
+          "edge_id": "E011",
+          "target_node_id": "N011",
+          "why": "有基准线后才能判断当前进度偏差。"
+        },
+        {
+          "edge_id": "E031",
+          "target_node_id": "N020",
+          "why": "小时峰谷需要和销售基准线/上周同小时曲线比较。"
+        },
+        {
+          "edge_id": "E052",
+          "target_node_id": "N018",
+          "why": "用户只问销售基准线/目标曲线时，基准线结果直接输出。"
+        },
+        {
+          "edge_id": "E061",
+          "target_node_id": "N015",
+          "why": "销售基准线本身也是收益决策的目标约束，可直接参与收益策略。"
+        }
+      ],
+      "forbidden_actions": [
+        "treat_demo_data_as_real_today_data",
+        "create_formal_approval_from_demo_or_stale_data",
+        "bypass_data_gate_or_approval_guard"
+      ],
+      "demo_safety": {
+        "data_source_type": "demo_data",
+        "freshness_status": "demo_data",
+        "business_status": "demo_or_historical",
+        "today_label_allowed": false,
+        "approval_data_allowed": false,
+        "live_allowed": false
+      }
+    },
+    {
+      "schema_version": "0.1",
+      "skill_id": "S16",
+      "skill_dir": "s16-progress-deviation",
+      "node_id": "N011",
+      "node_name": "S16 进度偏差诊断",
+      "agent_id": "A2",
+      "phase": "P0",
+      "node_registry_ref": "architecture/node_registry.json",
+      "edge_registry_ref": "architecture/edge_registry.json",
+      "scenario_registry_ref": "architecture/scenario_chain_registry.json",
+      "field_registry_ref": "contracts/field_registry.yaml",
+      "node_io_contract_ref": "contracts/node_io_contract.yaml",
+      "algorithm_rules_ref": "runtime/algorithm_rules/progress_deviation_rules.yaml",
+      "demo_node_fixture": "examples/demo_data/nodes/N011.json",
+      "demo_scenarios": [
+        "SC03",
+        "SC04",
+        "SC09"
+      ],
+      "upstream_edges": [
+        {
+          "edge_id": "E011",
+          "source_node_id": "N010",
+          "why": "有基准线后才能判断当前进度偏差。"
+        },
+        {
+          "edge_id": "E012",
+          "source_node_id": "N005",
+          "why": "偏差诊断需要当前实际进度与基准线比较。"
+        }
+      ],
+      "downstream_edges": [
+        {
+          "edge_id": "E016",
+          "target_node_id": "N015",
+          "why": "进度落后/超前会改变收益策略，比如补救、观察或涨价。"
+        },
+        {
+          "edge_id": "E041",
+          "target_node_id": "N012",
+          "why": "进度落后但不宜立即降价时，可触发推广/活动候选。"
+        },
+        {
+          "edge_id": "E053",
+          "target_node_id": "N018",
+          "why": "进度偏差诊断可以直接输出偏差预警和原因，不一定触发收益动作。"
+        },
+        {
+          "edge_id": "E065",
+          "target_node_id": "N019",
+          "why": "偏差原因和补救效果可脱敏沉淀为进度巡检经验。"
+        }
+      ],
+      "forbidden_actions": [
+        "treat_demo_data_as_real_today_data",
+        "create_formal_approval_from_demo_or_stale_data",
+        "bypass_data_gate_or_approval_guard"
+      ],
+      "demo_safety": {
+        "data_source_type": "demo_data",
+        "freshness_status": "demo_data",
+        "business_status": "demo_or_historical",
+        "today_label_allowed": false,
+        "approval_data_allowed": false,
+        "live_allowed": false
+      }
+    },
+    {
+      "schema_version": "0.1",
+      "skill_id": "S8",
+      "skill_dir": "s08-promotion-planning",
+      "node_id": "N012",
+      "node_name": "S8 推广投放与活动建议",
+      "agent_id": "A3",
+      "phase": "P2",
+      "node_registry_ref": "architecture/node_registry.json",
+      "edge_registry_ref": "architecture/edge_registry.json",
+      "scenario_registry_ref": "architecture/scenario_chain_registry.json",
+      "field_registry_ref": "contracts/field_registry.yaml",
+      "node_io_contract_ref": "contracts/node_io_contract.yaml",
+      "algorithm_rules_ref": "runtime/algorithm_rules/promotion_rules.yaml",
+      "demo_node_fixture": "examples/demo_data/nodes/N012.json",
+      "demo_scenarios": [
+        "SC03",
+        "SC04",
+        "SC06"
+      ],
+      "upstream_edges": [
+        {
+          "edge_id": "E033",
+          "source_node_id": "N020",
+          "why": "低谷时段和流量缺口决定推广投放窗口与预算建议。"
+        },
+        {
+          "edge_id": "E035",
+          "source_node_id": "N015",
+          "why": "收益决策发现降价不合适或转化风险高时，可改用活动/推广候选动作。"
+        },
+        {
+          "edge_id": "E041",
+          "source_node_id": "N011",
+          "why": "进度落后但不宜立即降价时，可触发推广/活动候选。"
+        },
+        {
+          "edge_id": "E056",
+          "source_node_id": "N005",
+          "why": "活动/推广建议需要经营、价格、库存快照判断活动后到手价和库存压力。"
+        },
+        {
+          "edge_id": "E057",
+          "source_node_id": "N006",
+          "why": "环境行情和需求指数影响活动/推广是否开启、保留或调整。"
+        },
+        {
+          "edge_id": "E058",
+          "source_node_id": "N009",
+          "why": "诊断弱项和转化瓶颈会影响活动/推广建议，避免用推广掩盖内容或转化问题。"
+        },
+        {
+          "edge_id": "E059",
+          "source_node_id": "N007",
+          "why": "竞对价格、活动、排名变化可作为活动/推广建议的参考输入。"
+        }
+      ],
+      "downstream_edges": [
+        {
+          "edge_id": "E017",
+          "target_node_id": "N015",
+          "why": "活动可能替代直接降价，也可能影响到手价和底价安全。"
+        },
+        {
+          "edge_id": "E024",
+          "target_node_id": "N018",
+          "why": "活动/推广建议需要输出风险、预算和执行建议。"
+        },
+        {
+          "edge_id": "E036",
+          "target_node_id": "N013",
+          "why": "推广计划涉及预算和收益时，需要 ROI 决策补充。"
+        },
+        {
+          "edge_id": "E037",
+          "target_node_id": "N021",
+          "why": "只有推广计划产出可执行动作后，S11 才允许生成 dry-run/任务/审批执行。"
+        }
+      ],
+      "forbidden_actions": [
+        "treat_demo_data_as_real_today_data",
+        "create_formal_approval_from_demo_or_stale_data",
+        "bypass_data_gate_or_approval_guard"
+      ],
+      "demo_safety": {
+        "data_source_type": "demo_data",
+        "freshness_status": "demo_data",
+        "business_status": "demo_or_historical",
+        "today_label_allowed": false,
+        "approval_data_allowed": false,
+        "live_allowed": false
+      }
+    },
+    {
+      "schema_version": "0.1",
+      "skill_id": "S10",
+      "skill_dir": "s10-roi-decision",
+      "node_id": "N013",
+      "node_name": "S10 ROI 决策",
+      "agent_id": "A3",
+      "phase": "P2",
+      "node_registry_ref": "architecture/node_registry.json",
+      "edge_registry_ref": "architecture/edge_registry.json",
+      "scenario_registry_ref": "architecture/scenario_chain_registry.json",
+      "field_registry_ref": "contracts/field_registry.yaml",
+      "node_io_contract_ref": "contracts/node_io_contract.yaml",
+      "algorithm_rules_ref": "runtime/algorithm_rules/roi_rules.yaml",
+      "demo_node_fixture": "examples/demo_data/nodes/N013.json",
+      "demo_scenarios": [
+        "SC03",
+        "SC06"
+      ],
+      "upstream_edges": [
+        {
+          "edge_id": "E036",
+          "source_node_id": "N012",
+          "why": "推广计划涉及预算和收益时，需要 ROI 决策补充。"
+        }
+      ],
+      "downstream_edges": [
+        {
+          "edge_id": "E018",
+          "target_node_id": "N015",
+          "why": "ROI或利润模拟是收益最大化策略的增强输入。"
+        },
+        {
+          "edge_id": "E038",
+          "target_node_id": "N021",
+          "why": "ROI 决策为执行推广提供保留、降低、暂停或调整依据。"
+        },
+        {
+          "edge_id": "E054",
+          "target_node_id": "N018",
+          "why": "用户只问 ROI/利润模拟时，ROI 决策结果直接输出。"
+        }
+      ],
+      "forbidden_actions": [
+        "treat_demo_data_as_real_today_data",
+        "create_formal_approval_from_demo_or_stale_data",
+        "bypass_data_gate_or_approval_guard"
+      ],
+      "demo_safety": {
+        "data_source_type": "demo_data",
+        "freshness_status": "demo_data",
+        "business_status": "demo_or_historical",
+        "today_label_allowed": false,
+        "approval_data_allowed": false,
+        "live_allowed": false
+      }
+    },
+    {
+      "schema_version": "0.1",
+      "skill_id": "S17",
+      "skill_dir": "s17-customer-order-analysis",
+      "node_id": "N014",
+      "node_name": "S17 客户订单分析",
+      "agent_id": "A1",
+      "phase": "P2",
+      "node_registry_ref": "architecture/node_registry.json",
+      "edge_registry_ref": "architecture/edge_registry.json",
+      "scenario_registry_ref": "architecture/scenario_chain_registry.json",
+      "field_registry_ref": "contracts/field_registry.yaml",
+      "node_io_contract_ref": "contracts/node_io_contract.yaml",
+      "algorithm_rules_ref": "runtime/algorithm_rules/customer_rules.yaml",
+      "demo_node_fixture": "examples/demo_data/nodes/N014.json",
+      "demo_scenarios": [
+        "SC03",
+        "SC08",
+        "SC09"
+      ],
+      "upstream_edges": [
+        {
+          "edge_id": "E047",
+          "source_node_id": "N004",
+          "why": "客户/订单分析可以由用户直接触发，也可以作为收益策略参考字段包读取。"
+        }
+      ],
+      "downstream_edges": [
+        {
+          "edge_id": "E019",
+          "target_node_id": "N015",
+          "why": "客户结构可作为收益策略和任务建议参考，但不能阻断 P0/P1。"
+        },
+        {
+          "edge_id": "E048",
+          "target_node_id": "N018",
+          "why": "客户订单分析如果只需要分层/流失预警，可直接输出给用户，不必强制进入收益决策。"
+        },
+        {
+          "edge_id": "E067",
+          "target_node_id": "N019",
+          "why": "客户结构和流失风险可脱敏沉淀为客群运营经验。"
+        }
+      ],
+      "forbidden_actions": [
+        "treat_demo_data_as_real_today_data",
+        "create_formal_approval_from_demo_or_stale_data",
+        "bypass_data_gate_or_approval_guard"
+      ],
+      "demo_safety": {
+        "data_source_type": "demo_data",
+        "freshness_status": "demo_data",
+        "business_status": "demo_or_historical",
+        "today_label_allowed": false,
+        "approval_data_allowed": false,
+        "live_allowed": false
+      }
+    },
+    {
+      "schema_version": "0.1",
+      "skill_id": "S5",
+      "skill_dir": "s05-revenue-decision",
+      "node_id": "N015",
+      "node_name": "S5 智能收益决策",
+      "agent_id": "A3",
+      "phase": "P1",
+      "node_registry_ref": "architecture/node_registry.json",
+      "edge_registry_ref": "architecture/edge_registry.json",
+      "scenario_registry_ref": "architecture/scenario_chain_registry.json",
+      "field_registry_ref": "contracts/field_registry.yaml",
+      "node_io_contract_ref": "contracts/node_io_contract.yaml",
+      "algorithm_rules_ref": "runtime/algorithm_rules/revenue_rules.yaml",
+      "demo_node_fixture": "examples/demo_data/nodes/N015.json",
+      "demo_scenarios": [
+        "SC03",
+        "SC04",
+        "SC05",
+        "SC08",
+        "SC09"
+      ],
+      "upstream_edges": [
+        {
+          "edge_id": "E013",
+          "source_node_id": "N006",
+          "why": "需求指数决定调价动作强度和策略保守程度。"
+        },
+        {
+          "edge_id": "E014",
+          "source_node_id": "N007",
+          "why": "竞对只作为收益决策参考，不允许直接进入执行。"
+        },
+        {
+          "edge_id": "E015",
+          "source_node_id": "N009",
+          "why": "健康诊断和转化瓶颈决定是否先修转化、口碑或库存，再调价。"
+        },
+        {
+          "edge_id": "E016",
+          "source_node_id": "N011",
+          "why": "进度落后/超前会改变收益策略，比如补救、观察或涨价。"
+        },
+        {
+          "edge_id": "E017",
+          "source_node_id": "N012",
+          "why": "活动可能替代直接降价，也可能影响到手价和底价安全。"
+        },
+        {
+          "edge_id": "E018",
+          "source_node_id": "N013",
+          "why": "ROI或利润模拟是收益最大化策略的增强输入。"
+        },
+        {
+          "edge_id": "E019",
+          "source_node_id": "N014",
+          "why": "客户结构可作为收益策略和任务建议参考，但不能阻断 P0/P1。"
+        },
+        {
+          "edge_id": "E034",
+          "source_node_id": "N020",
+          "why": "小时级需求和进单节奏会影响调价时点和动作强度。"
+        },
+        {
+          "edge_id": "E061",
+          "source_node_id": "N010",
+          "why": "销售基准线本身也是收益决策的目标约束，可直接参与收益策略。"
+        }
+      ],
+      "downstream_edges": [
+        {
+          "edge_id": "E020",
+          "target_node_id": "N016",
+          "why": "只有 S5 产出调价建议后，S6 才允许做 dry-run/审批/执行边界。"
+        },
+        {
+          "edge_id": "E021",
+          "target_node_id": "N018",
+          "why": "不需要执行或执行被阻断时，直接把收益建议输出给用户。"
+        },
+        {
+          "edge_id": "E027",
+          "target_node_id": "N019",
+          "why": "收益决策过程可用于后续运营复盘和规则候选。"
+        },
+        {
+          "edge_id": "E035",
+          "target_node_id": "N012",
+          "why": "收益决策发现降价不合适或转化风险高时，可改用活动/推广候选动作。"
+        }
+      ],
+      "forbidden_actions": [
+        "treat_demo_data_as_real_today_data",
+        "create_formal_approval_from_demo_or_stale_data",
+        "bypass_data_gate_or_approval_guard",
+        "write_channel_price_directly",
+        "call_live_execution_without_S6"
+      ],
+      "demo_safety": {
+        "data_source_type": "demo_data",
+        "freshness_status": "demo_data",
+        "business_status": "demo_or_historical",
+        "today_label_allowed": false,
+        "approval_data_allowed": false,
+        "live_allowed": false
+      }
+    },
+    {
+      "schema_version": "0.1",
+      "skill_id": "S6",
+      "skill_dir": "s06-price-sync-execution",
+      "node_id": "N016",
+      "node_name": "S6 房价同步执行",
+      "agent_id": "A4",
+      "phase": "P1",
+      "node_registry_ref": "architecture/node_registry.json",
+      "edge_registry_ref": "architecture/edge_registry.json",
+      "scenario_registry_ref": "architecture/scenario_chain_registry.json",
+      "field_registry_ref": "contracts/field_registry.yaml",
+      "node_io_contract_ref": "contracts/node_io_contract.yaml",
+      "algorithm_rules_ref": "runtime/algorithm_rules/execution_guard.yaml",
+      "demo_node_fixture": "examples/demo_data/nodes/N016.json",
+      "demo_scenarios": [
+        "SC03",
+        "SC09"
+      ],
+      "upstream_edges": [
+        {
+          "edge_id": "E020",
+          "source_node_id": "N015",
+          "why": "只有 S5 产出调价建议后，S6 才允许做 dry-run/审批/执行边界。"
+        }
+      ],
+      "downstream_edges": [
+        {
+          "edge_id": "E022",
+          "target_node_id": "N018",
+          "why": "dry-run、审批校验、执行结果都必须通过消息中台输出。"
+        },
+        {
+          "edge_id": "E028",
+          "target_node_id": "N019",
+          "why": "dry-run 和执行结果是最重要的经验沉淀来源。"
+        }
+      ],
+      "forbidden_actions": [
+        "treat_demo_data_as_real_today_data",
+        "create_formal_approval_from_demo_or_stale_data",
+        "bypass_data_gate_or_approval_guard",
+        "recalculate_upstream_business_decision",
+        "live_write_in_demo_mode",
+        "execute_without_admin_or_owner_approval"
+      ],
+      "demo_safety": {
+        "data_source_type": "demo_data",
+        "freshness_status": "demo_data",
+        "business_status": "demo_or_historical",
+        "today_label_allowed": false,
+        "approval_data_allowed": false,
+        "live_allowed": false
+      }
+    },
+    {
+      "schema_version": "0.1",
+      "skill_id": "S13",
+      "skill_dir": "s13-review-reply",
+      "node_id": "N017",
+      "node_name": "S13 评论回复",
+      "agent_id": "A4",
+      "phase": "P2",
+      "node_registry_ref": "architecture/node_registry.json",
+      "edge_registry_ref": "architecture/edge_registry.json",
+      "scenario_registry_ref": "architecture/scenario_chain_registry.json",
+      "field_registry_ref": "contracts/field_registry.yaml",
+      "node_io_contract_ref": "contracts/node_io_contract.yaml",
+      "algorithm_rules_ref": "runtime/algorithm_rules/review_publish_rules.yaml",
+      "demo_node_fixture": "examples/demo_data/nodes/N017.json",
+      "demo_scenarios": [
+        "SC07"
+      ],
+      "upstream_edges": [
+        {
+          "edge_id": "E042",
+          "source_node_id": "N008",
+          "why": "口碑管理识别需要回复的评论后，进入回复草稿生成。"
+        }
+      ],
+      "downstream_edges": [
+        {
+          "edge_id": "E025",
+          "target_node_id": "N018",
+          "why": "评论回复草稿和补偿建议需要人工确认后输出。"
+        }
+      ],
+      "forbidden_actions": [
+        "treat_demo_data_as_real_today_data",
+        "create_formal_approval_from_demo_or_stale_data",
+        "bypass_data_gate_or_approval_guard",
+        "recalculate_upstream_business_decision",
+        "live_write_in_demo_mode",
+        "execute_without_admin_or_owner_approval"
+      ],
+      "demo_safety": {
+        "data_source_type": "demo_data",
+        "freshness_status": "demo_data",
+        "business_status": "demo_or_historical",
+        "today_label_allowed": false,
+        "approval_data_allowed": false,
+        "live_allowed": false
+      }
+    },
+    {
+      "schema_version": "0.1",
+      "skill_id": "S3",
+      "skill_dir": "s03-message-hub",
+      "node_id": "N018",
+      "node_name": "S3 消息中台",
+      "agent_id": "A5",
+      "phase": "P0",
+      "node_registry_ref": "architecture/node_registry.json",
+      "edge_registry_ref": "architecture/edge_registry.json",
+      "scenario_registry_ref": "architecture/scenario_chain_registry.json",
+      "field_registry_ref": "contracts/field_registry.yaml",
+      "node_io_contract_ref": "contracts/node_io_contract.yaml",
+      "algorithm_rules_ref": "runtime/algorithm_rules/message_templates_policy.yaml",
+      "demo_node_fixture": "examples/demo_data/nodes/N018.json",
+      "demo_scenarios": [
+        "SC01",
+        "SC02",
+        "SC03",
+        "SC04",
+        "SC05",
+        "SC06",
+        "SC07",
+        "SC08",
+        "SC09",
+        "SC10"
+      ],
+      "upstream_edges": [
+        {
+          "edge_id": "E021",
+          "source_node_id": "N015",
+          "why": "不需要执行或执行被阻断时，直接把收益建议输出给用户。"
+        },
+        {
+          "edge_id": "E022",
+          "source_node_id": "N016",
+          "why": "dry-run、审批校验、执行结果都必须通过消息中台输出。"
+        },
+        {
+          "edge_id": "E023",
+          "source_node_id": "N009",
+          "why": "诊断结果需要生成老板/运营可读报告。"
+        },
+        {
+          "edge_id": "E024",
+          "source_node_id": "N012",
+          "why": "活动/推广建议需要输出风险、预算和执行建议。"
+        },
+        {
+          "edge_id": "E025",
+          "source_node_id": "N017",
+          "why": "评论回复草稿和补偿建议需要人工确认后输出。"
+        },
+        {
+          "edge_id": "E029",
+          "source_node_id": "N019",
+          "why": "用户询问历史经验或复盘结论时，经验层只提供脱敏摘要给消息中台。"
+        },
+        {
+          "edge_id": "E039",
+          "source_node_id": "N021",
+          "why": "推广执行任务、阻断原因、复核清单必须通过消息中台输出。"
+        },
+        {
+          "edge_id": "E044",
+          "source_node_id": "N022",
+          "why": "第三方诊断报告需要通过飞书/HTML载体输出。"
+        },
+        {
+          "edge_id": "E046",
+          "source_node_id": "N005",
+          "why": "用户只问经营快报时，经营房态采集结果直接进入消息中台输出，不进入收益决策。"
+        },
+        {
+          "edge_id": "E048",
+          "source_node_id": "N014",
+          "why": "客户订单分析如果只需要分层/流失预警，可直接输出给用户，不必强制进入收益决策。"
+        },
+        {
+          "edge_id": "E049",
+          "source_node_id": "N006",
+          "why": "用户只问行情/天气/节假日/市场热度时，环境行情结果直接进入消息中台输出。"
+        },
+        {
+          "edge_id": "E050",
+          "source_node_id": "N007",
+          "why": "用户只问竞对情况时，竞态监控结果直接输出；不得直接执行价格变更。"
+        },
+        {
+          "edge_id": "E051",
+          "source_node_id": "N008",
+          "why": "用户只问口碑概览时，口碑管理结果直接输出；评论内容需脱敏。"
+        },
+        {
+          "edge_id": "E052",
+          "source_node_id": "N010",
+          "why": "用户只问销售基准线/目标曲线时，基准线结果直接输出。"
+        },
+        {
+          "edge_id": "E053",
+          "source_node_id": "N011",
+          "why": "进度偏差诊断可以直接输出偏差预警和原因，不一定触发收益动作。"
+        },
+        {
+          "edge_id": "E054",
+          "source_node_id": "N013",
+          "why": "用户只问 ROI/利润模拟时，ROI 决策结果直接输出。"
+        },
+        {
+          "edge_id": "E055",
+          "source_node_id": "N020",
+          "why": "用户只问流量峰谷/进单时段时，峰谷结果直接输出。"
+        }
+      ],
+      "downstream_edges": [
+        {
+          "edge_id": "E026",
+          "target_node_id": "N019",
+          "why": "用户可见输出可形成脱敏复盘事件，但不阻塞业务主链路。"
+        }
+      ],
+      "forbidden_actions": [
+        "treat_demo_data_as_real_today_data",
+        "create_formal_approval_from_demo_or_stale_data",
+        "bypass_data_gate_or_approval_guard",
+        "send_raw_order_rows",
+        "send_private_config_or_runtime_json"
+      ],
+      "demo_safety": {
+        "data_source_type": "demo_data",
+        "freshness_status": "demo_data",
+        "business_status": "demo_or_historical",
+        "today_label_allowed": false,
+        "approval_data_allowed": false,
+        "live_allowed": false
+      }
+    },
+    {
+      "schema_version": "0.1",
+      "skill_id": "S9",
+      "skill_dir": "s09-traffic-peak-valley",
+      "node_id": "N020",
+      "node_name": "S9 流量峰谷",
+      "agent_id": "A1",
+      "phase": "P2",
+      "node_registry_ref": "architecture/node_registry.json",
+      "edge_registry_ref": "architecture/edge_registry.json",
+      "scenario_registry_ref": "architecture/scenario_chain_registry.json",
+      "field_registry_ref": "contracts/field_registry.yaml",
+      "node_io_contract_ref": "contracts/node_io_contract.yaml",
+      "algorithm_rules_ref": "runtime/algorithm_rules/traffic_rules.yaml",
+      "demo_node_fixture": "examples/demo_data/nodes/N020.json",
+      "demo_scenarios": [
+        "SC02",
+        "SC03",
+        "SC04",
+        "SC06"
+      ],
+      "upstream_edges": [
+        {
+          "edge_id": "E030",
+          "source_node_id": "N005",
+          "why": "流量峰谷必须基于当前经营、订单、曝光/浏览/支付转化快照。"
+        },
+        {
+          "edge_id": "E031",
+          "source_node_id": "N010",
+          "why": "小时峰谷需要和销售基准线/上周同小时曲线比较。"
+        }
+      ],
+      "downstream_edges": [
+        {
+          "edge_id": "E032",
+          "target_node_id": "N009",
+          "why": "峰谷异常和转化异常需要回流到运营诊断，避免只靠调价解决。"
+        },
+        {
+          "edge_id": "E033",
+          "target_node_id": "N012",
+          "why": "低谷时段和流量缺口决定推广投放窗口与预算建议。"
+        },
+        {
+          "edge_id": "E034",
+          "target_node_id": "N015",
+          "why": "小时级需求和进单节奏会影响调价时点和动作强度。"
+        },
+        {
+          "edge_id": "E055",
+          "target_node_id": "N018",
+          "why": "用户只问流量峰谷/进单时段时，峰谷结果直接输出。"
+        }
+      ],
+      "forbidden_actions": [
+        "treat_demo_data_as_real_today_data",
+        "create_formal_approval_from_demo_or_stale_data",
+        "bypass_data_gate_or_approval_guard"
+      ],
+      "demo_safety": {
+        "data_source_type": "demo_data",
+        "freshness_status": "demo_data",
+        "business_status": "demo_or_historical",
+        "today_label_allowed": false,
+        "approval_data_allowed": false,
+        "live_allowed": false
+      }
+    },
+    {
+      "schema_version": "0.1",
+      "skill_id": "S11",
+      "skill_dir": "s11-promotion-execution",
+      "node_id": "N021",
+      "node_name": "S11 推广执行",
+      "agent_id": "A4",
+      "phase": "P2",
+      "node_registry_ref": "architecture/node_registry.json",
+      "edge_registry_ref": "architecture/edge_registry.json",
+      "scenario_registry_ref": "architecture/scenario_chain_registry.json",
+      "field_registry_ref": "contracts/field_registry.yaml",
+      "node_io_contract_ref": "contracts/node_io_contract.yaml",
+      "algorithm_rules_ref": "runtime/algorithm_rules/promotion_execution_rules.yaml",
+      "demo_node_fixture": "examples/demo_data/nodes/N021.json",
+      "demo_scenarios": [
+        "SC03",
+        "SC06",
+        "SC09"
+      ],
+      "upstream_edges": [
+        {
+          "edge_id": "E037",
+          "source_node_id": "N012",
+          "why": "只有推广计划产出可执行动作后，S11 才允许生成 dry-run/任务/审批执行。"
+        },
+        {
+          "edge_id": "E038",
+          "source_node_id": "N013",
+          "why": "ROI 决策为执行推广提供保留、降低、暂停或调整依据。"
+        }
+      ],
+      "downstream_edges": [
+        {
+          "edge_id": "E039",
+          "target_node_id": "N018",
+          "why": "推广执行任务、阻断原因、复核清单必须通过消息中台输出。"
+        },
+        {
+          "edge_id": "E040",
+          "target_node_id": "N019",
+          "why": "推广执行结果和复核数据进入脱敏复盘，用于后续规则候选。"
+        }
+      ],
+      "forbidden_actions": [
+        "treat_demo_data_as_real_today_data",
+        "create_formal_approval_from_demo_or_stale_data",
+        "bypass_data_gate_or_approval_guard",
+        "recalculate_upstream_business_decision",
+        "live_write_in_demo_mode",
+        "execute_without_admin_or_owner_approval"
+      ],
+      "demo_safety": {
+        "data_source_type": "demo_data",
+        "freshness_status": "demo_data",
+        "business_status": "demo_or_historical",
+        "today_label_allowed": false,
+        "approval_data_allowed": false,
+        "live_allowed": false
+      }
+    },
+    {
+      "schema_version": "0.1",
+      "skill_id": "S14-EXT",
+      "skill_dir": "s14-ext-third-party-diagnosis",
+      "node_id": "N022",
+      "node_name": "S14-EXT 第三方OTA诊断HTML报告模式",
+      "agent_id": "A2",
+      "phase": "P0/P2",
+      "node_registry_ref": "architecture/node_registry.json",
+      "edge_registry_ref": "architecture/edge_registry.json",
+      "scenario_registry_ref": "architecture/scenario_chain_registry.json",
+      "field_registry_ref": "contracts/field_registry.yaml",
+      "node_io_contract_ref": "contracts/node_io_contract.yaml",
+      "algorithm_rules_ref": "runtime/algorithm_rules/external_diagnosis_rules.yaml",
+      "demo_node_fixture": "examples/demo_data/nodes/N022.json",
+      "demo_scenarios": [
+        "SC09",
+        "SC10"
+      ],
+      "upstream_edges": [
+        {
+          "edge_id": "E043",
+          "source_node_id": "N004",
+          "why": "外部诊断模式的数据通过字段闸门后，进入独立报告链路。"
+        }
+      ],
+      "downstream_edges": [
+        {
+          "edge_id": "E044",
+          "target_node_id": "N018",
+          "why": "第三方诊断报告需要通过飞书/HTML载体输出。"
+        },
+        {
+          "edge_id": "E045",
+          "target_node_id": "N019",
+          "why": "外部诊断案例可脱敏沉淀，但不能直接改正式规则。"
+        }
+      ],
+      "forbidden_actions": [
+        "treat_demo_data_as_real_today_data",
+        "create_formal_approval_from_demo_or_stale_data",
+        "bypass_data_gate_or_approval_guard",
+        "claim_external_report_is_current_hotel_fact",
+        "write_external_html_to_live_channel"
+      ],
+      "demo_safety": {
+        "data_source_type": "demo_data",
+        "freshness_status": "demo_data",
+        "business_status": "demo_or_historical",
+        "today_label_allowed": false,
+        "approval_data_allowed": false,
+        "live_allowed": false
+      }
+    }
+  ],
+  "non_skill_nodes": [
+    {
+      "id": "N001",
+      "name": "入口事件",
+      "skill_id": "-",
+      "phase": "P0/P1/P2",
+      "module": "S0前置",
+      "agent_id": "A0",
+      "layer": "入口触发层",
+      "blueprint": "BP00",
+      "direct_trigger": "用户飞书消息、CLI、Cron定时任务、审批回调。",
+      "chain_trigger": "无。系统入口起点。",
+      "trigger_condition": "收到外部事件。",
+      "inputs": "CTX001 trigger_source, CTX002 raw_message, CTX003 business_date, HOT001 hotel_id",
+      "process": "解析来源、原文、业务日期、酒店上下文；不做业务判断。",
+      "outputs": "intent_candidate, scenario_candidate, raw_context",
+      "downstream": "N002",
+      "runtime": "OpenClaw channel / CLI / cron",
+      "delivery": "intent_cases.json / router_cases.md",
+      "acceptance": "同类输入稳定生成同一类 intent/scenario 候选；无法识别时进入澄清。",
+      "algorithm_field_basis": "BP00",
+      "source_field_basis": "CTX trigger_source/raw_message/business_date/hotel_id",
+      "canonical_outputs": "intent_candidate, scenario_candidate, raw_context",
+      "v11_correction": "入口仅解析上下文，不做算法字段采集"
+    },
+    {
+      "id": "N002",
+      "name": "S0 总控路由",
+      "skill_id": "-",
+      "phase": "P0/P1/P2",
+      "module": "S0",
+      "agent_id": "A0",
+      "layer": "入口触发层",
+      "blueprint": "BP00/BP10",
+      "direct_trigger": "入口事件进入后直接触发。",
+      "chain_trigger": "N001 输出 intent_candidate 后触发。",
+      "trigger_condition": "存在 raw_context 或 cron job context。",
+      "inputs": "intent_candidate, scenario_candidate, trigger_source, hotel_id",
+      "process": "选择业务场景、蓝图算法、Skill链、并行组、字段包需求，并指定负责 Agent。",
+      "outputs": "scenario_id, required_blueprints, required_skill_chain, required_field_packages, parallel_groups, agent_plan",
+      "downstream": "N003",
+      "runtime": "router rules / scenario map",
+      "delivery": "router_rules.md / scenario_chain_tests.md",
+      "acceptance": "SC01-SC12 都能输出明确链路；输出中必须包含 required_blueprints、required_skill_chain、agent_plan。",
+      "algorithm_field_basis": "BP00/BP10",
+      "source_field_basis": "raw_context + scenario_candidate + source_priority_policy",
+      "canonical_outputs": "scenario_id, required_blueprints, required_skill_chain, algorithm_required_fields, source_required_fields, agent_plan",
+      "v11_correction": "先按功能蓝图判定算法，再反推字段包"
+    },
+    {
+      "id": "N004",
+      "name": "数据闸门",
+      "skill_id": "-",
+      "phase": "P0/P1/P2",
+      "module": "DataGate/runtime",
+      "agent_id": "A0",
+      "layer": "数据治理层",
+      "blueprint": "BP10",
+      "direct_trigger": "无。必须在权限通过后触发。",
+      "chain_trigger": "N003 输出 allowed_actions 后触发。",
+      "trigger_condition": "需要读取经营、价格、订单、口碑、竞对、推广、执行数据时。",
+      "inputs": "CTX003-CTX007, required_field_packages, source_capability, field_quality, freshness_status",
+      "process": "检查 fresh/stale/missing_date/demo_data、字段质量、是否 sample、是否可写、是否可创建审批。",
+      "outputs": "data_gate_result, missing_fields, freshness_status, field_quality_report, confidence_level, approval_data_allowed",
+      "downstream": "N005-N021",
+      "runtime": "runtime/contracts.py + database-query + normalize-sample",
+      "delivery": "field_contract.yaml / data_gate_tests.md",
+      "acceptance": "stale/sample/demo 不得创建正式审批；缺字段必须显式输出 missing_fields。",
+      "algorithm_field_basis": "BP10",
+      "source_field_basis": "algorithm_required_fields + source_inventory + freshness_status + field_quality",
+      "canonical_outputs": "data_gate_result, missing_algorithm_fields, missing_source_fields, field_coverage_report, approval_data_allowed",
+      "v11_correction": "V11核心：字段先按算法要求，再匹配PMS/OTA/外部可采集字段"
+    },
+    {
+      "id": "N019",
+      "name": "EXP-LAYER 经验进化",
+      "skill_id": "-",
+      "phase": "P0/P1/P2",
+      "module": "EXP-LAYER",
+      "agent_id": "A6",
+      "layer": "经验进化层",
+      "blueprint": "BP11",
+      "direct_trigger": "用户要求记住这次复盘、沉淀经验、以后按这个处理。",
+      "chain_trigger": "N015/N016/N018/N009/N011/N008/N014/N021 产生可复盘事件时异步触发。",
+      "trigger_condition": "存在脱敏 experience_event_candidate，且不含隐私/密钥/原始数据。",
+      "inputs": "EXP001-EXP020, CTX003-CTX007, EXE003-EXE005, 脱敏上游摘要",
+      "process": "捕获→脱敏→人工复核→案例归档→规则候选→工程规则/测试候选→经验召回。",
+      "outputs": "approved_case, rule_candidate, runtime_test_candidate, retrieved_experience_summary",
+      "downstream": "requirements/skill_rule/runtime_test/N018",
+      "runtime": "experience_event_schema / sanitize / promote queue（待工程化）",
+      "delivery": "experience_event_schema.json / sanitize_rules.md / promote_queue_tests.md",
+      "acceptance": "未脱敏/未人工复核不能升级规则；记忆不能授权/审批/判断当前事实/live执行。",
+      "algorithm_field_basis": "BP11",
+      "source_field_basis": "脱敏事件/执行结果/诊断摘要/人工复核结果",
+      "canonical_outputs": "approved_case, rule_candidate, runtime_test_candidate, retrieved_experience_summary",
+      "v11_correction": "经验不替代当前事实或审批"
+    }
+  ]
+}

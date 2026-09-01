@@ -1,0 +1,210 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "schema_version": "v27-wrapper",
+  "title": "S4 input wrapper",
+  "type": "object",
+  "canonical_source": "contracts/v27/node_io_contract.yaml",
+  "secondary_source": "contracts/v27/skill_io_contract.yaml",
+  "alignment_source": "references/v27_alignment.json",
+  "skill_id": "S4",
+  "skill_name": "S4",
+  "node_id": "N006",
+  "node_ids": [
+    "N006"
+  ],
+  "agent_id": "A1",
+  "agent_ids": [
+    "A1"
+  ],
+  "source_contract": "contracts/v27/contract.json",
+  "field_registry_ref": "contracts/v27/field_registry.yaml",
+  "node_io_contract_ref": "contracts/v27/node_io_contract.yaml",
+  "demo_safety_fields": [
+    "data_source_type=demo_data",
+    "freshness_status=demo_data",
+    "approval_data_allowed=false",
+    "live_allowed=false"
+  ],
+  "additionalProperties": true,
+  "input_field_ids": [
+    "CTX003",
+    "DEM001",
+    "DEM002",
+    "DEM003",
+    "DEM004",
+    "DEM005",
+    "DEM006",
+    "DEM011",
+    "FNL001",
+    "FNL002",
+    "ROOM005"
+  ],
+  "required_inputs": [
+    "CTX003",
+    "DEM001",
+    "DEM002",
+    "DEM003",
+    "DEM004",
+    "DEM005",
+    "DEM006",
+    "DEM011",
+    "FNL001",
+    "FNL002",
+    "ROOM005"
+  ],
+  "optional_inputs": [],
+  "upstream_node_outputs": [],
+  "deprecated_legacy_fields": {
+    "business_date": {
+      "deprecated": true,
+      "legacy_path": "business_fields.business_date",
+      "replacement_field_ids": [],
+      "description": "business_date from unified data contract"
+    },
+    "calendar_context": {
+      "deprecated": true,
+      "legacy_path": "business_fields.calendar_context",
+      "replacement_field_ids": [],
+      "description": "Business calendar context from calendar_days."
+    },
+    "weather_context": {
+      "deprecated": true,
+      "legacy_path": "business_fields.weather_context",
+      "replacement_field_ids": [],
+      "description": "Normalized weather MCP/API context; raw MCP output must not be sent to Feishu."
+    },
+    "event_context": {
+      "deprecated": true,
+      "legacy_path": "business_fields.event_context",
+      "replacement_field_ids": [],
+      "description": "Local event candidates with confidence and heat level."
+    },
+    "competitor_context": {
+      "deprecated": true,
+      "legacy_path": "business_fields.competitor_context",
+      "replacement_field_ids": [],
+      "description": "S7 aggregate competitor signal, not raw competitor table."
+    },
+    "operating_context": {
+      "deprecated": true,
+      "legacy_path": "business_fields.operating_context",
+      "replacement_field_ids": [],
+      "description": "Fresh S2 operating context."
+    },
+    "progress_context": {
+      "deprecated": true,
+      "legacy_path": "business_fields.progress_context",
+      "replacement_field_ids": [],
+      "description": "Fresh S16 progress context."
+    },
+    "demand_signal": {
+      "deprecated": true,
+      "legacy_path": "business_fields.demand_signal",
+      "replacement_field_ids": [],
+      "description": "Conservative market signal for S5 handoff."
+    }
+  },
+  "properties": {
+    "CTX003": {
+      "type": "string",
+      "canonical_key": "business_date",
+      "project_field_name": "business_date",
+      "field_status": "project_only",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "business_date from V27 contract",
+      "format": "date-time"
+    },
+    "DEM001": {
+      "type": "boolean",
+      "canonical_key": "is_weekend",
+      "project_field_name": "is_weekend",
+      "field_status": "algorithm_output",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "is_weekend from V27 contract"
+    },
+    "DEM002": {
+      "type": "boolean",
+      "canonical_key": "is_holiday",
+      "project_field_name": "is_holiday",
+      "field_status": "algorithm_output",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "is_holiday from V27 contract"
+    },
+    "DEM003": {
+      "type": "boolean",
+      "canonical_key": "is_special_event",
+      "project_field_name": "is_special_event",
+      "field_status": "algorithm_output",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "is_special_event from V27 contract"
+    },
+    "DEM004": {
+      "type": "string",
+      "canonical_key": "holiday_signal",
+      "project_field_name": "holiday_signal",
+      "field_status": "algorithm_output",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "holiday_signal from V27 contract"
+    },
+    "DEM005": {
+      "type": "string",
+      "canonical_key": "weather_signal",
+      "project_field_name": "weather_signal",
+      "field_status": "algorithm_output",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "weather_signal from V27 contract"
+    },
+    "DEM006": {
+      "type": "object",
+      "canonical_key": "event_signal",
+      "project_field_name": "event_signal",
+      "field_status": "algorithm_output",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "event_signal from V27 contract"
+    },
+    "DEM011": {
+      "type": "string",
+      "canonical_key": "historical_same_period",
+      "project_field_name": "historical_same_period",
+      "field_status": "algorithm_output",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "historical_same_period from V27 contract"
+    },
+    "FNL001": {
+      "type": "string",
+      "canonical_key": "exposure",
+      "project_field_name": "exposure",
+      "field_status": "candidate_inferred",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "exposure from V27 contract"
+    },
+    "FNL002": {
+      "type": "string",
+      "canonical_key": "views",
+      "project_field_name": "views",
+      "field_status": "candidate_inferred",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "views from V27 contract"
+    },
+    "ROOM005": {
+      "type": "number",
+      "canonical_key": "remaining_inventory_rate",
+      "project_field_name": "remaining_inventory_rate",
+      "field_status": "candidate_inferred",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "remaining_inventory_rate from V27 contract"
+    }
+  },
+  "required": []
+}

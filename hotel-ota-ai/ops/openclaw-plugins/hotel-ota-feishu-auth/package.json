@@ -1,0 +1,15 @@
+{
+  "name": "hotel-ota-feishu-auth",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Fail-closed Feishu inbound claim for the hotel OTA workspace.",
+  "engines": {
+    "node": ">=20"
+  },
+  "openclaw": {
+    "extensions": [
+      "./index.mjs"
+    ]
+  }
+}

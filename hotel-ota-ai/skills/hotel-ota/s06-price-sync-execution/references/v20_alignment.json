@@ -1,0 +1,55 @@
+{
+  "schema_version": "0.1",
+  "skill_id": "S6",
+  "skill_dir": "s06-price-sync-execution",
+  "node_id": "N016",
+  "node_name": "S6 房价同步执行",
+  "agent_id": "A4",
+  "phase": "P1",
+  "node_registry_ref": "architecture/node_registry.json",
+  "edge_registry_ref": "architecture/edge_registry.json",
+  "scenario_registry_ref": "architecture/scenario_chain_registry.json",
+  "field_registry_ref": "contracts/field_registry.yaml",
+  "node_io_contract_ref": "contracts/node_io_contract.yaml",
+  "algorithm_rules_ref": "runtime/algorithm_rules/execution_guard.yaml",
+  "demo_node_fixture": "examples/demo_data/nodes/N016.json",
+  "demo_scenarios": [
+    "SC03",
+    "SC09"
+  ],
+  "upstream_edges": [
+    {
+      "edge_id": "E020",
+      "source_node_id": "N015",
+      "why": "只有 S5 产出调价建议后，S6 才允许做 dry-run/审批/执行边界。"
+    }
+  ],
+  "downstream_edges": [
+    {
+      "edge_id": "E022",
+      "target_node_id": "N018",
+      "why": "dry-run、审批校验、执行结果都必须通过消息中台输出。"
+    },
+    {
+      "edge_id": "E028",
+      "target_node_id": "N019",
+      "why": "dry-run 和执行结果是最重要的经验沉淀来源。"
+    }
+  ],
+  "forbidden_actions": [
+    "treat_demo_data_as_real_today_data",
+    "create_formal_approval_from_demo_or_stale_data",
+    "bypass_data_gate_or_approval_guard",
+    "recalculate_upstream_business_decision",
+    "live_write_in_demo_mode",
+    "execute_without_admin_or_owner_approval"
+  ],
+  "demo_safety": {
+    "data_source_type": "demo_data",
+    "freshness_status": "demo_data",
+    "business_status": "demo_or_historical",
+    "today_label_allowed": false,
+    "approval_data_allowed": false,
+    "live_allowed": false
+  }
+}

@@ -1,0 +1,112 @@
+{
+  "schema_version": "1.0",
+  "owner_skill": "S6",
+  "status": "implemented",
+  "placement": "runtime/algorithm_rules",
+  "node_id": "N016",
+  "agent_id": "A4",
+  "phase": "P1",
+  "source_refs": {
+    "node_registry": "architecture/node_registry.json",
+    "edge_registry": "architecture/edge_registry.json",
+    "scenario_registry": "architecture/scenario_chain_registry.json",
+    "field_registry": "contracts/v27/field_registry.yaml",
+    "node_io_contract": "contracts/v27/node_io_contract.yaml",
+    "skill_alignment": "skills/hotel-ota/s06-price-sync-execution/references/v27_alignment.json"
+  },
+  "demo_safety": {
+    "data_source_type": "demo_data",
+    "freshness_status": "demo_data",
+    "business_status": "demo_or_historical",
+    "today_label_allowed": false,
+    "approval_data_allowed": false,
+    "live_allowed": false
+  },
+  "data_gate": {
+    "hard_required": [
+      "hotel_id",
+      "room_type_id",
+      "channel",
+      "candidate_price",
+      "approval_id"
+    ],
+    "soft_required": [],
+    "missing_policy": "block_business_conclusion_or_live; allow demo preview only when demo safety flags are present"
+  },
+  "algorithm": {
+    "objective": "Build execution previews and enforce approval/live/data gates for price synchronization.",
+    "ordered_steps": [
+      {
+        "step_id": "s6_01",
+        "action": "Accept only S5-approved decision payload; never recalculate price logic."
+      },
+      {
+        "step_id": "s6_02",
+        "action": "Validate auth role, approval_id, freshness_status, business_status, and channel live flag."
+      },
+      {
+        "step_id": "s6_03",
+        "action": "Return dry_run request summary by default."
+      },
+      {
+        "step_id": "s6_04",
+        "action": "Block live execution for demo/sample/stale/missing_date or missing admin/owner approval."
+      }
+    ],
+    "thresholds": {
+      "dry_run_default": true,
+      "demo_live_allowed": false,
+      "operator_live_allowed": false
+    },
+    "degradation": [
+      "When hard-required fields are missing, return missing_fields and confidence=low.",
+      "When input is demo/sample/stale, return preview_only or dry_run and block formal approval/live.",
+      "When source capability is read-only/manual, produce recommendation or task only."
+    ],
+    "output_contract": [
+      "dry_run_summary",
+      "execution_status",
+      "approval_gate",
+      "live_allowed"
+    ]
+  },
+  "forbidden_actions": [
+    "treat_demo_data_as_real_today_data",
+    "create_formal_approval_from_demo_or_stale_data",
+    "bypass_data_gate_or_approval_guard",
+    "recalculate_upstream_business_decision",
+    "live_write_in_demo_mode",
+    "execute_without_admin_or_owner_approval"
+  ],
+  "demo_behavior_cases": [
+    {
+      "case_id": "s6_demo_preview",
+      "fixture": "examples/demo_data/nodes/N016.json",
+      "expected": {
+        "data_source_type": "demo_data",
+        "approval_data_allowed": false,
+        "live_allowed": false,
+        "status_in": [
+          "preview_only",
+          "dry_run",
+          "simulation_only",
+          "ok"
+        ]
+      }
+    },
+    {
+      "case_id": "s6_missing_hard_required",
+      "input": {
+        "hotel_id": "puyue-demo"
+      },
+      "expected": {
+        "allowed": false,
+        "reason": "missing_hard_required_fields"
+      }
+    }
+  ],
+  "executed_by_runtime": [
+    "runtime.decisions.pricing.execute_price"
+  ],
+  "runtime_execution_status": "executed"
+}

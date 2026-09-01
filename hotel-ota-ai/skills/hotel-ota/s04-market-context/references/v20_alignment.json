@@ -1,0 +1,69 @@
+{
+  "schema_version": "0.1",
+  "skill_id": "S4",
+  "skill_dir": "s04-market-context",
+  "node_id": "N006",
+  "node_name": "S4 环境行情感知",
+  "agent_id": "A1",
+  "phase": "P1",
+  "node_registry_ref": "architecture/node_registry.json",
+  "edge_registry_ref": "architecture/edge_registry.json",
+  "scenario_registry_ref": "architecture/scenario_chain_registry.json",
+  "field_registry_ref": "contracts/field_registry.yaml",
+  "node_io_contract_ref": "contracts/node_io_contract.yaml",
+  "algorithm_rules_ref": "runtime/algorithm_rules/demand_rules.yaml",
+  "demo_node_fixture": "examples/demo_data/nodes/N006.json",
+  "demo_scenarios": [
+    "SC02",
+    "SC03",
+    "SC05",
+    "SC06"
+  ],
+  "upstream_edges": [
+    {
+      "edge_id": "E005",
+      "source_node_id": "N004",
+      "why": "需求、行情、调价、活动和基准线需要需求指数。"
+    }
+  ],
+  "downstream_edges": [
+    {
+      "edge_id": "E013",
+      "target_node_id": "N015",
+      "why": "需求指数决定调价动作强度和策略保守程度。"
+    },
+    {
+      "edge_id": "E049",
+      "target_node_id": "N018",
+      "why": "用户只问行情/天气/节假日/市场热度时，环境行情结果直接进入消息中台输出。"
+    },
+    {
+      "edge_id": "E057",
+      "target_node_id": "N012",
+      "why": "环境行情和需求指数影响活动/推广是否开启、保留或调整。"
+    },
+    {
+      "edge_id": "E060",
+      "target_node_id": "N010",
+      "why": "销售基准线需要日期属性、节假日、天气、活动等需求背景修正目标曲线。"
+    },
+    {
+      "edge_id": "E063",
+      "target_node_id": "N009",
+      "why": "需求环境影响诊断结论解释，避免把外部行情误判为酒店自身问题。"
+    }
+  ],
+  "forbidden_actions": [
+    "treat_demo_data_as_real_today_data",
+    "create_formal_approval_from_demo_or_stale_data",
+    "bypass_data_gate_or_approval_guard"
+  ],
+  "demo_safety": {
+    "data_source_type": "demo_data",
+    "freshness_status": "demo_data",
+    "business_status": "demo_or_historical",
+    "today_label_allowed": false,
+    "approval_data_allowed": false,
+    "live_allowed": false
+  }
+}

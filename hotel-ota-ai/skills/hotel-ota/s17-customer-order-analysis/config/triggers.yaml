@@ -1,0 +1,24 @@
+intent: customer_order_analysis
+phrases:
+  - 分析今天订单结构
+  - 客群订单分析
+  - customer_order_analysis
+required_role: operator
+required_permission: customer_order_read
+command_name: customer-analysis
+runtime_command: python runtime/hotel_ota_runtime.py customer-analysis --hotel-id <hotel_id>
+data_guardrails:
+  - 生产 Feishu 必须使用 verified role；需要时由 HOTEL_OTA_REQUIRE_VERIFIED_ROLE 强制
+  - 只能调用 runtime 已暴露的受控命令；agent 不得自行执行 SQL、改文件或直接调用 OTA/PMS live API
+  - demo/sample/synthetic/hardcoded 数据不得用于 production Feishu 业务结论
+  - 缺少必要数据必须返回 data_gap，不得编造成 0 或继续给正式结论
+  - 禁用渠道不得参与读取、分析和展示
+  - data_gap_on_missing_data
+output_guardrails:
+  - 生产飞书输出必须遵守 feishu-output-gate 语义
+  - 不得输出 DSN、token、服务器私有路径、原始订单行、payload_hash 或内部 request payload；no private path
+  - runtime 未返回 write_performed=true、affected_rows>0、config_change_applied=true 或 audit_id 时，不得声称已执行、已删除、已写入或已配置
+examples:
+  - user: 分析今天订单结构
+    route: customer_order_analysis
+    command: python runtime/hotel_ota_runtime.py customer-analysis --hotel-id <hotel_id>

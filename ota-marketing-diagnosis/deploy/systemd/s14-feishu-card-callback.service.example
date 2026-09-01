@@ -1,0 +1,17 @@
+[Unit]
+Description=S14 Feishu card callback service
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=openclaw
+WorkingDirectory=/opt/openclaw/workspaces/ota-marketing-diagnosis
+EnvironmentFile=/etc/hotel-ota-ai/hotel-ota.env
+Environment=S14_FEISHU_CARD_CALLBACK_ENABLED=1
+ExecStart=/opt/openclaw/workspaces/ota-marketing-diagnosis/.venv/bin/python scripts/s14_feishu_card_callback.py
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

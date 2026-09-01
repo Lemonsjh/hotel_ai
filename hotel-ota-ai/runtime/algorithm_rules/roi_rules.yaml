@@ -1,0 +1,106 @@
+{
+  "schema_version": "1.0",
+  "owner_skill": "S10",
+  "status": "implemented",
+  "placement": "runtime/algorithm_rules",
+  "node_id": "N013",
+  "agent_id": "A3",
+  "phase": "P2",
+  "source_refs": {
+    "node_registry": "architecture/node_registry.json",
+    "edge_registry": "architecture/edge_registry.json",
+    "scenario_registry": "architecture/scenario_chain_registry.json",
+    "field_registry": "contracts/v27/field_registry.yaml",
+    "node_io_contract": "contracts/v27/node_io_contract.yaml",
+    "skill_alignment": "skills/hotel-ota/s10-roi-decision/references/v27_alignment.json"
+  },
+  "demo_safety": {
+    "data_source_type": "demo_data",
+    "freshness_status": "demo_data",
+    "business_status": "demo_or_historical",
+    "today_label_allowed": false,
+    "approval_data_allowed": false,
+    "live_allowed": false
+  },
+  "data_gate": {
+    "hard_required": [
+      "hotel_id",
+      "campaign_cost",
+      "expected_incremental_room_nights",
+      "expected_net_adr"
+    ],
+    "soft_required": [],
+    "missing_policy": "block_business_conclusion_or_live; allow demo preview only when demo safety flags are present"
+  },
+  "algorithm": {
+    "objective": "Evaluate promotion ROI and break-even before promotion execution.",
+    "ordered_steps": [
+      {
+        "step_id": "s10_01",
+        "action": "Calculate incremental_revenue=expected_incremental_room_nights*expected_net_adr."
+      },
+      {
+        "step_id": "s10_02",
+        "action": "Calculate roi=(incremental_revenue-campaign_cost)/campaign_cost when cost is positive."
+      },
+      {
+        "step_id": "s10_03",
+        "action": "Classify pass/watch/block and list missing cost or uplift assumptions."
+      },
+      {
+        "step_id": "s10_04",
+        "action": "Route executable candidates to S11 only after approval policy is satisfied."
+      }
+    ],
+    "thresholds": {
+      "roi_pass_at_or_above": 1.2,
+      "roi_watch_at_or_above": 0.8,
+      "cost_must_be_positive": true
+    },
+    "degradation": [
+      "When hard-required fields are missing, return missing_fields and confidence=low.",
+      "When input is demo/sample/stale, return preview_only or dry_run and block formal approval/live.",
+      "When source capability is read-only/manual, produce recommendation or task only."
+    ],
+    "output_contract": [
+      "roi",
+      "break_even_room_nights",
+      "decision",
+      "missing_assumptions"
+    ]
+  },
+  "forbidden_actions": [
+    "treat_demo_data_as_real_today_data",
+    "create_formal_approval_from_demo_or_stale_data",
+    "bypass_data_gate_or_approval_guard"
+  ],
+  "demo_behavior_cases": [
+    {
+      "case_id": "s10_demo_preview",
+      "fixture": "examples/demo_data/nodes/N013.json",
+      "expected": {
+        "data_source_type": "demo_data",
+        "approval_data_allowed": false,
+        "live_allowed": false,
+        "status_in": [
+          "preview_only",
+          "dry_run",
+          "simulation_only",
+          "ok"
+        ]
+      }
+    },
+    {
+      "case_id": "s10_missing_hard_required",
+      "input": {
+        "hotel_id": "puyue-demo"
+      },
+      "expected": {
+        "allowed": false,
+        "reason": "missing_hard_required_fields"
+      }
+    }
+  ],
+  "executed_by_runtime": [],
+  "runtime_execution_status": "rule_config_exists_but_not_executed"
+}

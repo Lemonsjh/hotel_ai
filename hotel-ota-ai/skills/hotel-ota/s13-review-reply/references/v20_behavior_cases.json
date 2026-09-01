@@ -1,0 +1,147 @@
+{
+  "schema_version": "s13-md-aligned.behavior.v1",
+  "skill_id": "S13",
+  "rules_ref": "skills/hotel-ota/s13-review-reply/references/rules.md",
+  "cases": [
+    {
+      "case_id": "opaque_ref_required",
+      "input": {
+        "action": "generate_draft",
+        "review_id": "physical-id",
+        "review_content": "direct text"
+      },
+      "expected": {
+        "allowed": false,
+        "reason": "opaque_review_ref_required"
+      }
+    },
+    {
+      "case_id": "rating_only_review_allowed",
+      "resolved_source": {
+        "platform": "meituan",
+        "review_content": null,
+        "star_rating": 5,
+        "is_replied": 0
+      },
+      "expected": {
+        "allowed": true,
+        "candidate_origin": "deterministic_candidate",
+        "must_not_invent_review_content": true
+      }
+    },
+    {
+      "case_id": "non_meituan_copy_only",
+      "resolved_source": {
+        "platform": "ctrip",
+        "review_content": "服务一般",
+        "is_replied": 0
+      },
+      "expected": {
+        "draft_allowed": true,
+        "task_write_allowed": false,
+        "copy_only": true,
+        "task": null
+      }
+    },
+    {
+      "case_id": "meituan_fixed_insert_success",
+      "resolved_source": {
+        "platform": "meituan",
+        "channel_source": "meituan",
+        "review_content": null,
+        "is_replied": 0
+      },
+      "write_result": {
+        "affected_rows": 1,
+        "readback_status": "pending",
+        "reply_content_exact_match": true,
+        "scope_exact_match": true
+      },
+      "expected": {
+        "write_performed": true,
+        "pending_readback_verified": true,
+        "user_message": "美团回复任务已提交，等待渠道插件处理",
+        "public_reply_verified": false
+      }
+    },
+    {
+      "case_id": "pending_readback_mismatch_blocks_success",
+      "write_result": {
+        "affected_rows": 1,
+        "readback_status": "pending",
+        "reply_content_exact_match": false
+      },
+      "expected": {
+        "status": "write_failed",
+        "pending_readback_verified": false,
+        "must_not_claim_submitted": true
+      }
+    },
+    {
+      "case_id": "active_task_conflict",
+      "existing_task": {
+        "status": "processing"
+      },
+      "expected": {
+        "status": "active_conflict",
+        "insert_allowed": false,
+        "update_allowed": false
+      }
+    },
+    {
+      "case_id": "successful_task_already_handled",
+      "existing_task": {
+        "status": "success"
+      },
+      "expected": {
+        "status": "already_handled",
+        "overwrite_allowed": false,
+        "public_reply_verified": false
+      }
+    },
+    {
+      "case_id": "failed_task_cas_retry",
+      "existing_task": {
+        "status": "failed",
+        "old_reply_content": "old",
+        "old_created_at": "2026-08-01T10:00:00+08:00"
+      },
+      "new_confirmation": {
+        "draft_version": 2,
+        "content_hash": "sha256:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+      },
+      "cas_result": {
+        "affected_rows": 1,
+        "pending_readback_verified": true
+      },
+      "expected": {
+        "retry_mode": "cas_update",
+        "status": "pending",
+        "blind_insert_allowed": false
+      }
+    },
+    {
+      "case_id": "new_draft_invalidates_old_confirmation",
+      "old": {
+        "draft_version": 1,
+        "confirmation_status": "confirmation_pending"
+      },
+      "new": {
+        "draft_version": 2
+      },
+      "expected": {
+        "old_confirmation_status": "invalidated_by_new_version"
+      }
+    },
+    {
+      "case_id": "high_risk_blocks_submittable_draft",
+      "risk_flags": ["legal_dispute", "claim"],
+      "expected": {
+        "eligibility_status": "blocked_escalation",
+        "draft_candidate": null,
+        "automatic_compensation": false,
+        "automatic_private_message": false
+      }
+    }
+  ]
+}

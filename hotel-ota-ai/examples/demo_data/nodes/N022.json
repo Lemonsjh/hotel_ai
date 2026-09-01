@@ -1,0 +1,41 @@
+{
+  "node_id": "N022",
+  "node_name": "S14-EXT 第三方OTA诊断HTML报告模式",
+  "skill_id": "S14-EXT",
+  "agent_id": "A2",
+  "phase": "P0/P2",
+  "demo_meta": {
+    "data_source_type": "demo_data",
+    "freshness_status": "demo_data",
+    "business_status": "demo_or_historical",
+    "today_label_allowed": false,
+    "approval_data_allowed": false,
+    "live_allowed": false
+  },
+  "demo_input": {
+    "entry_event_id": "demo_n022",
+    "hotel_id": "puyue-demo",
+    "demo_manifest_ref": "examples/demo_data/demo_manifest.json",
+    "external_ota_report_fields_ref": "examples/demo_data/external_ota_report_fields.json",
+    "node_contract_ref": "contracts/node_io_contract.yaml",
+    "field_registry_ref": "contracts/field_registry.yaml"
+  },
+  "expected_output": {
+    "status": "preview_only",
+    "node_id": "N022",
+    "field_coverage_calculated": true,
+    "html_report_preview_status": "generated",
+    "html_report_preview_note": "已由 runtime 生成 HTML 预览文件；仍为 demo_data，不代表今日真实经营。",
+    "data_source_type": "demo_data",
+    "freshness_status": "demo_data",
+    "business_status": "demo_or_historical",
+    "today_label_allowed": false,
+    "approval_data_allowed": false,
+    "live_allowed": false,
+    "data_gate_result": "demo_preview_allowed_but_approval_and_live_blocked"
+  },
+  "covered_by_scenarios": [
+    "SC09",
+    "SC10"
+  ]
+}

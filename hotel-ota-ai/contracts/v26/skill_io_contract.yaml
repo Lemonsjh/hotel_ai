@@ -1,0 +1,1295 @@
+{
+  "schema_version": "v26.0",
+  "core_skill_count": 17,
+  "extension_skill_count": 1,
+  "skills": [
+    {
+      "skill_id": "S1",
+      "skill_name": "S1 顶层配置与权限安全",
+      "english_dir_name": "",
+      "node_ids": [
+        "N003"
+      ],
+      "agent_id": "A0",
+      "blueprint_basis": "BP00/BP10",
+      "direct_trigger": "用户问初始化配置、查看酒店配置、设置价格底线、权限配置、skill开关。",
+      "chain_trigger": "N002 输出 required_skill_chain 后，任何业务 Skill 调度前必定触发。",
+      "input_fields": [
+        "AUTH001 user_role",
+        "AUTH002 auth_status",
+        "HOT001 hotel_id",
+        "CFG001 price_floor",
+        "CFG002 price_ceiling",
+        "CFG003 approval_policy",
+        "CFG004 live_switch",
+        "CFG005 source_capability",
+        "CFG006 skill_switch",
+        "CFG007 execution_boundary",
+        "CTX010 field_quality",
+        "N002_OUT003 required_skill_chain",
+        "N002_OUT001 scenario_id",
+        "N002_OUT006 agent_plan"
+      ],
+      "output_fields": [
+        "N003_OUT001 safety_policy",
+        "N003_OUT002 allowed_actions",
+        "N003_OUT003 execution_boundary",
+        "N003_OUT004 blocked_reason",
+        "N003_OUT005 config_status",
+        "N003_OUT006 required_field_packages"
+      ],
+      "upstream_dependencies": [
+        "AUTH001 user_role",
+        "AUTH002 auth_status",
+        "HOT001 hotel_id",
+        "CFG001 price_floor",
+        "CFG002 price_ceiling",
+        "CFG003 approval_policy",
+        "CFG004 live_switch",
+        "CFG005 source_capability",
+        "CFG006 skill_switch",
+        "CFG007 execution_boundary",
+        "CTX010 field_quality",
+        "N002_OUT003 required_skill_chain",
+        "N002_OUT001 scenario_id",
+        "N002_OUT006 agent_plan"
+      ],
+      "downstream_dependencies": [
+        "N004 或 N018"
+      ],
+      "runtime_command": "init-db / seed-demo / auth-check / env-check",
+      "demo_data_files": [
+        "examples/demo_data/demo_manifest.json",
+        "examples/demo_data/nodes/N003.json"
+      ],
+      "error_handling": "",
+      "acceptance_tests": [
+        "tests/contracts/test_v26_skill_io_contract.py"
+      ]
+    },
+    {
+      "skill_id": "S2",
+      "skill_name": "S2 经营房态采集",
+      "english_dir_name": "",
+      "node_ids": [
+        "N005"
+      ],
+      "agent_id": "A1",
+      "blueprint_basis": "BP00/BP02/BP03/BP08/BP10",
+      "direct_trigger": "用户问今天经营怎么样、实时房态、出租率、ADR、RevPAR、当前订单和库存。",
+      "chain_trigger": "诊断、调价、基准线、偏差、活动建议、流量峰谷需要经营底座时由 N004 触发。",
+      "input_fields": [
+        "HOT001 hotel_id",
+        "ROOM001 room_type_id",
+        "ROOM002 room_type_name",
+        "ROOM003 room_type_total",
+        "ROOM004 available_inventory",
+        "OP001 orders",
+        "OP002 paid_orders",
+        "OP004 room_nights",
+        "OP005 occupancy_rate",
+        "OP006 adr",
+        "OP007 revpar",
+        "PR001 current_price",
+        "PR002 listed_price",
+        "PR003 promo_price",
+        "CTX003 business_date",
+        "CTX008 freshness_status",
+        "N004_OUT001 data_gate_result"
+      ],
+      "output_fields": [
+        "N005_OUT001 operating_snapshot",
+        "N005_OUT002 inventory_snapshot",
+        "N005_OUT003 price_snapshot",
+        "N005_OUT004 source_coverage",
+        "N005_OUT005 freshness_status",
+        "N005_OUT006 risk_flags",
+        "N005_OUT007 exposure",
+        "N005_OUT008 paid_orders",
+        "N005_OUT009 room_nights",
+        "N005_OUT010 sold_rooms",
+        "N005_OUT011 views"
+      ],
+      "upstream_dependencies": [
+        "HOT001 hotel_id",
+        "ROOM001 room_type_id",
+        "ROOM002 room_type_name",
+        "ROOM003 room_type_total",
+        "ROOM004 available_inventory",
+        "OP001 orders",
+        "OP002 paid_orders",
+        "OP004 room_nights",
+        "OP005 occupancy_rate",
+        "OP006 adr",
+        "OP007 revpar",
+        "PR001 current_price",
+        "PR002 listed_price",
+        "PR003 promo_price",
+        "CTX003 business_date",
+        "CTX008 freshness_status",
+        "N004_OUT001 data_gate_result"
+      ],
+      "downstream_dependencies": [
+        "N009/N010/N011/N012/N014/N015/N018/N020"
+      ],
+      "runtime_command": "snapshot / normalize-sample meituan-room-count / normalize-sample dindanll-inventory / database-query operating_snapshot",
+      "demo_data_files": [
+        "examples/demo_data/demo_manifest.json",
+        "examples/demo_data/nodes/N005.json"
+      ],
+      "error_handling": "",
+      "acceptance_tests": [
+        "tests/contracts/test_v26_skill_io_contract.py"
+      ]
+    },
+    {
+      "skill_id": "S3",
+      "skill_name": "S3 消息中台",
+      "english_dir_name": "",
+      "node_ids": [
+        "N018"
+      ],
+      "agent_id": "A5",
+      "blueprint_basis": "BP00/BP10/BP11/BP07",
+      "direct_trigger": "用户问发送通知、审批卡、日报、飞书消息、预警、前台任务。",
+      "chain_trigger": "任何上游节点需要对人输出时触发。",
+      "input_fields": [
+        "MSG005 template_id",
+        "MSG006 recipient_role",
+        "MSG007 payload_summary",
+        "EXE001 approval_id",
+        "CTX008 freshness_status",
+        "MSG008 target_role",
+        "EXE009 blocked_reason",
+        "N015_OUT001 revenue_decision",
+        "N015_OUT004 risk_warnings",
+        "N016_OUT001 dry_run_preview",
+        "N016_OUT002 execution_result",
+        "N016_OUT003 blocked_reason",
+        "N009_OUT005 weak_items",
+        "N009_OUT004 diagnosis_actions",
+        "N009_OUT006 ab_tasks",
+        "N012_OUT001 activity_plan",
+        "N012_OUT002 promotion_plan",
+        "N012_OUT003 activity_risks",
+        "N017_OUT001 reply_draft",
+        "N017_OUT002 compensation_suggestion",
+        "N019_OUT004 retrieved_experience_summary",
+        "N021_OUT005 promotion_execution_task",
+        "N021_OUT007 execution_status",
+        "N021_OUT004 verification_checklist",
+        "N022_OUT001 external_diagnosis_report_html",
+        "N022_OUT003 data_gap_list",
+        "N005_OUT001 operating_snapshot",
+        "N005_OUT002 inventory_snapshot",
+        "N005_OUT003 price_snapshot",
+        "N005_OUT005 freshness_status",
+        "N014_OUT001 customer_segments",
+        "N014_OUT002 repeat_guest_rate",
+        "N014_OUT003 loss_risk_alert",
+        "N006_OUT001 demand_index",
+        "N006_OUT002 demand_level",
+        "N006_OUT004 demand_reasons",
+        "N006_OUT005 pricing_effect",
+        "N007_OUT001 competitor_context",
+        "N007_OUT002 competitor_alert_level",
+        "N007_OUT005 confidence_level",
+        "N008_OUT001 reputation_result",
+        "N008_OUT002 health_score_impact",
+        "N008_OUT004 reputation_tasks",
+        "N010_OUT001 sales_baseline",
+        "N010_OUT002 hourly_target_curve",
+        "N010_OUT003 target_room_nights",
+        "N011_OUT001 progress_status",
+        "N011_OUT002 room_night_gap",
+        "N011_OUT003 deviation_reasons",
+        "N011_OUT004 urgency_level",
+        "N013_OUT001 promotion_roi",
+        "N013_OUT002 profit_simulation",
+        "N013_OUT003 roi_decision",
+        "N020_OUT001 traffic_state",
+        "N020_OUT002 time_windows",
+        "N020_OUT005 hourly_demand_index",
+        "N020_OUT006 peak_valley_evidence"
+      ],
+      "output_fields": [
+        "N018_OUT001 rendered_message",
+        "N018_OUT002 approval_card",
+        "N018_OUT003 notification_status",
+        "N018_OUT004 experience_event_candidate",
+        "N018_OUT005 frontdesk_task_card"
+      ],
+      "upstream_dependencies": [
+        "MSG005 template_id",
+        "MSG006 recipient_role",
+        "MSG007 payload_summary",
+        "EXE001 approval_id",
+        "CTX008 freshness_status",
+        "MSG008 target_role",
+        "EXE009 blocked_reason",
+        "N015_OUT001 revenue_decision",
+        "N015_OUT004 risk_warnings",
+        "N016_OUT001 dry_run_preview",
+        "N016_OUT002 execution_result",
+        "N016_OUT003 blocked_reason",
+        "N009_OUT005 weak_items",
+        "N009_OUT004 diagnosis_actions",
+        "N009_OUT006 ab_tasks",
+        "N012_OUT001 activity_plan",
+        "N012_OUT002 promotion_plan",
+        "N012_OUT003 activity_risks",
+        "N017_OUT001 reply_draft",
+        "N017_OUT002 compensation_suggestion",
+        "N019_OUT004 retrieved_experience_summary",
+        "N021_OUT005 promotion_execution_task",
+        "N021_OUT007 execution_status",
+        "N021_OUT004 verification_checklist",
+        "N022_OUT001 external_diagnosis_report_html",
+        "N022_OUT003 data_gap_list",
+        "N005_OUT001 operating_snapshot",
+        "N005_OUT002 inventory_snapshot",
+        "N005_OUT003 price_snapshot",
+        "N005_OUT005 freshness_status",
+        "N014_OUT001 customer_segments",
+        "N014_OUT002 repeat_guest_rate",
+        "N014_OUT003 loss_risk_alert",
+        "N006_OUT001 demand_index",
+        "N006_OUT002 demand_level",
+        "N006_OUT004 demand_reasons",
+        "N006_OUT005 pricing_effect",
+        "N007_OUT001 competitor_context",
+        "N007_OUT002 competitor_alert_level",
+        "N007_OUT005 confidence_level",
+        "N008_OUT001 reputation_result",
+        "N008_OUT002 health_score_impact",
+        "N008_OUT004 reputation_tasks",
+        "N010_OUT001 sales_baseline",
+        "N010_OUT002 hourly_target_curve",
+        "N010_OUT003 target_room_nights",
+        "N011_OUT001 progress_status",
+        "N011_OUT002 room_night_gap",
+        "N011_OUT003 deviation_reasons",
+        "N011_OUT004 urgency_level",
+        "N013_OUT001 promotion_roi",
+        "N013_OUT002 profit_simulation",
+        "N013_OUT003 roi_decision",
+        "N020_OUT001 traffic_state",
+        "N020_OUT002 time_windows",
+        "N020_OUT005 hourly_demand_index",
+        "N020_OUT006 peak_valley_evidence"
+      ],
+      "downstream_dependencies": [
+        "用户/飞书/N019"
+      ],
+      "runtime_command": "feishu-output-gate / command-menu-start / command-menu-reply / command-menu-cancel",
+      "demo_data_files": [
+        "examples/demo_data/demo_manifest.json",
+        "examples/demo_data/nodes/N018.json"
+      ],
+      "error_handling": "",
+      "acceptance_tests": [
+        "tests/contracts/test_v26_skill_io_contract.py"
+      ]
+    },
+    {
+      "skill_id": "S4",
+      "skill_name": "S4 环境行情感知",
+      "english_dir_name": "",
+      "node_ids": [
+        "N006"
+      ],
+      "agent_id": "A1",
+      "blueprint_basis": "BP01/BP02/BP05/BP08",
+      "direct_trigger": "用户问行情、节假日、周边活动、天气、市场热度、需求变化。",
+      "chain_trigger": "调价、活动、偏差归因、基准线需要需求指数时由 N004/N005 触发。",
+      "input_fields": [
+        "CTX003 business_date",
+        "DEM001 is_weekend",
+        "DEM002 is_holiday",
+        "DEM003 is_special_event",
+        "DEM004 holiday_signal",
+        "DEM005 weather_signal",
+        "DEM006 event_signal",
+        "DEM011 historical_same_period",
+        "FNL001 exposure",
+        "FNL002 views",
+        "ROOM005 remaining_inventory_rate"
+      ],
+      "output_fields": [
+        "N006_OUT001 demand_index",
+        "N006_OUT002 demand_level",
+        "N006_OUT003 action_strength",
+        "N006_OUT004 demand_reasons",
+        "N006_OUT005 pricing_effect",
+        "N006_OUT006 calendar_context"
+      ],
+      "upstream_dependencies": [
+        "CTX003 business_date",
+        "DEM001 is_weekend",
+        "DEM002 is_holiday",
+        "DEM003 is_special_event",
+        "DEM004 holiday_signal",
+        "DEM005 weather_signal",
+        "DEM006 event_signal",
+        "DEM011 historical_same_period",
+        "FNL001 exposure",
+        "FNL002 views",
+        "ROOM005 remaining_inventory_rate"
+      ],
+      "downstream_dependencies": [
+        "N010/N015/N020/N018"
+      ],
+      "runtime_command": "demand-index / market-context / calendar-query / event-discover",
+      "demo_data_files": [
+        "examples/demo_data/demo_manifest.json",
+        "examples/demo_data/nodes/N006.json"
+      ],
+      "error_handling": "",
+      "acceptance_tests": [
+        "tests/contracts/test_v26_skill_io_contract.py"
+      ]
+    },
+    {
+      "skill_id": "S5",
+      "skill_name": "S5 智能收益决策",
+      "english_dir_name": "",
+      "node_ids": [
+        "N015"
+      ],
+      "agent_id": "A3",
+      "blueprint_basis": "BP02/BP08/BP01/BP03/BP05/BP06",
+      "direct_trigger": "用户问要不要调价、收益建议、涨价、降价、定价策略。",
+      "chain_trigger": "N005/N006/N007/N009/N011/N012/N013/N014/N020 输出可用后触发。",
+      "input_fields": [
+        "CFG001 price_floor",
+        "CFG002 price_ceiling",
+        "CFG003 approval_policy",
+        "CFG004 live_switch",
+        "CFG005 source_capability",
+        "CFG006 skill_switch",
+        "CFG007 execution_boundary",
+        "PR001 current_price",
+        "PR004 net_price_after_activity",
+        "DEM007 demand_index",
+        "HLT001 ota_health_score",
+        "CMP013 competitor_context",
+        "ACT018 activity_risks",
+        "ROI002 promotion_roi",
+        "N006_OUT001 demand_index",
+        "N006_OUT002 demand_level",
+        "N006_OUT003 action_strength",
+        "N007_OUT001 competitor_context",
+        "N007_OUT006 warning_level",
+        "N009_OUT001 ota_health_score",
+        "N009_OUT003 conversion_bottleneck",
+        "N009_OUT004 diagnosis_actions",
+        "N011_OUT001 progress_status",
+        "N011_OUT003 deviation_reasons",
+        "N012_OUT001 activity_plan",
+        "N012_OUT003 activity_risks",
+        "N012_OUT002 promotion_plan",
+        "N013_OUT001 promotion_roi",
+        "N013_OUT002 profit_simulation",
+        "N014_OUT001 customer_segments",
+        "N014_OUT003 loss_risk_alert",
+        "N020_OUT001 traffic_state",
+        "N020_OUT005 hourly_demand_index",
+        "N020_OUT003 recommended_actions",
+        "N010_OUT001 sales_baseline",
+        "N010_OUT003 target_room_nights",
+        "N010_OUT004 baseline_confidence"
+      ],
+      "output_fields": [
+        "N015_OUT001 revenue_decision",
+        "N015_OUT002 price_recommendations",
+        "N015_OUT003 approval_required",
+        "N015_OUT004 risk_warnings",
+        "N015_OUT005 price_confidence",
+        "N015_OUT006 alternative_action_needed"
+      ],
+      "upstream_dependencies": [
+        "CFG001 price_floor",
+        "CFG002 price_ceiling",
+        "CFG003 approval_policy",
+        "CFG004 live_switch",
+        "CFG005 source_capability",
+        "CFG006 skill_switch",
+        "CFG007 execution_boundary",
+        "PR001 current_price",
+        "PR004 net_price_after_activity",
+        "DEM007 demand_index",
+        "HLT001 ota_health_score",
+        "CMP013 competitor_context",
+        "ACT018 activity_risks",
+        "ROI002 promotion_roi",
+        "N006_OUT001 demand_index",
+        "N006_OUT002 demand_level",
+        "N006_OUT003 action_strength",
+        "N007_OUT001 competitor_context",
+        "N007_OUT006 warning_level",
+        "N009_OUT001 ota_health_score",
+        "N009_OUT003 conversion_bottleneck",
+        "N009_OUT004 diagnosis_actions",
+        "N011_OUT001 progress_status",
+        "N011_OUT003 deviation_reasons",
+        "N012_OUT001 activity_plan",
+        "N012_OUT003 activity_risks",
+        "N012_OUT002 promotion_plan",
+        "N013_OUT001 promotion_roi",
+        "N013_OUT002 profit_simulation",
+        "N014_OUT001 customer_segments",
+        "N014_OUT003 loss_risk_alert",
+        "N020_OUT001 traffic_state",
+        "N020_OUT005 hourly_demand_index",
+        "N020_OUT003 recommended_actions",
+        "N010_OUT001 sales_baseline",
+        "N010_OUT003 target_room_nights",
+        "N010_OUT004 baseline_confidence"
+      ],
+      "downstream_dependencies": [
+        "N012/N016/N018/N019"
+      ],
+      "runtime_command": "revenue-decision / normalize-sample meituan-price / normalize-sample dindanll-price",
+      "demo_data_files": [
+        "examples/demo_data/demo_manifest.json",
+        "examples/demo_data/nodes/N015.json"
+      ],
+      "error_handling": "只给建议，不直接执行调价；必须交给 S6/A4 dry-run 和审批闸门。",
+      "acceptance_tests": [
+        "tests/contracts/test_v26_skill_io_contract.py"
+      ]
+    },
+    {
+      "skill_id": "S6",
+      "skill_name": "S6 房价同步执行",
+      "english_dir_name": "",
+      "node_ids": [
+        "N016"
+      ],
+      "agent_id": "A4",
+      "blueprint_basis": "BP02/BP10/BP07",
+      "direct_trigger": "用户问预览执行、同步房价、调价dry-run、确认执行。",
+      "chain_trigger": "N015 输出 approval_required 或需要 dry-run/执行预览时触发。",
+      "input_fields": [
+        "EXE001 approval_id",
+        "PR011 candidate_price",
+        "CFG001 price_floor",
+        "CFG002 price_ceiling",
+        "CTX008 freshness_status",
+        "CFG005 source_capability",
+        "CFG004 live_switch",
+        "EXE005 readback_check",
+        "EXE003 approval_data_allowed",
+        "EXE004 live_allowed",
+        "N015_OUT002 price_recommendations",
+        "N015_OUT003 approval_required"
+      ],
+      "output_fields": [
+        "N016_OUT001 dry_run_preview",
+        "N016_OUT002 execution_result",
+        "N016_OUT003 blocked_reason",
+        "N016_OUT004 readback_check",
+        "N016_OUT005 rollback_or_review_task"
+      ],
+      "upstream_dependencies": [
+        "EXE001 approval_id",
+        "PR011 candidate_price",
+        "CFG001 price_floor",
+        "CFG002 price_ceiling",
+        "CTX008 freshness_status",
+        "CFG005 source_capability",
+        "CFG004 live_switch",
+        "EXE005 readback_check",
+        "EXE003 approval_data_allowed",
+        "EXE004 live_allowed",
+        "N015_OUT002 price_recommendations",
+        "N015_OUT003 approval_required"
+      ],
+      "downstream_dependencies": [
+        "N018/N019"
+      ],
+      "runtime_command": "execute-price / approval-create / approval-mark / beyondh-call / adapter-request",
+      "demo_data_files": [
+        "examples/demo_data/demo_manifest.json",
+        "examples/demo_data/nodes/N016.json"
+      ],
+      "error_handling": "demo_data/sample/stale 下只返回 dry-run/preview，不创建正式审批，不执行 live 写入。",
+      "acceptance_tests": [
+        "tests/contracts/test_v26_skill_io_contract.py"
+      ]
+    },
+    {
+      "skill_id": "S7",
+      "skill_name": "S7 竞态监控",
+      "english_dir_name": "",
+      "node_ids": [
+        "N007"
+      ],
+      "agent_id": "A1",
+      "blueprint_basis": "BP06/BP02/BP05",
+      "direct_trigger": "用户问竞对降价、竞品情况、同行排名、竞态。",
+      "chain_trigger": "调价、活动建议、流量策略需要竞对参考时由 N004 触发。",
+      "input_fields": [
+        "CMP001 fixed_competitor_pool",
+        "CMP002 competitor_low_high_price",
+        "CMP003 competitor_price_updated_at",
+        "CMP008 competitor_sales_rank",
+        "CMP009 competitor_activity",
+        "CMP010 competitor_rating",
+        "CMP011 competitor_rank",
+        "CMP012 business_area_share",
+        "PR001 current_price",
+        "PR004 net_price_after_activity"
+      ],
+      "output_fields": [
+        "N007_OUT001 competitor_context",
+        "N007_OUT002 competitor_alert_level",
+        "N007_OUT003 competitor_price_index",
+        "N007_OUT004 direct_price_action_blocked",
+        "N007_OUT005 confidence_level",
+        "N007_OUT006 warning_level"
+      ],
+      "upstream_dependencies": [
+        "CMP001 fixed_competitor_pool",
+        "CMP002 competitor_low_high_price",
+        "CMP003 competitor_price_updated_at",
+        "CMP008 competitor_sales_rank",
+        "CMP009 competitor_activity",
+        "CMP010 competitor_rating",
+        "CMP011 competitor_rank",
+        "CMP012 business_area_share",
+        "PR001 current_price",
+        "PR004 net_price_after_activity"
+      ],
+      "downstream_dependencies": [
+        "N012/N015/N018"
+      ],
+      "runtime_command": "competition-alert / normalize-sample meituan-price / normalize-sample meituan-room-count",
+      "demo_data_files": [
+        "examples/demo_data/demo_manifest.json",
+        "examples/demo_data/nodes/N007.json"
+      ],
+      "error_handling": "只预警和解释竞对变化，不直接调价，不绕过 S5/S6。",
+      "acceptance_tests": [
+        "tests/contracts/test_v26_skill_io_contract.py"
+      ]
+    },
+    {
+      "skill_id": "S8",
+      "skill_name": "S8 推广投放与活动建议",
+      "english_dir_name": "",
+      "node_ids": [
+        "N012"
+      ],
+      "agent_id": "A3",
+      "blueprint_basis": "BP05/BP02/BP06/BP07",
+      "direct_trigger": "用户问要不要开活动、推广怎么做、广告预算、开推广、活动建议。",
+      "chain_trigger": "调价时发现价格动作不合适，或流量低谷/转化缺口需要活动替代时触发。",
+      "input_fields": [
+        "ACT001 activity_list",
+        "ACT002 activity_type",
+        "ACT003 activity_discount",
+        "ACT004 stacking_rule",
+        "PR004 net_price_after_activity",
+        "CFG001 price_floor",
+        "PR006 platform_price_gap",
+        "CMP007 competitor_activity_warning",
+        "DEM007 demand_index",
+        "ROOM005 remaining_inventory_rate",
+        "ACT015 budget_range",
+        "N020_OUT001 traffic_state",
+        "N020_OUT002 time_windows",
+        "N020_OUT005 hourly_demand_index",
+        "N015_OUT001 revenue_decision",
+        "N015_OUT004 risk_warnings",
+        "N015_OUT006 alternative_action_needed",
+        "N011_OUT001 progress_status",
+        "N011_OUT003 deviation_reasons",
+        "N011_OUT004 urgency_level",
+        "N005_OUT001 operating_snapshot",
+        "N005_OUT002 inventory_snapshot",
+        "N005_OUT003 price_snapshot",
+        "N006_OUT001 demand_index",
+        "N006_OUT002 demand_level",
+        "N006_OUT004 demand_reasons",
+        "N009_OUT003 conversion_bottleneck",
+        "N009_OUT005 weak_items",
+        "N009_OUT004 diagnosis_actions",
+        "N007_OUT001 competitor_context",
+        "N007_OUT002 competitor_alert_level"
+      ],
+      "output_fields": [
+        "N012_OUT001 activity_plan",
+        "N012_OUT002 promotion_plan",
+        "N012_OUT003 activity_risks",
+        "N012_OUT004 approval_required",
+        "N012_OUT005 budget_range",
+        "N012_OUT006 promotion_action",
+        "N012_OUT007 expected_return",
+        "N012_OUT008 time_windows"
+      ],
+      "upstream_dependencies": [
+        "ACT001 activity_list",
+        "ACT002 activity_type",
+        "ACT003 activity_discount",
+        "ACT004 stacking_rule",
+        "PR004 net_price_after_activity",
+        "CFG001 price_floor",
+        "PR006 platform_price_gap",
+        "CMP007 competitor_activity_warning",
+        "DEM007 demand_index",
+        "ROOM005 remaining_inventory_rate",
+        "ACT015 budget_range",
+        "N020_OUT001 traffic_state",
+        "N020_OUT002 time_windows",
+        "N020_OUT005 hourly_demand_index",
+        "N015_OUT001 revenue_decision",
+        "N015_OUT004 risk_warnings",
+        "N015_OUT006 alternative_action_needed",
+        "N011_OUT001 progress_status",
+        "N011_OUT003 deviation_reasons",
+        "N011_OUT004 urgency_level",
+        "N005_OUT001 operating_snapshot",
+        "N005_OUT002 inventory_snapshot",
+        "N005_OUT003 price_snapshot",
+        "N006_OUT001 demand_index",
+        "N006_OUT002 demand_level",
+        "N006_OUT004 demand_reasons",
+        "N009_OUT003 conversion_bottleneck",
+        "N009_OUT005 weak_items",
+        "N009_OUT004 diagnosis_actions",
+        "N007_OUT001 competitor_context",
+        "N007_OUT002 competitor_alert_level"
+      ],
+      "downstream_dependencies": [
+        "N013/N015/N018/N021"
+      ],
+      "runtime_command": "promotion-plan",
+      "demo_data_files": [
+        "examples/demo_data/demo_manifest.json",
+        "examples/demo_data/nodes/N012.json"
+      ],
+      "error_handling": "",
+      "acceptance_tests": [
+        "tests/contracts/test_v26_skill_io_contract.py"
+      ]
+    },
+    {
+      "skill_id": "S9",
+      "skill_name": "S9 流量峰谷",
+      "english_dir_name": "",
+      "node_ids": [
+        "N020"
+      ],
+      "agent_id": "A1",
+      "blueprint_basis": "BP01/BP04/BP08",
+      "direct_trigger": "用户问流量高峰、流量低谷、几点推广、进单时段、当前是否流量高峰。",
+      "chain_trigger": "N005 经营快照和 N010 基准线可用后；调价/推广/偏差需要小时级峰谷判断时触发。",
+      "input_fields": [
+        "CTX003 business_date",
+        "FNL014 traffic_peak_valley_window",
+        "OP014 hourly_order_progress",
+        "FNL001 exposure",
+        "FNL002 views",
+        "OP002 paid_orders",
+        "DEM012 historical_same_weekday_curve",
+        "DEM007 demand_index",
+        "N005_OUT001 operating_snapshot",
+        "N005_OUT007 exposure",
+        "N005_OUT011 views",
+        "N005_OUT008 paid_orders",
+        "N010_OUT002 hourly_target_curve",
+        "N010_OUT005 historical_same_weekday_curve"
+      ],
+      "output_fields": [
+        "N020_OUT001 traffic_state",
+        "N020_OUT002 time_windows",
+        "N020_OUT003 recommended_actions",
+        "N020_OUT004 demand_index",
+        "N020_OUT005 hourly_demand_index",
+        "N020_OUT006 peak_valley_evidence",
+        "N020_OUT007 conversion_signal"
+      ],
+      "upstream_dependencies": [
+        "CTX003 business_date",
+        "FNL014 traffic_peak_valley_window",
+        "OP014 hourly_order_progress",
+        "FNL001 exposure",
+        "FNL002 views",
+        "OP002 paid_orders",
+        "DEM012 historical_same_weekday_curve",
+        "DEM007 demand_index",
+        "N005_OUT001 operating_snapshot",
+        "N005_OUT007 exposure",
+        "N005_OUT011 views",
+        "N005_OUT008 paid_orders",
+        "N010_OUT002 hourly_target_curve",
+        "N010_OUT005 historical_same_weekday_curve"
+      ],
+      "downstream_dependencies": [
+        "N009/N012/N015/N018"
+      ],
+      "runtime_command": "demand-index / conversion-diagnosis",
+      "demo_data_files": [
+        "examples/demo_data/demo_manifest.json",
+        "examples/demo_data/nodes/N020.json"
+      ],
+      "error_handling": "",
+      "acceptance_tests": [
+        "tests/contracts/test_v26_skill_io_contract.py"
+      ]
+    },
+    {
+      "skill_id": "S10",
+      "skill_name": "S10 ROI 决策",
+      "english_dir_name": "",
+      "node_ids": [
+        "N013"
+      ],
+      "agent_id": "A3",
+      "blueprint_basis": "BP08/BP05",
+      "direct_trigger": "用户问推广ROI、投放值不值、利润怎么样、广告效果。",
+      "chain_trigger": "活动建议或收益策略需要 ROI/利润补充时触发。",
+      "input_fields": [
+        "ROI001 promotion_cost",
+        "ROI011 attribution_revenue",
+        "ROI008 fee",
+        "ROI009 refund",
+        "ROI010 settlement_amount",
+        "ROI005 fixed_cost",
+        "ROI006 variable_cost_per_room",
+        "CFG001 price_floor",
+        "N012_OUT002 promotion_plan",
+        "N012_OUT005 budget_range",
+        "N012_OUT007 expected_return"
+      ],
+      "output_fields": [
+        "N013_OUT001 promotion_roi",
+        "N013_OUT002 profit_simulation",
+        "N013_OUT003 roi_decision",
+        "N013_OUT004 data_gaps"
+      ],
+      "upstream_dependencies": [
+        "ROI001 promotion_cost",
+        "ROI011 attribution_revenue",
+        "ROI008 fee",
+        "ROI009 refund",
+        "ROI010 settlement_amount",
+        "ROI005 fixed_cost",
+        "ROI006 variable_cost_per_room",
+        "CFG001 price_floor",
+        "N012_OUT002 promotion_plan",
+        "N012_OUT005 budget_range",
+        "N012_OUT007 expected_return"
+      ],
+      "downstream_dependencies": [
+        "N012/N015/N018/N021"
+      ],
+      "runtime_command": "promotion-roi",
+      "demo_data_files": [
+        "examples/demo_data/demo_manifest.json",
+        "examples/demo_data/nodes/N013.json"
+      ],
+      "error_handling": "",
+      "acceptance_tests": [
+        "tests/contracts/test_v26_skill_io_contract.py"
+      ]
+    },
+    {
+      "skill_id": "S11",
+      "skill_name": "S11 推广执行",
+      "english_dir_name": "",
+      "node_ids": [
+        "N021"
+      ],
+      "agent_id": "A4",
+      "blueprint_basis": "BP05/BP07/BP10",
+      "direct_trigger": "用户问执行推广、调整出价、关闭广告、打开广告、执行活动。",
+      "chain_trigger": "N012 推广计划或 N013 ROI 决策需要执行时触发。",
+      "input_fields": [
+        "EXE001 approval_id",
+        "ACT014 promotion_action",
+        "ACT015 budget_range",
+        "FNL018 time_windows",
+        "CFG005 source_capability",
+        "CFG004 live_switch",
+        "EXE005 readback_check",
+        "ACT020 campaign_id_or_plan_id",
+        "ACT019 budget_guard",
+        "N012_OUT006 promotion_action",
+        "N012_OUT005 budget_range",
+        "N012_OUT008 time_windows",
+        "N012_OUT004 approval_required",
+        "N013_OUT003 roi_decision",
+        "N013_OUT002 profit_simulation",
+        "N013_OUT004 data_gaps"
+      ],
+      "output_fields": [
+        "N021_OUT001 promotion_execution_preview",
+        "N021_OUT002 execution_result",
+        "N021_OUT003 blocked_reason",
+        "N021_OUT004 verification_checklist",
+        "N021_OUT005 promotion_execution_task",
+        "N021_OUT006 approval_id",
+        "N021_OUT007 execution_status"
+      ],
+      "upstream_dependencies": [
+        "EXE001 approval_id",
+        "ACT014 promotion_action",
+        "ACT015 budget_range",
+        "FNL018 time_windows",
+        "CFG005 source_capability",
+        "CFG004 live_switch",
+        "EXE005 readback_check",
+        "ACT020 campaign_id_or_plan_id",
+        "ACT019 budget_guard",
+        "N012_OUT006 promotion_action",
+        "N012_OUT005 budget_range",
+        "N012_OUT008 time_windows",
+        "N012_OUT004 approval_required",
+        "N013_OUT003 roi_decision",
+        "N013_OUT002 profit_simulation",
+        "N013_OUT004 data_gaps"
+      ],
+      "downstream_dependencies": [
+        "N018/N019"
+      ],
+      "runtime_command": "promotion-execute / approval-create / approval-mark / feishu-output-gate",
+      "demo_data_files": [
+        "examples/demo_data/demo_manifest.json",
+        "examples/demo_data/nodes/N021.json"
+      ],
+      "error_handling": "demo下只预览推广执行或人工任务，不重新决策，不执行 live 推广写入。",
+      "acceptance_tests": [
+        "tests/contracts/test_v26_skill_io_contract.py"
+      ]
+    },
+    {
+      "skill_id": "S12",
+      "skill_name": "S12 口碑管理",
+      "english_dir_name": "",
+      "node_ids": [
+        "N008"
+      ],
+      "agent_id": "A1",
+      "blueprint_basis": "BP09/BP03",
+      "direct_trigger": "用户问差评、评分、评论、口碑、回复率、好评任务。",
+      "chain_trigger": "诊断需要口碑维度，或出现差评事件时触发。",
+      "input_fields": [
+        "REP001 review_content",
+        "REP002 review_rating",
+        "REP003 review_time",
+        "REP004 room_type",
+        "REP005 stay_date",
+        "REP006 channel_source",
+        "REP010 reply_status",
+        "REP011 compensation_status",
+        "REP012 similar_history",
+        "HOT001 hotel_id"
+      ],
+      "output_fields": [
+        "N008_OUT001 reputation_result",
+        "N008_OUT002 health_score_impact",
+        "N008_OUT003 reply_needed",
+        "N008_OUT004 reputation_tasks",
+        "N008_OUT005 problem_tags",
+        "N008_OUT006 review_content",
+        "N008_OUT007 sentiment"
+      ],
+      "upstream_dependencies": [
+        "REP001 review_content",
+        "REP002 review_rating",
+        "REP003 review_time",
+        "REP004 room_type",
+        "REP005 stay_date",
+        "REP006 channel_source",
+        "REP010 reply_status",
+        "REP011 compensation_status",
+        "REP012 similar_history",
+        "HOT001 hotel_id"
+      ],
+      "downstream_dependencies": [
+        "N009/N017/N018/N019"
+      ],
+      "runtime_command": "reputation-diagnosis",
+      "demo_data_files": [
+        "examples/demo_data/demo_manifest.json",
+        "examples/demo_data/nodes/N008.json"
+      ],
+      "error_handling": "",
+      "acceptance_tests": [
+        "tests/contracts/test_v26_skill_io_contract.py"
+      ]
+    },
+    {
+      "skill_id": "S13",
+      "skill_name": "S13 评论回复",
+      "english_dir_name": "",
+      "node_ids": [
+        "N017"
+      ],
+      "agent_id": "A4",
+      "blueprint_basis": "BP09/BP07",
+      "direct_trigger": "用户问这条评论怎么回、差评怎么回复、评论草稿、好评回复。",
+      "chain_trigger": "N008 判定 reply_needed 后触发。",
+      "input_fields": [
+        "REP001 review_content",
+        "REP026 reply_needed",
+        "REP013 severity",
+        "REP014 categories",
+        "REP015 need_private_message",
+        "REP016 need_compensation",
+        "REP017 need_manager_escalation",
+        "CFG003 approval_policy",
+        "N008_OUT006 review_content",
+        "N008_OUT003 reply_needed",
+        "N008_OUT007 sentiment"
+      ],
+      "output_fields": [
+        "N017_OUT001 reply_draft",
+        "N017_OUT002 compensation_suggestion",
+        "N017_OUT003 manager_escalation",
+        "N017_OUT004 sentiment",
+        "N017_OUT005 problem_tags",
+        "N017_OUT006 approval_required"
+      ],
+      "upstream_dependencies": [
+        "REP001 review_content",
+        "REP026 reply_needed",
+        "REP013 severity",
+        "REP014 categories",
+        "REP015 need_private_message",
+        "REP016 need_compensation",
+        "REP017 need_manager_escalation",
+        "CFG003 approval_policy",
+        "N008_OUT006 review_content",
+        "N008_OUT003 reply_needed",
+        "N008_OUT007 sentiment"
+      ],
+      "downstream_dependencies": [
+        "N018/N019"
+      ],
+      "runtime_command": "reputation-diagnosis + S3 approval template",
+      "demo_data_files": [
+        "examples/demo_data/demo_manifest.json",
+        "examples/demo_data/nodes/N017.json"
+      ],
+      "error_handling": "",
+      "acceptance_tests": [
+        "tests/contracts/test_v26_skill_io_contract.py"
+      ]
+    },
+    {
+      "skill_id": "S14",
+      "skill_name": "S14 酒店运营诊断",
+      "english_dir_name": "",
+      "node_ids": [
+        "N009"
+      ],
+      "agent_id": "A2",
+      "blueprint_basis": "BP03/BP04/BP02/BP05",
+      "direct_trigger": "用户问 OTA诊断、运营诊断、内容优化、周诊断、整改任务清单。",
+      "chain_trigger": "调价前需要健康/转化保护；口碑回流需要更新健康判断；流量峰谷需要转化诊断时触发。",
+      "input_fields": [
+        "FNL001 exposure",
+        "FNL002 views",
+        "FNL003 submit_count",
+        "FNL004 payment_count",
+        "FNL005 first_conversion_rate",
+        "FNL006 second_conversion_rate",
+        "FNL007 overall_conversion_rate",
+        "HLT001 ota_health_score",
+        "HLT003 hos_score",
+        "REP019 rating_score",
+        "REP021 bad_review_rate",
+        "N005_OUT001 operating_snapshot",
+        "N005_OUT002 inventory_snapshot",
+        "N005_OUT003 price_snapshot",
+        "N008_OUT001 reputation_result",
+        "N008_OUT002 health_score_impact",
+        "N020_OUT001 traffic_state",
+        "N020_OUT006 peak_valley_evidence",
+        "N020_OUT007 conversion_signal",
+        "N007_OUT001 competitor_context",
+        "N007_OUT002 competitor_alert_level",
+        "N006_OUT001 demand_index",
+        "N006_OUT004 demand_reasons",
+        "N006_OUT006 calendar_context"
+      ],
+      "output_fields": [
+        "N009_OUT001 ota_health_score",
+        "N009_OUT002 ota_health_level",
+        "N009_OUT003 conversion_bottleneck",
+        "N009_OUT004 diagnosis_actions",
+        "N009_OUT005 weak_items",
+        "N009_OUT006 ab_tasks"
+      ],
+      "upstream_dependencies": [
+        "FNL001 exposure",
+        "FNL002 views",
+        "FNL003 submit_count",
+        "FNL004 payment_count",
+        "FNL005 first_conversion_rate",
+        "FNL006 second_conversion_rate",
+        "FNL007 overall_conversion_rate",
+        "HLT001 ota_health_score",
+        "HLT003 hos_score",
+        "REP019 rating_score",
+        "REP021 bad_review_rate",
+        "N005_OUT001 operating_snapshot",
+        "N005_OUT002 inventory_snapshot",
+        "N005_OUT003 price_snapshot",
+        "N008_OUT001 reputation_result",
+        "N008_OUT002 health_score_impact",
+        "N020_OUT001 traffic_state",
+        "N020_OUT006 peak_valley_evidence",
+        "N020_OUT007 conversion_signal",
+        "N007_OUT001 competitor_context",
+        "N007_OUT002 competitor_alert_level",
+        "N006_OUT001 demand_index",
+        "N006_OUT004 demand_reasons",
+        "N006_OUT006 calendar_context"
+      ],
+      "downstream_dependencies": [
+        "N015/N018/N019"
+      ],
+      "runtime_command": "ota-health / conversion-diagnosis / database-query daily_metrics",
+      "demo_data_files": [
+        "examples/demo_data/demo_manifest.json",
+        "examples/demo_data/nodes/N009.json"
+      ],
+      "error_handling": "",
+      "acceptance_tests": [
+        "tests/contracts/test_v26_skill_io_contract.py"
+      ]
+    },
+    {
+      "skill_id": "S15",
+      "skill_name": "S15 销售基准线",
+      "english_dir_name": "",
+      "node_ids": [
+        "N010"
+      ],
+      "agent_id": "A2",
+      "blueprint_basis": "BP08/BP02/BP01",
+      "direct_trigger": "用户问今日目标、销售基准线、小时目标、日报基准。",
+      "chain_trigger": "调价、进度巡检、流量峰谷、偏差诊断需要目标曲线时触发。",
+      "input_fields": [
+        "HOT001 hotel_id",
+        "CTX003 business_date",
+        "ROOM009 room_total",
+        "DEM011 historical_same_period",
+        "DEM007 demand_index",
+        "OP005 occupancy_rate",
+        "OP006 adr",
+        "OP007 revpar",
+        "N005_OUT001 operating_snapshot",
+        "N006_OUT001 demand_index",
+        "N006_OUT006 calendar_context",
+        "N006_OUT004 demand_reasons"
+      ],
+      "output_fields": [
+        "N010_OUT001 sales_baseline",
+        "N010_OUT002 hourly_target_curve",
+        "N010_OUT003 target_room_nights",
+        "N010_OUT004 baseline_confidence",
+        "N010_OUT005 historical_same_weekday_curve"
+      ],
+      "upstream_dependencies": [
+        "HOT001 hotel_id",
+        "CTX003 business_date",
+        "ROOM009 room_total",
+        "DEM011 historical_same_period",
+        "DEM007 demand_index",
+        "OP005 occupancy_rate",
+        "OP006 adr",
+        "OP007 revpar",
+        "N005_OUT001 operating_snapshot",
+        "N006_OUT001 demand_index",
+        "N006_OUT006 calendar_context",
+        "N006_OUT004 demand_reasons"
+      ],
+      "downstream_dependencies": [
+        "N011/N015/N018/N020"
+      ],
+      "runtime_command": "baseline / database-query daily_metrics / database-query monthly_metrics",
+      "demo_data_files": [
+        "examples/demo_data/demo_manifest.json",
+        "examples/demo_data/nodes/N010.json"
+      ],
+      "error_handling": "",
+      "acceptance_tests": [
+        "tests/contracts/test_v26_skill_io_contract.py"
+      ]
+    },
+    {
+      "skill_id": "S16",
+      "skill_name": "S16 进度偏差诊断",
+      "english_dir_name": "",
+      "node_ids": [
+        "N011"
+      ],
+      "agent_id": "A2",
+      "blueprint_basis": "BP08/BP02/BP03",
+      "direct_trigger": "用户问进度落后、完成率、为什么落后、当前应该做什么。",
+      "chain_trigger": "N010 输出基准线后；调价前需要判断进度偏差时触发。",
+      "input_fields": [
+        "HOT001 hotel_id",
+        "CTX003 business_date",
+        "OP008 booking_progress",
+        "OP014 hourly_order_progress",
+        "DEM007 demand_index",
+        "FNL017 traffic_state",
+        "N010_OUT001 sales_baseline",
+        "N010_OUT002 hourly_target_curve",
+        "N005_OUT001 operating_snapshot",
+        "N005_OUT009 room_nights",
+        "N005_OUT010 sold_rooms"
+      ],
+      "output_fields": [
+        "N011_OUT001 progress_status",
+        "N011_OUT002 room_night_gap",
+        "N011_OUT003 deviation_reasons",
+        "N011_OUT004 urgency_level",
+        "N011_OUT005 downstream_skill"
+      ],
+      "upstream_dependencies": [
+        "HOT001 hotel_id",
+        "CTX003 business_date",
+        "OP008 booking_progress",
+        "OP014 hourly_order_progress",
+        "DEM007 demand_index",
+        "FNL017 traffic_state",
+        "N010_OUT001 sales_baseline",
+        "N010_OUT002 hourly_target_curve",
+        "N005_OUT001 operating_snapshot",
+        "N005_OUT009 room_nights",
+        "N005_OUT010 sold_rooms"
+      ],
+      "downstream_dependencies": [
+        "N012/N015/N018/N019/N020"
+      ],
+      "runtime_command": "deviation / normalize-sample dindanll-order / database-query daily_metrics",
+      "demo_data_files": [
+        "examples/demo_data/demo_manifest.json",
+        "examples/demo_data/nodes/N011.json"
+      ],
+      "error_handling": "",
+      "acceptance_tests": [
+        "tests/contracts/test_v26_skill_io_contract.py"
+      ]
+    },
+    {
+      "skill_id": "S17",
+      "skill_name": "S17 客户订单分析",
+      "english_dir_name": "",
+      "node_ids": [
+        "N014"
+      ],
+      "agent_id": "A1",
+      "blueprint_basis": "BP08/BP09",
+      "direct_trigger": "用户问客户、订单、复购、流失预警、客户画像、订单分析。",
+      "chain_trigger": "收益策略、任务或口碑需要客户结构参考时触发。",
+      "input_fields": [
+        "OP001 orders",
+        "OP002 paid_orders",
+        "OP003 cancel_orders",
+        "REP007 is_member",
+        "CUS001 customer_segments",
+        "CUS002 repeat_guest_rate",
+        "CUS003 loss_risk_alert",
+        "REP001 review_content"
+      ],
+      "output_fields": [
+        "N014_OUT001 customer_segments",
+        "N014_OUT002 repeat_guest_rate",
+        "N014_OUT003 loss_risk_alert",
+        "N014_OUT004 target_guest_tasks"
+      ],
+      "upstream_dependencies": [
+        "OP001 orders",
+        "OP002 paid_orders",
+        "OP003 cancel_orders",
+        "REP007 is_member",
+        "CUS001 customer_segments",
+        "CUS002 repeat_guest_rate",
+        "CUS003 loss_risk_alert",
+        "REP001 review_content"
+      ],
+      "downstream_dependencies": [
+        "N015/N018/N019"
+      ],
+      "runtime_command": "customer-analysis / beyondh-call Order.QueryOrders / normalize-sample dindanll-order / database-query order_snapshot",
+      "demo_data_files": [
+        "examples/demo_data/demo_manifest.json",
+        "examples/demo_data/nodes/N014.json"
+      ],
+      "error_handling": "",
+      "acceptance_tests": [
+        "tests/contracts/test_v26_skill_io_contract.py"
+      ]
+    },
+    {
+      "skill_id": "S14-EXT",
+      "skill_name": "S14-EXT 第三方OTA诊断HTML报告模式",
+      "english_dir_name": "",
+      "node_ids": [
+        "N022"
+      ],
+      "agent_id": "A2",
+      "blueprint_basis": "BP03/BP04/BP10",
+      "direct_trigger": "杨总/运营要求“给某家外部酒店做OTA诊断/生成诊断报告/导入诊断Excel”。",
+      "chain_trigger": "N004 判定数据来自 manual_upload/rpa/external_db，且字段满足第三方诊断最小字段集后触发。",
+      "input_fields": [
+        "MSG017 external_hotel_profile",
+        "MSG018 ota_report_payload",
+        "CTX006 data_source_type",
+        "CTX016 field_coverage_rate",
+        "MSG011 html_report_preview",
+        "CTX015 missing_fields",
+        "FNL001 exposure",
+        "FNL002 views",
+        "FNL011 payment_conversion_rate",
+        "REP019 rating_score",
+        "REP020 review_count",
+        "N004_OUT010 external_upload_context",
+        "N004_OUT004 field_coverage_report"
+      ],
+      "output_fields": [
+        "N022_OUT001 external_diagnosis_report_html",
+        "N022_OUT002 diagnosis_scorecard",
+        "N022_OUT003 data_gap_list",
+        "N022_OUT004 field_coverage_report",
+        "N022_OUT005 followup_purchase_recommendation",
+        "N022_OUT006 sanitized_external_diagnosis_case"
+      ],
+      "upstream_dependencies": [
+        "MSG017 external_hotel_profile",
+        "MSG018 ota_report_payload",
+        "CTX006 data_source_type",
+        "CTX016 field_coverage_rate",
+        "MSG011 html_report_preview",
+        "CTX015 missing_fields",
+        "FNL001 exposure",
+        "FNL002 views",
+        "FNL011 payment_conversion_rate",
+        "REP019 rating_score",
+        "REP020 review_count",
+        "N004_OUT010 external_upload_context",
+        "N004_OUT004 field_coverage_report"
+      ],
+      "downstream_dependencies": [
+        "N018/N019"
+      ],
+      "runtime_command": "manual_upload/external_rpa/import_excel -> ota-health/conversion-diagnosis -> html_report",
+      "demo_data_files": [
+        "examples/demo_data/demo_manifest.json",
+        "examples/demo_data/nodes/N022.json"
+      ],
+      "error_handling": "第三方 OTA 诊断与本店生产数据隔离；demo 下只生成预览 artifact。",
+      "acceptance_tests": [
+        "tests/contracts/test_v26_skill_io_contract.py"
+      ]
+    }
+  ]
+}

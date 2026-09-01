@@ -1,0 +1,114 @@
+{
+  "schema_version": "1.0",
+  "owner_skill": "S8",
+  "status": "implemented",
+  "placement": "runtime/algorithm_rules",
+  "node_id": "N012",
+  "agent_id": "A3",
+  "phase": "P2",
+  "source_refs": {
+    "node_registry": "architecture/node_registry.json",
+    "edge_registry": "architecture/edge_registry.json",
+    "scenario_registry": "architecture/scenario_chain_registry.json",
+    "field_registry": "contracts/v27/field_registry.yaml",
+    "node_io_contract": "contracts/v27/node_io_contract.yaml",
+    "skill_alignment": "skills/hotel-ota/s08-promotion-planning/references/v27_alignment.json"
+  },
+  "demo_safety": {
+    "data_source_type": "demo_data",
+    "freshness_status": "demo_data",
+    "business_status": "demo_or_historical",
+    "today_label_allowed": false,
+    "approval_data_allowed": false,
+    "live_allowed": false,
+    "business_display_allowed": false
+  },
+  "data_gate": {
+    "hard_required": [
+      "hotel_id"
+    ],
+    "soft_required": [
+      "as_of_time"
+    ],
+    "missing_policy": "return_data_gap; never use demo, sample, stale-cache, cross-channel, activity, price, business-metric, or status-table fallback"
+  },
+  "algorithm": {
+    "objective": "Display only the latest exact-hotel Meituan promotion performance data and deterministic display metrics from meituan_ota_promotion_performance_30d.",
+    "ordered_steps": [
+      {
+        "step_id": "s8_01",
+        "action": "Validate an exact hotel_id and optional trusted as_of_time; never resolve the hotel by display name."
+      },
+      {
+        "step_id": "s8_02",
+        "action": "On S8 trigger, read only meituan_ota_promotion_performance_30d and select the latest snapshot_time for that hotel, constrained to snapshot_time <= as_of_time when provided."
+      },
+      {
+        "step_id": "s8_03",
+        "action": "Project only the S8 display whitelist and compute deterministic display metrics; every invalid or zero denominator returns not_computable."
+      },
+      {
+        "step_id": "s8_04",
+        "action": "Return a read-only display envelope with recommendations and actions empty; do not infer promotion status, plan actions, approvals, tasks, or writes."
+      }
+    ],
+    "thresholds": {
+      "division_by_zero_result": "not_computable",
+      "source_click_rate_priority": true,
+      "recommendations_must_be_empty": true,
+      "actions_must_be_empty": true
+    },
+    "degradation": [
+      "When hotel_id is missing, return data_gap and do not query a source table.",
+      "When the source table, required columns, or query is unavailable, return data_gap without fallback to any other table or cached business result.",
+      "When the latest snapshot has no rows, return an empty promotion display and do not synthesize records.",
+      "Demo, sample, synthetic, activity, price, business-metric, promotion-status, Ctrip, and other Skill outputs are never substitutes for the S8 source."
+    ],
+    "output_contract": [
+      "promotion_display",
+      "recommendations_empty",
+      "actions_empty",
+      "write_performed_false",
+      "live_allowed_false"
+    ]
+  },
+  "forbidden_actions": [
+    "treat_demo_data_as_real_today_data",
+    "read_any_table_other_than_meituan_ota_promotion_performance_30d",
+    "display_or_infer_promotion_status",
+    "generate_promotion_plan_or_budget_or_bid_recommendation",
+    "generate_enable_pause_close_or_other_promotion_action",
+    "call_other_skill_for_s8_business_output",
+    "use_demo_sample_synthetic_or_stale_cache_as_s8_business_data",
+    "create_approval_task_or_ota_write"
+  ],
+  "demo_behavior_cases": [
+    {
+      "case_id": "s8_demo_source_rejected",
+      "input": {
+        "hotel_id": "puyue-demo",
+        "data_source_type": "demo_data"
+      },
+      "expected": {
+        "business_display_allowed": false,
+        "approval_data_allowed": false,
+        "live_allowed": false,
+        "fallback_allowed": false
+      }
+    },
+    {
+      "case_id": "s8_missing_hotel_id",
+      "input": {},
+      "expected": {
+        "allowed": false,
+        "reason": "hotel_id_required"
+      }
+    }
+  ],
+  "executed_by_runtime": [
+    "runtime/s08_promotion_display_source.py",
+    "runtime/algorithms/s08_promotion_display.py",
+    "runtime/decisions/promotion.py"
+  ],
+  "runtime_execution_status": "display_only_read_path"
+}

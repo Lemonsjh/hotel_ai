@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "description": "Copy to /etc/hotel-ota-ai/s14-source.json. Feishu may reference only registered source keys, never arbitrary server paths.",
+  "hotels": {
+    "example-hotel": {
+      "s14_sources": {
+        "monthly_excel": {
+          "source_mode": "excel",
+          "enabled": false,
+          "path": "/var/lib/hotel-ota-ai/s14/example-hotel/monthly.xlsx"
+        },
+        "readonly_mysql": {
+          "source_mode": "mysql",
+          "enabled": false,
+          "profile": "puyue_mysql_prod"
+        }
+      }
+    }
+  }
+}

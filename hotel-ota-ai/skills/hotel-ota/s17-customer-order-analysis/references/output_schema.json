@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "schema_version": "v27-wrapper",
+  "title": "S17 output wrapper",
+  "type": "object",
+  "canonical_source": "contracts/v27/node_io_contract.yaml",
+  "secondary_source": "contracts/v27/skill_io_contract.yaml",
+  "alignment_source": "references/v27_alignment.json",
+  "skill_id": "S17",
+  "node_ids": [
+    "N014"
+  ],
+  "output_field_ids": [
+    "N014_OUT001",
+    "N014_OUT002",
+    "N014_OUT003",
+    "N014_OUT004"
+  ],
+  "deprecated_legacy_outputs": {
+    "customer_segments": {
+      "deprecated": true
+    },
+    "repeat_guest_rate": {
+      "deprecated": true
+    },
+    "target_guest_tasks": {
+      "deprecated": true
+    }
+  },
+  "properties": {
+    "N014_OUT001": {
+      "type": "object",
+      "canonical_key": "customer_order_populations"
+    },
+    "N014_OUT002": {
+      "type": "number",
+      "canonical_key": "repeat_booking_contact_share_proxy"
+    },
+    "N014_OUT003": {
+      "type": "object",
+      "canonical_key": "provider_loss_proxy"
+    },
+    "N014_OUT004": {
+      "type": "array",
+      "canonical_key": "data_gaps"
+    }
+  },
+  "required": [
+    "N014_OUT001",
+    "N014_OUT002",
+    "N014_OUT003",
+    "N014_OUT004"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,48 @@
+version: v27-p0p1
+source: contracts/v27/data_gap_impact_matrix.yaml
+machine_contract_ref: contracts/v27/contract.json
+policy:
+  missing_required_fields_never_become_formal_approval: true
+  demo_or_synthetic_today_never_live: true
+  skill_should_return_data_gap_or_preview_only: true
+matrix:
+  S2:
+    node_ids: [N005]
+    required_fields: [total_rooms, sold_rooms, adr, revpar, data_business_date]
+    if_missing: business_snapshot_becomes_data_gap
+    blocked_downstream: [S14, S5, S16]
+  S4/S9:
+    node_ids: [N006, N020]
+    required_fields: [date_environment_score, regional_heat_index, historical_same_period_score, booking_progress, current_traffic_score, payment_conversion_rate, room_type_inventory_pressure]
+    if_missing: demand_or_funnel_confidence_downgraded
+    blocked_downstream: [S5]
+  S5:
+    node_ids: [N015]
+    required_fields: [current_price, floor_price, ceiling_price, expected_occupancy_tonight, baseline_price_by_room_type]
+    if_missing: pricing_decision_blocked
+    blocked_downstream: [S6]
+  S6:
+    node_ids: [N016]
+    required_fields: [approval_id, floor_price, ceiling_price, execution_price, live_switch]
+    if_missing: dry_run_only_or_blocked
+    blocked_downstream: [live_price_write]
+  S7:
+    node_ids: [N007]
+    required_fields: [competitor_price, current_price, competitor_rank]
+    if_missing: watch_only_no_price_trigger
+    blocked_downstream: [direct_price_update]
+  S8/S10/S11:
+    node_ids: [N012, N013, N021]
+    required_fields: [promotion_budget, promotion_cost, promotion_revenue, expected_orders, approval_id]
+    if_missing: promotion_execution_blocked
+    blocked_downstream: [promotion_live_write]
+  S12/S13:
+    node_ids: [N008, N017]
+    required_fields: [review_text, rating, privacy_checked]
+    if_missing: reply_draft_or_publish_blocked
+    blocked_downstream: [review_publish]
+  S14/S14-EXT:
+    node_ids: [N009, N022]
+    required_fields: [exposure, views, clicks, paid_orders, hos_score, rating_total]
+    if_missing: health_score_partial_or_structure_only_report
+    blocked_downstream: [complete_html_report_claim]

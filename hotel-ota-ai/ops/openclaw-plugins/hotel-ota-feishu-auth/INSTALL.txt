@@ -1,0 +1,54 @@
+Staged deployment contract
+==========================
+
+The plugin is independent of S2 scheduling. It has no dependency on an S2 timer,
+cron environment file, or scheduled message worker. Gateway and
+on-demand runtime routes remain usable without it.
+
+Before a production enablement, verify the package in an isolated OpenClaw
+home. Do not change existing Feishu bindings, agent lists, or private config
+until all checks pass.
+
+1. Run local code checks:
+
+   node --test test/auth_ingress.test.mjs
+
+2. In a disposable isolated OpenClaw home, install the plugin from this
+   directory using the server's OpenClaw CLI:
+
+   OPENCLAW_HOME=/tmp/hotel-ota-openclaw-plugin-smoke \
+     openclaw plugins install --link .
+   OPENCLAW_HOME=/tmp/hotel-ota-openclaw-plugin-smoke \
+     openclaw config validate
+   OPENCLAW_HOME=/tmp/hotel-ota-openclaw-plugin-smoke \
+     openclaw plugins inspect hotel-ota-feishu-auth --runtime --json
+
+3. Run the inbound_claim smoke test with two placeholder account IDs and a
+   temporary role map. Verify one authorized message routes to runtime, while
+   missing identity, unapproved chat, unknown user, duplicate event, and a
+   rejected send payload are all handled without an Agent/model turn.
+
+The production plugin requires private environment values only:
+- HOTEL_OTA_FEISHU_AUTH_ACCOUNTS: comma-separated list of the Feishu account IDs
+  shared by this runtime (one or more; one entry per hotel bot). Multi-hotel
+  deployments list every hotel's bot here. Chat→hotel scoping is resolved via
+  the V3 role map's group_chat_bindings, not by accountId.
+- HOTEL_OTA_AUTH_CONFIG: private V1/V2/V3 Feishu role map JSON; V3 is required
+  for tenant-scoped group bindings and multi-hotel membership resolution.
+- HOTEL_OTA_RUNTIME_ENTRY: workspace runtime/hotel_ota_runtime.py path
+- HOTEL_OTA_DB: hotel SQLite path
+
+The plugin passes gateway identity to feishu-route with --production-feishu.
+It never passes --user-role, --trusted-runtime-role, --full-json, credentials,
+or model instructions. Production installation and rollback are manual
+operations after the isolated checks above pass.
+
+If a previous installation remains in an error state, inspect it with the
+OpenClaw CLI, remove it through the CLI, and reinstall only after the isolated
+checks pass. Do not manually delete OpenClaw registry JSON such as
+`installs.json`; registry state is server-local and outside this repository.
+
+This plugin handles inbound message authorization and runtime routing only. It
+does not install an S2 timer and does not implement a Feishu administrative-card
+callback until the exact provider callback contract has passed isolated staging
+validation. Do not treat normal chat text as an administrative callback.

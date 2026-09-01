@@ -1,0 +1,4 @@
+Manual checks:
+- Install: pip install -e .
+- Excel run: ota-marketing-diagnosis diagnose-excel --excel <file.xlsx> --output reports
+- Module run: python -m marketing_diagnosis.main diagnose-excel --excel <file.xlsx> --output reports

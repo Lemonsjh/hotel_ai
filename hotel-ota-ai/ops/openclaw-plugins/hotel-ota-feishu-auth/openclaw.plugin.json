@@ -1,0 +1,12 @@
+{
+  "id": "hotel-ota-feishu-auth",
+  "name": "Hotel OTA Feishu Authorization",
+  "description": "Fail-closed inbound Feishu authorization and runtime routing for hotel OTA business messages.",
+  "activation": {
+    "onStartup": true
+  },
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false
+  }
+}

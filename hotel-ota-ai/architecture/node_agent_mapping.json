@@ -1,0 +1,161 @@
+{
+  "schema_version": "v27.0",
+  "source_version": "V27_project_repair_executable_contract",
+  "machine_contract": "contracts/v27/contract.json",
+  "mappings": [
+    {
+      "node_id": "N001",
+      "node_name": "入口事件",
+      "agent_id": "A0",
+      "skill_id": "-",
+      "source": "contracts/v27/contract.json"
+    },
+    {
+      "node_id": "N002",
+      "node_name": "S0 总控路由",
+      "agent_id": "A0",
+      "skill_id": "-",
+      "source": "contracts/v27/contract.json"
+    },
+    {
+      "node_id": "N003",
+      "node_name": "S1 顶层配置与权限安全",
+      "agent_id": "A0",
+      "skill_id": "S1",
+      "source": "contracts/v27/contract.json"
+    },
+    {
+      "node_id": "N004",
+      "node_name": "数据闸门",
+      "agent_id": "A0",
+      "skill_id": "-",
+      "source": "contracts/v27/contract.json"
+    },
+    {
+      "node_id": "N005",
+      "node_name": "S2 经营房态采集",
+      "agent_id": "A1",
+      "skill_id": "S2",
+      "source": "contracts/v27/contract.json"
+    },
+    {
+      "node_id": "N006",
+      "node_name": "S4 环境行情感知",
+      "agent_id": "A1",
+      "skill_id": "S4",
+      "source": "contracts/v27/contract.json"
+    },
+    {
+      "node_id": "N007",
+      "node_name": "S7 竞态监控",
+      "agent_id": "A1",
+      "skill_id": "S7",
+      "source": "contracts/v27/contract.json"
+    },
+    {
+      "node_id": "N008",
+      "node_name": "S12 口碑管理",
+      "agent_id": "A1",
+      "skill_id": "S12",
+      "source": "contracts/v27/contract.json"
+    },
+    {
+      "node_id": "N009",
+      "node_name": "S14 酒店运营诊断",
+      "agent_id": "A2",
+      "skill_id": "S14",
+      "source": "contracts/v27/contract.json"
+    },
+    {
+      "node_id": "N010",
+      "node_name": "S15 销售基准线",
+      "agent_id": "A2",
+      "skill_id": "S15",
+      "source": "contracts/v27/contract.json"
+    },
+    {
+      "node_id": "N011",
+      "node_name": "S16 进度偏差诊断",
+      "agent_id": "A2",
+      "skill_id": "S16",
+      "source": "contracts/v27/contract.json"
+    },
+    {
+      "node_id": "N012",
+      "node_name": "S8 推广投放与活动建议",
+      "agent_id": "A3",
+      "skill_id": "S8",
+      "source": "contracts/v27/contract.json"
+    },
+    {
+      "node_id": "N013",
+      "node_name": "S10 ROI 决策",
+      "agent_id": "A3",
+      "skill_id": "S10",
+      "source": "contracts/v27/contract.json"
+    },
+    {
+      "node_id": "N014",
+      "node_name": "S17 客户与订单结构分析",
+      "agent_id": "A1",
+      "skill_id": "S17",
+      "source": "contracts/v27/contract.json"
+    },
+    {
+      "node_id": "N015",
+      "node_name": "S5 智能收益决策",
+      "agent_id": "A3",
+      "skill_id": "S5",
+      "source": "contracts/v27/contract.json"
+    },
+    {
+      "node_id": "N016",
+      "node_name": "S6 房价同步执行",
+      "agent_id": "A4",
+      "skill_id": "S6",
+      "source": "contracts/v27/contract.json"
+    },
+    {
+      "node_id": "N017",
+      "node_name": "S13 评论回复",
+      "agent_id": "A4",
+      "skill_id": "S13",
+      "source": "contracts/v27/contract.json"
+    },
+    {
+      "node_id": "N018",
+      "node_name": "S3 消息中台",
+      "agent_id": "A5",
+      "skill_id": "S3",
+      "source": "contracts/v27/contract.json"
+    },
+    {
+      "node_id": "N019",
+      "node_name": "EXP-LAYER 经验进化",
+      "agent_id": "A6",
+      "skill_id": "-",
+      "source": "contracts/v27/contract.json"
+    },
+    {
+      "node_id": "N020",
+      "node_name": "S9 流量峰谷",
+      "agent_id": "A1",
+      "skill_id": "S9",
+      "source": "contracts/v27/contract.json"
+    },
+    {
+      "node_id": "N021",
+      "node_name": "S11 推广建议",
+      "agent_id": "A4",
+      "skill_id": "S11",
+      "source": "contracts/v27/contract.json"
+    },
+    {
+      "node_id": "N022",
+      "node_name": "S14-EXT 第三方OTA诊断HTML报告模式",
+      "agent_id": "A2",
+      "skill_id": "S14-EXT",
+      "source": "contracts/v27/contract.json"
+    }
+  ]
+}

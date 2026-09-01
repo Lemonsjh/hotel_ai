@@ -1,0 +1,31 @@
+intent: promotion_suggestion
+skill_id: S11
+phrases:
+  - 推广建议
+  - 开启这个计划
+  - 打开这个计划
+  - 恢复这个计划
+  - 维持这个计划
+  - 观察这个计划
+  - 暂停这个计划
+  - 关闭这个计划
+  - 把预算改为
+  - 调整预算
+  - 修改预算
+  - 调整出价
+  - 修改出价
+required_permission: run_recommendation
+command_name: promotion-suggestion
+mode: read_only_recommendation_only
+guardrails:
+  - only_read_s8_s9_s10_s16_deterministic_results
+  - no_ai_call
+  - no_task_creation
+  - no_approval
+  - no_dispatch
+  - no_ota_write
+  - no_control_plane_write
+  - no_plan_state_change
+  - ambiguous_plan_requires_clarification
+  - budget_and_bid_are_manual_suggestions_only
+  - no_request_or_confirmation_command

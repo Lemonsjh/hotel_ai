@@ -1,0 +1,3650 @@
+{
+  "schema_version": "v27.0",
+  "source_version": "V27_project_repair_executable_contract",
+  "machine_contract": "contracts/v27/contract.json",
+  "edges": [
+    {
+      "edge_id": "E001",
+      "source_node_id": "N001",
+      "target_node_id": "N002",
+      "source_node_name": "入口事件",
+      "target_node_name": "S0 总控路由",
+      "trigger_type": "direct_trigger",
+      "why": "入口事件必须先经过总控路由，不能直接进入业务 Skill。",
+      "payload_summary": "raw_context, intent_candidate",
+      "payload_contract": {
+        "source_outputs": [
+          "N001_OUT003",
+          "N001_OUT001"
+        ],
+        "target_inputs": [
+          "N001_OUT003",
+          "N001_OUT001"
+        ],
+        "mapping_rows": [
+          {
+            "edge_id": "E001",
+            "source_node": "N001",
+            "source_output_field_id": "N001_OUT003",
+            "source_output_key": "raw_context",
+            "zh_name": "原始上下文",
+            "target_node": "N002",
+            "target_input_field_id": "N001_OUT003",
+            "target_usage": "入口事件必须先经过总控路由，不能直接进入业务 Skill。",
+            "note": "N001 输出 原始上下文 进入 N002；边 E001 保持原编号。"
+          },
+          {
+            "edge_id": "E001",
+            "source_node": "N001",
+            "source_output_field_id": "N001_OUT001",
+            "source_output_key": "intent_candidate",
+            "zh_name": "意图候选",
+            "target_node": "N002",
+            "target_input_field_id": "N001_OUT001",
+            "target_usage": "入口事件必须先经过总控路由，不能直接进入业务 Skill。",
+            "note": "N001 输出 意图候选 进入 N002；边 E001 保持原编号。"
+          }
+        ]
+      },
+      "blueprint_ids": [
+        "BP00"
+      ]
+    },
+    {
+      "edge_id": "E002",
+      "source_node_id": "N002",
+      "target_node_id": "N003",
+      "source_node_name": "S0 总控路由",
+      "target_node_name": "S1 顶层配置与权限安全",
+      "trigger_type": "chain_trigger",
+      "why": "所有业务链路必须先验权；权限不是记忆或用户自称决定。",
+      "payload_summary": "required_skill_chain, scenario_id, agent_plan",
+      "payload_contract": {
+        "source_outputs": [
+          "N002_OUT003",
+          "N002_OUT001",
+          "N002_OUT006"
+        ],
+        "target_inputs": [
+          "N002_OUT003",
+          "N002_OUT001",
+          "N002_OUT006"
+        ],
+        "mapping_rows": [
+          {
+            "edge_id": "E002",
+            "source_node": "N002",
+            "source_output_field_id": "N002_OUT003",
+            "source_output_key": "required_skill_chain",
+            "zh_name": "所需 Skill 链",
+            "target_node": "N003",
+            "target_input_field_id": "N002_OUT003",
+            "target_usage": "所有业务链路必须先验权；权限不是记忆或用户自称决定。",
+            "note": "N002 输出 所需 Skill 链 进入 N003；边 E002 保持原编号。"
+          },
+          {
+            "edge_id": "E002",
+            "source_node": "N002",
+            "source_output_field_id": "N002_OUT001",
+            "source_output_key": "scenario_id",
+            "zh_name": "场景编号",
+            "target_node": "N003",
+            "target_input_field_id": "N002_OUT001",
+            "target_usage": "所有业务链路必须先验权；权限不是记忆或用户自称决定。",
+            "note": "N002 输出 场景编号 进入 N003；边 E002 保持原编号。"
+          },
+          {
+            "edge_id": "E002",
+            "source_node": "N002",
+            "source_output_field_id": "N002_OUT006",
+            "source_output_key": "agent_plan",
+            "zh_name": "Agent 调度计划",
+            "target_node": "N003",
+            "target_input_field_id": "N002_OUT006",
+            "target_usage": "所有业务链路必须先验权；权限不是记忆或用户自称决定。",
+            "note": "N002 输出 Agent 调度计划 进入 N003；边 E002 保持原编号。"
+          }
+        ]
+      },
+      "blueprint_ids": [
+        "BP00",
+        "BP10"
+      ]
+    },
+    {
+      "edge_id": "E003",
+      "source_node_id": "N003",
+      "target_node_id": "N004",
+      "source_node_name": "S1 顶层配置与权限安全",
+      "target_node_name": "数据闸门",
+      "trigger_type": "chain_trigger",
+      "why": "权限和配置通过后才能读取业务数据；读取前要检查字段需求。",
+      "payload_summary": "allowed_actions, required_field_packages, execution_boundary",
+      "payload_contract": {
+        "source_outputs": [
+          "N003_OUT002",
+          "N003_OUT006",
+          "N003_OUT003"
+        ],
+        "target_inputs": [
+          "N003_OUT002",
+          "N003_OUT006",
+          "N003_OUT003"
+        ],
+        "mapping_rows": [
+          {
+            "edge_id": "E003",
+            "source_node": "N003",
+            "source_output_field_id": "N003_OUT002",
+            "source_output_key": "allowed_actions",
+            "zh_name": "允许动作",
+            "target_node": "N004",
+            "target_input_field_id": "N003_OUT002",
+            "target_usage": "权限和配置通过后才能读取业务数据；读取前要检查字段需求。",
+            "note": "N003 输出 允许动作 进入 N004；边 E003 保持原编号。"
+          },
+          {
+            "edge_id": "E003",
+            "source_node": "N003",
+            "source_output_field_id": "N003_OUT006",
+            "source_output_key": "required_field_packages",
+            "zh_name": "所需字段包",
+            "target_node": "N004",
+            "target_input_field_id": "N003_OUT006",
+            "target_usage": "权限和配置通过后才能读取业务数据；读取前要检查字段需求。",
+            "note": "N003 输出 所需字段包 进入 N004；边 E003 保持原编号。"
+          },
+          {
+            "edge_id": "E003",
+            "source_node": "N003",
+            "source_output_field_id": "N003_OUT003",
+            "source_output_key": "execution_boundary",
+            "zh_name": "执行边界",
+            "target_node": "N004",
+            "target_input_field_id": "N003_OUT003",
+            "target_usage": "权限和配置通过后才能读取业务数据；读取前要检查字段需求。",
+            "note": "N003 输出 执行边界 进入 N004；边 E003 保持原编号。"
+          }
+        ]
+      },
+      "blueprint_ids": [
+        "BP10"
+      ]
+    },
+    {
+      "edge_id": "E004",
+      "source_node_id": "N004",
+      "target_node_id": "N005",
+      "source_node_name": "数据闸门",
+      "target_node_name": "S2 经营房态采集",
+      "trigger_type": "chain_trigger",
+      "why": "经营/诊断/调价/基准线/峰谷都需要统一经营快照作为数据底座。",
+      "payload_summary": "data_gate_result + ROOM/OP/PR字段包",
+      "payload_contract": {
+        "source_outputs": [
+          "N004_OUT001"
+        ],
+        "target_inputs": [
+          "N004_OUT001"
+        ],
+        "mapping_rows": [
+          {
+            "edge_id": "E004",
+            "source_node": "N004",
+            "source_output_field_id": "N004_OUT001",
+            "source_output_key": "data_gate_result",
+            "zh_name": "数据闸门结果",
+            "target_node": "N005",
+            "target_input_field_id": "N004_OUT001",
+            "target_usage": "经营/诊断/调价/基准线/峰谷都需要统一经营快照作为数据底座。",
+            "note": "N004 输出 数据闸门结果 进入 N005；边 E004 保持原编号。"
+          }
+        ]
+      },
+      "blueprint_ids": [
+        "BP00",
+        "BP02",
+        "BP03",
+        "BP08",
+        "BP10"
+      ]
+    },
+    {
+      "edge_id": "E005",
+      "source_node_id": "N004",
+      "target_node_id": "N006",
+      "source_node_name": "数据闸门",
+      "target_node_name": "S4 环境行情感知",
+      "trigger_type": "chain_trigger",
+      "why": "需求、行情、调价、活动和基准线需要需求指数。",
+      "payload_summary": "DEM/FNL/ROOM/OP字段包",
+      "payload_contract": {
+        "source_outputs": [],
+        "target_inputs": [],
+        "mapping_rows": []
+      },
+      "blueprint_ids": [
+        "BP01"
+      ]
+    },
+    {
+      "edge_id": "E006",
+      "source_node_id": "N004",
+      "target_node_id": "N007",
+      "source_node_name": "数据闸门",
+      "target_node_name": "S7 竞态监控",
+      "trigger_type": "direct_or_chain",
+      "why": "用户问竞对时直接触发；调价/活动需要竞对参考时链路触发。",
+      "payload_summary": "CMP/PR/DEM字段包",
+      "payload_contract": {
+        "source_outputs": [],
+        "target_inputs": [],
+        "mapping_rows": []
+      },
+      "blueprint_ids": [
+        "BP06"
+      ]
+    },
+    {
+      "edge_id": "E007",
+      "source_node_id": "N004",
+      "target_node_id": "N008",
+      "source_node_name": "数据闸门",
+      "target_node_name": "S12 口碑管理",
+      "trigger_type": "direct_or_chain",
+      "why": "用户问口碑时直接触发；诊断需要口碑维度时链路触发。",
+      "payload_summary": "REP字段包",
+      "payload_contract": {
+        "source_outputs": [],
+        "target_inputs": [],
+        "mapping_rows": []
+      },
+      "blueprint_ids": [
+        "BP09",
+        "BP03"
+      ]
+    },
+    {
+      "edge_id": "E008",
+      "source_node_id": "N005",
+      "target_node_id": "N009",
+      "source_node_name": "S2 经营房态采集",
+      "target_node_name": "S14 酒店运营诊断",
+      "trigger_type": "chain_trigger",
+      "why": "OTA健康诊断需要经营、库存、价格快照作为基础证据。",
+      "payload_summary": "operating_snapshot, inventory_snapshot, price_snapshot",
+      "payload_contract": {
+        "source_outputs": [
+          "N005_OUT001",
+          "N005_OUT002",
+          "N005_OUT003"
+        ],
+        "target_inputs": [
+          "N005_OUT001",
+          "N005_OUT002",
+          "N005_OUT003"
+        ],
+        "mapping_rows": [
+          {
+            "edge_id": "E008",
+            "source_node": "N005",
+            "source_output_field_id": "N005_OUT001",
+            "source_output_key": "operating_snapshot",
+            "zh_name": "经营快照",
+            "target_node": "N009",
+            "target_input_field_id": "N005_OUT001",
+            "target_usage": "OTA健康诊断需要经营、库存、价格快照作为基础证据。",
+            "note": "N005 输出 经营快照 进入 N009；边 E008 保持原编号。"
+          },
+          {
+            "edge_id": "E008",
+            "source_node": "N005",
+            "source_output_field_id": "N005_OUT002",
+            "source_output_key": "inventory_snapshot",
+            "zh_name": "库存快照",
+            "target_node": "N009",
+            "target_input_field_id": "N005_OUT002",
+            "target_usage": "OTA健康诊断需要经营、库存、价格快照作为基础证据。",
+            "note": "N005 输出 库存快照 进入 N009；边 E008 保持原编号。"
+          },
+          {
+            "edge_id": "E008",
+            "source_node": "N005",
+            "source_output_field_id": "N005_OUT003",
+            "source_output_key": "price_snapshot",
+            "zh_name": "价格快照",
+            "target_node": "N009",
+            "target_input_field_id": "N005_OUT003",
+            "target_usage": "OTA健康诊断需要经营、库存、价格快照作为基础证据。",
+            "note": "N005 输出 价格快照 进入 N009；边 E008 保持原编号。"
+          }
+        ]
+      },
+      "blueprint_ids": [
+        "BP03",
+        "BP04"
+      ]
+    },
+    {
+      "edge_id": "E009",
+      "source_node_id": "N008",
+      "target_node_id": "N009",
+      "source_node_name": "S12 口碑管理",
+      "target_node_name": "S14 酒店运营诊断",
+      "trigger_type": "chain_trigger",
+      "why": "口碑结果会影响 OTA 健康分和诊断动作。",
+      "payload_summary": "reputation_result, health_score_impact",
+      "payload_contract": {
+        "source_outputs": [
+          "N008_OUT001",
+          "N008_OUT002"
+        ],
+        "target_inputs": [
+          "N008_OUT001",
+          "N008_OUT002"
+        ],
+        "mapping_rows": [
+          {
+            "edge_id": "E009",
+            "source_node": "N008",
+            "source_output_field_id": "N008_OUT001",
+            "source_output_key": "reputation_result",
+            "zh_name": "口碑分析结果",
+            "target_node": "N009",
+            "target_input_field_id": "N008_OUT001",
+            "target_usage": "口碑结果会影响 OTA 健康分和诊断动作。",
+            "note": "N008 输出 口碑分析结果 进入 N009；边 E009 保持原编号。"
+          },
+          {
+            "edge_id": "E009",
+            "source_node": "N008",
+            "source_output_field_id": "N008_OUT002",
+            "source_output_key": "health_score_impact",
+            "zh_name": "健康分影响",
+            "target_node": "N009",
+            "target_input_field_id": "N008_OUT002",
+            "target_usage": "口碑结果会影响 OTA 健康分和诊断动作。",
+            "note": "N008 输出 健康分影响 进入 N009；边 E009 保持原编号。"
+          }
+        ]
+      },
+      "blueprint_ids": [
+        "BP09",
+        "BP03"
+      ]
+    },
+    {
+      "edge_id": "E010",
+      "source_node_id": "N005",
+      "target_node_id": "N010",
+      "source_node_name": "S2 经营房态采集",
+      "target_node_name": "S15 销售基准线",
+      "trigger_type": "chain_trigger",
+      "why": "销售基准线需要房量、历史指标和经营快照。",
+      "payload_summary": "operating_snapshot + historical metrics",
+      "payload_contract": {
+        "source_outputs": [
+          "N005_OUT001"
+        ],
+        "target_inputs": [
+          "N005_OUT001"
+        ],
+        "mapping_rows": [
+          {
+            "edge_id": "E010",
+            "source_node": "N005",
+            "source_output_field_id": "N005_OUT001",
+            "source_output_key": "operating_snapshot",
+            "zh_name": "经营快照",
+            "target_node": "N010",
+            "target_input_field_id": "N005_OUT001",
+            "target_usage": "销售基准线需要房量、历史指标和经营快照。",
+            "note": "N005 输出 经营快照 进入 N010；边 E010 保持原编号。"
+          }
+        ]
+      },
+      "blueprint_ids": [
+        "BP08"
+      ]
+    },
+    {
+      "edge_id": "E011",
+      "source_node_id": "N010",
+      "target_node_id": "N011",
+      "source_node_name": "S15 销售基准线",
+      "target_node_name": "S16 进度偏差诊断",
+      "trigger_type": "chain_trigger",
+      "why": "有基准线后才能判断当前进度偏差。",
+      "payload_summary": "sales_baseline, hourly_target_curve",
+      "payload_contract": {
+        "source_outputs": [
+          "N010_OUT001",
+          "N010_OUT002"
+        ],
+        "target_inputs": [
+          "N010_OUT001",
+          "N010_OUT002"
+        ],
+        "mapping_rows": [
+          {
+            "edge_id": "E011",
+            "source_node": "N010",
+            "source_output_field_id": "N010_OUT001",
+            "source_output_key": "sales_baseline",
+            "zh_name": "销售基准线",
+            "target_node": "N011",
+            "target_input_field_id": "N010_OUT001",
+            "target_usage": "有基准线后才能判断当前进度偏差。",
+            "note": "N010 输出 销售基准线 进入 N011；边 E011 保持原编号。"
+          },
+          {
+            "edge_id": "E011",
+            "source_node": "N010",
+            "source_output_field_id": "N010_OUT002",
+            "source_output_key": "hourly_target_curve",
+            "zh_name": "小时目标曲线",
+            "target_node": "N011",
+            "target_input_field_id": "N010_OUT002",
+            "target_usage": "有基准线后才能判断当前进度偏差。",
+            "note": "N010 输出 小时目标曲线 进入 N011；边 E011 保持原编号。"
+          }
+        ]
+      },
+      "blueprint_ids": [
+        "BP08"
+      ]
+    },
+    {
+      "edge_id": "E012",
+      "source_node_id": "N005",
+      "target_node_id": "N011",
+      "source_node_name": "S2 经营房态采集",
+      "target_node_name": "S16 进度偏差诊断",
+      "trigger_type": "chain_trigger",
+      "why": "偏差诊断需要当前实际进度与基准线比较。",
+      "payload_summary": "operating_snapshot, room_nights, sold_rooms",
+      "payload_contract": {
+        "source_outputs": [
+          "N005_OUT001",
+          "N005_OUT009",
+          "N005_OUT010"
+        ],
+        "target_inputs": [
+          "N005_OUT001",
+          "N005_OUT009",
+          "N005_OUT010"
+        ],
+        "mapping_rows": [
+          {
+            "edge_id": "E012",
+            "source_node": "N005",
+            "source_output_field_id": "N005_OUT001",
+            "source_output_key": "operating_snapshot",
+            "zh_name": "经营快照",
+            "target_node": "N011",
+            "target_input_field_id": "N005_OUT001",
+            "target_usage": "偏差诊断需要当前实际进度与基准线比较。",
+            "note": "N005 输出 经营快照 进入 N011；边 E012 保持原编号。"
+          },
+          {
+            "edge_id": "E012",
+            "source_node": "N005",
+            "source_output_field_id": "N005_OUT009",
+            "source_output_key": "room_nights",
+            "zh_name": "间夜数",
+            "target_node": "N011",
+            "target_input_field_id": "N005_OUT009",
+            "target_usage": "偏差诊断需要当前实际进度与基准线比较。",
+            "note": "N005 输出 间夜数 进入 N011；边 E012 保持原编号。"
+          },
+          {
+            "edge_id": "E012",
+            "source_node": "N005",
+            "source_output_field_id": "N005_OUT010",
+            "source_output_key": "sold_rooms",
+            "zh_name": "已售房量",
+            "target_node": "N011",
+            "target_input_field_id": "N005_OUT010",
+            "target_usage": "偏差诊断需要当前实际进度与基准线比较。",
+            "note": "N005 输出 已售房量 进入 N011；边 E012 保持原编号。"
+          }
+        ]
+      },
+      "blueprint_ids": [
+        "BP08"
+      ]
+    },
+    {
+      "edge_id": "E013",
+      "source_node_id": "N006",
+      "target_node_id": "N015",
+      "source_node_name": "S4 环境行情感知",
+      "target_node_name": "S5 智能收益决策",
+      "trigger_type": "chain_trigger",
+      "why": "需求指数决定调价动作强度和策略保守程度。",
+      "payload_summary": "demand_index, demand_level, action_strength",
+      "payload_contract": {
+        "source_outputs": [
+          "N006_OUT001",
+          "N006_OUT002",
+          "N006_OUT003"
+        ],
+        "target_inputs": [
+          "N006_OUT001",
+          "N006_OUT002",
+          "N006_OUT003"
+        ],
+        "mapping_rows": [
+          {
+            "edge_id": "E013",
+            "source_node": "N006",
+            "source_output_field_id": "N006_OUT001",
+            "source_output_key": "demand_index",
+            "zh_name": "需求指数",
+            "target_node": "N015",
+            "target_input_field_id": "N006_OUT001",
+            "target_usage": "需求指数决定调价动作强度和策略保守程度。",
+            "note": "N006 输出 需求指数 进入 N015；边 E013 保持原编号。"
+          },
+          {
+            "edge_id": "E013",
+            "source_node": "N006",
+            "source_output_field_id": "N006_OUT002",
+            "source_output_key": "demand_level",
+            "zh_name": "需求等级",
+            "target_node": "N015",
+            "target_input_field_id": "N006_OUT002",
+            "target_usage": "需求指数决定调价动作强度和策略保守程度。",
+            "note": "N006 输出 需求等级 进入 N015；边 E013 保持原编号。"
+          },
+          {
+            "edge_id": "E013",
+            "source_node": "N006",
+            "source_output_field_id": "N006_OUT003",
+            "source_output_key": "action_strength",
+            "zh_name": "动作强度",
+            "target_node": "N015",
+            "target_input_field_id": "N006_OUT003",
+            "target_usage": "需求指数决定调价动作强度和策略保守程度。",
+            "note": "N006 输出 动作强度 进入 N015；边 E013 保持原编号。"
+          }
+        ]
+      },
+      "blueprint_ids": [
+        "BP01",
+        "BP02"
+      ]
+    },
+    {
+      "edge_id": "E014",
+      "source_node_id": "N007",
+      "target_node_id": "N015",
+      "source_node_name": "S7 竞态监控",
+      "target_node_name": "S5 智能收益决策",
+      "trigger_type": "chain_trigger",
+      "why": "竞对只作为收益决策参考，不允许直接进入执行。",
+      "payload_summary": "competitor_context, warning_level",
+      "payload_contract": {
+        "source_outputs": [
+          "N007_OUT001",
+          "N007_OUT006"
+        ],
+        "target_inputs": [
+          "N007_OUT001",
+          "N007_OUT006"
+        ],
+        "mapping_rows": [
+          {
+            "edge_id": "E014",
+            "source_node": "N007",
+            "source_output_field_id": "N007_OUT001",
+            "source_output_key": "competitor_context",
+            "zh_name": "竞对上下文",
+            "target_node": "N015",
+            "target_input_field_id": "N007_OUT001",
+            "target_usage": "竞对只作为收益决策参考，不允许直接进入执行。",
+            "note": "N007 输出 竞对上下文 进入 N015；边 E014 保持原编号。"
+          },
+          {
+            "edge_id": "E014",
+            "source_node": "N007",
+            "source_output_field_id": "N007_OUT006",
+            "source_output_key": "warning_level",
+            "zh_name": "等级",
+            "target_node": "N015",
+            "target_input_field_id": "N007_OUT006",
+            "target_usage": "竞对只作为收益决策参考，不允许直接进入执行。",
+            "note": "N007 输出 等级 进入 N015；边 E014 保持原编号。"
+          }
+        ]
+      },
+      "blueprint_ids": [
+        "BP06",
+        "BP02"
+      ]
+    },
+    {
+      "edge_id": "E015",
+      "source_node_id": "N009",
+      "target_node_id": "N015",
+      "source_node_name": "S14 酒店运营诊断",
+      "target_node_name": "S5 智能收益决策",
+      "trigger_type": "chain_trigger",
+      "why": "健康诊断和转化瓶颈决定是否先修转化、口碑或库存，再调价。",
+      "payload_summary": "ota_health_score, conversion_bottleneck, diagnosis_actions",
+      "payload_contract": {
+        "source_outputs": [
+          "N009_OUT001",
+          "N009_OUT003",
+          "N009_OUT004"
+        ],
+        "target_inputs": [
+          "N009_OUT001",
+          "N009_OUT003",
+          "N009_OUT004"
+        ],
+        "mapping_rows": [
+          {
+            "edge_id": "E015",
+            "source_node": "N009",
+            "source_output_field_id": "N009_OUT001",
+            "source_output_key": "ota_health_score",
+            "zh_name": "OTA健康分",
+            "target_node": "N015",
+            "target_input_field_id": "N009_OUT001",
+            "target_usage": "健康诊断和转化瓶颈决定是否先修转化、口碑或库存，再调价。",
+            "note": "N009 输出 OTA健康分 进入 N015；边 E015 保持原编号。"
+          },
+          {
+            "edge_id": "E015",
+            "source_node": "N009",
+            "source_output_field_id": "N009_OUT003",
+            "source_output_key": "conversion_bottleneck",
+            "zh_name": "转化瓶颈",
+            "target_node": "N015",
+            "target_input_field_id": "N009_OUT003",
+            "target_usage": "健康诊断和转化瓶颈决定是否先修转化、口碑或库存，再调价。",
+            "note": "N009 输出 转化瓶颈 进入 N015；边 E015 保持原编号。"
+          },
+          {
+            "edge_id": "E015",
+            "source_node": "N009",
+            "source_output_field_id": "N009_OUT004",
+            "source_output_key": "diagnosis_actions",
+            "zh_name": "诊断动作",
+            "target_node": "N015",
+            "target_input_field_id": "N009_OUT004",
+            "target_usage": "健康诊断和转化瓶颈决定是否先修转化、口碑或库存，再调价。",
+            "note": "N009 输出 诊断动作 进入 N015；边 E015 保持原编号。"
+          }
+        ]
+      },
+      "blueprint_ids": [
+        "BP03",
+        "BP04",
+        "BP02"
+      ]
+    },
+    {
+      "edge_id": "E016",
+      "source_node_id": "N011",
+      "target_node_id": "N015",
+      "source_node_name": "S16 进度偏差诊断",
+      "target_node_name": "S5 智能收益决策",
+      "trigger_type": "chain_trigger",
+      "why": "进度落后/超前会改变收益策略，比如补救、观察或涨价。",
+      "payload_summary": "progress_status, deviation_reasons",
+      "payload_contract": {
+        "source_outputs": [
+          "N011_OUT001",
+          "N011_OUT003"
+        ],
+        "target_inputs": [
+          "N011_OUT001",
+          "N011_OUT003"
+        ],
+        "mapping_rows": [
+          {
+            "edge_id": "E016",
+            "source_node": "N011",
+            "source_output_field_id": "N011_OUT001",
+            "source_output_key": "progress_status",
+            "zh_name": "进度状态",
+            "target_node": "N015",
+            "target_input_field_id": "N011_OUT001",
+            "target_usage": "进度落后/超前会改变收益策略，比如补救、观察或涨价。",
+            "note": "N011 输出 进度状态 进入 N015；边 E016 保持原编号。"
+          },
+          {
+            "edge_id": "E016",
+            "source_node": "N011",
+            "source_output_field_id": "N011_OUT003",
+            "source_output_key": "deviation_reasons",
+            "zh_name": "偏差原因",
+            "target_node": "N015",
+            "target_input_field_id": "N011_OUT003",
+            "target_usage": "进度落后/超前会改变收益策略，比如补救、观察或涨价。",
+            "note": "N011 输出 偏差原因 进入 N015；边 E016 保持原编号。"
+          }
+        ]
+      },
+      "blueprint_ids": [
+        "BP08",
+        "BP02"
+      ]
+    },
+    {
+      "edge_id": "E017",
+      "source_node_id": "N012",
+      "target_node_id": "N015",
+      "source_node_name": "S8 推广投放与活动建议",
+      "target_node_name": "S5 智能收益决策",
+      "trigger_type": "chain_trigger",
+      "why": "活动可能替代直接降价，也可能影响到手价和底价安全。",
+      "payload_summary": "activity_plan, activity_risks, promotion_plan",
+      "payload_contract": {
+        "source_outputs": [
+          "N012_OUT001",
+          "N012_OUT003",
+          "N012_OUT002"
+        ],
+        "target_inputs": [
+          "N012_OUT001",
+          "N012_OUT003",
+          "N012_OUT002"
+        ],
+        "mapping_rows": [
+          {
+            "edge_id": "E017",
+            "source_node": "N012",
+            "source_output_field_id": "N012_OUT001",
+            "source_output_key": "activity_plan",
+            "zh_name": "活动计划",
+            "target_node": "N015",
+            "target_input_field_id": "N012_OUT001",
+            "target_usage": "活动可能替代直接降价，也可能影响到手价和底价安全。",
+            "note": "N012 输出 活动计划 进入 N015；边 E017 保持原编号。"
+          },
+          {
+            "edge_id": "E017",
+            "source_node": "N012",
+            "source_output_field_id": "N012_OUT003",
+            "source_output_key": "activity_risks",
+            "zh_name": "活动风险",
+            "target_node": "N015",
+            "target_input_field_id": "N012_OUT003",
+            "target_usage": "活动可能替代直接降价，也可能影响到手价和底价安全。",
+            "note": "N012 输出 活动风险 进入 N015；边 E017 保持原编号。"
+          },
+          {
+            "edge_id": "E017",
+            "source_node": "N012",
+            "source_output_field_id": "N012_OUT002",
+            "source_output_key": "promotion_plan",
+            "zh_name": "推广计划",
+            "target_node": "N015",
+            "target_input_field_id": "N012_OUT002",
+            "target_usage": "活动可能替代直接降价，也可能影响到手价和底价安全。",
+            "note": "N012 输出 推广计划 进入 N015；边 E017 保持原编号。"
+          }
+        ]
+      },
+      "blueprint_ids": [
+        "BP05",
+        "BP02"
+      ]
+    },
+    {
+      "edge_id": "E018",
+      "source_node_id": "N013",
+      "target_node_id": "N015",
+      "source_node_name": "S10 ROI 决策",
+      "target_node_name": "S5 智能收益决策",
+      "trigger_type": "chain_trigger",
+      "why": "ROI或利润模拟是收益最大化策略的增强输入。",
+      "payload_summary": "promotion_roi, profit_simulation",
+      "payload_contract": {
+        "source_outputs": [
+          "N013_OUT001",
+          "N013_OUT002"
+        ],
+        "target_inputs": [
+          "N013_OUT001",
+          "N013_OUT002"
+        ],
+        "mapping_rows": [
+          {
+            "edge_id": "E018",
+            "source_node": "N013",
+            "source_output_field_id": "N013_OUT001",
+            "source_output_key": "promotion_roi",
+            "zh_name": "推广 ROI",
+            "target_node": "N015",
+            "target_input_field_id": "N013_OUT001",
+            "target_usage": "ROI或利润模拟是收益最大化策略的增强输入。",
+            "note": "N013 输出 推广 ROI 进入 N015；边 E018 保持原编号。"
+          },
+          {
+            "edge_id": "E018",
+            "source_node": "N013",
+            "source_output_field_id": "N013_OUT002",
+            "source_output_key": "profit_simulation",
+            "zh_name": "利润模拟",
+            "target_node": "N015",
+            "target_input_field_id": "N013_OUT002",
+            "target_usage": "ROI或利润模拟是收益最大化策略的增强输入。",
+            "note": "N013 输出 利润模拟 进入 N015；边 E018 保持原编号。"
+          }
+        ]
+      },
+      "blueprint_ids": [
+        "BP08"
+      ]
+    },
+    {
+      "edge_id": "E019",
+      "source_node_id": "N014",
+      "target_node_id": "N015",
+      "source_node_name": "S17 客户订单分析",
+      "target_node_name": "S5 智能收益决策",
+      "trigger_type": "chain_trigger",
+      "why": "客户结构可作为收益策略和任务建议参考，但不能阻断 P0/P1。",
+      "payload_summary": "customer_segments, loss_risk_alert",
+      "payload_contract": {
+        "source_outputs": [
+          "N014_OUT001",
+          "N014_OUT003"
+        ],
+        "target_inputs": [
+          "N014_OUT001",
+          "N014_OUT003"
+        ],
+        "mapping_rows": [
+          {
+            "edge_id": "E019",
+            "source_node": "N014",
+            "source_output_field_id": "N014_OUT001",
+            "source_output_key": "customer_segments",
+            "zh_name": "客户分层",
+            "target_node": "N015",
+            "target_input_field_id": "N014_OUT001",
+            "target_usage": "客户结构可作为收益策略和任务建议参考，但不能阻断 P0/P1。",
+            "note": "N014 输出 客户分层 进入 N015；边 E019 保持原编号。"
+          },
+          {
+            "edge_id": "E019",
+            "source_node": "N014",
+            "source_output_field_id": "N014_OUT003",
+            "source_output_key": "loss_risk_alert",
+            "zh_name": "流失风险预警",
+            "target_node": "N015",
+            "target_input_field_id": "N014_OUT003",
+            "target_usage": "客户结构可作为收益策略和任务建议参考，但不能阻断 P0/P1。",
+            "note": "N014 输出 流失风险预警 进入 N015；边 E019 保持原编号。"
+          }
+        ]
+      },
+      "blueprint_ids": [
+        "BP08",
+        "BP09"
+      ]
+    },
+    {
+      "edge_id": "E020",
+      "source_node_id": "N015",
+      "target_node_id": "N016",
+      "source_node_name": "S5 智能收益决策",
+      "target_node_name": "S6 房价同步执行",
+      "trigger_type": "chain_trigger",
+      "why": "只有 S5 产出调价建议后，S6 才允许做 dry-run/审批/执行边界。",
+      "payload_summary": "price_recommendations, approval_required",
+      "payload_contract": {
+        "source_outputs": [
+          "N015_OUT002",
+          "N015_OUT003"
+        ],
+        "target_inputs": [
+          "N015_OUT002",
+          "N015_OUT003"
+        ],
+        "mapping_rows": [
+          {
+            "edge_id": "E020",
+            "source_node": "N015",
+            "source_output_field_id": "N015_OUT002",
+            "source_output_key": "price_recommendations",
+            "zh_name": "价格建议",
+            "target_node": "N016",
+            "target_input_field_id": "N015_OUT002",
+            "target_usage": "只有 S5 产出调价建议后，S6 才允许做 dry-run/审批/执行边界。",
+            "note": "N015 输出 价格建议 进入 N016；边 E020 保持原编号。"
+          },
+          {
+            "edge_id": "E020",
+            "source_node": "N015",
+            "source_output_field_id": "N015_OUT003",
+            "source_output_key": "approval_required",
+            "zh_name": "是否需要审批",
+            "target_node": "N016",
+            "target_input_field_id": "N015_OUT003",
+            "target_usage": "只有 S5 产出调价建议后，S6 才允许做 dry-run/审批/执行边界。",
+            "note": "N015 输出 是否需要审批 进入 N016；边 E020 保持原编号。"
+          }
+        ]
+      },
+      "blueprint_ids": [
+        "BP02",
+        "BP10"
+      ]
+    },
+    {
+      "edge_id": "E021",
+      "source_node_id": "N015",
+      "target_node_id": "N018",
+      "source_node_name": "S5 智能收益决策",
+      "target_node_name": "S3 消息中台",
+      "trigger_type": "chain_trigger",
+      "why": "不需要执行或执行被阻断时，直接把收益建议输出给用户。",
+      "payload_summary": "revenue_decision, risk_warnings",
+      "payload_contract": {
+        "source_outputs": [
+          "N015_OUT001",
+          "N015_OUT004"
+        ],
+        "target_inputs": [
+          "N015_OUT001",
+          "N015_OUT004"
+        ],
+        "mapping_rows": [
+          {
+            "edge_id": "E021",
+            "source_node": "N015",
+            "source_output_field_id": "N015_OUT001",
+            "source_output_key": "revenue_decision",
+            "zh_name": "收益决策",
+            "target_node": "N018",
+            "target_input_field_id": "N015_OUT001",
+            "target_usage": "不需要执行或执行被阻断时，直接把收益建议输出给用户。",
+            "note": "N015 输出 收益决策 进入 N018；边 E021 保持原编号。"
+          },
+          {
+            "edge_id": "E021",
+            "source_node": "N015",
+            "source_output_field_id": "N015_OUT004",
+            "source_output_key": "risk_warnings",
+            "zh_name": "风险",
+            "target_node": "N018",
+            "target_input_field_id": "N015_OUT004",
+            "target_usage": "不需要执行或执行被阻断时，直接把收益建议输出给用户。",
+            "note": "N015 输出 风险 进入 N018；边 E021 保持原编号。"
+          }
+        ]
+      },
+      "blueprint_ids": [
+        "BP00",
+        "BP02"
+      ]
+    },
+    {
+      "edge_id": "E022",
+      "source_node_id": "N016",
+      "target_node_id": "N018",
+      "source_node_name": "S6 房价同步执行",
+      "target_node_name": "S3 消息中台",
+      "trigger_type": "chain_trigger",
+      "why": "dry-run、审批校验、执行结果都必须通过消息中台输出。",
+      "payload_summary": "dry_run_preview, execution_result, blocked_reason",
+      "payload_contract": {
+        "source_outputs": [
+          "N016_OUT001",
+          "N016_OUT002",
+          "N016_OUT003"
+        ],
+        "target_inputs": [
+          "N016_OUT001",
+          "N016_OUT002",
+          "N016_OUT003"
+        ],
+        "mapping_rows": [
+          {
+            "edge_id": "E022",
+            "source_node": "N016",
+            "source_output_field_id": "N016_OUT001",
+            "source_output_key": "dry_run_preview",
+            "zh_name": "Dry-run 预览",
+            "target_node": "N018",
+            "target_input_field_id": "N016_OUT001",
+            "target_usage": "dry-run、审批校验、执行结果都必须通过消息中台输出。",
+            "note": "N016 输出 Dry-run 预览 进入 N018；边 E022 保持原编号。"
+          },
+          {
+            "edge_id": "E022",
+            "source_node": "N016",
+            "source_output_field_id": "N016_OUT002",
+            "source_output_key": "execution_result",
+            "zh_name": "执行结果",
+            "target_node": "N018",
+            "target_input_field_id": "N016_OUT002",
+            "target_usage": "dry-run、审批校验、执行结果都必须通过消息中台输出。",
+            "note": "N016 输出 执行结果 进入 N018；边 E022 保持原编号。"
+          },
+          {
+            "edge_id": "E022",
+            "source_node": "N016",
+            "source_output_field_id": "N016_OUT003",
+            "source_output_key": "blocked_reason",
+            "zh_name": "阻断原因",
+            "target_node": "N018",
+            "target_input_field_id": "N016_OUT003",
+            "target_usage": "dry-run、审批校验、执行结果都必须通过消息中台输出。",
+            "note": "N016 输出 阻断原因 进入 N018；边 E022 保持原编号。"
+          }
+        ]
+      },
+      "blueprint_ids": [
+        "BP00",
+        "BP02",
+        "BP10"
+      ]
+    },
+    {
+      "edge_id": "E023",
+      "source_node_id": "N009",
+      "target_node_id": "N018",
+      "source_node_name": "S14 酒店运营诊断",
+      "target_node_name": "S3 消息中台",
+      "trigger_type": "chain_trigger",
+      "why": "诊断结果需要生成老板/运营可读报告。",
+      "payload_summary": "weak_items, diagnosis_actions, ab_tasks",
+      "payload_contract": {
+        "source_outputs": [
+          "N009_OUT005",
+          "N009_OUT004",
+          "N009_OUT006"
+        ],
+        "target_inputs": [
+          "N009_OUT005",
+          "N009_OUT004",
+          "N009_OUT006"
+        ],
+        "mapping_rows": [
+          {
+            "edge_id": "E023",
+            "source_node": "N009",
+            "source_output_field_id": "N009_OUT005",
+            "source_output_key": "weak_items",
+            "zh_name": "弱项列表",
+            "target_node": "N018",
+            "target_input_field_id": "N009_OUT005",
+            "target_usage": "诊断结果需要生成老板/运营可读报告。",
+            "note": "N009 输出 弱项列表 进入 N018；边 E023 保持原编号。"
+          },
+          {
+            "edge_id": "E023",
+            "source_node": "N009",
+            "source_output_field_id": "N009_OUT004",
+            "source_output_key": "diagnosis_actions",
+            "zh_name": "诊断动作",
+            "target_node": "N018",
+            "target_input_field_id": "N009_OUT004",
+            "target_usage": "诊断结果需要生成老板/运营可读报告。",
+            "note": "N009 输出 诊断动作 进入 N018；边 E023 保持原编号。"
+          },
+          {
+            "edge_id": "E023",
+            "source_node": "N009",
+            "source_output_field_id": "N009_OUT006",
+            "source_output_key": "ab_tasks",
+            "zh_name": "A/B 测试任务",
+            "target_node": "N018",
+            "target_input_field_id": "N009_OUT006",
+            "target_usage": "诊断结果需要生成老板/运营可读报告。",
+            "note": "N009 输出 A/B 测试任务 进入 N018；边 E023 保持原编号。"
+          }
+        ]
+      },
+      "blueprint_ids": [
+        "BP03",
+        "BP07"
+      ]
+    },
+    {
+      "edge_id": "E024",
+      "source_node_id": "N012",
+      "target_node_id": "N018",
+      "source_node_name": "S8 推广投放与活动建议",
+      "target_node_name": "S3 消息中台",
+      "trigger_type": "chain_trigger",
+      "why": "活动/推广建议需要输出风险、预算和执行建议。",
+      "payload_summary": "activity_plan, promotion_plan, activity_risks",
+      "payload_contract": {
+        "source_outputs": [
+          "N012_OUT001",
+          "N012_OUT002",
+          "N012_OUT003"
+        ],
+        "target_inputs": [
+          "N012_OUT001",
+          "N012_OUT002",
+          "N012_OUT003"
+        ],
+        "mapping_rows": [
+          {
+            "edge_id": "E024",
+            "source_node": "N012",
+            "source_output_field_id": "N012_OUT001",
+            "source_output_key": "activity_plan",
+            "zh_name": "活动计划",
+            "target_node": "N018",
+            "target_input_field_id": "N012_OUT001",
+            "target_usage": "活动/推广建议需要输出风险、预算和执行建议。",
+            "note": "N012 输出 活动计划 进入 N018；边 E024 保持原编号。"
+          },
+          {
+            "edge_id": "E024",
+            "source_node": "N012",
+            "source_output_field_id": "N012_OUT002",
+            "source_output_key": "promotion_plan",
+            "zh_name": "推广计划",
+            "target_node": "N018",
+            "target_input_field_id": "N012_OUT002",
+            "target_usage": "活动/推广建议需要输出风险、预算和执行建议。",
+            "note": "N012 输出 推广计划 进入 N018；边 E024 保持原编号。"
+          },
+          {
+            "edge_id": "E024",
+            "source_node": "N012",
+            "source_output_field_id": "N012_OUT003",
+            "source_output_key": "activity_risks",
+            "zh_name": "活动风险",
+            "target_node": "N018",
+            "target_input_field_id": "N012_OUT003",
+            "target_usage": "活动/推广建议需要输出风险、预算和执行建议。",
+            "note": "N012 输出 活动风险 进入 N018；边 E024 保持原编号。"
+          }
+        ]
+      },
+      "blueprint_ids": [
+        "BP05"
+      ]
+    },
+    {
+      "edge_id": "E025",
+      "source_node_id": "N017",
+      "target_node_id": "N018",
+      "source_node_name": "S13 评论回复",
+      "target_node_name": "S3 消息中台",
+      "trigger_type": "chain_trigger",
+      "why": "评论回复草稿和补偿建议需要人工确认后输出。",
+      "payload_summary": "reply_draft, compensation_suggestion",
+      "payload_contract": {
+        "source_outputs": [
+          "N017_OUT001",
+          "N017_OUT002"
+        ],
+        "target_inputs": [
+          "N017_OUT001",
+          "N017_OUT002"
+        ],
+        "mapping_rows": [
+          {
+            "edge_id": "E025",
+            "source_node": "N017",
+            "source_output_field_id": "N017_OUT001",
+            "source_output_key": "reply_draft",
+            "zh_name": "回复草稿",
+            "target_node": "N018",
+            "target_input_field_id": "N017_OUT001",
+            "target_usage": "评论回复草稿和补偿建议需要人工确认后输出。",
+            "note": "N017 输出 回复草稿 进入 N018；边 E025 保持原编号。"
+          },
+          {
+            "edge_id": "E025",
+            "source_node": "N017",
+            "source_output_field_id": "N017_OUT002",
+            "source_output_key": "compensation_suggestion",
+            "zh_name": "补偿建议",
+            "target_node": "N018",
+            "target_input_field_id": "N017_OUT002",
+            "target_usage": "评论回复草稿和补偿建议需要人工确认后输出。",
+            "note": "N017 输出 补偿建议 进入 N018；边 E025 保持原编号。"
+          }
+        ]
+      },
+      "blueprint_ids": [
+        "BP09"
+      ]
+    },
+    {
+      "edge_id": "E026",
+      "source_node_id": "N018",
+      "target_node_id": "N019",
+      "source_node_name": "S3 消息中台",
+      "target_node_name": "EXP-LAYER 经验进化",
+      "trigger_type": "async_trigger",
+      "why": "用户可见输出可形成脱敏复盘事件，但不阻塞业务主链路。",
+      "payload_summary": "experience_event_candidate",
+      "payload_contract": {
+        "source_outputs": [
+          "N018_OUT004"
+        ],
+        "target_inputs": [
+          "N018_OUT004"
+        ],
+        "mapping_rows": [
+          {
+            "edge_id": "E026",
+            "source_node": "N018",
+            "source_output_field_id": "N018_OUT004",
+            "source_output_key": "experience_event_candidate",
+            "zh_name": "经验事件候选",
+            "target_node": "N019",
+            "target_input_field_id": "N018_OUT004",
+            "target_usage": "用户可见输出可形成脱敏复盘事件，但不阻塞业务主链路。",
+            "note": "N018 输出 经验事件候选 进入 N019；边 E026 保持原编号。"
+          }
+        ]
+      },
+      "blueprint_ids": [
+        "BP11"
+      ]
+    },
+    {
+      "edge_id": "E027",
+      "source_node_id": "N015",
+      "target_node_id": "N019",
+      "source_node_name": "S5 智能收益决策",
+      "target_node_name": "EXP-LAYER 经验进化",
+      "trigger_type": "async_trigger",
+      "why": "收益决策过程可用于后续运营复盘和规则候选。",
+      "payload_summary": "revenue_decision, risk_warnings",
+      "payload_contract": {
+        "source_outputs": [
+          "N015_OUT001",
+          "N015_OUT004"
+        ],
+        "target_inputs": [
+          "N015_OUT001",
+          "N015_OUT004"
+        ],
+        "mapping_rows": [
+          {
+            "edge_id": "E027",
+            "source_node": "N015",
+            "source_output_field_id": "N015_OUT001",
+            "source_output_key": "revenue_decision",
+            "zh_name": "收益决策",
+            "target_node": "N019",
+            "target_input_field_id": "N015_OUT001",
+            "target_usage": "收益决策过程可用于后续运营复盘和规则候选。",
+            "note": "N015 输出 收益决策 进入 N019；边 E027 保持原编号。"
+          },
+          {
+            "edge_id": "E027",
+            "source_node": "N015",
+            "source_output_field_id": "N015_OUT004",
+            "source_output_key": "risk_warnings",
+            "zh_name": "风险",
+            "target_node": "N019",
+            "target_input_field_id": "N015_OUT004",
+            "target_usage": "收益决策过程可用于后续运营复盘和规则候选。",
+            "note": "N015 输出 风险 进入 N019；边 E027 保持原编号。"
+          }
+        ]
+      },
+      "blueprint_ids": [
+        "BP11"
+      ]
+    },
+    {
+      "edge_id": "E028",
+      "source_node_id": "N016",
+      "target_node_id": "N019",
+      "source_node_name": "S6 房价同步执行",
+      "target_node_name": "EXP-LAYER 经验进化",
+      "trigger_type": "async_trigger",
+      "why": "dry-run 和执行结果是最重要的经验沉淀来源。",
+      "payload_summary": "dry_run_preview, execution_result",
+      "payload_contract": {
+        "source_outputs": [
+          "N016_OUT001",
+          "N016_OUT002"
+        ],
+        "target_inputs": [
+          "N016_OUT001",
+          "N016_OUT002"
+        ],
+        "mapping_rows": [
+          {
+            "edge_id": "E028",
+            "source_node": "N016",
+            "source_output_field_id": "N016_OUT001",
+            "source_output_key": "dry_run_preview",
+            "zh_name": "Dry-run 预览",
+            "target_node": "N019",
+            "target_input_field_id": "N016_OUT001",
+            "target_usage": "dry-run 和执行结果是最重要的经验沉淀来源。",
+            "note": "N016 输出 Dry-run 预览 进入 N019；边 E028 保持原编号。"
+          },
+          {
+            "edge_id": "E028",
+            "source_node": "N016",
+            "source_output_field_id": "N016_OUT002",
+            "source_output_key": "execution_result",
+            "zh_name": "执行结果",
+            "target_node": "N019",
+            "target_input_field_id": "N016_OUT002",
+            "target_usage": "dry-run 和执行结果是最重要的经验沉淀来源。",
+            "note": "N016 输出 执行结果 进入 N019；边 E028 保持原编号。"
+          }
+        ]
+      },
+      "blueprint_ids": [
+        "BP11"
+      ]
+    },
+    {
+      "edge_id": "E029",
+      "source_node_id": "N019",
+      "target_node_id": "N018",
+      "source_node_name": "EXP-LAYER 经验进化",
+      "target_node_name": "S3 消息中台",
+      "trigger_type": "chain_trigger",
+      "why": "用户询问历史经验或复盘结论时，经验层只提供脱敏摘要给消息中台。",
+      "payload_summary": "retrieved_experience_summary",
+      "payload_contract": {
+        "source_outputs": [
+          "N019_OUT004"
+        ],
+        "target_inputs": [
+          "N019_OUT004"
+        ],
+        "mapping_rows": [
+          {
+            "edge_id": "E029",
+            "source_node": "N019",
+            "source_output_field_id": "N019_OUT004",
+            "source_output_key": "retrieved_experience_summary",
+            "zh_name": "召回经验摘要",
+            "target_node": "N018",
+            "target_input_field_id": "N019_OUT004",
+            "target_usage": "用户询问历史经验或复盘结论时，经验层只提供脱敏摘要给消息中台。",
+            "note": "N019 输出 召回经验摘要 进入 N018；边 E029 保持原编号。"
+          }
+        ]
+      },
+      "blueprint_ids": [
+        "BP11",
+        "BP00"
+      ]
+    },
+    {
+      "edge_id": "E030",
+      "source_node_id": "N005",
+      "target_node_id": "N020",
+      "source_node_name": "S2 经营房态采集",
+      "target_node_name": "S9 流量峰谷",
+      "trigger_type": "chain_trigger",
+      "why": "流量峰谷必须基于当前经营、订单、曝光/浏览/支付转化快照。",
+      "payload_summary": "operating_snapshot, exposure, views, paid_orders",
+      "payload_contract": {
+        "source_outputs": [
+          "N005_OUT001",
+          "N005_OUT007",
+          "N005_OUT011",
+          "N005_OUT008"
+        ],
+        "target_inputs": [
+          "N005_OUT001",
+          "N005_OUT007",
+          "N005_OUT011",
+          "N005_OUT008"
+        ],
+        "mapping_rows": [
+          {
+            "edge_id": "E030",
+            "source_node": "N005",
+            "source_output_field_id": "N005_OUT001",
+            "source_output_key": "operating_snapshot",
+            "zh_name": "经营快照",
+            "target_node": "N020",
+            "target_input_field_id": "N005_OUT001",
+            "target_usage": "流量峰谷必须基于当前经营、订单、曝光/浏览/支付转化快照。",
+            "note": "N005 输出 经营快照 进入 N020；边 E030 保持原编号。"
+          },
+          {
+            "edge_id": "E030",
+            "source_node": "N005",
+            "source_output_field_id": "N005_OUT007",
+            "source_output_key": "exposure",
+            "zh_name": "曝光量",
+            "target_node": "N020",
+            "target_input_field_id": "N005_OUT007",
+            "target_usage": "流量峰谷必须基于当前经营、订单、曝光/浏览/支付转化快照。",
+            "note": "N005 输出 曝光量 进入 N020；边 E030 保持原编号。"
+          },
+          {
+            "edge_id": "E030",
+            "source_node": "N005",
+            "source_output_field_id": "N005_OUT011",
+            "source_output_key": "views",
+            "zh_name": "浏览人数",
+            "target_node": "N020",
+            "target_input_field_id": "N005_OUT011",
+            "target_usage": "流量峰谷必须基于当前经营、订单、曝光/浏览/支付转化快照。",
+            "note": "N005 输出 浏览人数 进入 N020；边 E030 保持原编号。"
+          },
+          {
+            "edge_id": "E030",
+            "source_node": "N005",
+            "source_output_field_id": "N005_OUT008",
+            "source_output_key": "paid_orders",
+            "zh_name": "支付订单数",
+            "target_node": "N020",
+            "target_input_field_id": "N005_OUT008",
+            "target_usage": "流量峰谷必须基于当前经营、订单、曝光/浏览/支付转化快照。",
+            "note": "N005 输出 支付订单数 进入 N020；边 E030 保持原编号。"
+          }
+        ]
+      },
+      "blueprint_ids": [
+        "BP01",
+        "BP04"
+      ]
+    },
+    {
+      "edge_id": "E031",
+      "source_node_id": "N010",
+      "target_node_id": "N020",
+      "source_node_name": "S15 销售基准线",
+      "target_node_name": "S9 流量峰谷",
+      "trigger_type": "chain_trigger",
+      "why": "小时峰谷需要和销售基准线/上周同小时曲线比较。",
+      "payload_summary": "hourly_target_curve, historical_same_weekday_curve",
+      "payload_contract": {
+        "source_outputs": [
+          "N010_OUT002",
+          "N010_OUT005"
+        ],
+        "target_inputs": [
+          "N010_OUT002",
+          "N010_OUT005"
+        ],
+        "mapping_rows": [
+          {
+            "edge_id": "E031",
+            "source_node": "N010",
+            "source_output_field_id": "N010_OUT002",
+            "source_output_key": "hourly_target_curve",
+            "zh_name": "小时目标曲线",
+            "target_node": "N020",
+            "target_input_field_id": "N010_OUT002",
+            "target_usage": "小时峰谷需要和销售基准线/上周同小时曲线比较。",
+            "note": "N010 输出 小时目标曲线 进入 N020；边 E031 保持原编号。"
+          },
+          {
+            "edge_id": "E031",
+            "source_node": "N010",
+            "source_output_field_id": "N010_OUT005",
+            "source_output_key": "historical_same_weekday_curve",
+            "zh_name": "历史同星期曲线",
+            "target_node": "N020",
+            "target_input_field_id": "N010_OUT005",
+            "target_usage": "小时峰谷需要和销售基准线/上周同小时曲线比较。",
+            "note": "N010 输出 历史同星期曲线 进入 N020；边 E031 保持原编号。"
+          }
+        ]
+      },
+      "blueprint_ids": [
+        "BP01",
+        "BP08"
+      ]
+    },
+    {
+      "edge_id": "E032",
+      "source_node_id": "N020",
+      "target_node_id": "N009",
+      "source_node_name": "S9 流量峰谷",
+      "target_node_name": "S14 酒店运营诊断",
+      "trigger_type": "chain_trigger",
+      "why": "峰谷异常和转化异常需要回流到运营诊断，避免只靠调价解决。",
+      "payload_summary": "traffic_state, peak_valley_evidence, conversion_signal",
+      "payload_contract": {
+        "source_outputs": [
+          "N020_OUT001",
+          "N020_OUT006",
+          "N020_OUT007"
+        ],
+        "target_inputs": [
+          "N020_OUT001",
+          "N020_OUT006",
+          "N020_OUT007"
+        ],
+        "mapping_rows": [
+          {
+            "edge_id": "E032",
+            "source_node": "N020",
+            "source_output_field_id": "N020_OUT001",
+            "source_output_key": "traffic_state",
+            "zh_name": "流量状态",
+            "target_node": "N009",
+            "target_input_field_id": "N020_OUT001",
+            "target_usage": "峰谷异常和转化异常需要回流到运营诊断，避免只靠调价解决。",
+            "note": "N020 输出 流量状态 进入 N009；边 E032 保持原编号。"
+          },
+          {
+            "edge_id": "E032",
+            "source_node": "N020",
+            "source_output_field_id": "N020_OUT006",
+            "source_output_key": "peak_valley_evidence",
+            "zh_name": "峰谷判断证据",
+            "target_node": "N009",
+            "target_input_field_id": "N020_OUT006",
+            "target_usage": "峰谷异常和转化异常需要回流到运营诊断，避免只靠调价解决。",
+            "note": "N020 输出 峰谷判断证据 进入 N009；边 E032 保持原编号。"
+          },
+          {
+            "edge_id": "E032",
+            "source_node": "N020",
+            "source_output_field_id": "N020_OUT007",
+            "source_output_key": "conversion_signal",
+            "zh_name": "转化信号",
+            "target_node": "N009",
+            "target_input_field_id": "N020_OUT007",
+            "target_usage": "峰谷异常和转化异常需要回流到运营诊断，避免只靠调价解决。",
+            "note": "N020 输出 转化信号 进入 N009；边 E032 保持原编号。"
+          }
+        ]
+      },
+      "blueprint_ids": [
+        "BP04",
+        "BP03"
+      ]
+    },
+    {
+      "edge_id": "E033",
+      "source_node_id": "N020",
+      "target_node_id": "N012",
+      "source_node_name": "S9 流量峰谷",
+      "target_node_name": "S8 推广投放与活动建议",
+      "trigger_type": "chain_trigger",
+      "why": "低谷时段和流量缺口决定推广投放窗口与预算建议。",
+      "payload_summary": "traffic_state, time_windows, hourly_demand_index",
+      "payload_contract": {
+        "source_outputs": [
+          "N020_OUT001",
+          "N020_OUT002",
+          "N020_OUT005"
+        ],
+        "target_inputs": [
+          "N020_OUT001",
+          "N020_OUT002",
+          "N020_OUT005"
+        ],
+        "mapping_rows": [
+          {
+            "edge_id": "E033",
+            "source_node": "N020",
+            "source_output_field_id": "N020_OUT001",
+            "source_output_key": "traffic_state",
+            "zh_name": "流量状态",
+            "target_node": "N012",
+            "target_input_field_id": "N020_OUT001",
+            "target_usage": "低谷时段和流量缺口决定推广投放窗口与预算建议。",
+            "note": "N020 输出 流量状态 进入 N012；边 E033 保持原编号。"
+          },
+          {
+            "edge_id": "E033",
+            "source_node": "N020",
+            "source_output_field_id": "N020_OUT002",
+            "source_output_key": "time_windows",
+            "zh_name": "推荐时段窗口",
+            "target_node": "N012",
+            "target_input_field_id": "N020_OUT002",
+            "target_usage": "低谷时段和流量缺口决定推广投放窗口与预算建议。",
+            "note": "N020 输出 推荐时段窗口 进入 N012；边 E033 保持原编号。"
+          },
+          {
+            "edge_id": "E033",
+            "source_node": "N020",
+            "source_output_field_id": "N020_OUT005",
+            "source_output_key": "hourly_demand_index",
+            "zh_name": "小时需求指数",
+            "target_node": "N012",
+            "target_input_field_id": "N020_OUT005",
+            "target_usage": "低谷时段和流量缺口决定推广投放窗口与预算建议。",
+            "note": "N020 输出 小时需求指数 进入 N012；边 E033 保持原编号。"
+          }
+        ]
+      },
+      "blueprint_ids": [
+        "BP01",
+        "BP05"
+      ]
+    },
+    {
+      "edge_id": "E034",
+      "source_node_id": "N020",
+      "target_node_id": "N015",
+      "source_node_name": "S9 流量峰谷",
+      "target_node_name": "S5 智能收益决策",
+      "trigger_type": "chain_trigger",
+      "why": "小时级需求和进单节奏会影响调价时点和动作强度。",
+      "payload_summary": "traffic_state, hourly_demand_index, recommended_actions",
+      "payload_contract": {
+        "source_outputs": [
+          "N020_OUT001",
+          "N020_OUT005",
+          "N020_OUT003"
+        ],
+        "target_inputs": [
+          "N020_OUT001",
+          "N020_OUT005",
+          "N020_OUT003"
+        ],
+        "mapping_rows": [
+          {
+            "edge_id": "E034",
+            "source_node": "N020",
+            "source_output_field_id": "N020_OUT001",
+            "source_output_key": "traffic_state",
+            "zh_name": "流量状态",
+            "target_node": "N015",
+            "target_input_field_id": "N020_OUT001",
+            "target_usage": "小时级需求和进单节奏会影响调价时点和动作强度。",
+            "note": "N020 输出 流量状态 进入 N015；边 E034 保持原编号。"
+          },
+          {
+            "edge_id": "E034",
+            "source_node": "N020",
+            "source_output_field_id": "N020_OUT005",
+            "source_output_key": "hourly_demand_index",
+            "zh_name": "小时需求指数",
+            "target_node": "N015",
+            "target_input_field_id": "N020_OUT005",
+            "target_usage": "小时级需求和进单节奏会影响调价时点和动作强度。",
+            "note": "N020 输出 小时需求指数 进入 N015；边 E034 保持原编号。"
+          },
+          {
+            "edge_id": "E034",
+            "source_node": "N020",
+            "source_output_field_id": "N020_OUT003",
+            "source_output_key": "recommended_actions",
+            "zh_name": "推荐动作",
+            "target_node": "N015",
+            "target_input_field_id": "N020_OUT003",
+            "target_usage": "小时级需求和进单节奏会影响调价时点和动作强度。",
+            "note": "N020 输出 推荐动作 进入 N015；边 E034 保持原编号。"
+          }
+        ]
+      },
+      "blueprint_ids": [
+        "BP01",
+        "BP02"
+      ]
+    },
+    {
+      "edge_id": "E035",
+      "source_node_id": "N015",
+      "target_node_id": "N012",
+      "source_node_name": "S5 智能收益决策",
+      "target_node_name": "S8 推广投放与活动建议",
+      "trigger_type": "optional_chain",
+      "why": "收益决策发现降价不合适或转化风险高时，可改用活动/推广候选动作。",
+      "payload_summary": "revenue_decision, risk_warnings, alternative_action_needed",
+      "payload_contract": {
+        "source_outputs": [
+          "N015_OUT001",
+          "N015_OUT004",
+          "N015_OUT006"
+        ],
+        "target_inputs": [
+          "N015_OUT001",
+          "N015_OUT004",
+          "N015_OUT006"
+        ],
+        "mapping_rows": [
+          {
+            "edge_id": "E035",
+            "source_node": "N015",
+            "source_output_field_id": "N015_OUT001",
+            "source_output_key": "revenue_decision",
+            "zh_name": "收益决策",
+            "target_node": "N012",
+            "target_input_field_id": "N015_OUT001",
+            "target_usage": "收益决策发现降价不合适或转化风险高时，可改用活动/推广候选动作。",
+            "note": "N015 输出 收益决策 进入 N012；边 E035 保持原编号。"
+          },
+          {
+            "edge_id": "E035",
+            "source_node": "N015",
+            "source_output_field_id": "N015_OUT004",
+            "source_output_key": "risk_warnings",
+            "zh_name": "风险",
+            "target_node": "N012",
+            "target_input_field_id": "N015_OUT004",
+            "target_usage": "收益决策发现降价不合适或转化风险高时，可改用活动/推广候选动作。",
+            "note": "N015 输出 风险 进入 N012；边 E035 保持原编号。"
+          },
+          {
+            "edge_id": "E035",
+            "source_node": "N015",
+            "source_output_field_id": "N015_OUT006",
+            "source_output_key": "alternative_action_needed",
+            "zh_name": "是否需要替代动作",
+            "target_node": "N012",
+            "target_input_field_id": "N015_OUT006",
+            "target_usage": "收益决策发现降价不合适或转化风险高时，可改用活动/推广候选动作。",
+            "note": "N015 输出 是否需要替代动作 进入 N012；边 E035 保持原编号。"
+          }
+        ]
+      },
+      "blueprint_ids": [
+        "BP02",
+        "BP05"
+      ]
+    },
+    {
+      "edge_id": "E036",
+      "source_node_id": "N012",
+      "target_node_id": "N013",
+      "source_node_name": "S8 推广投放与活动建议",
+      "target_node_name": "S10 ROI 决策",
+      "trigger_type": "chain_trigger",
+      "why": "推广计划涉及预算和收益时，需要 ROI 决策补充。",
+      "payload_summary": "promotion_plan, budget_range, expected_return",
+      "payload_contract": {
+        "source_outputs": [
+          "N012_OUT002",
+          "N012_OUT005",
+          "N012_OUT007"
+        ],
+        "target_inputs": [
+          "N012_OUT002",
+          "N012_OUT005",
+          "N012_OUT007"
+        ],
+        "mapping_rows": [
+          {
+            "edge_id": "E036",
+            "source_node": "N012",
+            "source_output_field_id": "N012_OUT002",
+            "source_output_key": "promotion_plan",
+            "zh_name": "推广计划",
+            "target_node": "N013",
+            "target_input_field_id": "N012_OUT002",
+            "target_usage": "推广计划涉及预算和收益时，需要 ROI 决策补充。",
+            "note": "N012 输出 推广计划 进入 N013；边 E036 保持原编号。"
+          },
+          {
+            "edge_id": "E036",
+            "source_node": "N012",
+            "source_output_field_id": "N012_OUT005",
+            "source_output_key": "budget_range",
+            "zh_name": "预算区间",
+            "target_node": "N013",
+            "target_input_field_id": "N012_OUT005",
+            "target_usage": "推广计划涉及预算和收益时，需要 ROI 决策补充。",
+            "note": "N012 输出 预算区间 进入 N013；边 E036 保持原编号。"
+          },
+          {
+            "edge_id": "E036",
+            "source_node": "N012",
+            "source_output_field_id": "N012_OUT007",
+            "source_output_key": "expected_return",
+            "zh_name": "预期回报",
+            "target_node": "N013",
+            "target_input_field_id": "N012_OUT007",
+            "target_usage": "推广计划涉及预算和收益时，需要 ROI 决策补充。",
+            "note": "N012 输出 预期回报 进入 N013；边 E036 保持原编号。"
+          }
+        ]
+      },
+      "blueprint_ids": [
+        "BP05",
+        "BP08"
+      ]
+    },
+    {
+      "edge_id": "E037",
+      "source_node_id": "N012",
+      "target_node_id": "N021",
+      "source_node_name": "S8 推广投放与活动建议",
+      "target_node_name": "S11 推广执行",
+      "trigger_type": "chain_trigger",
+      "why": "只有推广计划产出可执行动作后，S11 才允许生成 dry-run/任务/审批执行。",
+      "payload_summary": "promotion_action, budget_range, time_windows, approval_required",
+      "payload_contract": {
+        "source_outputs": [
+          "N012_OUT006",
+          "N012_OUT005",
+          "N012_OUT008",
+          "N012_OUT004"
+        ],
+        "target_inputs": [
+          "N012_OUT006",
+          "N012_OUT005",
+          "N012_OUT008",
+          "N012_OUT004"
+        ],
+        "mapping_rows": [
+          {
+            "edge_id": "E037",
+            "source_node": "N012",
+            "source_output_field_id": "N012_OUT006",
+            "source_output_key": "promotion_action",
+            "zh_name": "推广动作",
+            "target_node": "N021",
+            "target_input_field_id": "N012_OUT006",
+            "target_usage": "只有推广计划产出可执行动作后，S11 才允许生成 dry-run/任务/审批执行。",
+            "note": "N012 输出 推广动作 进入 N021；边 E037 保持原编号。"
+          },
+          {
+            "edge_id": "E037",
+            "source_node": "N012",
+            "source_output_field_id": "N012_OUT005",
+            "source_output_key": "budget_range",
+            "zh_name": "预算区间",
+            "target_node": "N021",
+            "target_input_field_id": "N012_OUT005",
+            "target_usage": "只有推广计划产出可执行动作后，S11 才允许生成 dry-run/任务/审批执行。",
+            "note": "N012 输出 预算区间 进入 N021；边 E037 保持原编号。"
+          },
+          {
+            "edge_id": "E037",
+            "source_node": "N012",
+            "source_output_field_id": "N012_OUT008",
+            "source_output_key": "time_windows",
+            "zh_name": "推荐时段窗口",
+            "target_node": "N021",
+            "target_input_field_id": "N012_OUT008",
+            "target_usage": "只有推广计划产出可执行动作后，S11 才允许生成 dry-run/任务/审批执行。",
+            "note": "N012 输出 推荐时段窗口 进入 N021；边 E037 保持原编号。"
+          },
+          {
+            "edge_id": "E037",
+            "source_node": "N012",
+            "source_output_field_id": "N012_OUT004",
+            "source_output_key": "approval_required",
+            "zh_name": "是否需要审批",
+            "target_node": "N021",
+            "target_input_field_id": "N012_OUT004",
+            "target_usage": "只有推广计划产出可执行动作后，S11 才允许生成 dry-run/任务/审批执行。",
+            "note": "N012 输出 是否需要审批 进入 N021；边 E037 保持原编号。"
+          }
+        ]
+      },
+      "blueprint_ids": [
+        "BP05",
+        "BP07",
+        "BP10"
+      ]
+    },
+    {
+      "edge_id": "E038",
+      "source_node_id": "N013",
+      "target_node_id": "N021",
+      "source_node_name": "S10 ROI 决策",
+      "target_node_name": "S11 推广执行",
+      "trigger_type": "chain_trigger",
+      "why": "ROI 决策为执行推广提供保留、降低、暂停或调整依据。",
+      "payload_summary": "roi_decision, profit_simulation, data_gaps",
+      "payload_contract": {
+        "source_outputs": [
+          "N013_OUT003",
+          "N013_OUT002",
+          "N013_OUT004"
+        ],
+        "target_inputs": [
+          "N013_OUT003",
+          "N013_OUT002",
+          "N013_OUT004"
+        ],
+        "mapping_rows": [
+          {
+            "edge_id": "E038",
+            "source_node": "N013",
+            "source_output_field_id": "N013_OUT003",
+            "source_output_key": "roi_decision",
+            "zh_name": "ROI 决策",
+            "target_node": "N021",
+            "target_input_field_id": "N013_OUT003",
+            "target_usage": "ROI 决策为执行推广提供保留、降低、暂停或调整依据。",
+            "note": "N013 输出 ROI 决策 进入 N021；边 E038 保持原编号。"
+          },
+          {
+            "edge_id": "E038",
+            "source_node": "N013",
+            "source_output_field_id": "N013_OUT002",
+            "source_output_key": "profit_simulation",
+            "zh_name": "利润模拟",
+            "target_node": "N021",
+            "target_input_field_id": "N013_OUT002",
+            "target_usage": "ROI 决策为执行推广提供保留、降低、暂停或调整依据。",
+            "note": "N013 输出 利润模拟 进入 N021；边 E038 保持原编号。"
+          },
+          {
+            "edge_id": "E038",
+            "source_node": "N013",
+            "source_output_field_id": "N013_OUT004",
+            "source_output_key": "data_gaps",
+            "zh_name": "数据缺口",
+            "target_node": "N021",
+            "target_input_field_id": "N013_OUT004",
+            "target_usage": "ROI 决策为执行推广提供保留、降低、暂停或调整依据。",
+            "note": "N013 输出 数据缺口 进入 N021；边 E038 保持原编号。"
+          }
+        ]
+      },
+      "blueprint_ids": [
+        "BP08",
+        "BP05"
+      ]
+    },
+    {
+      "edge_id": "E039",
+      "source_node_id": "N021",
+      "target_node_id": "N018",
+      "source_node_name": "S11 推广执行",
+      "target_node_name": "S3 消息中台",
+      "trigger_type": "chain_trigger",
+      "why": "推广执行任务、阻断原因、复核清单必须通过消息中台输出。",
+      "payload_summary": "promotion_execution_task, execution_status, verification_checklist",
+      "payload_contract": {
+        "source_outputs": [
+          "N021_OUT005",
+          "N021_OUT007",
+          "N021_OUT004"
+        ],
+        "target_inputs": [
+          "N021_OUT005",
+          "N021_OUT007",
+          "N021_OUT004"
+        ],
+        "mapping_rows": [
+          {
+            "edge_id": "E039",
+            "source_node": "N021",
+            "source_output_field_id": "N021_OUT005",
+            "source_output_key": "promotion_execution_task",
+            "zh_name": "推广执行任务",
+            "target_node": "N018",
+            "target_input_field_id": "N021_OUT005",
+            "target_usage": "推广执行任务、阻断原因、复核清单必须通过消息中台输出。",
+            "note": "N021 输出 推广执行任务 进入 N018；边 E039 保持原编号。"
+          },
+          {
+            "edge_id": "E039",
+            "source_node": "N021",
+            "source_output_field_id": "N021_OUT007",
+            "source_output_key": "execution_status",
+            "zh_name": "执行状态",
+            "target_node": "N018",
+            "target_input_field_id": "N021_OUT007",
+            "target_usage": "推广执行任务、阻断原因、复核清单必须通过消息中台输出。",
+            "note": "N021 输出 执行状态 进入 N018；边 E039 保持原编号。"
+          },
+          {
+            "edge_id": "E039",
+            "source_node": "N021",
+            "source_output_field_id": "N021_OUT004",
+            "source_output_key": "verification_checklist",
+            "zh_name": "复核清单",
+            "target_node": "N018",
+            "target_input_field_id": "N021_OUT004",
+            "target_usage": "推广执行任务、阻断原因、复核清单必须通过消息中台输出。",
+            "note": "N021 输出 复核清单 进入 N018；边 E039 保持原编号。"
+          }
+        ]
+      },
+      "blueprint_ids": [
+        "BP00",
+        "BP05",
+        "BP10"
+      ]
+    },
+    {
+      "edge_id": "E040",
+      "source_node_id": "N021",
+      "target_node_id": "N019",
+      "source_node_name": "S11 推广执行",
+      "target_node_name": "EXP-LAYER 经验进化",
+      "trigger_type": "async_trigger",
+      "why": "推广执行结果和复核数据进入脱敏复盘，用于后续规则候选。",
+      "payload_summary": "execution_status, verification_checklist, blocked_reason",
+      "payload_contract": {
+        "source_outputs": [
+          "N021_OUT007",
+          "N021_OUT004",
+          "N021_OUT003"
+        ],
+        "target_inputs": [
+          "N021_OUT007",
+          "N021_OUT004",
+          "N021_OUT003"
+        ],
+        "mapping_rows": [
+          {
+            "edge_id": "E040",
+            "source_node": "N021",
+            "source_output_field_id": "N021_OUT007",
+            "source_output_key": "execution_status",
+            "zh_name": "执行状态",
+            "target_node": "N019",
+            "target_input_field_id": "N021_OUT007",
+            "target_usage": "推广执行结果和复核数据进入脱敏复盘，用于后续规则候选。",
+            "note": "N021 输出 执行状态 进入 N019；边 E040 保持原编号。"
+          },
+          {
+            "edge_id": "E040",
+            "source_node": "N021",
+            "source_output_field_id": "N021_OUT004",
+            "source_output_key": "verification_checklist",
+            "zh_name": "复核清单",
+            "target_node": "N019",
+            "target_input_field_id": "N021_OUT004",
+            "target_usage": "推广执行结果和复核数据进入脱敏复盘，用于后续规则候选。",
+            "note": "N021 输出 复核清单 进入 N019；边 E040 保持原编号。"
+          },
+          {
+            "edge_id": "E040",
+            "source_node": "N021",
+            "source_output_field_id": "N021_OUT003",
+            "source_output_key": "blocked_reason",
+            "zh_name": "阻断原因",
+            "target_node": "N019",
+            "target_input_field_id": "N021_OUT003",
+            "target_usage": "推广执行结果和复核数据进入脱敏复盘，用于后续规则候选。",
+            "note": "N021 输出 阻断原因 进入 N019；边 E040 保持原编号。"
+          }
+        ]
+      },
+      "blueprint_ids": [
+        "BP11"
+      ]
+    },
+    {
+      "edge_id": "E041",
+      "source_node_id": "N011",
+      "target_node_id": "N012",
+      "source_node_name": "S16 进度偏差诊断",
+      "target_node_name": "S8 推广投放与活动建议",
+      "trigger_type": "chain_trigger",
+      "why": "进度落后但不宜立即降价时，可触发推广/活动候选。",
+      "payload_summary": "progress_status, deviation_reasons, urgency_level",
+      "payload_contract": {
+        "source_outputs": [
+          "N011_OUT001",
+          "N011_OUT003",
+          "N011_OUT004"
+        ],
+        "target_inputs": [
+          "N011_OUT001",
+          "N011_OUT003",
+          "N011_OUT004"
+        ],
+        "mapping_rows": [
+          {
+            "edge_id": "E041",
+            "source_node": "N011",
+            "source_output_field_id": "N011_OUT001",
+            "source_output_key": "progress_status",
+            "zh_name": "进度状态",
+            "target_node": "N012",
+            "target_input_field_id": "N011_OUT001",
+            "target_usage": "进度落后但不宜立即降价时，可触发推广/活动候选。",
+            "note": "N011 输出 进度状态 进入 N012；边 E041 保持原编号。"
+          },
+          {
+            "edge_id": "E041",
+            "source_node": "N011",
+            "source_output_field_id": "N011_OUT003",
+            "source_output_key": "deviation_reasons",
+            "zh_name": "偏差原因",
+            "target_node": "N012",
+            "target_input_field_id": "N011_OUT003",
+            "target_usage": "进度落后但不宜立即降价时，可触发推广/活动候选。",
+            "note": "N011 输出 偏差原因 进入 N012；边 E041 保持原编号。"
+          },
+          {
+            "edge_id": "E041",
+            "source_node": "N011",
+            "source_output_field_id": "N011_OUT004",
+            "source_output_key": "urgency_level",
+            "zh_name": "紧急程度",
+            "target_node": "N012",
+            "target_input_field_id": "N011_OUT004",
+            "target_usage": "进度落后但不宜立即降价时，可触发推广/活动候选。",
+            "note": "N011 输出 紧急程度 进入 N012；边 E041 保持原编号。"
+          }
+        ]
+      },
+      "blueprint_ids": [
+        "BP08",
+        "BP05"
+      ]
+    },
+    {
+      "edge_id": "E042",
+      "source_node_id": "N008",
+      "target_node_id": "N017",
+      "source_node_name": "S12 口碑管理",
+      "target_node_name": "S13 评论回复",
+      "trigger_type": "chain_trigger",
+      "why": "口碑管理识别需要回复的评论后，进入回复草稿生成。",
+      "payload_summary": "review_content, reply_needed, sentiment",
+      "payload_contract": {
+        "source_outputs": [
+          "N008_OUT006",
+          "N008_OUT003",
+          "N008_OUT007"
+        ],
+        "target_inputs": [
+          "N008_OUT006",
+          "N008_OUT003",
+          "N008_OUT007"
+        ],
+        "mapping_rows": [
+          {
+            "edge_id": "E042",
+            "source_node": "N008",
+            "source_output_field_id": "N008_OUT006",
+            "source_output_key": "review_content",
+            "zh_name": "评论内容",
+            "target_node": "N017",
+            "target_input_field_id": "N008_OUT006",
+            "target_usage": "口碑管理识别需要回复的评论后，进入回复草稿生成。",
+            "note": "N008 输出 评论内容 进入 N017；边 E042 保持原编号。"
+          },
+          {
+            "edge_id": "E042",
+            "source_node": "N008",
+            "source_output_field_id": "N008_OUT003",
+            "source_output_key": "reply_needed",
+            "zh_name": "是否需要回复",
+            "target_node": "N017",
+            "target_input_field_id": "N008_OUT003",
+            "target_usage": "口碑管理识别需要回复的评论后，进入回复草稿生成。",
+            "note": "N008 输出 是否需要回复 进入 N017；边 E042 保持原编号。"
+          },
+          {
+            "edge_id": "E042",
+            "source_node": "N008",
+            "source_output_field_id": "N008_OUT007",
+            "source_output_key": "sentiment",
+            "zh_name": "情绪倾向",
+            "target_node": "N017",
+            "target_input_field_id": "N008_OUT007",
+            "target_usage": "口碑管理识别需要回复的评论后，进入回复草稿生成。",
+            "note": "N008 输出 情绪倾向 进入 N017；边 E042 保持原编号。"
+          }
+        ]
+      },
+      "blueprint_ids": [
+        "BP09"
+      ]
+    },
+    {
+      "edge_id": "E043",
+      "source_node_id": "N004",
+      "target_node_id": "N022",
+      "source_node_name": "数据闸门",
+      "target_node_name": "S14-EXT 第三方OTA诊断HTML报告模式",
+      "trigger_type": "chain_trigger",
+      "why": "外部诊断模式的数据通过字段闸门后，进入独立报告链路。",
+      "payload_summary": "external_upload_context, field_coverage_report",
+      "payload_contract": {
+        "source_outputs": [
+          "N004_OUT010",
+          "N004_OUT004"
+        ],
+        "target_inputs": [
+          "N004_OUT010",
+          "N004_OUT004"
+        ],
+        "mapping_rows": [
+          {
+            "edge_id": "E043",
+            "source_node": "N004",
+            "source_output_field_id": "N004_OUT010",
+            "source_output_key": "external_upload_context",
+            "zh_name": "外部上下文",
+            "target_node": "N022",
+            "target_input_field_id": "N004_OUT010",
+            "target_usage": "外部诊断模式的数据通过字段闸门后，进入独立报告链路。",
+            "note": "N004 输出 外部上下文 进入 N022；边 E043 保持原编号。"
+          },
+          {
+            "edge_id": "E043",
+            "source_node": "N004",
+            "source_output_field_id": "N004_OUT004",
+            "source_output_key": "field_coverage_report",
+            "zh_name": "字段覆盖率报告",
+            "target_node": "N022",
+            "target_input_field_id": "N004_OUT004",
+            "target_usage": "外部诊断模式的数据通过字段闸门后，进入独立报告链路。",
+            "note": "N004 输出 字段覆盖率报告 进入 N022；边 E043 保持原编号。"
+          }
+        ]
+      },
+      "blueprint_ids": [
+        "BP03",
+        "BP04",
+        "BP10"
+      ]
+    },
+    {
+      "edge_id": "E044",
+      "source_node_id": "N022",
+      "target_node_id": "N018",
+      "source_node_name": "S14-EXT 第三方OTA诊断HTML报告模式",
+      "target_node_name": "S3 消息中台",
+      "trigger_type": "chain_trigger",
+      "why": "第三方诊断报告需要通过飞书/HTML载体输出。",
+      "payload_summary": "external_diagnosis_report_html, data_gap_list",
+      "payload_contract": {
+        "source_outputs": [
+          "N022_OUT001",
+          "N022_OUT003"
+        ],
+        "target_inputs": [
+          "N022_OUT001",
+          "N022_OUT003"
+        ],
+        "mapping_rows": [
+          {
+            "edge_id": "E044",
+            "source_node": "N022",
+            "source_output_field_id": "N022_OUT001",
+            "source_output_key": "external_diagnosis_report_html",
+            "zh_name": "外部诊断 HTML 报告",
+            "target_node": "N018",
+            "target_input_field_id": "N022_OUT001",
+            "target_usage": "第三方诊断报告需要通过飞书/HTML载体输出。",
+            "note": "N022 输出 外部诊断 HTML 报告 进入 N018；边 E044 保持原编号。"
+          },
+          {
+            "edge_id": "E044",
+            "source_node": "N022",
+            "source_output_field_id": "N022_OUT003",
+            "source_output_key": "data_gap_list",
+            "zh_name": "数据缺口列表",
+            "target_node": "N018",
+            "target_input_field_id": "N022_OUT003",
+            "target_usage": "第三方诊断报告需要通过飞书/HTML载体输出。",
+            "note": "N022 输出 数据缺口列表 进入 N018；边 E044 保持原编号。"
+          }
+        ]
+      },
+      "blueprint_ids": [
+        "BP00",
+        "BP03",
+        "BP04"
+      ]
+    },
+    {
+      "edge_id": "E045",
+      "source_node_id": "N022",
+      "target_node_id": "N019",
+      "source_node_name": "S14-EXT 第三方OTA诊断HTML报告模式",
+      "target_node_name": "EXP-LAYER 经验进化",
+      "trigger_type": "async_trigger",
+      "why": "外部诊断案例可脱敏沉淀，但不能直接改正式规则。",
+      "payload_summary": "sanitized_external_diagnosis_case",
+      "payload_contract": {
+        "source_outputs": [
+          "N022_OUT006"
+        ],
+        "target_inputs": [
+          "N022_OUT006"
+        ],
+        "mapping_rows": [
+          {
+            "edge_id": "E045",
+            "source_node": "N022",
+            "source_output_field_id": "N022_OUT006",
+            "source_output_key": "sanitized_external_diagnosis_case",
+            "zh_name": "外部",
+            "target_node": "N019",
+            "target_input_field_id": "N022_OUT006",
+            "target_usage": "外部诊断案例可脱敏沉淀，但不能直接改正式规则。",
+            "note": "N022 输出 外部 进入 N019；边 E045 保持原编号。"
+          }
+        ]
+      },
+      "blueprint_ids": [
+        "BP11"
+      ]
+    },
+    {
+      "edge_id": "E046",
+      "source_node_id": "N005",
+      "target_node_id": "N018",
+      "source_node_name": "S2 经营房态采集",
+      "target_node_name": "S3 消息中台",
+      "trigger_type": "chain_trigger",
+      "why": "用户只问经营快报时，经营房态采集结果直接进入消息中台输出，不进入收益决策。",
+      "payload_summary": "operating_snapshot, inventory_snapshot, price_snapshot, freshness_status",
+      "payload_contract": {
+        "source_outputs": [
+          "N005_OUT001",
+          "N005_OUT002",
+          "N005_OUT003",
+          "N005_OUT005"
+        ],
+        "target_inputs": [
+          "N005_OUT001",
+          "N005_OUT002",
+          "N005_OUT003",
+          "N005_OUT005"
+        ],
+        "mapping_rows": [
+          {
+            "edge_id": "E046",
+            "source_node": "N005",
+            "source_output_field_id": "N005_OUT001",
+            "source_output_key": "operating_snapshot",
+            "zh_name": "经营快照",
+            "target_node": "N018",
+            "target_input_field_id": "N005_OUT001",
+            "target_usage": "用户只问经营快报时，经营房态采集结果直接进入消息中台输出，不进入收益决策。",
+            "note": "N005 输出 经营快照 进入 N018；边 E046 保持原编号。"
+          },
+          {
+            "edge_id": "E046",
+            "source_node": "N005",
+            "source_output_field_id": "N005_OUT002",
+            "source_output_key": "inventory_snapshot",
+            "zh_name": "库存快照",
+            "target_node": "N018",
+            "target_input_field_id": "N005_OUT002",
+            "target_usage": "用户只问经营快报时，经营房态采集结果直接进入消息中台输出，不进入收益决策。",
+            "note": "N005 输出 库存快照 进入 N018；边 E046 保持原编号。"
+          },
+          {
+            "edge_id": "E046",
+            "source_node": "N005",
+            "source_output_field_id": "N005_OUT003",
+            "source_output_key": "price_snapshot",
+            "zh_name": "价格快照",
+            "target_node": "N018",
+            "target_input_field_id": "N005_OUT003",
+            "target_usage": "用户只问经营快报时，经营房态采集结果直接进入消息中台输出，不进入收益决策。",
+            "note": "N005 输出 价格快照 进入 N018；边 E046 保持原编号。"
+          },
+          {
+            "edge_id": "E046",
+            "source_node": "N005",
+            "source_output_field_id": "N005_OUT005",
+            "source_output_key": "freshness_status",
+            "zh_name": "数据新鲜度状态",
+            "target_node": "N018",
+            "target_input_field_id": "N005_OUT005",
+            "target_usage": "用户只问经营快报时，经营房态采集结果直接进入消息中台输出，不进入收益决策。",
+            "note": "N005 输出 数据新鲜度状态 进入 N018；边 E046 保持原编号。"
+          }
+        ]
+      },
+      "blueprint_ids": [
+        "BP00",
+        "BP10"
+      ]
+    },
+    {
+      "edge_id": "E047",
+      "source_node_id": "N004",
+      "target_node_id": "N014",
+      "source_node_name": "数据闸门",
+      "target_node_name": "S17 客户订单分析",
+      "trigger_type": "direct_or_chain",
+      "why": "客户/订单分析可以由用户直接触发，也可以作为收益策略参考字段包读取。",
+      "payload_summary": "CUS字段包, OP订单字段, REP口碑字段",
+      "payload_contract": {
+        "source_outputs": [],
+        "target_inputs": [],
+        "mapping_rows": []
+      },
+      "blueprint_ids": [
+        "BP08",
+        "BP09",
+        "BP10"
+      ]
+    },
+    {
+      "edge_id": "E048",
+      "source_node_id": "N014",
+      "target_node_id": "N018",
+      "source_node_name": "S17 客户订单分析",
+      "target_node_name": "S3 消息中台",
+      "trigger_type": "chain_trigger",
+      "why": "客户订单分析如果只需要分层/流失预警，可直接输出给用户，不必强制进入收益决策。",
+      "payload_summary": "customer_segments, repeat_guest_rate, loss_risk_alert",
+      "payload_contract": {
+        "source_outputs": [
+          "N014_OUT001",
+          "N014_OUT002",
+          "N014_OUT003"
+        ],
+        "target_inputs": [
+          "N014_OUT001",
+          "N014_OUT002",
+          "N014_OUT003"
+        ],
+        "mapping_rows": [
+          {
+            "edge_id": "E048",
+            "source_node": "N014",
+            "source_output_field_id": "N014_OUT001",
+            "source_output_key": "customer_segments",
+            "zh_name": "客户分层",
+            "target_node": "N018",
+            "target_input_field_id": "N014_OUT001",
+            "target_usage": "客户订单分析如果只需要分层/流失预警，可直接输出给用户，不必强制进入收益决策。",
+            "note": "N014 输出 客户分层 进入 N018；边 E048 保持原编号。"
+          },
+          {
+            "edge_id": "E048",
+            "source_node": "N014",
+            "source_output_field_id": "N014_OUT002",
+            "source_output_key": "repeat_guest_rate",
+            "zh_name": "复购率",
+            "target_node": "N018",
+            "target_input_field_id": "N014_OUT002",
+            "target_usage": "客户订单分析如果只需要分层/流失预警，可直接输出给用户，不必强制进入收益决策。",
+            "note": "N014 输出 复购率 进入 N018；边 E048 保持原编号。"
+          },
+          {
+            "edge_id": "E048",
+            "source_node": "N014",
+            "source_output_field_id": "N014_OUT003",
+            "source_output_key": "loss_risk_alert",
+            "zh_name": "流失风险预警",
+            "target_node": "N018",
+            "target_input_field_id": "N014_OUT003",
+            "target_usage": "客户订单分析如果只需要分层/流失预警，可直接输出给用户，不必强制进入收益决策。",
+            "note": "N014 输出 流失风险预警 进入 N018；边 E048 保持原编号。"
+          }
+        ]
+      },
+      "blueprint_ids": [
+        "BP00",
+        "BP08",
+        "BP09"
+      ]
+    },
+    {
+      "edge_id": "E049",
+      "source_node_id": "N006",
+      "target_node_id": "N018",
+      "source_node_name": "S4 环境行情感知",
+      "target_node_name": "S3 消息中台",
+      "trigger_type": "chain_trigger",
+      "why": "用户只问行情/天气/节假日/市场热度时，环境行情结果直接进入消息中台输出。",
+      "payload_summary": "demand_index, demand_level, demand_reasons, pricing_effect",
+      "payload_contract": {
+        "source_outputs": [
+          "N006_OUT001",
+          "N006_OUT002",
+          "N006_OUT004",
+          "N006_OUT005"
+        ],
+        "target_inputs": [
+          "N006_OUT001",
+          "N006_OUT002",
+          "N006_OUT004",
+          "N006_OUT005"
+        ],
+        "mapping_rows": [
+          {
+            "edge_id": "E049",
+            "source_node": "N006",
+            "source_output_field_id": "N006_OUT001",
+            "source_output_key": "demand_index",
+            "zh_name": "需求指数",
+            "target_node": "N018",
+            "target_input_field_id": "N006_OUT001",
+            "target_usage": "用户只问行情/天气/节假日/市场热度时，环境行情结果直接进入消息中台输出。",
+            "note": "N006 输出 需求指数 进入 N018；边 E049 保持原编号。"
+          },
+          {
+            "edge_id": "E049",
+            "source_node": "N006",
+            "source_output_field_id": "N006_OUT002",
+            "source_output_key": "demand_level",
+            "zh_name": "需求等级",
+            "target_node": "N018",
+            "target_input_field_id": "N006_OUT002",
+            "target_usage": "用户只问行情/天气/节假日/市场热度时，环境行情结果直接进入消息中台输出。",
+            "note": "N006 输出 需求等级 进入 N018；边 E049 保持原编号。"
+          },
+          {
+            "edge_id": "E049",
+            "source_node": "N006",
+            "source_output_field_id": "N006_OUT004",
+            "source_output_key": "demand_reasons",
+            "zh_name": "需求原因",
+            "target_node": "N018",
+            "target_input_field_id": "N006_OUT004",
+            "target_usage": "用户只问行情/天气/节假日/市场热度时，环境行情结果直接进入消息中台输出。",
+            "note": "N006 输出 需求原因 进入 N018；边 E049 保持原编号。"
+          },
+          {
+            "edge_id": "E049",
+            "source_node": "N006",
+            "source_output_field_id": "N006_OUT005",
+            "source_output_key": "pricing_effect",
+            "zh_name": "定价影响",
+            "target_node": "N018",
+            "target_input_field_id": "N006_OUT005",
+            "target_usage": "用户只问行情/天气/节假日/市场热度时，环境行情结果直接进入消息中台输出。",
+            "note": "N006 输出 定价影响 进入 N018；边 E049 保持原编号。"
+          }
+        ]
+      },
+      "blueprint_ids": [
+        "BP00",
+        "BP01"
+      ]
+    },
+    {
+      "edge_id": "E050",
+      "source_node_id": "N007",
+      "target_node_id": "N018",
+      "source_node_name": "S7 竞态监控",
+      "target_node_name": "S3 消息中台",
+      "trigger_type": "chain_trigger",
+      "why": "用户只问竞对情况时，竞态监控结果直接输出；不得直接执行价格变更。",
+      "payload_summary": "competitor_context, competitor_alert_level, confidence_level",
+      "payload_contract": {
+        "source_outputs": [
+          "N007_OUT001",
+          "N007_OUT002",
+          "N007_OUT005"
+        ],
+        "target_inputs": [
+          "N007_OUT001",
+          "N007_OUT002",
+          "N007_OUT005"
+        ],
+        "mapping_rows": [
+          {
+            "edge_id": "E050",
+            "source_node": "N007",
+            "source_output_field_id": "N007_OUT001",
+            "source_output_key": "competitor_context",
+            "zh_name": "竞对上下文",
+            "target_node": "N018",
+            "target_input_field_id": "N007_OUT001",
+            "target_usage": "用户只问竞对情况时，竞态监控结果直接输出；不得直接执行价格变更。",
+            "note": "N007 输出 竞对上下文 进入 N018；边 E050 保持原编号。"
+          },
+          {
+            "edge_id": "E050",
+            "source_node": "N007",
+            "source_output_field_id": "N007_OUT002",
+            "source_output_key": "competitor_alert_level",
+            "zh_name": "竞对预警等级",
+            "target_node": "N018",
+            "target_input_field_id": "N007_OUT002",
+            "target_usage": "用户只问竞对情况时，竞态监控结果直接输出；不得直接执行价格变更。",
+            "note": "N007 输出 竞对预警等级 进入 N018；边 E050 保持原编号。"
+          },
+          {
+            "edge_id": "E050",
+            "source_node": "N007",
+            "source_output_field_id": "N007_OUT005",
+            "source_output_key": "confidence_level",
+            "zh_name": "置信度",
+            "target_node": "N018",
+            "target_input_field_id": "N007_OUT005",
+            "target_usage": "用户只问竞对情况时，竞态监控结果直接输出；不得直接执行价格变更。",
+            "note": "N007 输出 置信度 进入 N018；边 E050 保持原编号。"
+          }
+        ]
+      },
+      "blueprint_ids": [
+        "BP00",
+        "BP06"
+      ]
+    },
+    {
+      "edge_id": "E051",
+      "source_node_id": "N008",
+      "target_node_id": "N018",
+      "source_node_name": "S12 口碑管理",
+      "target_node_name": "S3 消息中台",
+      "trigger_type": "chain_trigger",
+      "why": "用户只问口碑概览时，口碑管理结果直接输出；评论内容需脱敏。",
+      "payload_summary": "reputation_result, health_score_impact, reputation_tasks",
+      "payload_contract": {
+        "source_outputs": [
+          "N008_OUT001",
+          "N008_OUT002",
+          "N008_OUT004"
+        ],
+        "target_inputs": [
+          "N008_OUT001",
+          "N008_OUT002",
+          "N008_OUT004"
+        ],
+        "mapping_rows": [
+          {
+            "edge_id": "E051",
+            "source_node": "N008",
+            "source_output_field_id": "N008_OUT001",
+            "source_output_key": "reputation_result",
+            "zh_name": "口碑分析结果",
+            "target_node": "N018",
+            "target_input_field_id": "N008_OUT001",
+            "target_usage": "用户只问口碑概览时，口碑管理结果直接输出；评论内容需脱敏。",
+            "note": "N008 输出 口碑分析结果 进入 N018；边 E051 保持原编号。"
+          },
+          {
+            "edge_id": "E051",
+            "source_node": "N008",
+            "source_output_field_id": "N008_OUT002",
+            "source_output_key": "health_score_impact",
+            "zh_name": "健康分影响",
+            "target_node": "N018",
+            "target_input_field_id": "N008_OUT002",
+            "target_usage": "用户只问口碑概览时，口碑管理结果直接输出；评论内容需脱敏。",
+            "note": "N008 输出 健康分影响 进入 N018；边 E051 保持原编号。"
+          },
+          {
+            "edge_id": "E051",
+            "source_node": "N008",
+            "source_output_field_id": "N008_OUT004",
+            "source_output_key": "reputation_tasks",
+            "zh_name": "口碑任务",
+            "target_node": "N018",
+            "target_input_field_id": "N008_OUT004",
+            "target_usage": "用户只问口碑概览时，口碑管理结果直接输出；评论内容需脱敏。",
+            "note": "N008 输出 口碑任务 进入 N018；边 E051 保持原编号。"
+          }
+        ]
+      },
+      "blueprint_ids": [
+        "BP00",
+        "BP09"
+      ]
+    },
+    {
+      "edge_id": "E052",
+      "source_node_id": "N010",
+      "target_node_id": "N018",
+      "source_node_name": "S15 销售基准线",
+      "target_node_name": "S3 消息中台",
+      "trigger_type": "chain_trigger",
+      "why": "用户只问销售基准线/目标曲线时，基准线结果直接输出。",
+      "payload_summary": "sales_baseline, hourly_target_curve, target_room_nights",
+      "payload_contract": {
+        "source_outputs": [
+          "N010_OUT001",
+          "N010_OUT002",
+          "N010_OUT003"
+        ],
+        "target_inputs": [
+          "N010_OUT001",
+          "N010_OUT002",
+          "N010_OUT003"
+        ],
+        "mapping_rows": [
+          {
+            "edge_id": "E052",
+            "source_node": "N010",
+            "source_output_field_id": "N010_OUT001",
+            "source_output_key": "sales_baseline",
+            "zh_name": "销售基准线",
+            "target_node": "N018",
+            "target_input_field_id": "N010_OUT001",
+            "target_usage": "用户只问销售基准线/目标曲线时，基准线结果直接输出。",
+            "note": "N010 输出 销售基准线 进入 N018；边 E052 保持原编号。"
+          },
+          {
+            "edge_id": "E052",
+            "source_node": "N010",
+            "source_output_field_id": "N010_OUT002",
+            "source_output_key": "hourly_target_curve",
+            "zh_name": "小时目标曲线",
+            "target_node": "N018",
+            "target_input_field_id": "N010_OUT002",
+            "target_usage": "用户只问销售基准线/目标曲线时，基准线结果直接输出。",
+            "note": "N010 输出 小时目标曲线 进入 N018；边 E052 保持原编号。"
+          },
+          {
+            "edge_id": "E052",
+            "source_node": "N010",
+            "source_output_field_id": "N010_OUT003",
+            "source_output_key": "target_room_nights",
+            "zh_name": "目标间夜",
+            "target_node": "N018",
+            "target_input_field_id": "N010_OUT003",
+            "target_usage": "用户只问销售基准线/目标曲线时，基准线结果直接输出。",
+            "note": "N010 输出 目标间夜 进入 N018；边 E052 保持原编号。"
+          }
+        ]
+      },
+      "blueprint_ids": [
+        "BP00",
+        "BP08"
+      ]
+    },
+    {
+      "edge_id": "E053",
+      "source_node_id": "N011",
+      "target_node_id": "N018",
+      "source_node_name": "S16 进度偏差诊断",
+      "target_node_name": "S3 消息中台",
+      "trigger_type": "chain_trigger",
+      "why": "进度偏差诊断可以直接输出偏差预警和原因，不一定触发收益动作。",
+      "payload_summary": "progress_status, room_night_gap, deviation_reasons, urgency_level",
+      "payload_contract": {
+        "source_outputs": [
+          "N011_OUT001",
+          "N011_OUT002",
+          "N011_OUT003",
+          "N011_OUT004"
+        ],
+        "target_inputs": [
+          "N011_OUT001",
+          "N011_OUT002",
+          "N011_OUT003",
+          "N011_OUT004"
+        ],
+        "mapping_rows": [
+          {
+            "edge_id": "E053",
+            "source_node": "N011",
+            "source_output_field_id": "N011_OUT001",
+            "source_output_key": "progress_status",
+            "zh_name": "进度状态",
+            "target_node": "N018",
+            "target_input_field_id": "N011_OUT001",
+            "target_usage": "进度偏差诊断可以直接输出偏差预警和原因，不一定触发收益动作。",
+            "note": "N011 输出 进度状态 进入 N018；边 E053 保持原编号。"
+          },
+          {
+            "edge_id": "E053",
+            "source_node": "N011",
+            "source_output_field_id": "N011_OUT002",
+            "source_output_key": "room_night_gap",
+            "zh_name": "间夜差距",
+            "target_node": "N018",
+            "target_input_field_id": "N011_OUT002",
+            "target_usage": "进度偏差诊断可以直接输出偏差预警和原因，不一定触发收益动作。",
+            "note": "N011 输出 间夜差距 进入 N018；边 E053 保持原编号。"
+          },
+          {
+            "edge_id": "E053",
+            "source_node": "N011",
+            "source_output_field_id": "N011_OUT003",
+            "source_output_key": "deviation_reasons",
+            "zh_name": "偏差原因",
+            "target_node": "N018",
+            "target_input_field_id": "N011_OUT003",
+            "target_usage": "进度偏差诊断可以直接输出偏差预警和原因，不一定触发收益动作。",
+            "note": "N011 输出 偏差原因 进入 N018；边 E053 保持原编号。"
+          },
+          {
+            "edge_id": "E053",
+            "source_node": "N011",
+            "source_output_field_id": "N011_OUT004",
+            "source_output_key": "urgency_level",
+            "zh_name": "紧急程度",
+            "target_node": "N018",
+            "target_input_field_id": "N011_OUT004",
+            "target_usage": "进度偏差诊断可以直接输出偏差预警和原因，不一定触发收益动作。",
+            "note": "N011 输出 紧急程度 进入 N018；边 E053 保持原编号。"
+          }
+        ]
+      },
+      "blueprint_ids": [
+        "BP00",
+        "BP08"
+      ]
+    },
+    {
+      "edge_id": "E054",
+      "source_node_id": "N013",
+      "target_node_id": "N018",
+      "source_node_name": "S10 ROI 决策",
+      "target_node_name": "S3 消息中台",
+      "trigger_type": "chain_trigger",
+      "why": "用户只问 ROI/利润模拟时，ROI 决策结果直接输出。",
+      "payload_summary": "promotion_roi, profit_simulation, roi_decision",
+      "payload_contract": {
+        "source_outputs": [
+          "N013_OUT001",
+          "N013_OUT002",
+          "N013_OUT003"
+        ],
+        "target_inputs": [
+          "N013_OUT001",
+          "N013_OUT002",
+          "N013_OUT003"
+        ],
+        "mapping_rows": [
+          {
+            "edge_id": "E054",
+            "source_node": "N013",
+            "source_output_field_id": "N013_OUT001",
+            "source_output_key": "promotion_roi",
+            "zh_name": "推广 ROI",
+            "target_node": "N018",
+            "target_input_field_id": "N013_OUT001",
+            "target_usage": "用户只问 ROI/利润模拟时，ROI 决策结果直接输出。",
+            "note": "N013 输出 推广 ROI 进入 N018；边 E054 保持原编号。"
+          },
+          {
+            "edge_id": "E054",
+            "source_node": "N013",
+            "source_output_field_id": "N013_OUT002",
+            "source_output_key": "profit_simulation",
+            "zh_name": "利润模拟",
+            "target_node": "N018",
+            "target_input_field_id": "N013_OUT002",
+            "target_usage": "用户只问 ROI/利润模拟时，ROI 决策结果直接输出。",
+            "note": "N013 输出 利润模拟 进入 N018；边 E054 保持原编号。"
+          },
+          {
+            "edge_id": "E054",
+            "source_node": "N013",
+            "source_output_field_id": "N013_OUT003",
+            "source_output_key": "roi_decision",
+            "zh_name": "ROI 决策",
+            "target_node": "N018",
+            "target_input_field_id": "N013_OUT003",
+            "target_usage": "用户只问 ROI/利润模拟时，ROI 决策结果直接输出。",
+            "note": "N013 输出 ROI 决策 进入 N018；边 E054 保持原编号。"
+          }
+        ]
+      },
+      "blueprint_ids": [
+        "BP00",
+        "BP08"
+      ]
+    },
+    {
+      "edge_id": "E055",
+      "source_node_id": "N020",
+      "target_node_id": "N018",
+      "source_node_name": "S9 流量峰谷",
+      "target_node_name": "S3 消息中台",
+      "trigger_type": "chain_trigger",
+      "why": "用户只问流量峰谷/进单时段时，峰谷结果直接输出。",
+      "payload_summary": "traffic_state, time_windows, hourly_demand_index, peak_valley_evidence",
+      "payload_contract": {
+        "source_outputs": [
+          "N020_OUT001",
+          "N020_OUT002",
+          "N020_OUT005",
+          "N020_OUT006"
+        ],
+        "target_inputs": [
+          "N020_OUT001",
+          "N020_OUT002",
+          "N020_OUT005",
+          "N020_OUT006"
+        ],
+        "mapping_rows": [
+          {
+            "edge_id": "E055",
+            "source_node": "N020",
+            "source_output_field_id": "N020_OUT001",
+            "source_output_key": "traffic_state",
+            "zh_name": "流量状态",
+            "target_node": "N018",
+            "target_input_field_id": "N020_OUT001",
+            "target_usage": "用户只问流量峰谷/进单时段时，峰谷结果直接输出。",
+            "note": "N020 输出 流量状态 进入 N018；边 E055 保持原编号。"
+          },
+          {
+            "edge_id": "E055",
+            "source_node": "N020",
+            "source_output_field_id": "N020_OUT002",
+            "source_output_key": "time_windows",
+            "zh_name": "推荐时段窗口",
+            "target_node": "N018",
+            "target_input_field_id": "N020_OUT002",
+            "target_usage": "用户只问流量峰谷/进单时段时，峰谷结果直接输出。",
+            "note": "N020 输出 推荐时段窗口 进入 N018；边 E055 保持原编号。"
+          },
+          {
+            "edge_id": "E055",
+            "source_node": "N020",
+            "source_output_field_id": "N020_OUT005",
+            "source_output_key": "hourly_demand_index",
+            "zh_name": "小时需求指数",
+            "target_node": "N018",
+            "target_input_field_id": "N020_OUT005",
+            "target_usage": "用户只问流量峰谷/进单时段时，峰谷结果直接输出。",
+            "note": "N020 输出 小时需求指数 进入 N018；边 E055 保持原编号。"
+          },
+          {
+            "edge_id": "E055",
+            "source_node": "N020",
+            "source_output_field_id": "N020_OUT006",
+            "source_output_key": "peak_valley_evidence",
+            "zh_name": "峰谷判断证据",
+            "target_node": "N018",
+            "target_input_field_id": "N020_OUT006",
+            "target_usage": "用户只问流量峰谷/进单时段时，峰谷结果直接输出。",
+            "note": "N020 输出 峰谷判断证据 进入 N018；边 E055 保持原编号。"
+          }
+        ]
+      },
+      "blueprint_ids": [
+        "BP00",
+        "BP01",
+        "BP04"
+      ]
+    },
+    {
+      "edge_id": "E056",
+      "source_node_id": "N005",
+      "target_node_id": "N012",
+      "source_node_name": "S2 经营房态采集",
+      "target_node_name": "S8 推广投放与活动建议",
+      "trigger_type": "chain_trigger",
+      "why": "活动/推广建议需要经营、价格、库存快照判断活动后到手价和库存压力。",
+      "payload_summary": "operating_snapshot, inventory_snapshot, price_snapshot",
+      "payload_contract": {
+        "source_outputs": [
+          "N005_OUT001",
+          "N005_OUT002",
+          "N005_OUT003"
+        ],
+        "target_inputs": [
+          "N005_OUT001",
+          "N005_OUT002",
+          "N005_OUT003"
+        ],
+        "mapping_rows": [
+          {
+            "edge_id": "E056",
+            "source_node": "N005",
+            "source_output_field_id": "N005_OUT001",
+            "source_output_key": "operating_snapshot",
+            "zh_name": "经营快照",
+            "target_node": "N012",
+            "target_input_field_id": "N005_OUT001",
+            "target_usage": "活动/推广建议需要经营、价格、库存快照判断活动后到手价和库存压力。",
+            "note": "N005 输出 经营快照 进入 N012；边 E056 保持原编号。"
+          },
+          {
+            "edge_id": "E056",
+            "source_node": "N005",
+            "source_output_field_id": "N005_OUT002",
+            "source_output_key": "inventory_snapshot",
+            "zh_name": "库存快照",
+            "target_node": "N012",
+            "target_input_field_id": "N005_OUT002",
+            "target_usage": "活动/推广建议需要经营、价格、库存快照判断活动后到手价和库存压力。",
+            "note": "N005 输出 库存快照 进入 N012；边 E056 保持原编号。"
+          },
+          {
+            "edge_id": "E056",
+            "source_node": "N005",
+            "source_output_field_id": "N005_OUT003",
+            "source_output_key": "price_snapshot",
+            "zh_name": "价格快照",
+            "target_node": "N012",
+            "target_input_field_id": "N005_OUT003",
+            "target_usage": "活动/推广建议需要经营、价格、库存快照判断活动后到手价和库存压力。",
+            "note": "N005 输出 价格快照 进入 N012；边 E056 保持原编号。"
+          }
+        ]
+      },
+      "blueprint_ids": [
+        "BP05",
+        "BP02"
+      ]
+    },
+    {
+      "edge_id": "E057",
+      "source_node_id": "N006",
+      "target_node_id": "N012",
+      "source_node_name": "S4 环境行情感知",
+      "target_node_name": "S8 推广投放与活动建议",
+      "trigger_type": "chain_trigger",
+      "why": "环境行情和需求指数影响活动/推广是否开启、保留或调整。",
+      "payload_summary": "demand_index, demand_level, demand_reasons",
+      "payload_contract": {
+        "source_outputs": [
+          "N006_OUT001",
+          "N006_OUT002",
+          "N006_OUT004"
+        ],
+        "target_inputs": [
+          "N006_OUT001",
+          "N006_OUT002",
+          "N006_OUT004"
+        ],
+        "mapping_rows": [
+          {
+            "edge_id": "E057",
+            "source_node": "N006",
+            "source_output_field_id": "N006_OUT001",
+            "source_output_key": "demand_index",
+            "zh_name": "需求指数",
+            "target_node": "N012",
+            "target_input_field_id": "N006_OUT001",
+            "target_usage": "环境行情和需求指数影响活动/推广是否开启、保留或调整。",
+            "note": "N006 输出 需求指数 进入 N012；边 E057 保持原编号。"
+          },
+          {
+            "edge_id": "E057",
+            "source_node": "N006",
+            "source_output_field_id": "N006_OUT002",
+            "source_output_key": "demand_level",
+            "zh_name": "需求等级",
+            "target_node": "N012",
+            "target_input_field_id": "N006_OUT002",
+            "target_usage": "环境行情和需求指数影响活动/推广是否开启、保留或调整。",
+            "note": "N006 输出 需求等级 进入 N012；边 E057 保持原编号。"
+          },
+          {
+            "edge_id": "E057",
+            "source_node": "N006",
+            "source_output_field_id": "N006_OUT004",
+            "source_output_key": "demand_reasons",
+            "zh_name": "需求原因",
+            "target_node": "N012",
+            "target_input_field_id": "N006_OUT004",
+            "target_usage": "环境行情和需求指数影响活动/推广是否开启、保留或调整。",
+            "note": "N006 输出 需求原因 进入 N012；边 E057 保持原编号。"
+          }
+        ]
+      },
+      "blueprint_ids": [
+        "BP01",
+        "BP05"
+      ]
+    },
+    {
+      "edge_id": "E058",
+      "source_node_id": "N009",
+      "target_node_id": "N012",
+      "source_node_name": "S14 酒店运营诊断",
+      "target_node_name": "S8 推广投放与活动建议",
+      "trigger_type": "chain_trigger",
+      "why": "诊断弱项和转化瓶颈会影响活动/推广建议，避免用推广掩盖内容或转化问题。",
+      "payload_summary": "conversion_bottleneck, weak_items, diagnosis_actions",
+      "payload_contract": {
+        "source_outputs": [
+          "N009_OUT003",
+          "N009_OUT005",
+          "N009_OUT004"
+        ],
+        "target_inputs": [
+          "N009_OUT003",
+          "N009_OUT005",
+          "N009_OUT004"
+        ],
+        "mapping_rows": [
+          {
+            "edge_id": "E058",
+            "source_node": "N009",
+            "source_output_field_id": "N009_OUT003",
+            "source_output_key": "conversion_bottleneck",
+            "zh_name": "转化瓶颈",
+            "target_node": "N012",
+            "target_input_field_id": "N009_OUT003",
+            "target_usage": "诊断弱项和转化瓶颈会影响活动/推广建议，避免用推广掩盖内容或转化问题。",
+            "note": "N009 输出 转化瓶颈 进入 N012；边 E058 保持原编号。"
+          },
+          {
+            "edge_id": "E058",
+            "source_node": "N009",
+            "source_output_field_id": "N009_OUT005",
+            "source_output_key": "weak_items",
+            "zh_name": "弱项列表",
+            "target_node": "N012",
+            "target_input_field_id": "N009_OUT005",
+            "target_usage": "诊断弱项和转化瓶颈会影响活动/推广建议，避免用推广掩盖内容或转化问题。",
+            "note": "N009 输出 弱项列表 进入 N012；边 E058 保持原编号。"
+          },
+          {
+            "edge_id": "E058",
+            "source_node": "N009",
+            "source_output_field_id": "N009_OUT004",
+            "source_output_key": "diagnosis_actions",
+            "zh_name": "诊断动作",
+            "target_node": "N012",
+            "target_input_field_id": "N009_OUT004",
+            "target_usage": "诊断弱项和转化瓶颈会影响活动/推广建议，避免用推广掩盖内容或转化问题。",
+            "note": "N009 输出 诊断动作 进入 N012；边 E058 保持原编号。"
+          }
+        ]
+      },
+      "blueprint_ids": [
+        "BP03",
+        "BP05"
+      ]
+    },
+    {
+      "edge_id": "E059",
+      "source_node_id": "N007",
+      "target_node_id": "N012",
+      "source_node_name": "S7 竞态监控",
+      "target_node_name": "S8 推广投放与活动建议",
+      "trigger_type": "chain_trigger",
+      "why": "竞对价格、活动、排名变化可作为活动/推广建议的参考输入。",
+      "payload_summary": "competitor_context, competitor_alert_level",
+      "payload_contract": {
+        "source_outputs": [
+          "N007_OUT001",
+          "N007_OUT002"
+        ],
+        "target_inputs": [
+          "N007_OUT001",
+          "N007_OUT002"
+        ],
+        "mapping_rows": [
+          {
+            "edge_id": "E059",
+            "source_node": "N007",
+            "source_output_field_id": "N007_OUT001",
+            "source_output_key": "competitor_context",
+            "zh_name": "竞对上下文",
+            "target_node": "N012",
+            "target_input_field_id": "N007_OUT001",
+            "target_usage": "竞对价格、活动、排名变化可作为活动/推广建议的参考输入。",
+            "note": "N007 输出 竞对上下文 进入 N012；边 E059 保持原编号。"
+          },
+          {
+            "edge_id": "E059",
+            "source_node": "N007",
+            "source_output_field_id": "N007_OUT002",
+            "source_output_key": "competitor_alert_level",
+            "zh_name": "竞对预警等级",
+            "target_node": "N012",
+            "target_input_field_id": "N007_OUT002",
+            "target_usage": "竞对价格、活动、排名变化可作为活动/推广建议的参考输入。",
+            "note": "N007 输出 竞对预警等级 进入 N012；边 E059 保持原编号。"
+          }
+        ]
+      },
+      "blueprint_ids": [
+        "BP06",
+        "BP05"
+      ]
+    },
+    {
+      "edge_id": "E060",
+      "source_node_id": "N006",
+      "target_node_id": "N010",
+      "source_node_name": "S4 环境行情感知",
+      "target_node_name": "S15 销售基准线",
+      "trigger_type": "chain_trigger",
+      "why": "销售基准线需要日期属性、节假日、天气、活动等需求背景修正目标曲线。",
+      "payload_summary": "demand_index, calendar_context, demand_reasons",
+      "payload_contract": {
+        "source_outputs": [
+          "N006_OUT001",
+          "N006_OUT006",
+          "N006_OUT004"
+        ],
+        "target_inputs": [
+          "N006_OUT001",
+          "N006_OUT006",
+          "N006_OUT004"
+        ],
+        "mapping_rows": [
+          {
+            "edge_id": "E060",
+            "source_node": "N006",
+            "source_output_field_id": "N006_OUT001",
+            "source_output_key": "demand_index",
+            "zh_name": "需求指数",
+            "target_node": "N010",
+            "target_input_field_id": "N006_OUT001",
+            "target_usage": "销售基准线需要日期属性、节假日、天气、活动等需求背景修正目标曲线。",
+            "note": "N006 输出 需求指数 进入 N010；边 E060 保持原编号。"
+          },
+          {
+            "edge_id": "E060",
+            "source_node": "N006",
+            "source_output_field_id": "N006_OUT006",
+            "source_output_key": "calendar_context",
+            "zh_name": "上下文",
+            "target_node": "N010",
+            "target_input_field_id": "N006_OUT006",
+            "target_usage": "销售基准线需要日期属性、节假日、天气、活动等需求背景修正目标曲线。",
+            "note": "N006 输出 上下文 进入 N010；边 E060 保持原编号。"
+          },
+          {
+            "edge_id": "E060",
+            "source_node": "N006",
+            "source_output_field_id": "N006_OUT004",
+            "source_output_key": "demand_reasons",
+            "zh_name": "需求原因",
+            "target_node": "N010",
+            "target_input_field_id": "N006_OUT004",
+            "target_usage": "销售基准线需要日期属性、节假日、天气、活动等需求背景修正目标曲线。",
+            "note": "N006 输出 需求原因 进入 N010；边 E060 保持原编号。"
+          }
+        ]
+      },
+      "blueprint_ids": [
+        "BP01",
+        "BP08"
+      ]
+    },
+    {
+      "edge_id": "E061",
+      "source_node_id": "N010",
+      "target_node_id": "N015",
+      "source_node_name": "S15 销售基准线",
+      "target_node_name": "S5 智能收益决策",
+      "trigger_type": "chain_trigger",
+      "why": "销售基准线本身也是收益决策的目标约束，可直接参与收益策略。",
+      "payload_summary": "sales_baseline, target_room_nights, baseline_confidence",
+      "payload_contract": {
+        "source_outputs": [
+          "N010_OUT001",
+          "N010_OUT003",
+          "N010_OUT004"
+        ],
+        "target_inputs": [
+          "N010_OUT001",
+          "N010_OUT003",
+          "N010_OUT004"
+        ],
+        "mapping_rows": [
+          {
+            "edge_id": "E061",
+            "source_node": "N010",
+            "source_output_field_id": "N010_OUT001",
+            "source_output_key": "sales_baseline",
+            "zh_name": "销售基准线",
+            "target_node": "N015",
+            "target_input_field_id": "N010_OUT001",
+            "target_usage": "销售基准线本身也是收益决策的目标约束，可直接参与收益策略。",
+            "note": "N010 输出 销售基准线 进入 N015；边 E061 保持原编号。"
+          },
+          {
+            "edge_id": "E061",
+            "source_node": "N010",
+            "source_output_field_id": "N010_OUT003",
+            "source_output_key": "target_room_nights",
+            "zh_name": "目标间夜",
+            "target_node": "N015",
+            "target_input_field_id": "N010_OUT003",
+            "target_usage": "销售基准线本身也是收益决策的目标约束，可直接参与收益策略。",
+            "note": "N010 输出 目标间夜 进入 N015；边 E061 保持原编号。"
+          },
+          {
+            "edge_id": "E061",
+            "source_node": "N010",
+            "source_output_field_id": "N010_OUT004",
+            "source_output_key": "baseline_confidence",
+            "zh_name": "基准线置信度",
+            "target_node": "N015",
+            "target_input_field_id": "N010_OUT004",
+            "target_usage": "销售基准线本身也是收益决策的目标约束，可直接参与收益策略。",
+            "note": "N010 输出 基准线置信度 进入 N015；边 E061 保持原编号。"
+          }
+        ]
+      },
+      "blueprint_ids": [
+        "BP08",
+        "BP02"
+      ]
+    },
+    {
+      "edge_id": "E062",
+      "source_node_id": "N007",
+      "target_node_id": "N009",
+      "source_node_name": "S7 竞态监控",
+      "target_node_name": "S14 酒店运营诊断",
+      "trigger_type": "chain_trigger",
+      "why": "竞对排名、评分和价格变化会影响 OTA 健康诊断中的竞态维度。",
+      "payload_summary": "competitor_context, competitor_alert_level",
+      "payload_contract": {
+        "source_outputs": [
+          "N007_OUT001",
+          "N007_OUT002"
+        ],
+        "target_inputs": [
+          "N007_OUT001",
+          "N007_OUT002"
+        ],
+        "mapping_rows": [
+          {
+            "edge_id": "E062",
+            "source_node": "N007",
+            "source_output_field_id": "N007_OUT001",
+            "source_output_key": "competitor_context",
+            "zh_name": "竞对上下文",
+            "target_node": "N009",
+            "target_input_field_id": "N007_OUT001",
+            "target_usage": "竞对排名、评分和价格变化会影响 OTA 健康诊断中的竞态维度。",
+            "note": "N007 输出 竞对上下文 进入 N009；边 E062 保持原编号。"
+          },
+          {
+            "edge_id": "E062",
+            "source_node": "N007",
+            "source_output_field_id": "N007_OUT002",
+            "source_output_key": "competitor_alert_level",
+            "zh_name": "竞对预警等级",
+            "target_node": "N009",
+            "target_input_field_id": "N007_OUT002",
+            "target_usage": "竞对排名、评分和价格变化会影响 OTA 健康诊断中的竞态维度。",
+            "note": "N007 输出 竞对预警等级 进入 N009；边 E062 保持原编号。"
+          }
+        ]
+      },
+      "blueprint_ids": [
+        "BP06",
+        "BP03"
+      ]
+    },
+    {
+      "edge_id": "E063",
+      "source_node_id": "N006",
+      "target_node_id": "N009",
+      "source_node_name": "S4 环境行情感知",
+      "target_node_name": "S14 酒店运营诊断",
+      "trigger_type": "chain_trigger",
+      "why": "需求环境影响诊断结论解释，避免把外部行情误判为酒店自身问题。",
+      "payload_summary": "demand_index, demand_reasons, calendar_context",
+      "payload_contract": {
+        "source_outputs": [
+          "N006_OUT001",
+          "N006_OUT004",
+          "N006_OUT006"
+        ],
+        "target_inputs": [
+          "N006_OUT001",
+          "N006_OUT004",
+          "N006_OUT006"
+        ],
+        "mapping_rows": [
+          {
+            "edge_id": "E063",
+            "source_node": "N006",
+            "source_output_field_id": "N006_OUT001",
+            "source_output_key": "demand_index",
+            "zh_name": "需求指数",
+            "target_node": "N009",
+            "target_input_field_id": "N006_OUT001",
+            "target_usage": "需求环境影响诊断结论解释，避免把外部行情误判为酒店自身问题。",
+            "note": "N006 输出 需求指数 进入 N009；边 E063 保持原编号。"
+          },
+          {
+            "edge_id": "E063",
+            "source_node": "N006",
+            "source_output_field_id": "N006_OUT004",
+            "source_output_key": "demand_reasons",
+            "zh_name": "需求原因",
+            "target_node": "N009",
+            "target_input_field_id": "N006_OUT004",
+            "target_usage": "需求环境影响诊断结论解释，避免把外部行情误判为酒店自身问题。",
+            "note": "N006 输出 需求原因 进入 N009；边 E063 保持原编号。"
+          },
+          {
+            "edge_id": "E063",
+            "source_node": "N006",
+            "source_output_field_id": "N006_OUT006",
+            "source_output_key": "calendar_context",
+            "zh_name": "上下文",
+            "target_node": "N009",
+            "target_input_field_id": "N006_OUT006",
+            "target_usage": "需求环境影响诊断结论解释，避免把外部行情误判为酒店自身问题。",
+            "note": "N006 输出 上下文 进入 N009；边 E063 保持原编号。"
+          }
+        ]
+      },
+      "blueprint_ids": [
+        "BP01",
+        "BP03"
+      ]
+    },
+    {
+      "edge_id": "E064",
+      "source_node_id": "N009",
+      "target_node_id": "N019",
+      "source_node_name": "S14 酒店运营诊断",
+      "target_node_name": "EXP-LAYER 经验进化",
+      "trigger_type": "async_trigger",
+      "why": "诊断结论、弱项和整改动作可脱敏沉淀为运营案例和测试候选。",
+      "payload_summary": "ota_health_score, weak_items, diagnosis_actions",
+      "payload_contract": {
+        "source_outputs": [
+          "N009_OUT001",
+          "N009_OUT005",
+          "N009_OUT004"
+        ],
+        "target_inputs": [
+          "N009_OUT001",
+          "N009_OUT005",
+          "N009_OUT004"
+        ],
+        "mapping_rows": [
+          {
+            "edge_id": "E064",
+            "source_node": "N009",
+            "source_output_field_id": "N009_OUT001",
+            "source_output_key": "ota_health_score",
+            "zh_name": "OTA健康分",
+            "target_node": "N019",
+            "target_input_field_id": "N009_OUT001",
+            "target_usage": "诊断结论、弱项和整改动作可脱敏沉淀为运营案例和测试候选。",
+            "note": "N009 输出 OTA健康分 进入 N019；边 E064 保持原编号。"
+          },
+          {
+            "edge_id": "E064",
+            "source_node": "N009",
+            "source_output_field_id": "N009_OUT005",
+            "source_output_key": "weak_items",
+            "zh_name": "弱项列表",
+            "target_node": "N019",
+            "target_input_field_id": "N009_OUT005",
+            "target_usage": "诊断结论、弱项和整改动作可脱敏沉淀为运营案例和测试候选。",
+            "note": "N009 输出 弱项列表 进入 N019；边 E064 保持原编号。"
+          },
+          {
+            "edge_id": "E064",
+            "source_node": "N009",
+            "source_output_field_id": "N009_OUT004",
+            "source_output_key": "diagnosis_actions",
+            "zh_name": "诊断动作",
+            "target_node": "N019",
+            "target_input_field_id": "N009_OUT004",
+            "target_usage": "诊断结论、弱项和整改动作可脱敏沉淀为运营案例和测试候选。",
+            "note": "N009 输出 诊断动作 进入 N019；边 E064 保持原编号。"
+          }
+        ]
+      },
+      "blueprint_ids": [
+        "BP11",
+        "BP03"
+      ]
+    },
+    {
+      "edge_id": "E065",
+      "source_node_id": "N011",
+      "target_node_id": "N019",
+      "source_node_name": "S16 进度偏差诊断",
+      "target_node_name": "EXP-LAYER 经验进化",
+      "trigger_type": "async_trigger",
+      "why": "偏差原因和补救效果可脱敏沉淀为进度巡检经验。",
+      "payload_summary": "progress_status, deviation_reasons, urgency_level",
+      "payload_contract": {
+        "source_outputs": [
+          "N011_OUT001",
+          "N011_OUT003",
+          "N011_OUT004"
+        ],
+        "target_inputs": [
+          "N011_OUT001",
+          "N011_OUT003",
+          "N011_OUT004"
+        ],
+        "mapping_rows": [
+          {
+            "edge_id": "E065",
+            "source_node": "N011",
+            "source_output_field_id": "N011_OUT001",
+            "source_output_key": "progress_status",
+            "zh_name": "进度状态",
+            "target_node": "N019",
+            "target_input_field_id": "N011_OUT001",
+            "target_usage": "偏差原因和补救效果可脱敏沉淀为进度巡检经验。",
+            "note": "N011 输出 进度状态 进入 N019；边 E065 保持原编号。"
+          },
+          {
+            "edge_id": "E065",
+            "source_node": "N011",
+            "source_output_field_id": "N011_OUT003",
+            "source_output_key": "deviation_reasons",
+            "zh_name": "偏差原因",
+            "target_node": "N019",
+            "target_input_field_id": "N011_OUT003",
+            "target_usage": "偏差原因和补救效果可脱敏沉淀为进度巡检经验。",
+            "note": "N011 输出 偏差原因 进入 N019；边 E065 保持原编号。"
+          },
+          {
+            "edge_id": "E065",
+            "source_node": "N011",
+            "source_output_field_id": "N011_OUT004",
+            "source_output_key": "urgency_level",
+            "zh_name": "紧急程度",
+            "target_node": "N019",
+            "target_input_field_id": "N011_OUT004",
+            "target_usage": "偏差原因和补救效果可脱敏沉淀为进度巡检经验。",
+            "note": "N011 输出 紧急程度 进入 N019；边 E065 保持原编号。"
+          }
+        ]
+      },
+      "blueprint_ids": [
+        "BP11",
+        "BP08"
+      ]
+    },
+    {
+      "edge_id": "E066",
+      "source_node_id": "N008",
+      "target_node_id": "N019",
+      "source_node_name": "S12 口碑管理",
+      "target_node_name": "EXP-LAYER 经验进化",
+      "trigger_type": "async_trigger",
+      "why": "口碑分类和处理结果可脱敏沉淀为评论处理经验。",
+      "payload_summary": "reputation_result, problem_tags, reply_needed",
+      "payload_contract": {
+        "source_outputs": [
+          "N008_OUT001",
+          "N008_OUT005",
+          "N008_OUT003"
+        ],
+        "target_inputs": [
+          "N008_OUT001",
+          "N008_OUT005",
+          "N008_OUT003"
+        ],
+        "mapping_rows": [
+          {
+            "edge_id": "E066",
+            "source_node": "N008",
+            "source_output_field_id": "N008_OUT001",
+            "source_output_key": "reputation_result",
+            "zh_name": "口碑分析结果",
+            "target_node": "N019",
+            "target_input_field_id": "N008_OUT001",
+            "target_usage": "口碑分类和处理结果可脱敏沉淀为评论处理经验。",
+            "note": "N008 输出 口碑分析结果 进入 N019；边 E066 保持原编号。"
+          },
+          {
+            "edge_id": "E066",
+            "source_node": "N008",
+            "source_output_field_id": "N008_OUT005",
+            "source_output_key": "problem_tags",
+            "zh_name": "问题标签",
+            "target_node": "N019",
+            "target_input_field_id": "N008_OUT005",
+            "target_usage": "口碑分类和处理结果可脱敏沉淀为评论处理经验。",
+            "note": "N008 输出 问题标签 进入 N019；边 E066 保持原编号。"
+          },
+          {
+            "edge_id": "E066",
+            "source_node": "N008",
+            "source_output_field_id": "N008_OUT003",
+            "source_output_key": "reply_needed",
+            "zh_name": "是否需要回复",
+            "target_node": "N019",
+            "target_input_field_id": "N008_OUT003",
+            "target_usage": "口碑分类和处理结果可脱敏沉淀为评论处理经验。",
+            "note": "N008 输出 是否需要回复 进入 N019；边 E066 保持原编号。"
+          }
+        ]
+      },
+      "blueprint_ids": [
+        "BP11",
+        "BP09"
+      ]
+    },
+    {
+      "edge_id": "E067",
+      "source_node_id": "N014",
+      "target_node_id": "N019",
+      "source_node_name": "S17 客户订单分析",
+      "target_node_name": "EXP-LAYER 经验进化",
+      "trigger_type": "async_trigger",
+      "why": "客户结构和流失风险可脱敏沉淀为客群运营经验。",
+      "payload_summary": "customer_segments, loss_risk_alert, target_guest_tasks",
+      "payload_contract": {
+        "source_outputs": [
+          "N014_OUT001",
+          "N014_OUT003",
+          "N014_OUT004"
+        ],
+        "target_inputs": [
+          "N014_OUT001",
+          "N014_OUT003",
+          "N014_OUT004"
+        ],
+        "mapping_rows": [
+          {
+            "edge_id": "E067",
+            "source_node": "N014",
+            "source_output_field_id": "N014_OUT001",
+            "source_output_key": "customer_segments",
+            "zh_name": "客户分层",
+            "target_node": "N019",
+            "target_input_field_id": "N014_OUT001",
+            "target_usage": "客户结构和流失风险可脱敏沉淀为客群运营经验。",
+            "note": "N014 输出 客户分层 进入 N019；边 E067 保持原编号。"
+          },
+          {
+            "edge_id": "E067",
+            "source_node": "N014",
+            "source_output_field_id": "N014_OUT003",
+            "source_output_key": "loss_risk_alert",
+            "zh_name": "流失风险预警",
+            "target_node": "N019",
+            "target_input_field_id": "N014_OUT003",
+            "target_usage": "客户结构和流失风险可脱敏沉淀为客群运营经验。",
+            "note": "N014 输出 流失风险预警 进入 N019；边 E067 保持原编号。"
+          },
+          {
+            "edge_id": "E067",
+            "source_node": "N014",
+            "source_output_field_id": "N014_OUT004",
+            "source_output_key": "target_guest_tasks",
+            "zh_name": "目标客户任务",
+            "target_node": "N019",
+            "target_input_field_id": "N014_OUT004",
+            "target_usage": "客户结构和流失风险可脱敏沉淀为客群运营经验。",
+            "note": "N014 输出 目标客户任务 进入 N019；边 E067 保持原编号。"
+          }
+        ]
+      },
+      "blueprint_ids": [
+        "BP11",
+        "BP08",
+        "BP09"
+      ]
+    }
+  ]
+}

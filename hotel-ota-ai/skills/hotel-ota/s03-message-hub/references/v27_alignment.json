@@ -1,0 +1,1223 @@
+{
+  "skill_id": "S3",
+  "skill_name": "S3",
+  "node_ids": [
+    "N018"
+  ],
+  "agent_id": "A5",
+  "agent_ids": [
+    "A5"
+  ],
+  "blueprint_basis": [
+    "BP00",
+    "BP10",
+    "BP11",
+    "BP07"
+  ],
+  "input_field_ids": [
+    "MSG005",
+    "MSG006",
+    "MSG007",
+    "EXE001",
+    "CTX008",
+    "MSG008",
+    "EXE009",
+    "N015_OUT001",
+    "N015_OUT004",
+    "N016_OUT001",
+    "N016_OUT002",
+    "N016_OUT003",
+    "N009_OUT005",
+    "N009_OUT004",
+    "N009_OUT006",
+    "N012_OUT001",
+    "N012_OUT002",
+    "N012_OUT003",
+    "N017_OUT001",
+    "N017_OUT002",
+    "N019_OUT004",
+    "N021_OUT005",
+    "N021_OUT007",
+    "N021_OUT004",
+    "N022_OUT001",
+    "N022_OUT003",
+    "N005_OUT001",
+    "N005_OUT002",
+    "N005_OUT003",
+    "N005_OUT005",
+    "N014_OUT001",
+    "N014_OUT002",
+    "N014_OUT003",
+    "N006_OUT001",
+    "N006_OUT002",
+    "N006_OUT004",
+    "N006_OUT005",
+    "N007_OUT001",
+    "N007_OUT002",
+    "N007_OUT005",
+    "N008_OUT001",
+    "N008_OUT002",
+    "N008_OUT004",
+    "N010_OUT001",
+    "N010_OUT002",
+    "N010_OUT003",
+    "N011_OUT001",
+    "N011_OUT002",
+    "N011_OUT003",
+    "N011_OUT004",
+    "N013_OUT001",
+    "N013_OUT002",
+    "N013_OUT003",
+    "N020_OUT001",
+    "N020_OUT002",
+    "N020_OUT005",
+    "N020_OUT006"
+  ],
+  "output_field_ids": [
+    "N018_OUT001",
+    "N018_OUT002",
+    "N018_OUT003",
+    "N018_OUT004",
+    "N018_OUT005"
+  ],
+  "input_fields": [
+    {
+      "field_id": "MSG005",
+      "canonical_key": "template_id",
+      "project_field_name": "template_id",
+      "zh_name": "模板编号",
+      "data_type": "string",
+      "required_level": "必选/增强",
+      "source_type": "project_only",
+      "source_node": "",
+      "source_skill": "",
+      "downstream_node": [
+        "用户",
+        "飞书",
+        "N019"
+      ],
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "evidence": "V25字段契约直接输入"
+    },
+    {
+      "field_id": "MSG006",
+      "canonical_key": "recipient_role",
+      "project_field_name": "recipient_role",
+      "zh_name": "接收角色",
+      "data_type": "string",
+      "required_level": "必选/增强",
+      "source_type": "project_only",
+      "source_node": "",
+      "source_skill": "",
+      "downstream_node": [
+        "用户",
+        "飞书",
+        "N019"
+      ],
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "evidence": "V25字段契约直接输入"
+    },
+    {
+      "field_id": "MSG007",
+      "canonical_key": "payload_summary",
+      "project_field_name": "payload_summary",
+      "zh_name": "载荷摘要",
+      "data_type": "object",
+      "required_level": "必选/增强",
+      "source_type": "project_only",
+      "source_node": "",
+      "source_skill": "",
+      "downstream_node": [
+        "用户",
+        "飞书",
+        "N019"
+      ],
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "evidence": "V25字段契约直接输入"
+    },
+    {
+      "field_id": "EXE001",
+      "canonical_key": "approval_id",
+      "project_field_name": "approval_id",
+      "zh_name": "审批编号",
+      "data_type": "string",
+      "required_level": "必选/增强",
+      "source_type": "project_only",
+      "source_node": "",
+      "source_skill": "",
+      "downstream_node": [
+        "用户",
+        "飞书",
+        "N019"
+      ],
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "evidence": "V25字段契约直接输入"
+    },
+    {
+      "field_id": "CTX008",
+      "canonical_key": "freshness_status",
+      "project_field_name": "freshness_status",
+      "zh_name": "数据新鲜度状态",
+      "data_type": "string",
+      "required_level": "必选/增强",
+      "source_type": "project_only",
+      "source_node": "",
+      "source_skill": "",
+      "downstream_node": [
+        "用户",
+        "飞书",
+        "N019"
+      ],
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "evidence": "V25字段契约直接输入"
+    },
+    {
+      "field_id": "MSG008",
+      "canonical_key": "target_role",
+      "project_field_name": "target_role",
+      "zh_name": "目标角色",
+      "data_type": "string",
+      "required_level": "必选/增强",
+      "source_type": "project_only",
+      "source_node": "",
+      "source_skill": "",
+      "downstream_node": [
+        "用户",
+        "飞书",
+        "N019"
+      ],
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "evidence": "V25字段契约直接输入"
+    },
+    {
+      "field_id": "EXE009",
+      "canonical_key": "blocked_reason",
+      "project_field_name": "blocked_reason",
+      "zh_name": "阻断原因",
+      "data_type": "array",
+      "required_level": "必选/增强",
+      "source_type": "project_only",
+      "source_node": "",
+      "source_skill": "",
+      "downstream_node": [
+        "用户",
+        "飞书",
+        "N019"
+      ],
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "evidence": "V25字段契约直接输入"
+    },
+    {
+      "field_id": "N015_OUT001",
+      "canonical_key": "revenue_decision",
+      "project_field_name": "revenue_decision",
+      "zh_name": "收益决策",
+      "data_type": "object",
+      "required_level": "按链路触发必需",
+      "source_type": "upstream_output",
+      "source_node": "N015",
+      "source_skill": "S5",
+      "downstream_node": [
+        "用户",
+        "飞书",
+        "N019"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "15_上游输出展开 E021"
+    },
+    {
+      "field_id": "N015_OUT004",
+      "canonical_key": "risk_warnings",
+      "project_field_name": "risk_warnings",
+      "zh_name": "风险",
+      "data_type": "array",
+      "required_level": "按链路触发必需",
+      "source_type": "upstream_output",
+      "source_node": "N015",
+      "source_skill": "S5",
+      "downstream_node": [
+        "用户",
+        "飞书",
+        "N019"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "15_上游输出展开 E021"
+    },
+    {
+      "field_id": "N016_OUT001",
+      "canonical_key": "dry_run_preview",
+      "project_field_name": "dry_run_preview",
+      "zh_name": "Dry-run 预览",
+      "data_type": "object",
+      "required_level": "按链路触发必需",
+      "source_type": "upstream_output",
+      "source_node": "N016",
+      "source_skill": "S6",
+      "downstream_node": [
+        "用户",
+        "飞书",
+        "N019"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "15_上游输出展开 E022"
+    },
+    {
+      "field_id": "N016_OUT002",
+      "canonical_key": "execution_result",
+      "project_field_name": "execution_result",
+      "zh_name": "执行结果",
+      "data_type": "object",
+      "required_level": "按链路触发必需",
+      "source_type": "upstream_output",
+      "source_node": "N016",
+      "source_skill": "S6",
+      "downstream_node": [
+        "用户",
+        "飞书",
+        "N019"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "15_上游输出展开 E022"
+    },
+    {
+      "field_id": "N016_OUT003",
+      "canonical_key": "blocked_reason",
+      "project_field_name": "blocked_reason",
+      "zh_name": "阻断原因",
+      "data_type": "array",
+      "required_level": "按链路触发必需",
+      "source_type": "upstream_output",
+      "source_node": "N016",
+      "source_skill": "S6",
+      "downstream_node": [
+        "用户",
+        "飞书",
+        "N019"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "15_上游输出展开 E022"
+    },
+    {
+      "field_id": "N009_OUT005",
+      "canonical_key": "weak_items",
+      "project_field_name": "weak_items",
+      "zh_name": "弱项列表",
+      "data_type": "array",
+      "required_level": "按链路触发必需",
+      "source_type": "upstream_output",
+      "source_node": "N009",
+      "source_skill": "S14",
+      "downstream_node": [
+        "用户",
+        "飞书",
+        "N019"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "15_上游输出展开 E023"
+    },
+    {
+      "field_id": "N009_OUT004",
+      "canonical_key": "diagnosis_actions",
+      "project_field_name": "diagnosis_actions",
+      "zh_name": "诊断动作",
+      "data_type": "array",
+      "required_level": "按链路触发必需",
+      "source_type": "upstream_output",
+      "source_node": "N009",
+      "source_skill": "S14",
+      "downstream_node": [
+        "用户",
+        "飞书",
+        "N019"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "15_上游输出展开 E023"
+    },
+    {
+      "field_id": "N009_OUT006",
+      "canonical_key": "ab_tasks",
+      "project_field_name": "ab_tasks",
+      "zh_name": "A/B 测试任务",
+      "data_type": "array",
+      "required_level": "按链路触发必需",
+      "source_type": "upstream_output",
+      "source_node": "N009",
+      "source_skill": "S14",
+      "downstream_node": [
+        "用户",
+        "飞书",
+        "N019"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "15_上游输出展开 E023"
+    },
+    {
+      "field_id": "N012_OUT001",
+      "canonical_key": "activity_plan",
+      "project_field_name": "activity_plan",
+      "zh_name": "活动计划",
+      "data_type": "object",
+      "required_level": "按链路触发必需",
+      "source_type": "upstream_output",
+      "source_node": "N012",
+      "source_skill": "S8",
+      "downstream_node": [
+        "用户",
+        "飞书",
+        "N019"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "15_上游输出展开 E024"
+    },
+    {
+      "field_id": "N012_OUT002",
+      "canonical_key": "promotion_plan",
+      "project_field_name": "promotion_plan",
+      "zh_name": "推广计划",
+      "data_type": "object",
+      "required_level": "按链路触发必需",
+      "source_type": "upstream_output",
+      "source_node": "N012",
+      "source_skill": "S8",
+      "downstream_node": [
+        "用户",
+        "飞书",
+        "N019"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "15_上游输出展开 E024"
+    },
+    {
+      "field_id": "N012_OUT003",
+      "canonical_key": "activity_risks",
+      "project_field_name": "activity_risks",
+      "zh_name": "活动风险",
+      "data_type": "array",
+      "required_level": "按链路触发必需",
+      "source_type": "upstream_output",
+      "source_node": "N012",
+      "source_skill": "S8",
+      "downstream_node": [
+        "用户",
+        "飞书",
+        "N019"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "15_上游输出展开 E024"
+    },
+    {
+      "field_id": "N017_OUT001",
+      "canonical_key": "reply_draft",
+      "project_field_name": "reply_draft",
+      "zh_name": "回复草稿",
+      "data_type": "string",
+      "required_level": "按链路触发必需",
+      "source_type": "upstream_output",
+      "source_node": "N017",
+      "source_skill": "S13",
+      "downstream_node": [
+        "用户",
+        "飞书",
+        "N019"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "15_上游输出展开 E025"
+    },
+    {
+      "field_id": "N017_OUT002",
+      "canonical_key": "compensation_suggestion",
+      "project_field_name": "compensation_suggestion",
+      "zh_name": "补偿建议",
+      "data_type": "object",
+      "required_level": "按链路触发必需",
+      "source_type": "upstream_output",
+      "source_node": "N017",
+      "source_skill": "S13",
+      "downstream_node": [
+        "用户",
+        "飞书",
+        "N019"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "15_上游输出展开 E025"
+    },
+    {
+      "field_id": "N019_OUT004",
+      "canonical_key": "retrieved_experience_summary",
+      "project_field_name": "retrieved_experience_summary",
+      "zh_name": "召回经验摘要",
+      "data_type": "object",
+      "required_level": "按链路触发必需",
+      "source_type": "upstream_output",
+      "source_node": "N019",
+      "source_skill": "-",
+      "downstream_node": [
+        "用户",
+        "飞书",
+        "N019"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "15_上游输出展开 E029"
+    },
+    {
+      "field_id": "N021_OUT005",
+      "canonical_key": "promotion_execution_task",
+      "project_field_name": "promotion_execution_task",
+      "zh_name": "推广执行任务",
+      "data_type": "object",
+      "required_level": "按链路触发必需",
+      "source_type": "upstream_output",
+      "source_node": "N021",
+      "source_skill": "S11",
+      "downstream_node": [
+        "用户",
+        "飞书",
+        "N019"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "15_上游输出展开 E039"
+    },
+    {
+      "field_id": "N021_OUT007",
+      "canonical_key": "execution_status",
+      "project_field_name": "execution_status",
+      "zh_name": "执行状态",
+      "data_type": "enum",
+      "required_level": "按链路触发必需",
+      "source_type": "upstream_output",
+      "source_node": "N021",
+      "source_skill": "S11",
+      "downstream_node": [
+        "用户",
+        "飞书",
+        "N019"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "15_上游输出展开 E039"
+    },
+    {
+      "field_id": "N021_OUT004",
+      "canonical_key": "verification_checklist",
+      "project_field_name": "verification_checklist",
+      "zh_name": "复核清单",
+      "data_type": "array",
+      "required_level": "按链路触发必需",
+      "source_type": "upstream_output",
+      "source_node": "N021",
+      "source_skill": "S11",
+      "downstream_node": [
+        "用户",
+        "飞书",
+        "N019"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "15_上游输出展开 E039"
+    },
+    {
+      "field_id": "N022_OUT001",
+      "canonical_key": "external_diagnosis_report_html",
+      "project_field_name": "external_diagnosis_report_html",
+      "zh_name": "外部诊断 HTML 报告",
+      "data_type": "string",
+      "required_level": "按链路触发必需",
+      "source_type": "upstream_output",
+      "source_node": "N022",
+      "source_skill": "S14-EXT",
+      "downstream_node": [
+        "用户",
+        "飞书",
+        "N019"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "15_上游输出展开 E044"
+    },
+    {
+      "field_id": "N022_OUT003",
+      "canonical_key": "data_gap_list",
+      "project_field_name": "data_gap_list",
+      "zh_name": "数据缺口列表",
+      "data_type": "array",
+      "required_level": "按链路触发必需",
+      "source_type": "upstream_output",
+      "source_node": "N022",
+      "source_skill": "S14-EXT",
+      "downstream_node": [
+        "用户",
+        "飞书",
+        "N019"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "15_上游输出展开 E044"
+    },
+    {
+      "field_id": "N005_OUT001",
+      "canonical_key": "operating_snapshot",
+      "project_field_name": "operating_snapshot",
+      "zh_name": "经营快照",
+      "data_type": "object",
+      "required_level": "按链路触发必需",
+      "source_type": "upstream_output",
+      "source_node": "N005",
+      "source_skill": "S2",
+      "downstream_node": [
+        "用户",
+        "飞书",
+        "N019"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "15_上游输出展开 E046"
+    },
+    {
+      "field_id": "N005_OUT002",
+      "canonical_key": "inventory_snapshot",
+      "project_field_name": "inventory_snapshot",
+      "zh_name": "库存快照",
+      "data_type": "object",
+      "required_level": "按链路触发必需",
+      "source_type": "upstream_output",
+      "source_node": "N005",
+      "source_skill": "S2",
+      "downstream_node": [
+        "用户",
+        "飞书",
+        "N019"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "15_上游输出展开 E046"
+    },
+    {
+      "field_id": "N005_OUT003",
+      "canonical_key": "price_snapshot",
+      "project_field_name": "price_snapshot",
+      "zh_name": "价格快照",
+      "data_type": "object",
+      "required_level": "按链路触发必需",
+      "source_type": "upstream_output",
+      "source_node": "N005",
+      "source_skill": "S2",
+      "downstream_node": [
+        "用户",
+        "飞书",
+        "N019"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "15_上游输出展开 E046"
+    },
+    {
+      "field_id": "N005_OUT005",
+      "canonical_key": "freshness_status",
+      "project_field_name": "freshness_status",
+      "zh_name": "数据新鲜度状态",
+      "data_type": "string",
+      "required_level": "按链路触发必需",
+      "source_type": "upstream_output",
+      "source_node": "N005",
+      "source_skill": "S2",
+      "downstream_node": [
+        "用户",
+        "飞书",
+        "N019"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "15_上游输出展开 E046"
+    },
+    {
+      "field_id": "N014_OUT001",
+      "canonical_key": "customer_segments",
+      "project_field_name": "customer_segments",
+      "zh_name": "客户分层",
+      "data_type": "array",
+      "required_level": "按链路触发必需",
+      "source_type": "upstream_output",
+      "source_node": "N014",
+      "source_skill": "S17",
+      "downstream_node": [
+        "用户",
+        "飞书",
+        "N019"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "15_上游输出展开 E048"
+    },
+    {
+      "field_id": "N014_OUT002",
+      "canonical_key": "repeat_guest_rate",
+      "project_field_name": "repeat_guest_rate",
+      "zh_name": "复购率",
+      "data_type": "number",
+      "required_level": "按链路触发必需",
+      "source_type": "upstream_output",
+      "source_node": "N014",
+      "source_skill": "S17",
+      "downstream_node": [
+        "用户",
+        "飞书",
+        "N019"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "15_上游输出展开 E048"
+    },
+    {
+      "field_id": "N014_OUT003",
+      "canonical_key": "loss_risk_alert",
+      "project_field_name": "loss_risk_alert",
+      "zh_name": "流失风险预警",
+      "data_type": "array",
+      "required_level": "按链路触发必需",
+      "source_type": "upstream_output",
+      "source_node": "N014",
+      "source_skill": "S17",
+      "downstream_node": [
+        "用户",
+        "飞书",
+        "N019"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "15_上游输出展开 E048"
+    },
+    {
+      "field_id": "N006_OUT001",
+      "canonical_key": "demand_index",
+      "project_field_name": "demand_index",
+      "zh_name": "需求指数",
+      "data_type": "number",
+      "required_level": "按链路触发必需",
+      "source_type": "upstream_output",
+      "source_node": "N006",
+      "source_skill": "S4",
+      "downstream_node": [
+        "用户",
+        "飞书",
+        "N019"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "15_上游输出展开 E049"
+    },
+    {
+      "field_id": "N006_OUT002",
+      "canonical_key": "demand_level",
+      "project_field_name": "demand_level",
+      "zh_name": "需求等级",
+      "data_type": "string",
+      "required_level": "按链路触发必需",
+      "source_type": "upstream_output",
+      "source_node": "N006",
+      "source_skill": "S4",
+      "downstream_node": [
+        "用户",
+        "飞书",
+        "N019"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "15_上游输出展开 E049"
+    },
+    {
+      "field_id": "N006_OUT004",
+      "canonical_key": "demand_reasons",
+      "project_field_name": "demand_reasons",
+      "zh_name": "需求原因",
+      "data_type": "object",
+      "required_level": "按链路触发必需",
+      "source_type": "upstream_output",
+      "source_node": "N006",
+      "source_skill": "S4",
+      "downstream_node": [
+        "用户",
+        "飞书",
+        "N019"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "15_上游输出展开 E049"
+    },
+    {
+      "field_id": "N006_OUT005",
+      "canonical_key": "pricing_effect",
+      "project_field_name": "pricing_effect",
+      "zh_name": "定价影响",
+      "data_type": "string",
+      "required_level": "按链路触发必需",
+      "source_type": "upstream_output",
+      "source_node": "N006",
+      "source_skill": "S4",
+      "downstream_node": [
+        "用户",
+        "飞书",
+        "N019"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "15_上游输出展开 E049"
+    },
+    {
+      "field_id": "N007_OUT001",
+      "canonical_key": "competitor_context",
+      "project_field_name": "competitor_context",
+      "zh_name": "竞对上下文",
+      "data_type": "object",
+      "required_level": "按链路触发必需",
+      "source_type": "upstream_output",
+      "source_node": "N007",
+      "source_skill": "S7",
+      "downstream_node": [
+        "用户",
+        "飞书",
+        "N019"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "15_上游输出展开 E050"
+    },
+    {
+      "field_id": "N007_OUT002",
+      "canonical_key": "competitor_alert_level",
+      "project_field_name": "competitor_alert_level",
+      "zh_name": "竞对预警等级",
+      "data_type": "enum",
+      "required_level": "按链路触发必需",
+      "source_type": "upstream_output",
+      "source_node": "N007",
+      "source_skill": "S7",
+      "downstream_node": [
+        "用户",
+        "飞书",
+        "N019"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "15_上游输出展开 E050"
+    },
+    {
+      "field_id": "N007_OUT005",
+      "canonical_key": "confidence_level",
+      "project_field_name": "confidence_level",
+      "zh_name": "置信度",
+      "data_type": "string",
+      "required_level": "按链路触发必需",
+      "source_type": "upstream_output",
+      "source_node": "N007",
+      "source_skill": "S7",
+      "downstream_node": [
+        "用户",
+        "飞书",
+        "N019"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "15_上游输出展开 E050"
+    },
+    {
+      "field_id": "N008_OUT001",
+      "canonical_key": "reputation_result",
+      "project_field_name": "reputation_result",
+      "zh_name": "口碑分析结果",
+      "data_type": "string",
+      "required_level": "按链路触发必需",
+      "source_type": "upstream_output",
+      "source_node": "N008",
+      "source_skill": "S12",
+      "downstream_node": [
+        "用户",
+        "飞书",
+        "N019"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "15_上游输出展开 E051"
+    },
+    {
+      "field_id": "N008_OUT002",
+      "canonical_key": "health_score_impact",
+      "project_field_name": "health_score_impact",
+      "zh_name": "健康分影响",
+      "data_type": "number",
+      "required_level": "按链路触发必需",
+      "source_type": "upstream_output",
+      "source_node": "N008",
+      "source_skill": "S12",
+      "downstream_node": [
+        "用户",
+        "飞书",
+        "N019"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "15_上游输出展开 E051"
+    },
+    {
+      "field_id": "N008_OUT004",
+      "canonical_key": "reputation_tasks",
+      "project_field_name": "reputation_tasks",
+      "zh_name": "口碑任务",
+      "data_type": "array",
+      "required_level": "按链路触发必需",
+      "source_type": "upstream_output",
+      "source_node": "N008",
+      "source_skill": "S12",
+      "downstream_node": [
+        "用户",
+        "飞书",
+        "N019"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "15_上游输出展开 E051"
+    },
+    {
+      "field_id": "N010_OUT001",
+      "canonical_key": "sales_baseline",
+      "project_field_name": "sales_baseline",
+      "zh_name": "销售基准线",
+      "data_type": "object",
+      "required_level": "按链路触发必需",
+      "source_type": "upstream_output",
+      "source_node": "N010",
+      "source_skill": "S15",
+      "downstream_node": [
+        "用户",
+        "飞书",
+        "N019"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "15_上游输出展开 E052"
+    },
+    {
+      "field_id": "N010_OUT002",
+      "canonical_key": "hourly_target_curve",
+      "project_field_name": "hourly_target_curve",
+      "zh_name": "小时目标曲线",
+      "data_type": "array",
+      "required_level": "按链路触发必需",
+      "source_type": "upstream_output",
+      "source_node": "N010",
+      "source_skill": "S15",
+      "downstream_node": [
+        "用户",
+        "飞书",
+        "N019"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "15_上游输出展开 E052"
+    },
+    {
+      "field_id": "N010_OUT003",
+      "canonical_key": "target_room_nights",
+      "project_field_name": "target_room_nights",
+      "zh_name": "目标间夜",
+      "data_type": "number",
+      "required_level": "按链路触发必需",
+      "source_type": "upstream_output",
+      "source_node": "N010",
+      "source_skill": "S15",
+      "downstream_node": [
+        "用户",
+        "飞书",
+        "N019"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "15_上游输出展开 E052"
+    },
+    {
+      "field_id": "N011_OUT001",
+      "canonical_key": "progress_status",
+      "project_field_name": "progress_status",
+      "zh_name": "进度状态",
+      "data_type": "string",
+      "required_level": "按链路触发必需",
+      "source_type": "upstream_output",
+      "source_node": "N011",
+      "source_skill": "S16",
+      "downstream_node": [
+        "用户",
+        "飞书",
+        "N019"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "15_上游输出展开 E053"
+    },
+    {
+      "field_id": "N011_OUT002",
+      "canonical_key": "room_night_gap",
+      "project_field_name": "room_night_gap",
+      "zh_name": "间夜差距",
+      "data_type": "number",
+      "required_level": "按链路触发必需",
+      "source_type": "upstream_output",
+      "source_node": "N011",
+      "source_skill": "S16",
+      "downstream_node": [
+        "用户",
+        "飞书",
+        "N019"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "15_上游输出展开 E053"
+    },
+    {
+      "field_id": "N011_OUT003",
+      "canonical_key": "deviation_reasons",
+      "project_field_name": "deviation_reasons",
+      "zh_name": "偏差原因",
+      "data_type": "array",
+      "required_level": "按链路触发必需",
+      "source_type": "upstream_output",
+      "source_node": "N011",
+      "source_skill": "S16",
+      "downstream_node": [
+        "用户",
+        "飞书",
+        "N019"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "15_上游输出展开 E053"
+    },
+    {
+      "field_id": "N011_OUT004",
+      "canonical_key": "urgency_level",
+      "project_field_name": "urgency_level",
+      "zh_name": "紧急程度",
+      "data_type": "string",
+      "required_level": "按链路触发必需",
+      "source_type": "upstream_output",
+      "source_node": "N011",
+      "source_skill": "S16",
+      "downstream_node": [
+        "用户",
+        "飞书",
+        "N019"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "15_上游输出展开 E053"
+    },
+    {
+      "field_id": "N013_OUT001",
+      "canonical_key": "promotion_roi",
+      "project_field_name": "promotion_roi",
+      "zh_name": "推广ROI",
+      "data_type": "object",
+      "required_level": "按链路触发必需",
+      "source_type": "upstream_output",
+      "source_node": "N013",
+      "source_skill": "S10",
+      "downstream_node": [
+        "用户",
+        "飞书",
+        "N019"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "15_上游输出展开 E054"
+    },
+    {
+      "field_id": "N013_OUT002",
+      "canonical_key": "profit_simulation",
+      "project_field_name": "profit_simulation",
+      "zh_name": "利润模拟",
+      "data_type": "object",
+      "required_level": "按链路触发必需",
+      "source_type": "upstream_output",
+      "source_node": "N013",
+      "source_skill": "S10",
+      "downstream_node": [
+        "用户",
+        "飞书",
+        "N019"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "15_上游输出展开 E054"
+    },
+    {
+      "field_id": "N013_OUT003",
+      "canonical_key": "roi_decision",
+      "project_field_name": "roi_decision",
+      "zh_name": "ROI决策",
+      "data_type": "object",
+      "required_level": "按链路触发必需",
+      "source_type": "upstream_output",
+      "source_node": "N013",
+      "source_skill": "S10",
+      "downstream_node": [
+        "用户",
+        "飞书",
+        "N019"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "15_上游输出展开 E054"
+    },
+    {
+      "field_id": "N020_OUT001",
+      "canonical_key": "traffic_state",
+      "project_field_name": "traffic_state",
+      "zh_name": "流量状态",
+      "data_type": "enum",
+      "required_level": "按链路触发必需",
+      "source_type": "upstream_output",
+      "source_node": "N020",
+      "source_skill": "S9",
+      "downstream_node": [
+        "用户",
+        "飞书",
+        "N019"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "15_上游输出展开 E055"
+    },
+    {
+      "field_id": "N020_OUT002",
+      "canonical_key": "time_windows",
+      "project_field_name": "time_windows",
+      "zh_name": "推荐时段窗口",
+      "data_type": "array",
+      "required_level": "按链路触发必需",
+      "source_type": "upstream_output",
+      "source_node": "N020",
+      "source_skill": "S9",
+      "downstream_node": [
+        "用户",
+        "飞书",
+        "N019"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "15_上游输出展开 E055"
+    },
+    {
+      "field_id": "N020_OUT005",
+      "canonical_key": "hourly_demand_index",
+      "project_field_name": "hourly_demand_index",
+      "zh_name": "小时需求指数",
+      "data_type": "array",
+      "required_level": "按链路触发必需",
+      "source_type": "upstream_output",
+      "source_node": "N020",
+      "source_skill": "S9",
+      "downstream_node": [
+        "用户",
+        "飞书",
+        "N019"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "15_上游输出展开 E055"
+    },
+    {
+      "field_id": "N020_OUT006",
+      "canonical_key": "peak_valley_evidence",
+      "project_field_name": "peak_valley_evidence",
+      "zh_name": "峰谷判断证据",
+      "data_type": "object",
+      "required_level": "按链路触发必需",
+      "source_type": "upstream_output",
+      "source_node": "N020",
+      "source_skill": "S9",
+      "downstream_node": [
+        "用户",
+        "飞书",
+        "N019"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "15_上游输出展开 E055"
+    }
+  ],
+  "output_fields": [
+    {
+      "field_id": "N018_OUT001",
+      "canonical_key": "rendered_message",
+      "project_field_name": "rendered_message",
+      "zh_name": "渲染后消息",
+      "data_type": "string",
+      "required_level": "节点输出",
+      "source_type": "upstream_output",
+      "source_node": "N018",
+      "source_skill": "S3",
+      "downstream_node": [
+        "用户",
+        "飞书",
+        "N019"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "14_输出字段字典"
+    },
+    {
+      "field_id": "N018_OUT002",
+      "canonical_key": "approval_card",
+      "project_field_name": "approval_card",
+      "zh_name": "审批卡片",
+      "data_type": "object",
+      "required_level": "节点输出",
+      "source_type": "upstream_output",
+      "source_node": "N018",
+      "source_skill": "S3",
+      "downstream_node": [
+        "用户",
+        "飞书",
+        "N019"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "14_输出字段字典"
+    },
+    {
+      "field_id": "N018_OUT003",
+      "canonical_key": "notification_status",
+      "project_field_name": "notification_status",
+      "zh_name": "通知状态",
+      "data_type": "object",
+      "required_level": "节点输出",
+      "source_type": "upstream_output",
+      "source_node": "N018",
+      "source_skill": "S3",
+      "downstream_node": [
+        "用户",
+        "飞书",
+        "N019"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "14_输出字段字典"
+    },
+    {
+      "field_id": "N018_OUT004",
+      "canonical_key": "experience_event_candidate",
+      "project_field_name": "experience_event_candidate",
+      "zh_name": "经验事件候选",
+      "data_type": "object",
+      "required_level": "节点输出",
+      "source_type": "upstream_output",
+      "source_node": "N018",
+      "source_skill": "S3",
+      "downstream_node": [
+        "用户",
+        "飞书",
+        "N019"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "14_输出字段字典"
+    },
+    {
+      "field_id": "N018_OUT005",
+      "canonical_key": "frontdesk_task_card",
+      "project_field_name": "frontdesk_task_card",
+      "zh_name": "前台任务卡片",
+      "data_type": "object",
+      "required_level": "节点输出",
+      "source_type": "upstream_output",
+      "source_node": "N018",
+      "source_skill": "S3",
+      "downstream_node": [
+        "用户",
+        "飞书",
+        "N019"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "14_输出字段字典"
+    }
+  ],
+  "runtime_command": "",
+  "demo_data_files": [
+    "examples/demo_data/demo_manifest.json",
+    "examples/demo_data/nodes/N018.json"
+  ],
+  "error_handling": "",
+  "acceptance_tests": [
+    "tests/contracts/test_v27_skill_io_contract.py"
+  ],
+  "schema_version": "v27.0",
+  "source": "contracts/v27/contract.json",
+  "field_registry_ref": "contracts/v27/field_registry.yaml",
+  "node_io_contract_ref": "contracts/v27/node_io_contract.yaml",
+  "legacy_v26_alignment_ref": "references/v26_alignment.json",
+  "demo_safety_fields": [
+    "data_source_type=demo_data",
+    "freshness_status=demo_data",
+    "approval_data_allowed=false",
+    "live_allowed=false"
+  ]
+}

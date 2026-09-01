@@ -1,0 +1,128 @@
+{
+  "schema_version": "v27.0",
+  "source_version": "V27_project_repair_executable_contract",
+  "machine_contract": "contracts/v27/contract.json",
+  "agents": [
+    {
+      "agent_id": "A0",
+      "agent_name": "Chief Orchestrator",
+      "zh_name": "总控编排 Agent",
+      "responsibility": "入口识别、权限安全、数据闸门、场景编排",
+      "node_ids": [
+        "N001",
+        "N002",
+        "N003",
+        "N004"
+      ],
+      "expected_node_ids": [
+        "N001",
+        "N002",
+        "N003",
+        "N004"
+      ],
+      "mapping_source": "architecture/node_agent_mapping.json / V27 nodes"
+    },
+    {
+      "agent_id": "A1",
+      "agent_name": "Data Collector",
+      "zh_name": "数据采集 Agent",
+      "responsibility": "经营、行情、竞对、口碑、订单、流量数据采集",
+      "node_ids": [
+        "N005",
+        "N006",
+        "N007",
+        "N008",
+        "N014",
+        "N020"
+      ],
+      "expected_node_ids": [
+        "N005",
+        "N006",
+        "N007",
+        "N008",
+        "N014",
+        "N020"
+      ],
+      "mapping_source": "architecture/node_agent_mapping.json / V27 nodes"
+    },
+    {
+      "agent_id": "A2",
+      "agent_name": "Diagnosis Analyst",
+      "zh_name": "诊断分析 Agent",
+      "responsibility": "OTA 诊断、销售基准线、进度偏差、第三方诊断报告",
+      "node_ids": [
+        "N009",
+        "N010",
+        "N011",
+        "N022"
+      ],
+      "expected_node_ids": [
+        "N009",
+        "N010",
+        "N011",
+        "N022"
+      ],
+      "mapping_source": "architecture/node_agent_mapping.json / V27 nodes"
+    },
+    {
+      "agent_id": "A3",
+      "agent_name": "Revenue Strategist",
+      "zh_name": "收益策略 Agent",
+      "responsibility": "调价建议、活动推广建议、ROI、收益策略",
+      "node_ids": [
+        "N012",
+        "N013",
+        "N015"
+      ],
+      "expected_node_ids": [
+        "N012",
+        "N013",
+        "N015"
+      ],
+      "mapping_source": "architecture/node_agent_mapping.json / V27 nodes"
+    },
+    {
+      "agent_id": "A4",
+      "agent_name": "Execution Guard",
+      "zh_name": "执行安全 Agent",
+      "responsibility": "dry-run、审批校验、执行边界、回读校验",
+      "node_ids": [
+        "N016",
+        "N017",
+        "N021"
+      ],
+      "expected_node_ids": [
+        "N016",
+        "N017",
+        "N021"
+      ],
+      "mapping_source": "architecture/node_agent_mapping.json / V27 nodes"
+    },
+    {
+      "agent_id": "A5",
+      "agent_name": "Message Hub",
+      "zh_name": "消息中台 Agent",
+      "responsibility": "老板/运营/前台消息、日报、预警、审批卡预览",
+      "node_ids": [
+        "N018"
+      ],
+      "expected_node_ids": [
+        "N018"
+      ],
+      "mapping_source": "architecture/node_agent_mapping.json / V27 nodes"
+    },
+    {
+      "agent_id": "A6",
+      "agent_name": "Experience Evolution",
+      "zh_name": "经验进化 Agent",
+      "responsibility": "脱敏复盘、规则候选、测试候选、经验召回",
+      "node_ids": [
+        "N019"
+      ],
+      "expected_node_ids": [
+        "N019"
+      ],
+      "mapping_source": "architecture/node_agent_mapping.json / V27 nodes"
+    }
+  ]
+}

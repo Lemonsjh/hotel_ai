@@ -1,0 +1,101 @@
+{
+  "schema_version": "v26.0",
+  "source": "contracts/v26/skill_io_contract.yaml",
+  "skill_id": "S5",
+  "skill_name": "智能收益决策",
+  "english_dir_name": "revenue-decision",
+  "node_ids": [
+    "N015"
+  ],
+  "agent_id": "A3",
+  "blueprint_basis": "BP02/BP03/BP06/BP08",
+  "direct_trigger": "要不要调价",
+  "chain_trigger": "经营快照+行情+基准线+偏差+诊断后",
+  "input_fields": [
+    "current_price",
+    "floor_price",
+    "ceiling_price",
+    "demand_index",
+    "progress_status",
+    "competitor_context",
+    "ota_health_score"
+  ],
+  "output_fields": [
+    "revenue_decision",
+    "price_recommendations",
+    "risk_warnings",
+    "handoff_to"
+  ],
+  "upstream_dependencies": [
+    "CFG001 price_floor",
+    "CFG002 price_ceiling",
+    "CFG003 approval_policy",
+    "CFG004 live_switch",
+    "CFG005 source_capability",
+    "CFG006 skill_switch",
+    "CFG007 execution_boundary",
+    "PR001 current_price",
+    "PR004 net_price_after_activity",
+    "DEM007 demand_index",
+    "HLT001 ota_health_score",
+    "CMP013 competitor_context",
+    "ACT018 activity_risks",
+    "ROI002 promotion_roi",
+    "N006_OUT001 demand_index",
+    "N006_OUT002 demand_level",
+    "N006_OUT003 action_strength",
+    "N007_OUT001 competitor_context",
+    "N007_OUT006 warning_level",
+    "N009_OUT001 ota_health_score",
+    "N009_OUT003 conversion_bottleneck",
+    "N009_OUT004 diagnosis_actions",
+    "N011_OUT001 progress_status",
+    "N011_OUT003 deviation_reasons",
+    "N012_OUT001 activity_plan",
+    "N012_OUT003 activity_risks",
+    "N012_OUT002 promotion_plan",
+    "N013_OUT001 promotion_roi",
+    "N013_OUT002 profit_simulation",
+    "N014_OUT001 customer_segments",
+    "N014_OUT003 loss_risk_alert",
+    "N020_OUT001 traffic_state",
+    "N020_OUT005 hourly_demand_index",
+    "N020_OUT003 recommended_actions",
+    "N010_OUT001 sales_baseline",
+    "N010_OUT003 target_room_nights",
+    "N010_OUT004 baseline_confidence"
+  ],
+  "downstream_dependencies": [
+    "N012/N016/N018/N019"
+  ],
+  "runtime_command": "demo-node --node N015",
+  "demo_data_files": [
+    "examples/demo_data/demo_manifest.json",
+    "examples/demo_data/nodes/N015.json"
+  ],
+  "error_handling": "只给建议，交S6 dry-run",
+  "acceptance_tests": [
+    "tests/contracts/test_v26_skill_io_contract.py"
+  ],
+  "node_registry_ref": "architecture/node_registry.json",
+  "edge_registry_ref": "architecture/edge_registry.json",
+  "scenario_registry_ref": "architecture/scenario_chain_registry.json",
+  "field_registry_ref": "contracts/v26/field_registry.yaml",
+  "node_io_contract_ref": "contracts/v26/node_io_contract.yaml",
+  "algorithm_rules_ref": "runtime/algorithm_rules/revenue_rules.yaml",
+  "demo_node_fixture": "examples/demo_data/nodes/N015.json",
+  "forbidden_actions": [
+    "treat_demo_data_as_real_today_data",
+    "create_formal_approval_from_demo_or_stale_data",
+    "bypass_data_gate_or_approval_guard",
+    "write_channel_price_directly",
+    "call_live_execution_without_S6"
+  ],
+  "demo_safety": {
+    "data_source_type": "demo_data",
+    "approval_data_allowed": false,
+    "live_allowed": false,
+    "formal_approval_created": false,
+    "live_execution_count": 0
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "manifest_ref": "../demo_manifest.json",
+  "demo_dataset_id": "hotel_ota_demo_v1",
+  "hotel_id": "puyue-demo",
+  "demo_business_date": "2026-06-11",
+  "progress_status": "behind",
+  "completion_rate": 0.54,
+  "target_progress_pct": 0.62,
+  "actual_progress_pct": 0.54,
+  "progress_gap": -0.08,
+  "progress_gap_pct": -0.08,
+  "reason_code": "traffic_gap",
+  "data_source_type": "demo_data",
+  "freshness_status": "demo_data",
+  "business_status": "demo_or_historical",
+  "today_label_allowed": false,
+  "approval_data_allowed": false,
+  "live_allowed": false
+}

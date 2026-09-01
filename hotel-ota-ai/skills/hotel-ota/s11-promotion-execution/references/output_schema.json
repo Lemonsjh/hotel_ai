@@ -1,0 +1,165 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "schema_version": "v27-wrapper",
+  "title": "S11 deterministic PromotionPlan output wrapper",
+  "type": "object",
+  "canonical_source": "contracts/v27/node_io_contract.yaml",
+  "secondary_source": "contracts/v27/skill_io_contract.yaml",
+  "alignment_source": "references/v27_alignment.json",
+  "skill_id": "S11",
+  "skill_name": "S11",
+  "node_id": "N021",
+  "node_ids": ["N021"],
+  "agent_id": "A4",
+  "agent_ids": ["A4"],
+  "source_contract": "contracts/v27/contract.json",
+  "field_registry_ref": "contracts/v27/field_registry.yaml",
+  "node_io_contract_ref": "contracts/v27/node_io_contract.yaml",
+  "demo_safety_fields": [
+    "data_source_type=demo_data",
+    "freshness_status=demo_data",
+    "approval_data_allowed=false",
+    "live_allowed=false"
+  ],
+  "output_field_ids": [],
+  "required_outputs": [
+    "skill_id",
+    "status",
+    "promotion_plan",
+    "boundary",
+    "read_only",
+    "ai_invoked",
+    "write_performed"
+  ],
+  "optional_outputs": [],
+  "downstream_node_outputs": [],
+  "deprecated_legacy_outputs": {
+    "promotion_execution_preview": {
+      "deprecated": true,
+      "legacy_field_id": "N021_OUT001",
+      "description": "Legacy execution-preview output is retired; current S11 emits PromotionPlan only."
+    },
+    "execution_result": {
+      "deprecated": true,
+      "legacy_field_id": "N021_OUT002",
+      "description": "S11 never emits an execution result."
+    },
+    "blocked_reason_execution": {
+      "deprecated": true,
+      "legacy_field_id": "N021_OUT003",
+      "description": "Execution blocking is replaced by suggestion data gaps, risks, or object clarification."
+    },
+    "verification_checklist_execution": {
+      "deprecated": true,
+      "legacy_field_id": "N021_OUT004",
+      "description": "Execution verification is replaced by a manual operation checklist inside PromotionPlan."
+    },
+    "promotion_execution_task": {
+      "deprecated": true,
+      "legacy_field_id": "N021_OUT005",
+      "description": "Task creation is forbidden for S11."
+    },
+    "approval_id": {
+      "deprecated": true,
+      "legacy_field_id": "N021_OUT006",
+      "description": "S11 does not create or return approval records."
+    },
+    "execution_status": {
+      "deprecated": true,
+      "legacy_field_id": "N021_OUT007",
+      "description": "S11 does not expose execution or OTA readback state."
+    }
+  },
+  "properties": {
+    "skill_id": {"const": "S11"},
+    "status": {"enum": ["suggestion_only", "clarification_required", "data_gap"]},
+    "promotion_plan": {
+      "type": "object",
+      "required": [
+        "type",
+        "hotel_id",
+        "channel",
+        "window",
+        "scope_resolution",
+        "suggested_action",
+        "suggested_time_window",
+        "budget",
+        "bid",
+        "activity_conflict",
+        "observation_metrics",
+        "stop_conditions",
+        "risks",
+        "manual_operation_checklist",
+        "source_alignment",
+        "read_only",
+        "ai_invoked",
+        "write_performed"
+      ],
+      "properties": {
+        "type": {"const": "PromotionPlan"},
+        "version": {"type": "string"},
+        "hotel_id": {"type": "string", "minLength": 1},
+        "channel": {"const": "meituan"},
+        "window": {"type": "object"},
+        "scope_resolution": {"enum": ["resolved", "clarification_required", "unresolved", "portfolio"]},
+        "plan_scope": {"type": ["object", "null"]},
+        "plan_candidates": {"type": "array"},
+        "suggested_action": {"enum": ["开启", "恢复", "维持", "观察", "暂停", "关闭"]},
+        "suggested_time_window": {"type": "object"},
+        "budget": {"type": "object"},
+        "bid": {"type": "object"},
+        "activity_conflict": {"type": "object"},
+        "observation_metrics": {"type": "array"},
+        "stop_conditions": {"type": "array", "items": {"type": "string"}},
+        "risks": {"type": "array", "items": {"type": "string"}},
+        "manual_operation_checklist": {"type": "array", "items": {"type": "string"}},
+        "source_alignment": {"type": "object"},
+        "read_only": {"const": true},
+        "ai_invoked": {"const": false},
+        "write_performed": {"const": false}
+      },
+      "not": {
+        "anyOf": [
+          {"required": ["request_id"]},
+          {"required": ["task_id"]},
+          {"required": ["approval"]},
+          {"required": ["approval_id"]},
+          {"required": ["execution"]},
+          {"required": ["execution_status"]},
+          {"required": ["dispatch_status"]},
+          {"required": ["confirmation_command"]},
+          {"required": ["promotion_execution_task"]},
+          {"required": ["readback_check"]},
+          {"required": ["ota_readback_status"]},
+          {"required": ["api_status"]}
+        ]
+      }
+    },
+    "boundary": {
+      "type": "object",
+      "properties": {
+        "mode": {"const": "read_only_recommendation_only"},
+        "allowed_output": {"const": "PromotionPlan"},
+        "side_effects": {"const": "none"}
+      }
+    },
+    "read_only": {"const": true},
+    "ai_invoked": {"const": false},
+    "write_performed": {"const": false}
+  },
+  "required": ["skill_id", "status", "promotion_plan", "boundary", "read_only", "ai_invoked", "write_performed"],
+  "allOf": [
+    {"not": {"required": ["request_id"]}},
+    {"not": {"required": ["task_id"]}},
+    {"not": {"required": ["approval"]}},
+    {"not": {"required": ["approval_id"]}},
+    {"not": {"required": ["execution"]}},
+    {"not": {"required": ["execution_status"]}},
+    {"not": {"required": ["dispatch_status"]}},
+    {"not": {"required": ["confirmation_command"]}},
+    {"not": {"required": ["promotion_execution_task"]}},
+    {"not": {"required": ["readback_check"]}},
+    {"not": {"required": ["ota_readback_status"]}},
+    {"not": {"required": ["api_status"]}}
+  ]
+}

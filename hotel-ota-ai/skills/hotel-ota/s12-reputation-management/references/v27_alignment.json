@@ -1,0 +1,383 @@
+{
+  "skill_id": "S12",
+  "skill_name": "S12",
+  "node_ids": [
+    "N008"
+  ],
+  "agent_id": "A1",
+  "agent_ids": [
+    "A1"
+  ],
+  "blueprint_basis": [
+    "BP09",
+    "BP03"
+  ],
+  "input_field_ids": [
+    "REP001",
+    "REP002",
+    "REP003",
+    "REP004",
+    "REP005",
+    "REP006",
+    "REP010",
+    "REP011",
+    "REP012",
+    "HOT001"
+  ],
+  "output_field_ids": [
+    "N008_OUT001",
+    "N008_OUT002",
+    "N008_OUT003",
+    "N008_OUT004",
+    "N008_OUT005",
+    "N008_OUT006",
+    "N008_OUT007"
+  ],
+  "input_fields": [
+    {
+      "field_id": "REP001",
+      "canonical_key": "review_content",
+      "project_field_name": "review_content",
+      "zh_name": "评论内容",
+      "data_type": "string",
+      "required_level": "必选/增强",
+      "source_type": "candidate_inferred",
+      "source_node": "",
+      "source_skill": "",
+      "downstream_node": [
+        "N009",
+        "N017",
+        "N018",
+        "N019"
+      ],
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "evidence": "V25字段契约直接输入"
+    },
+    {
+      "field_id": "REP002",
+      "canonical_key": "review_rating",
+      "project_field_name": "review_rating",
+      "zh_name": "评论评分",
+      "data_type": "string",
+      "required_level": "必选/增强",
+      "source_type": "candidate_inferred",
+      "source_node": "",
+      "source_skill": "",
+      "downstream_node": [
+        "N009",
+        "N017",
+        "N018",
+        "N019"
+      ],
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "evidence": "V25字段契约直接输入"
+    },
+    {
+      "field_id": "REP003",
+      "canonical_key": "review_time",
+      "project_field_name": "review_time",
+      "zh_name": "评论时间",
+      "data_type": "datetime",
+      "required_level": "必选/增强",
+      "source_type": "candidate_inferred",
+      "source_node": "",
+      "source_skill": "",
+      "downstream_node": [
+        "N009",
+        "N017",
+        "N018",
+        "N019"
+      ],
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "evidence": "V25字段契约直接输入"
+    },
+    {
+      "field_id": "REP004",
+      "canonical_key": "room_type",
+      "project_field_name": "room_type",
+      "zh_name": "评论关联房型",
+      "data_type": "string",
+      "required_level": "必选/增强",
+      "source_type": "candidate_inferred",
+      "source_node": "",
+      "source_skill": "",
+      "downstream_node": [
+        "N009",
+        "N017",
+        "N018",
+        "N019"
+      ],
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "evidence": "V25字段契约直接输入"
+    },
+    {
+      "field_id": "REP005",
+      "canonical_key": "stay_date",
+      "project_field_name": "stay_date",
+      "zh_name": "入住日期",
+      "data_type": "datetime",
+      "required_level": "必选/增强",
+      "source_type": "candidate_inferred",
+      "source_node": "",
+      "source_skill": "",
+      "downstream_node": [
+        "N009",
+        "N017",
+        "N018",
+        "N019"
+      ],
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "evidence": "V25字段契约直接输入"
+    },
+    {
+      "field_id": "REP006",
+      "canonical_key": "channel_source",
+      "project_field_name": "channel_source",
+      "zh_name": "来源平台",
+      "data_type": "string",
+      "required_level": "必选/增强",
+      "source_type": "project_only",
+      "source_node": "",
+      "source_skill": "",
+      "downstream_node": [
+        "N009",
+        "N017",
+        "N018",
+        "N019"
+      ],
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "evidence": "V25字段契约直接输入"
+    },
+    {
+      "field_id": "REP010",
+      "canonical_key": "reply_status",
+      "project_field_name": "reply_status",
+      "zh_name": "回复状态",
+      "data_type": "string",
+      "required_level": "必选/增强",
+      "source_type": "candidate_inferred",
+      "source_node": "",
+      "source_skill": "",
+      "downstream_node": [
+        "N009",
+        "N017",
+        "N018",
+        "N019"
+      ],
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "evidence": "V25字段契约直接输入"
+    },
+    {
+      "field_id": "REP011",
+      "canonical_key": "compensation_status",
+      "project_field_name": "compensation_status",
+      "zh_name": "补偿状态",
+      "data_type": "string",
+      "required_level": "必选/增强",
+      "source_type": "candidate_inferred",
+      "source_node": "",
+      "source_skill": "",
+      "downstream_node": [
+        "N009",
+        "N017",
+        "N018",
+        "N019"
+      ],
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "evidence": "V25字段契约直接输入"
+    },
+    {
+      "field_id": "REP012",
+      "canonical_key": "similar_history",
+      "project_field_name": "similar_history",
+      "zh_name": "同类历史评论",
+      "data_type": "string",
+      "required_level": "必选/增强",
+      "source_type": "candidate_inferred",
+      "source_node": "",
+      "source_skill": "",
+      "downstream_node": [
+        "N009",
+        "N017",
+        "N018",
+        "N019"
+      ],
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "evidence": "V25字段契约直接输入"
+    },
+    {
+      "field_id": "HOT001",
+      "canonical_key": "hotel_id",
+      "project_field_name": "hotel_id",
+      "zh_name": "酒店编号",
+      "data_type": "string",
+      "required_level": "必选/增强",
+      "source_type": "manual_required",
+      "source_node": "",
+      "source_skill": "",
+      "downstream_node": [
+        "N009",
+        "N017",
+        "N018",
+        "N019"
+      ],
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "evidence": "V25字段契约直接输入"
+    }
+  ],
+  "output_fields": [
+    {
+      "field_id": "N008_OUT001",
+      "canonical_key": "reputation_result",
+      "project_field_name": "reputation_result",
+      "zh_name": "口碑分析结果",
+      "data_type": "string",
+      "required_level": "节点输出",
+      "source_type": "upstream_output",
+      "source_node": "N008",
+      "source_skill": "S12",
+      "downstream_node": [
+        "N009",
+        "N017",
+        "N018",
+        "N019"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "14_输出字段字典"
+    },
+    {
+      "field_id": "N008_OUT002",
+      "canonical_key": "health_score_impact",
+      "project_field_name": "health_score_impact",
+      "zh_name": "健康分影响",
+      "data_type": "number",
+      "required_level": "节点输出",
+      "source_type": "upstream_output",
+      "source_node": "N008",
+      "source_skill": "S12",
+      "downstream_node": [
+        "N009",
+        "N017",
+        "N018",
+        "N019"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "14_输出字段字典"
+    },
+    {
+      "field_id": "N008_OUT003",
+      "canonical_key": "reply_needed",
+      "project_field_name": "reply_needed",
+      "zh_name": "是否需要回复",
+      "data_type": "string",
+      "required_level": "节点输出",
+      "source_type": "upstream_output",
+      "source_node": "N008",
+      "source_skill": "S12",
+      "downstream_node": [
+        "N009",
+        "N017",
+        "N018",
+        "N019"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "14_输出字段字典"
+    },
+    {
+      "field_id": "N008_OUT004",
+      "canonical_key": "reputation_tasks",
+      "project_field_name": "reputation_tasks",
+      "zh_name": "口碑任务",
+      "data_type": "array",
+      "required_level": "节点输出",
+      "source_type": "upstream_output",
+      "source_node": "N008",
+      "source_skill": "S12",
+      "downstream_node": [
+        "N009",
+        "N017",
+        "N018",
+        "N019"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "14_输出字段字典"
+    },
+    {
+      "field_id": "N008_OUT005",
+      "canonical_key": "problem_tags",
+      "project_field_name": "problem_tags",
+      "zh_name": "问题标签",
+      "data_type": "array",
+      "required_level": "节点输出",
+      "source_type": "upstream_output",
+      "source_node": "N008",
+      "source_skill": "S12",
+      "downstream_node": [
+        "N009",
+        "N017",
+        "N018",
+        "N019"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "14_输出字段字典"
+    },
+    {
+      "field_id": "N008_OUT006",
+      "canonical_key": "review_content",
+      "project_field_name": "review_content",
+      "zh_name": "评论内容",
+      "data_type": "string",
+      "required_level": "节点输出",
+      "source_type": "upstream_output",
+      "source_node": "N008",
+      "source_skill": "S12",
+      "downstream_node": [
+        "N009",
+        "N017",
+        "N018",
+        "N019"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "14_输出字段字典"
+    },
+    {
+      "field_id": "N008_OUT007",
+      "canonical_key": "sentiment",
+      "project_field_name": "sentiment",
+      "zh_name": "情绪分类",
+      "data_type": "enum",
+      "required_level": "节点输出",
+      "source_type": "upstream_output",
+      "source_node": "N008",
+      "source_skill": "S12",
+      "downstream_node": [
+        "N009",
+        "N017",
+        "N018",
+        "N019"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "14_输出字段字典"
+    }
+  ],
+  "runtime_command": "",
+  "demo_data_files": [
+    "examples/demo_data/demo_manifest.json",
+    "examples/demo_data/nodes/N008.json"
+  ],
+  "error_handling": "",
+  "acceptance_tests": [
+    "tests/contracts/test_v27_skill_io_contract.py"
+  ],
+  "schema_version": "v27.0",
+  "source": "contracts/v27/contract.json",
+  "field_registry_ref": "contracts/v27/field_registry.yaml",
+  "node_io_contract_ref": "contracts/v27/node_io_contract.yaml",
+  "legacy_v26_alignment_ref": "references/v26_alignment.json",
+  "demo_safety_fields": [
+    "data_source_type=demo_data",
+    "freshness_status=demo_data",
+    "approval_data_allowed=false",
+    "live_allowed=false"
+  ]
+}

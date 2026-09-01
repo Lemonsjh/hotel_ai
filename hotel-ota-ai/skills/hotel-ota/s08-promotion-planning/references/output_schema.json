@@ -1,0 +1,384 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "schema_version": "v27-wrapper",
+  "title": "S8 display-only output wrapper",
+  "type": "object",
+  "canonical_source": "contracts/v27/node_io_contract.yaml",
+  "secondary_source": "contracts/v27/skill_io_contract.yaml",
+  "alignment_source": "references/v27_alignment.json",
+  "skill_id": "S8",
+  "skill_name": "S8",
+  "node_id": "N012",
+  "node_ids": [
+    "N012"
+  ],
+  "agent_id": "A3",
+  "agent_ids": [
+    "A3"
+  ],
+  "source_contract": "contracts/v27/contract.json",
+  "field_registry_ref": "contracts/v27/field_registry.yaml",
+  "node_io_contract_ref": "contracts/v27/node_io_contract.yaml",
+  "demo_safety_fields": [
+    "data_source_type=demo_data",
+    "freshness_status=demo_data",
+    "approval_data_allowed=false",
+    "live_allowed=false"
+  ],
+  "output_field_ids": [],
+  "required_outputs": [],
+  "optional_outputs": [],
+  "downstream_node_outputs": [],
+  "deprecated_legacy_outputs": {
+    "activity_plan": {
+      "deprecated": true,
+      "legacy_field_id": "N012_OUT001",
+      "description": "S8 no longer generates activity plans."
+    },
+    "promotion_plan": {
+      "deprecated": true,
+      "legacy_field_id": "N012_OUT002",
+      "description": "S8 no longer generates promotion plans."
+    },
+    "activity_risks": {
+      "deprecated": true,
+      "legacy_field_id": "N012_OUT003",
+      "description": "S8 no longer performs activity-risk diagnosis."
+    },
+    "approval_required_business_output": {
+      "deprecated": true,
+      "legacy_field_id": "N012_OUT004",
+      "description": "The legacy business approval output is retired; the generic safety envelope still reports approval_required=false."
+    },
+    "budget_range": {
+      "deprecated": true,
+      "legacy_field_id": "N012_OUT005",
+      "description": "S8 no longer generates budget advice."
+    },
+    "promotion_action": {
+      "deprecated": true,
+      "legacy_field_id": "N012_OUT006",
+      "description": "S8 no longer generates promotion actions."
+    },
+    "expected_return": {
+      "deprecated": true,
+      "legacy_field_id": "N012_OUT007",
+      "description": "S8 no longer generates expected-return decisions."
+    },
+    "time_windows": {
+      "deprecated": true,
+      "legacy_field_id": "N012_OUT008",
+      "description": "S8 no longer generates promotion time windows."
+    }
+  },
+  "$defs": {
+    "rawNumber": {
+      "type": [
+        "number",
+        "string",
+        "null"
+      ]
+    },
+    "computedNumber": {
+      "oneOf": [
+        {
+          "type": "number"
+        },
+        {
+          "const": "not_computable"
+        }
+      ]
+    },
+    "promotionItem": {
+      "type": "object",
+      "properties": {
+        "plan_id": {
+          "type": [
+            "string",
+            "number",
+            "null"
+          ]
+        },
+        "plan_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "launch_id": {
+          "type": [
+            "string",
+            "number",
+            "null"
+          ]
+        },
+        "launch_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "promotion_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "period_start_date": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "period_end_date": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "snapshot_time": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "spend_amount": {
+          "$ref": "#/$defs/rawNumber"
+        },
+        "cash_spend_amount": {
+          "$ref": "#/$defs/rawNumber"
+        },
+        "exposure_count": {
+          "$ref": "#/$defs/rawNumber"
+        },
+        "click_count": {
+          "$ref": "#/$defs/rawNumber"
+        },
+        "booking_order_count": {
+          "$ref": "#/$defs/rawNumber"
+        },
+        "room_night_count": {
+          "$ref": "#/$defs/rawNumber"
+        },
+        "booking_order_amount": {
+          "$ref": "#/$defs/rawNumber"
+        },
+        "click_rate_pct": {
+          "$ref": "#/$defs/rawNumber"
+        },
+        "cost_per_click": {
+          "$ref": "#/$defs/rawNumber"
+        },
+        "cost_per_booking": {
+          "$ref": "#/$defs/computedNumber"
+        },
+        "cost_per_room_night": {
+          "$ref": "#/$defs/computedNumber"
+        },
+        "average_booking_order_amount": {
+          "$ref": "#/$defs/computedNumber"
+        },
+        "promotion_adr": {
+          "$ref": "#/$defs/computedNumber"
+        },
+        "roas": {
+          "$ref": "#/$defs/computedNumber"
+        },
+        "promotion_amount_after_spend": {
+          "$ref": "#/$defs/computedNumber"
+        },
+        "cash_roas": {
+          "$ref": "#/$defs/computedNumber"
+        },
+        "booking_conversion_rate_pct": {
+          "$ref": "#/$defs/computedNumber"
+        }
+      },
+      "not": {
+        "anyOf": [
+          {
+            "required": [
+              "promotion_status"
+            ]
+          },
+          {
+            "required": [
+              "promotion_open_status"
+            ]
+          }
+        ]
+      },
+      "additionalProperties": false
+    }
+  },
+  "properties": {
+    "status": {
+      "enum": [
+        "ok",
+        "data_gap"
+      ]
+    },
+    "skill_id": {
+      "const": "S8"
+    },
+    "summary": {
+      "type": "string"
+    },
+    "evidence": {
+      "type": "object",
+      "properties": {
+        "promotion_display": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "enum": [
+                "ok",
+                "data_gap"
+              ]
+            },
+            "reason": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "source_status": {
+              "enum": [
+                "ok",
+                "no_rows",
+                "schema_drift",
+                "unavailable"
+              ]
+            },
+            "source_table": {
+              "const": "meituan_ota_promotion_performance_30d"
+            },
+            "data_business_date": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "data_snapshot_time": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "period_start_date": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "period_end_date": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "item_count": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/promotionItem"
+              }
+            }
+          },
+          "required": [
+            "status",
+            "source_status",
+            "source_table",
+            "item_count",
+            "items"
+          ],
+          "additionalProperties": false
+        },
+        "data_business_date": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "data_snapshot_time": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "promotion_display"
+      ],
+      "additionalProperties": true
+    },
+    "recommendations": {
+      "type": "array",
+      "maxItems": 0
+    },
+    "actions": {
+      "type": "array",
+      "maxItems": 0
+    },
+    "risk_level": {
+      "const": "low"
+    },
+    "approval_required": {
+      "const": false
+    },
+    "write_performed": {
+      "const": false
+    },
+    "live_allowed": {
+      "const": false
+    },
+    "execution_boundary": {
+      "type": "object",
+      "properties": {
+        "delivery_owner": {
+          "const": "S8"
+        },
+        "delivery_channel": {
+          "const": "feishu"
+        },
+        "execution_supported": {
+          "const": false
+        },
+        "task_creation_supported": {
+          "const": false
+        },
+        "approval_supported": {
+          "const": false
+        },
+        "ota_write_attempted": {
+          "const": false
+        }
+      },
+      "required": [
+        "delivery_owner",
+        "delivery_channel",
+        "execution_supported",
+        "task_creation_supported",
+        "approval_supported",
+        "ota_write_attempted"
+      ],
+      "additionalProperties": true
+    }
+  },
+  "required": [
+    "status",
+    "skill_id",
+    "summary",
+    "evidence",
+    "recommendations",
+    "actions",
+    "approval_required",
+    "write_performed",
+    "live_allowed",
+    "execution_boundary"
+  ],
+  "additionalProperties": true
+}

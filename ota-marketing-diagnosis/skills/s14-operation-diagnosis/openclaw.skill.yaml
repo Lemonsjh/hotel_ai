@@ -1,0 +1,138 @@
+id: s14-operation-diagnosis
+skill_id: s14-operation-diagnosis
+name: S14 OTA Operation Diagnosis
+version: 0.5.0
+status: preview
+summary: Generate report-only OTA operation diagnosis reports from hotel PMS, OTA, reputation, promotion, competitor, and nearby-event data.
+description: Independent OpenClaw Skill wrapper for S14 hotel OTA operation diagnosis. Business logic lives in marketing_diagnosis; this skill only provides discovery, routing, input/output, and safety metadata.
+
+entrypoint:
+  language: python
+  file: runtime/__init__.py
+  module: skills.s14-operation-diagnosis.runtime
+  class: S14OperationDiagnosis
+  method: execute
+
+runtime:
+  language: python
+  package_root: ../../
+  requires:
+    - marketing_diagnosis
+
+capabilities:
+  - ota_diagnosis_report
+  - hotel_operation_analysis
+  - channel_funnel_analysis
+  - reputation_analysis
+  - nearby_event_analysis
+  - report_generation
+
+triggers:
+  config: config/triggers.yaml
+
+inputs:
+  data_source_mode:
+    type: enum
+    enum: [source_selection, database, excel_pending, excel_upload]
+    default: source_selection
+  hotel_id:
+    type: string
+    default: puyue
+  hotel_name:
+    type: string
+    required: false
+  platform:
+    type: enum
+    enum: [multi]
+    default: multi
+  period_start:
+    type: date
+    required: false
+  period_end:
+    type: date
+    required: false
+  period_days:
+    type: integer
+    default: 30
+  input_excel_path:
+    type: file_path
+    required: false
+  limit:
+    type: integer
+    default: 5000
+
+outputs:
+  status:
+    type: text
+  report_url:
+    type: url
+    required: false
+  report_file_path:
+    type: file_path
+    required: false
+  report_json:
+    type: file_path
+    required: false
+  report_markdown:
+    type: file_path
+    required: false
+  feishu_message:
+    type: text
+  feishu_card:
+    type: json
+    description: Legacy provider-native payload for a dedicated structured adapter only. Never forward serialized JSON as assistant text.
+
+config:
+  required:
+    - report_output_dir
+    - public_base_url
+  optional:
+    - db_dsn
+    - db_dsn_env
+    - limit
+    - feishu_card_callback_enabled
+  example:
+    db_dsn_env: S14_DB_DSN
+    report_output_dir: /var/lib/ota-marketing-diagnosis/reports
+    public_base_url: http://YOUR_SERVER:8081/s14-reports
+    feishu_card_callback_enabled: false
+
+data_policy:
+  controlled_source_only: true
+  supported_sources:
+    - database
+    - excel_upload
+  forbidden_input_fields:
+    - manual_diagnosis_input
+    - upstream_skill_output
+
+artifacts:
+  report_file_name: report.html
+  report_type: html
+
+safety:
+  boundary: report_only
+  dry_run: true
+  dry_run_default: true
+  approval_required: false
+  writes_external_systems: false
+  requires_approval_for_execution: false
+  forbidden_actions:
+    - price_write
+    - inventory_write
+    - promotion_write
+    - review_reply_publish
+    - ota_price_update
+    - ota_inventory_update
+    - ota_promotion_publish
+    - database_write
+
+environment:
+  optional:
+    - S14_DB_DSN
+    - S14_REPORT_OUTPUT_DIR
+    - S14_PUBLIC_BASE_URL
+    - S14_AI_BASE_URL
+    - S14_AI_API_KEY
+    - S14_AI_MODEL
+    - S14_AI_ANALYSIS_CMD

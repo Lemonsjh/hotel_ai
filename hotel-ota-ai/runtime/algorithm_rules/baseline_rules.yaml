@@ -1,0 +1,101 @@
+{
+  "schema_version": "2.0",
+  "owner_skill": "S15",
+  "status": "implemented",
+  "placement": "runtime/sales_progress",
+  "formula_version": "sales-progress.real-field.v1",
+  "policy_version": "s15-baseline.v1",
+  "dependency_boundary": {
+    "depends_on_skill_outputs": [],
+    "does_not_depend_on": ["S2", "S4", "S7", "S9"],
+    "database_mapping_config_used": false,
+    "business_database_write_allowed": false
+  },
+  "source_contracts": {
+    "historical_hourly": {
+      "table": "pms_room_type_hourly_status",
+      "fields": [
+        "hotel_id", "stay_date", "snapshot_hour", "snapshot_time",
+        "room_type_id", "pms_room_type_id", "total_rooms",
+        "available_rooms", "occupied_rooms", "overbooking_rooms"
+      ],
+      "batch_key": ["hotel_id", "stay_date", "snapshot_hour", "snapshot_time"]
+    },
+    "room_daily_final": {
+      "table": "jl01_room_type_performance_daily",
+      "fields": [
+        "hotel_id", "business_date", "room_type_id", "room_nights",
+        "room_revenue", "occupancy_rate", "snapshot_time"
+      ]
+    },
+    "hotel_daily_final": {
+      "table": "jy01_hotel_statistics_daily",
+      "exact_filter": {
+        "dimension_type": "总营业指标",
+        "dimension_name": "总营业指标"
+      },
+      "fields": [
+        "hotel_id", "source_platform", "business_date", "room_nights",
+        "room_revenue", "room_count", "occupancy_rate", "adr", "revpar",
+        "sold_rooms", "remaining_rooms", "orders_today", "snapshot_time"
+      ]
+    },
+    "room_price": {
+      "table": "rs01_room_revenue_daily",
+      "fields": [
+        "hotel_id", "business_date", "room_type_id", "room_daily_price",
+        "room_nights", "room_fee", "snapshot_time"
+      ],
+      "sensitive_fields_selected": false
+    },
+    "ota_long_metrics": {
+      "tables": ["meituan_ota_business_metrics", "ctrip_ota_business_metrics"],
+      "identity": "metric_code",
+      "value_field": "metric_value",
+      "unit_field": "metric_unit",
+      "metric_name_is_identity": false
+    }
+  },
+  "formulas": {
+    "base_committed_sold": "max(total_rooms - available_rooms, 0)",
+    "committed_sold": "max(total_rooms - available_rooms + overbooking_rooms, 0)",
+    "capacity_progress": "committed_sold / total_rooms",
+    "target_completion": "committed_sold / final_room_nights",
+    "hotel_capacity_progress": "sum(committed_sold) / sum(total_rooms)",
+    "weighted_price_avg": "sum(room_daily_price * room_nights) / sum(room_nights)"
+  },
+  "batch_policy": {
+    "per_room_latest_stitching_allowed": false,
+    "future_point_allowed": false,
+    "cross_day_point_allowed": false,
+    "linear_interpolation_allowed": false,
+    "prior_complete_batch_max_gap_minutes": 120,
+    "force_monotonic_curve": false
+  },
+  "date_tiers": [
+    "P0_previous_year_approved_window",
+    "P1_season_holiday_weekday",
+    "P2_season_holiday_week_type",
+    "P3_season_holiday",
+    "P4_same_weekday",
+    "P5_same_week_type_or_cold_start"
+  ],
+  "output_families": [
+    "hotel_capacity_progress_hourly",
+    "hotel_target_completion_hourly",
+    "room_type_capacity_progress_hourly",
+    "room_type_target_completion_hourly",
+    "hotel_revenue_target",
+    "room_type_revenue_target",
+    "room_type_price_baseline",
+    "meituan_browse_and_conversion_baseline",
+    "ctrip_browse_and_conversion_baseline",
+    "rolling_30d_context",
+    "explicit_unavailable_market_families"
+  ],
+  "executed_by_runtime": [
+    "runtime/sales_progress/baseline_service.py",
+    "runtime/decisions/baseline.py"
+  ],
+  "runtime_execution_status": "executed"
+}

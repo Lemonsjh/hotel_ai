@@ -1,0 +1,230 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "schema_version": "v27-wrapper",
+  "title": "S6 input wrapper",
+  "type": "object",
+  "canonical_source": "contracts/v27/node_io_contract.yaml",
+  "secondary_source": "contracts/v27/skill_io_contract.yaml",
+  "alignment_source": "references/v27_alignment.json",
+  "skill_id": "S6",
+  "skill_name": "S6",
+  "node_id": "N016",
+  "node_ids": [
+    "N016"
+  ],
+  "agent_id": "A4",
+  "agent_ids": [
+    "A4"
+  ],
+  "source_contract": "contracts/v27/contract.json",
+  "field_registry_ref": "contracts/v27/field_registry.yaml",
+  "node_io_contract_ref": "contracts/v27/node_io_contract.yaml",
+  "demo_safety_fields": [
+    "data_source_type=demo_data",
+    "freshness_status=demo_data",
+    "approval_data_allowed=false",
+    "live_allowed=false"
+  ],
+  "additionalProperties": true,
+  "input_field_ids": [
+    "EXE001",
+    "PR011",
+    "CFG001",
+    "CFG002",
+    "CTX008",
+    "CFG005",
+    "CFG004",
+    "EXE005",
+    "EXE003",
+    "EXE004",
+    "N015_OUT002",
+    "N015_OUT003"
+  ],
+  "required_inputs": [
+    "EXE001",
+    "PR011",
+    "CFG001",
+    "CFG002",
+    "CTX008",
+    "CFG005",
+    "CFG004",
+    "EXE005",
+    "EXE003",
+    "EXE004",
+    "N015_OUT002",
+    "N015_OUT003"
+  ],
+  "optional_inputs": [],
+  "upstream_node_outputs": [
+    "N015_OUT002",
+    "N015_OUT003"
+  ],
+  "deprecated_legacy_fields": {
+    "approval_id": {
+      "deprecated": true,
+      "legacy_path": "business_fields.approval_id",
+      "replacement_field_ids": [],
+      "description": "approval_id from unified data contract"
+    },
+    "approved_by": {
+      "deprecated": true,
+      "legacy_path": "business_fields.approved_by",
+      "replacement_field_ids": [],
+      "description": "approved_by from unified data contract"
+    },
+    "room_type_id": {
+      "deprecated": true,
+      "legacy_path": "business_fields.room_type_id",
+      "replacement_field_ids": [],
+      "description": "room_type_id from unified data contract"
+    },
+    "channel": {
+      "deprecated": true,
+      "legacy_path": "business_fields.channel",
+      "replacement_field_ids": [],
+      "description": "channel from unified data contract"
+    },
+    "normal_price": {
+      "deprecated": true,
+      "legacy_path": "business_fields.normal_price",
+      "replacement_field_ids": [],
+      "description": "normal_price from unified data contract"
+    },
+    "weekend_price": {
+      "deprecated": true,
+      "legacy_path": "business_fields.weekend_price",
+      "replacement_field_ids": [],
+      "description": "weekend_price from unified data contract"
+    },
+    "begin_date": {
+      "deprecated": true,
+      "legacy_path": "business_fields.begin_date",
+      "replacement_field_ids": [],
+      "description": "begin_date from unified data contract"
+    },
+    "end_date": {
+      "deprecated": true,
+      "legacy_path": "business_fields.end_date",
+      "replacement_field_ids": [],
+      "description": "end_date from unified data contract"
+    }
+  },
+  "properties": {
+    "EXE001": {
+      "type": "string",
+      "canonical_key": "approval_id",
+      "project_field_name": "approval_id",
+      "field_status": "project_only",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "approval_id from V27 contract"
+    },
+    "PR011": {
+      "type": "number",
+      "canonical_key": "candidate_price",
+      "project_field_name": "candidate_price",
+      "field_status": "manual_required",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "candidate_price from V27 contract"
+    },
+    "CFG001": {
+      "type": "number",
+      "canonical_key": "price_floor",
+      "project_field_name": "price_floor",
+      "field_status": "config_only",
+      "required_level": "必选",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "price_floor from V27 contract"
+    },
+    "CFG002": {
+      "type": "number",
+      "canonical_key": "price_ceiling",
+      "project_field_name": "price_ceiling",
+      "field_status": "config_only",
+      "required_level": "必选",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "price_ceiling from V27 contract"
+    },
+    "CTX008": {
+      "type": "string",
+      "canonical_key": "freshness_status",
+      "project_field_name": "freshness_status",
+      "field_status": "project_only",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "freshness_status from V27 contract"
+    },
+    "CFG005": {
+      "type": "string",
+      "canonical_key": "source_capability",
+      "project_field_name": "source_capability",
+      "field_status": "config_only",
+      "required_level": "必选",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "source_capability from V27 contract"
+    },
+    "CFG004": {
+      "type": "boolean",
+      "canonical_key": "live_switch",
+      "project_field_name": "live_switch",
+      "field_status": "config_only",
+      "required_level": "必选",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "live_switch from V27 contract"
+    },
+    "EXE005": {
+      "type": "object",
+      "canonical_key": "readback_check",
+      "project_field_name": "readback_check",
+      "field_status": "project_only",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "readback_check from V27 contract"
+    },
+    "EXE003": {
+      "type": "boolean",
+      "canonical_key": "approval_data_allowed",
+      "project_field_name": "approval_data_allowed",
+      "field_status": "project_only",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "approval_data_allowed from V27 contract"
+    },
+    "EXE004": {
+      "type": "boolean",
+      "canonical_key": "live_allowed",
+      "project_field_name": "live_allowed",
+      "field_status": "project_only",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "live_allowed from V27 contract"
+    },
+    "N015_OUT002": {
+      "type": "array",
+      "canonical_key": "price_recommendations",
+      "project_field_name": "price_recommendations",
+      "field_status": "upstream_output",
+      "required_level": "按链路触发必需",
+      "source_node": "N015",
+      "source_skill": "S5",
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "description": "price_recommendations from V27 contract",
+      "items": {
+        "type": "object"
+      }
+    },
+    "N015_OUT003": {
+      "type": "boolean",
+      "canonical_key": "approval_required",
+      "project_field_name": "approval_required",
+      "field_status": "upstream_output",
+      "required_level": "按链路触发必需",
+      "source_node": "N015",
+      "source_skill": "S5",
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "description": "approval_required from V27 contract"
+    }
+  },
+  "required": []
+}

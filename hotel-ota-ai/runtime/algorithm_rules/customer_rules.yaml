@@ -1,0 +1,87 @@
+{
+  "schema_version": "s17-customer-order-structure.v1",
+  "owner_skill": "S17",
+  "status": "implemented",
+  "placement": "runtime/algorithm_rules",
+  "node_id": "N014",
+  "agent_id": "A1",
+  "phase": "P2",
+  "source_refs": {
+    "node_registry": "architecture/node_registry.json",
+    "edge_registry": "architecture/edge_registry.json",
+    "scenario_registry": "architecture/scenario_chain_registry.json",
+    "field_registry": "contracts/v27/field_registry.yaml",
+    "node_io_contract": "contracts/v27/node_io_contract.yaml",
+    "skill_alignment": "skills/hotel-ota/s17-customer-order-analysis/references/v27_alignment.json"
+  },
+  "demo_safety": {
+    "data_source_type": "demo_data",
+    "freshness_status": "demo_data",
+    "business_status": "demo_or_historical",
+    "today_label_allowed": false,
+    "approval_data_allowed": false,
+    "live_allowed": false
+  },
+  "data_gate": {
+    "hard_required": ["hotel_id", "window_start", "window_end", "as_of_datetime", "active_privacy_policy"],
+    "soft_required": [
+      "pms_booking_created", "realized_stay", "physical_occupancy", "extension_reconciliation",
+      "meituan_scan_order", "meituan_monthly_background", "provider_order_detail",
+      "provider_profile_background", "provider_loss_proxy", "room_mix_background"
+    ],
+    "missing_policy": "preserve each population independently; return data_gap for missing sources; never synthesize a total customer population"
+  },
+  "algorithm": {
+    "objective": "Analyze hotel-level and canonical-room-type order structure without creating customer profiles or direct actions.",
+    "ordered_steps": [
+      {"step_id": "s17_01", "action": "Resolve exact server-side hotel_id, local business window and as-of time."},
+      {"step_id": "s17_02", "action": "Select the latest source record per approved dedupe scope before cohort filtering and aggregation."},
+      {"step_id": "s17_03", "action": "Keep booking, realized stay, physical occupancy, extension and provider populations separate."},
+      {"step_id": "s17_04", "action": "Compute cancellation, channel, source, room, lead-time and stay-duration structures deterministically."},
+      {"step_id": "s17_05", "action": "Compute contact-repeat proxies only with a hotel-scoped HMAC inside the trusted aggregation boundary."},
+      {"step_id": "s17_06", "action": "Apply primary, complementary and unknown-denominator suppression before sorting, paging, caching or AI context."}
+    ],
+    "privacy_policy": {
+      "minimum_cohort_size_range": [3, 100],
+      "max_output_cells_range": [10, 500],
+      "raw_row_output_allowed": false,
+      "raw_contact_output_allowed": false,
+      "cross_hotel_identity_allowed": false
+    },
+    "thresholds": {
+      "minimum_cohort_size_range": [3, 100],
+      "max_output_cells_range": [10, 500]
+    },
+    "degradation": [
+      "Missing provider populations remain unavailable without blocking valid core populations.",
+      "Missing hotel-scoped HMAC disables contact proxy metrics and exact lookup.",
+      "Missing canonical room_type_id increments unmapped_count and blocks room-type conclusions."
+    ],
+    "output_contract": [
+      "populations", "current_cancelled_share", "booking_channel_order_distribution",
+      "booking_channel_room_distribution", "realized_room_nights", "realized_room_fee", "realized_adr",
+      "lead_time_buckets", "stay_duration_buckets", "contact_seen_before_share_proxy",
+      "repeat_booking_contact_share_proxy", "repeat_booking_order_share_proxy",
+      "repeat_stayed_contact_share_proxy", "data_gaps", "privacy_policy"
+    ]
+  },
+  "forbidden_actions": [
+    "treat_demo_data_as_real_today_data", "customer_profile", "customer_scoring", "target_guest_task", "send_offer", "contact_customer",
+    "join_populations_into_total_customer_count", "emit_raw_order_rows", "emit_contact_or_contact_hash",
+    "use_hotel_name_as_tenant_scope", "infer_canonical_room_type_from_name", "claim_proxy_as_verified_repeat_rate"
+  ],
+  "executed_by_runtime": ["runtime.decisions.customer.customer_analysis", "runtime.adapters.s17_repository.query_mysql_s17"],
+  "runtime_execution_status": "executed",
+  "demo_behavior_cases": [
+    {
+      "case_id": "s17_demo_preview",
+      "fixture": "examples/demo_data/nodes/N014.json",
+      "expected": {"data_source_type": "demo_data", "approval_data_allowed": false, "live_allowed": false}
+    },
+    {
+      "case_id": "s17_missing_exact_scope",
+      "input": {},
+      "expected": {"allowed": false, "reason": "missing_hard_required_fields"}
+    }
+  ]
+}

@@ -1,0 +1,100 @@
+{
+  "node_id": "N021",
+  "node_name": "S11 推广建议书",
+  "skill_id": "S11",
+  "agent_id": "A4",
+  "phase": "P2",
+  "demo_meta": {
+    "data_source_type": "demo_data",
+    "freshness_status": "demo_data",
+    "business_status": "demo_or_historical",
+    "today_label_allowed": false,
+    "approval_data_allowed": false,
+    "live_allowed": false
+  },
+  "demo_input": {
+    "hotel_id": "puyue-demo",
+    "channel": "meituan",
+    "message": "开启这个计划",
+    "target_date": "2026-08-07",
+    "as_of_time": "2026-08-07T19:00:00+08:00",
+    "s8_result": {
+      "status": "ok",
+      "rows": [
+        {
+          "plan_id": "DEMO-P1",
+          "plan_name": "演示推广计划",
+          "launch_id": "DEMO-L1",
+          "launch_name": "演示投放单元",
+          "promotion_name": "推广通",
+          "spend_amount": 100,
+          "booking_order_count": 4,
+          "room_night_count": 5,
+          "deterministic_display_metrics": {"roas": 2.1}
+        }
+      ]
+    },
+    "s9_result": {
+      "status": "ok",
+      "funnel": {
+        "exposure_uv": 1000,
+        "intention_uv": 120,
+        "pay_order_count": 8,
+        "browse_conversion_rate": 0.12,
+        "pay_conversion_rate": 0.0667
+      }
+    },
+    "s10_result": {
+      "status": "ok",
+      "promotion_roi": {
+        "platforms": {
+          "meituan": {
+            "items": [
+              {
+                "plan_id": "DEMO-P1",
+                "plan_name": "演示推广计划",
+                "observed_roas": 2.1,
+                "cpa": 25,
+                "booking_order_count": 4,
+                "spend_amount": 100
+              }
+            ]
+          }
+        }
+      }
+    },
+    "s16_result": {
+      "status": "ok",
+      "dynamic_diagnosis": {
+        "sales": {
+          "status": "slow",
+          "remaining_target_gap": 5
+        }
+      }
+    }
+  },
+  "expected_output": {
+    "status": "suggestion_only",
+    "node_id": "N021",
+    "skill_id": "S11",
+    "promotion_plan": {
+      "type": "PromotionPlan",
+      "suggested_action": "开启",
+      "read_only": true,
+      "ai_invoked": false,
+      "write_performed": false
+    },
+    "boundary": {
+      "mode": "read_only_recommendation_only",
+      "side_effects": "none"
+    },
+    "read_only": true,
+    "ai_invoked": false,
+    "write_performed": false,
+    "data_source_type": "demo_data",
+    "freshness_status": "demo_data",
+    "approval_data_allowed": false,
+    "live_allowed": false
+  },
+  "covered_by_scenarios": ["SC03", "SC06", "SC09"]
+}

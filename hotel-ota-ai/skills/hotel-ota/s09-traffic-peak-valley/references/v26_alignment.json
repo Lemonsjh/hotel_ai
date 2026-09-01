@@ -1,0 +1,73 @@
+{
+  "schema_version": "v26.0",
+  "source": "contracts/v26/skill_io_contract.yaml",
+  "skill_id": "S9",
+  "skill_name": "流量峰谷",
+  "english_dir_name": "traffic-peak-valley",
+  "node_ids": [
+    "N020"
+  ],
+  "agent_id": "A1",
+  "blueprint_basis": "BP01/BP04/BP07",
+  "direct_trigger": "流量峰谷、时段",
+  "chain_trigger": "诊断、活动、前台任务",
+  "input_fields": [
+    "exposure",
+    "views",
+    "payment_count",
+    "hourly_order_progress",
+    "demand_index"
+  ],
+  "output_fields": [
+    "traffic_state",
+    "time_windows",
+    "conversion_signal"
+  ],
+  "upstream_dependencies": [
+    "CTX003 business_date",
+    "FNL014 traffic_peak_valley_window",
+    "OP014 hourly_order_progress",
+    "FNL001 exposure",
+    "FNL002 views",
+    "OP002 paid_orders",
+    "DEM012 historical_same_weekday_curve",
+    "DEM007 demand_index",
+    "N005_OUT001 operating_snapshot",
+    "N005_OUT007 exposure",
+    "N005_OUT011 views",
+    "N005_OUT008 paid_orders",
+    "N010_OUT002 hourly_target_curve",
+    "N010_OUT005 historical_same_weekday_curve"
+  ],
+  "downstream_dependencies": [
+    "N009/N012/N015/N018"
+  ],
+  "runtime_command": "traffic-diagnosis",
+  "demo_data_files": [
+    "examples/demo_data/demo_manifest.json",
+    "examples/demo_data/nodes/N020.json"
+  ],
+  "error_handling": "先转化后流量",
+  "acceptance_tests": [
+    "tests/contracts/test_v26_skill_io_contract.py"
+  ],
+  "node_registry_ref": "architecture/node_registry.json",
+  "edge_registry_ref": "architecture/edge_registry.json",
+  "scenario_registry_ref": "architecture/scenario_chain_registry.json",
+  "field_registry_ref": "contracts/v26/field_registry.yaml",
+  "node_io_contract_ref": "contracts/v26/node_io_contract.yaml",
+  "algorithm_rules_ref": "runtime/algorithm_rules/traffic_rules.yaml",
+  "demo_node_fixture": "examples/demo_data/nodes/N020.json",
+  "forbidden_actions": [
+    "treat_demo_data_as_real_today_data",
+    "create_formal_approval_from_demo_or_stale_data",
+    "bypass_data_gate_or_approval_guard"
+  ],
+  "demo_safety": {
+    "data_source_type": "demo_data",
+    "approval_data_allowed": false,
+    "live_allowed": false,
+    "formal_approval_created": false,
+    "live_execution_count": 0
+  }
+}

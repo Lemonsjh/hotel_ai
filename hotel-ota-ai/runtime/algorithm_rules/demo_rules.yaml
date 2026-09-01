@@ -1,0 +1,30 @@
+{
+  "schema_version": "0.1",
+  "source_refs": {
+    "field_registry": "contracts/v27/field_registry.yaml",
+    "node_io_contract": "contracts/v27/node_io_contract.yaml"
+  },
+  "demo_mode": {
+    "env_flag": "HOTEL_OTA_DEMO_MODE=1",
+    "cli_flag": "--demo",
+    "data_source_type": "demo_data",
+    "freshness_status": "demo_data",
+    "business_status": "demo_or_historical",
+    "today_label_allowed": false,
+    "approval_data_allowed": false,
+    "live_allowed": false
+  },
+  "blocked_actions": [
+    "formal_approval_create",
+    "live_price_write",
+    "live_promotion_write",
+    "live_review_publish",
+    "claim_today_real_business_result"
+  ],
+  "allowed_actions": [
+    "dry_run",
+    "preview_only",
+    "simulation_only",
+    "html_report_preview"
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "schema_version": "0.1",
+  "skill_id": "S17",
+  "skill_dir": "s17-customer-order-analysis",
+  "node_id": "N014",
+  "node_name": "S17 客户订单分析",
+  "agent_id": "A1",
+  "phase": "P2",
+  "node_registry_ref": "architecture/node_registry.json",
+  "edge_registry_ref": "architecture/edge_registry.json",
+  "scenario_registry_ref": "architecture/scenario_chain_registry.json",
+  "field_registry_ref": "contracts/field_registry.yaml",
+  "node_io_contract_ref": "contracts/node_io_contract.yaml",
+  "algorithm_rules_ref": "runtime/algorithm_rules/customer_rules.yaml",
+  "demo_node_fixture": "examples/demo_data/nodes/N014.json",
+  "demo_scenarios": [
+    "SC03",
+    "SC08",
+    "SC09"
+  ],
+  "upstream_edges": [
+    {
+      "edge_id": "E047",
+      "source_node_id": "N004",
+      "why": "客户/订单分析可以由用户直接触发，也可以作为收益策略参考字段包读取。"
+    }
+  ],
+  "downstream_edges": [
+    {
+      "edge_id": "E019",
+      "target_node_id": "N015",
+      "why": "客户结构可作为收益策略和任务建议参考，但不能阻断 P0/P1。"
+    },
+    {
+      "edge_id": "E048",
+      "target_node_id": "N018",
+      "why": "客户订单分析如果只需要分层/流失预警，可直接输出给用户，不必强制进入收益决策。"
+    },
+    {
+      "edge_id": "E067",
+      "target_node_id": "N019",
+      "why": "客户结构和流失风险可脱敏沉淀为客群运营经验。"
+    }
+  ],
+  "forbidden_actions": [
+    "treat_demo_data_as_real_today_data",
+    "create_formal_approval_from_demo_or_stale_data",
+    "bypass_data_gate_or_approval_guard"
+  ],
+  "demo_safety": {
+    "data_source_type": "demo_data",
+    "freshness_status": "demo_data",
+    "business_status": "demo_or_historical",
+    "today_label_allowed": false,
+    "approval_data_allowed": false,
+    "live_allowed": false
+  }
+}

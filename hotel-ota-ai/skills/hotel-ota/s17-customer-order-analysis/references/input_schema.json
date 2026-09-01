@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "schema_version": "v27-wrapper",
+  "title": "S17 input wrapper",
+  "type": "object",
+  "canonical_source": "contracts/v27/node_io_contract.yaml",
+  "secondary_source": "contracts/v27/skill_io_contract.yaml",
+  "alignment_source": "references/v27_alignment.json",
+  "skill_id": "S17",
+  "node_ids": [
+    "N014"
+  ],
+  "input_field_ids": [
+    "S17I001",
+    "S17I002",
+    "S17I003"
+  ],
+  "deprecated_legacy_fields": {
+    "customer_segments": {
+      "deprecated": true
+    },
+    "repeat_guest_rate": {
+      "deprecated": true
+    },
+    "review_content": {
+      "deprecated": true
+    }
+  },
+  "properties": {
+    "S17I001": {
+      "type": "object",
+      "canonical_key": "request_context"
+    },
+    "S17I002": {
+      "type": "object",
+      "canonical_key": "active_privacy_policy"
+    },
+    "S17I003": {
+      "type": "object",
+      "canonical_key": "source_populations"
+    }
+  },
+  "required": [
+    "S17I001",
+    "S17I002",
+    "S17I003"
+  ],
+  "additionalProperties": false
+}

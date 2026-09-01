@@ -1,0 +1,107 @@
+{
+  "schema_version": "0.1",
+  "skill_id": "S5",
+  "skill_dir": "s05-revenue-decision",
+  "node_id": "N015",
+  "node_name": "S5 智能收益决策",
+  "agent_id": "A3",
+  "phase": "P1",
+  "node_registry_ref": "architecture/node_registry.json",
+  "edge_registry_ref": "architecture/edge_registry.json",
+  "scenario_registry_ref": "architecture/scenario_chain_registry.json",
+  "field_registry_ref": "contracts/field_registry.yaml",
+  "node_io_contract_ref": "contracts/node_io_contract.yaml",
+  "algorithm_rules_ref": "runtime/algorithm_rules/revenue_rules.yaml",
+  "demo_node_fixture": "examples/demo_data/nodes/N015.json",
+  "demo_scenarios": [
+    "SC03",
+    "SC04",
+    "SC05",
+    "SC08",
+    "SC09"
+  ],
+  "upstream_edges": [
+    {
+      "edge_id": "E013",
+      "source_node_id": "N006",
+      "why": "需求指数决定调价动作强度和策略保守程度。"
+    },
+    {
+      "edge_id": "E014",
+      "source_node_id": "N007",
+      "why": "竞对只作为收益决策参考，不允许直接进入执行。"
+    },
+    {
+      "edge_id": "E015",
+      "source_node_id": "N009",
+      "why": "健康诊断和转化瓶颈决定是否先修转化、口碑或库存，再调价。"
+    },
+    {
+      "edge_id": "E016",
+      "source_node_id": "N011",
+      "why": "进度落后/超前会改变收益策略，比如补救、观察或涨价。"
+    },
+    {
+      "edge_id": "E017",
+      "source_node_id": "N012",
+      "why": "活动可能替代直接降价，也可能影响到手价和底价安全。"
+    },
+    {
+      "edge_id": "E018",
+      "source_node_id": "N013",
+      "why": "ROI或利润模拟是收益最大化策略的增强输入。"
+    },
+    {
+      "edge_id": "E019",
+      "source_node_id": "N014",
+      "why": "客户结构可作为收益策略和任务建议参考，但不能阻断 P0/P1。"
+    },
+    {
+      "edge_id": "E034",
+      "source_node_id": "N020",
+      "why": "小时级需求和进单节奏会影响调价时点和动作强度。"
+    },
+    {
+      "edge_id": "E061",
+      "source_node_id": "N010",
+      "why": "销售基准线本身也是收益决策的目标约束，可直接参与收益策略。"
+    }
+  ],
+  "downstream_edges": [
+    {
+      "edge_id": "E020",
+      "target_node_id": "N016",
+      "why": "只有 S5 产出调价建议后，S6 才允许做 dry-run/审批/执行边界。"
+    },
+    {
+      "edge_id": "E021",
+      "target_node_id": "N018",
+      "why": "不需要执行或执行被阻断时，直接把收益建议输出给用户。"
+    },
+    {
+      "edge_id": "E027",
+      "target_node_id": "N019",
+      "why": "收益决策过程可用于后续运营复盘和规则候选。"
+    },
+    {
+      "edge_id": "E035",
+      "target_node_id": "N012",
+      "why": "收益决策发现降价不合适或转化风险高时，可改用活动/推广候选动作。"
+    }
+  ],
+  "forbidden_actions": [
+    "treat_demo_data_as_real_today_data",
+    "create_formal_approval_from_demo_or_stale_data",
+    "bypass_data_gate_or_approval_guard",
+    "write_channel_price_directly",
+    "call_live_execution_without_S6"
+  ],
+  "demo_safety": {
+    "data_source_type": "demo_data",
+    "freshness_status": "demo_data",
+    "business_status": "demo_or_historical",
+    "today_label_allowed": false,
+    "approval_data_allowed": false,
+    "live_allowed": false
+  }
+}

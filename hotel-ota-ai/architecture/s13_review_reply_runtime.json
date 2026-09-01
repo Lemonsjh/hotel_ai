@@ -1,0 +1,44 @@
+{
+  "schema_version": "s13-runtime-architecture.v1",
+  "skill_id": "S13",
+  "name": "评论智能回复",
+  "authority": "S13 MD",
+  "components": [
+    {
+      "component": "S12 review ref issuer",
+      "module": "runtime/s12_review_refs.py",
+      "responsibility": "Issue and resolve server-side opaque review references bound to exact hotel, platform, source snapshot and content digest."
+    },
+    {
+      "component": "S13 control repository",
+      "module": "runtime/s13/repository.py",
+      "responsibility": "Persist draft versions, text confirmation requests, append-only events and idempotent write attempts."
+    },
+    {
+      "component": "Review source adapter",
+      "module": "runtime/s13/source.py",
+      "responsibility": "Read exact-hotel OTA review detail through fixed table and allowlisted column contracts."
+    },
+    {
+      "component": "Meituan task outbox",
+      "module": "runtime/s13/task_outbox.py",
+      "responsibility": "Execute fixed INSERT, exact pending readback and failed/cancelled CAS retry only against ota_review_reply_task."
+    },
+    {
+      "component": "S13 service",
+      "module": "runtime/s13/service.py",
+      "responsibility": "Enforce eligibility, pure-rating handling, risk blocking, versioning, confirmation and task status semantics."
+    },
+    {
+      "component": "CLI and Feishu integration",
+      "module": "runtime/s13_runtime_patch.py",
+      "responsibility": "Expose controlled commands and deterministic text confirmation without N017/A4 or OpenClaw semantics."
+    }
+  ],
+  "forbidden_bindings": ["N017", "A4", "V27 S13 IO", "OpenClaw S13 route", "guest S13 role", "automatic compensation"],
+  "approved_task_sink": {
+    "platform": "meituan",
+    "channel_source": "meituan",
+    "table": "ota_review_reply_task"
+  }
+}

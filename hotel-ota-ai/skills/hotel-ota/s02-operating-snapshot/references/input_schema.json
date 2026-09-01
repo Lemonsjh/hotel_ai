@@ -1,0 +1,287 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "schema_version": "v27-wrapper",
+  "title": "S2 input wrapper",
+  "type": "object",
+  "canonical_source": "contracts/v27/node_io_contract.yaml",
+  "secondary_source": "contracts/v27/skill_io_contract.yaml",
+  "alignment_source": "references/v27_alignment.json",
+  "skill_id": "S2",
+  "skill_name": "S2",
+  "node_id": "N005",
+  "node_ids": [
+    "N005"
+  ],
+  "agent_id": "A1",
+  "agent_ids": [
+    "A1"
+  ],
+  "source_contract": "contracts/v27/contract.json",
+  "field_registry_ref": "contracts/v27/field_registry.yaml",
+  "node_io_contract_ref": "contracts/v27/node_io_contract.yaml",
+  "demo_safety_fields": [
+    "data_source_type=demo_data",
+    "freshness_status=demo_data",
+    "approval_data_allowed=false",
+    "live_allowed=false"
+  ],
+  "additionalProperties": true,
+  "input_field_ids": [
+    "HOT001",
+    "ROOM001",
+    "ROOM002",
+    "ROOM003",
+    "ROOM004",
+    "OP001",
+    "OP002",
+    "OP004",
+    "OP005",
+    "OP006",
+    "OP007",
+    "PR001",
+    "PR002",
+    "PR003",
+    "CTX003",
+    "CTX008",
+    "N004_OUT001"
+  ],
+  "required_inputs": [
+    "HOT001",
+    "ROOM001",
+    "ROOM002",
+    "ROOM003",
+    "ROOM004",
+    "OP001",
+    "OP002",
+    "OP004",
+    "OP005",
+    "OP006",
+    "OP007",
+    "PR001",
+    "PR002",
+    "PR003",
+    "CTX003",
+    "CTX008",
+    "N004_OUT001"
+  ],
+  "optional_inputs": [],
+  "upstream_node_outputs": [
+    "N004_OUT001"
+  ],
+  "deprecated_legacy_fields": {
+    "occupancy_rate": {
+      "deprecated": true,
+      "legacy_path": "business_fields.occupancy_rate",
+      "replacement_field_ids": [
+        "N005_OUT001"
+      ],
+      "description": "occupancy_rate from unified data contract"
+    },
+    "adr": {
+      "deprecated": true,
+      "legacy_path": "business_fields.adr",
+      "replacement_field_ids": [],
+      "description": "adr from unified data contract"
+    },
+    "revpar": {
+      "deprecated": true,
+      "legacy_path": "business_fields.revpar",
+      "replacement_field_ids": [],
+      "description": "revpar from unified data contract"
+    },
+    "available_rooms": {
+      "deprecated": true,
+      "legacy_path": "business_fields.available_rooms",
+      "replacement_field_ids": [],
+      "description": "available_rooms from unified data contract"
+    },
+    "sold_rooms": {
+      "deprecated": true,
+      "legacy_path": "business_fields.sold_rooms",
+      "replacement_field_ids": [],
+      "description": "sold_rooms from unified data contract"
+    },
+    "remaining_rooms": {
+      "deprecated": true,
+      "legacy_path": "business_fields.remaining_rooms",
+      "replacement_field_ids": [],
+      "description": "remaining_rooms from unified data contract"
+    },
+    "orders_today": {
+      "deprecated": true,
+      "legacy_path": "business_fields.orders_today",
+      "replacement_field_ids": [
+        "N005_OUT009",
+        "N005_OUT010"
+      ],
+      "description": "orders_today from unified data contract"
+    },
+    "risk_flags": {
+      "deprecated": true,
+      "legacy_path": "business_fields.risk_flags",
+      "replacement_field_ids": [
+        "N004_OUT002"
+      ],
+      "description": "risk_flags from unified data contract"
+    }
+  },
+  "properties": {
+    "HOT001": {
+      "type": "string",
+      "canonical_key": "hotel_id",
+      "project_field_name": "hotel_id",
+      "field_status": "manual_required",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "hotel_id from V27 contract"
+    },
+    "ROOM001": {
+      "type": "string",
+      "canonical_key": "room_type_id",
+      "project_field_name": "room_type_id",
+      "field_status": "candidate_inferred",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "room_type_id from V27 contract"
+    },
+    "ROOM002": {
+      "type": "string",
+      "canonical_key": "room_type_name",
+      "project_field_name": "room_type_name",
+      "field_status": "candidate_inferred",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "room_type_name from V27 contract"
+    },
+    "ROOM003": {
+      "type": "number",
+      "canonical_key": "room_type_total",
+      "project_field_name": "room_type_total",
+      "field_status": "candidate_inferred",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "room_type_total from V27 contract"
+    },
+    "ROOM004": {
+      "type": "string",
+      "canonical_key": "available_inventory",
+      "project_field_name": "available_inventory",
+      "field_status": "candidate_inferred",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "available_inventory from V27 contract"
+    },
+    "OP001": {
+      "type": "number",
+      "canonical_key": "orders",
+      "project_field_name": "orders",
+      "field_status": "candidate_inferred",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "orders from V27 contract"
+    },
+    "OP002": {
+      "type": "number",
+      "canonical_key": "paid_orders",
+      "project_field_name": "paid_orders",
+      "field_status": "candidate_inferred",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "paid_orders from V27 contract"
+    },
+    "OP004": {
+      "type": "number",
+      "canonical_key": "room_nights",
+      "project_field_name": "room_nights",
+      "field_status": "candidate_inferred",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "room_nights from V27 contract"
+    },
+    "OP005": {
+      "type": "number",
+      "canonical_key": "occupancy",
+      "project_field_name": "occupancy_rate",
+      "field_status": "candidate_inferred",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "occupancy from V27 contract"
+    },
+    "OP006": {
+      "type": "number",
+      "canonical_key": "adr",
+      "project_field_name": "adr",
+      "field_status": "candidate_inferred",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "adr from V27 contract"
+    },
+    "OP007": {
+      "type": "number",
+      "canonical_key": "revpar",
+      "project_field_name": "revpar",
+      "field_status": "candidate_inferred",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "revpar from V27 contract"
+    },
+    "PR001": {
+      "type": "number",
+      "canonical_key": "current_price",
+      "project_field_name": "current_price",
+      "field_status": "candidate_inferred",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "current_price from V27 contract"
+    },
+    "PR002": {
+      "type": "number",
+      "canonical_key": "listed_price",
+      "project_field_name": "listed_price",
+      "field_status": "manual_required",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "listed_price from V27 contract"
+    },
+    "PR003": {
+      "type": "number",
+      "canonical_key": "promo_price",
+      "project_field_name": "promo_price",
+      "field_status": "manual_required",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "promo_price from V27 contract"
+    },
+    "CTX003": {
+      "type": "string",
+      "canonical_key": "business_date",
+      "project_field_name": "business_date",
+      "field_status": "project_only",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "business_date from V27 contract",
+      "format": "date-time"
+    },
+    "CTX008": {
+      "type": "string",
+      "canonical_key": "freshness_status",
+      "project_field_name": "freshness_status",
+      "field_status": "project_only",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "freshness_status from V27 contract"
+    },
+    "N004_OUT001": {
+      "type": "string",
+      "canonical_key": "data_gate_result",
+      "project_field_name": "data_gate_result",
+      "field_status": "upstream_output",
+      "required_level": "按链路触发必需",
+      "source_node": "N004",
+      "source_skill": "-",
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "description": "data_gate_result from V27 contract"
+    }
+  },
+  "required": []
+}

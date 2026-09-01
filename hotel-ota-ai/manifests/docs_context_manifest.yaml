@@ -1,0 +1,37 @@
+schema_version: docs_context_manifest.v2
+current_fact_source: contracts/v27/contract.json
+current_runtime_mode: single_openclaw_controller_with_A0_A6_logical_agents
+context_groups:
+  openclaw_startup:
+    policy: "read_first"
+    documents:
+      - "AGENTS.md"
+      - "BOOTSTRAP.md"
+      - "TOOLS.md"
+      - "README.md"
+      - "USER.md"
+      - "IDENTITY.md"
+      - "SOUL.md"
+      - "HEARTBEAT.md"
+      - "MEMORY.md"
+  authoritative_v27:
+    policy: "read_when_relevant"
+    paths:
+      - "contracts/v27/"
+      - "docs/architecture_reference/v27/"
+      - "architecture/"
+      - "router/"
+      - "skills/hotel-ota/"
+  operations:
+    policy: "read_when_deploying_or_operating"
+    paths:
+      - "ops/"
+      - "manifests/deploy_manifest.yaml"
+      - "manifests/runtime_manifest.yaml"
+excluded_paths:
+  - "requirements/"
+  - "docs/architecture_reference/v26/"
+rules:
+  - "Runtime and contracts/v27 override documentation when they conflict."
+  - "Legacy requirements are retired and must not be restored as active context."
+  - "Private configuration, credentials, identities, DSNs, and tokens stay outside Git."

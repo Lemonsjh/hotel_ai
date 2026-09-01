@@ -1,0 +1,62 @@
+{
+  "version": 3,
+  "default_policy": "deny_unknown",
+  "description": "Copy to a private server path and replace all placeholder identities. Do not commit real Feishu user IDs, group IDs, tokens, or secrets. Owners are hotel-scoped and may only request operator/frontdesk changes for other existing principals in their own hotel.",
+  "direct_message_policy": "role_mapped_users_only",
+  "global_admin_principal_ids": [
+    "principal_admin"
+  ],
+  "users": [
+    {
+      "name": "Global admin",
+      "principal_id": "principal_admin",
+      "open_id": "ou_replace_with_admin_open_id",
+      "user_id": "",
+      "union_id": ""
+    },
+    {
+      "name": "Hotel owner",
+      "principal_id": "principal_owner_hotel_a",
+      "open_id": "ou_replace_with_owner_open_id",
+      "user_id": "",
+      "union_id": ""
+    },
+    {
+      "name": "Hotel operator",
+      "principal_id": "principal_operator_hotel_a",
+      "open_id": "ou_replace_with_operator_open_id",
+      "user_id": "",
+      "union_id": ""
+    },
+    {
+      "name": "Hotel frontdesk",
+      "principal_id": "principal_frontdesk_hotel_a",
+      "open_id": "ou_replace_with_frontdesk_open_id",
+      "user_id": "",
+      "union_id": ""
+    }
+  ],
+  "hotel_memberships": [
+    {
+      "principal_id": "principal_owner_hotel_a",
+      "hotel_id": "hotel_a",
+      "role": "owner"
+    },
+    {
+      "principal_id": "principal_operator_hotel_a",
+      "hotel_id": "hotel_a",
+      "role": "operator"
+    },
+    {
+      "principal_id": "principal_frontdesk_hotel_a",
+      "hotel_id": "hotel_a",
+      "role": "frontdesk"
+    }
+  ],
+  "group_chat_bindings": [
+    {
+      "chat_id": "oc_replace_with_hotel_a_group_id",
+      "hotel_id": "hotel_a"
+    }
+  ]
+}

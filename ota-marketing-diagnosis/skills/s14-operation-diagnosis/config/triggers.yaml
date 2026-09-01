@@ -1,0 +1,84 @@
+version: 2
+skill_id: s14-operation-diagnosis
+language: zh-CN
+
+intent_triggers:
+  - name: s14_diagnosis
+    priority: 100
+    phrases:
+      - S14诊断
+      - S14 诊断
+      - s14诊断
+      - s14 诊断
+      - S14报告
+      - s14报告
+      - OTA诊断
+      - ota诊断
+      - OTA全面诊断
+      - ota全面诊断
+      - 运营诊断
+      - 生成诊断报告
+      - 生成OTA诊断报告
+      - 生成ota诊断报告
+      - 酒店OTA诊断
+      - 酒店 ota 诊断
+      - 酒店 OTA 诊断
+      - 美团诊断
+      - 美团OTA诊断
+      - 美团ota诊断
+      - 美团运营诊断
+      - 携程诊断
+      - 携程OTA诊断
+      - 携程ota诊断
+      - 携程运营诊断
+      - 多渠道诊断
+      - 全渠道诊断
+      - 多渠道OTA诊断
+      - 多渠道ota诊断
+      - 全渠道OTA诊断
+      - 全渠道ota诊断
+    default_inputs:
+      data_source_mode: source_selection
+      platform: multi
+      period_days: 30
+
+  - name: s14_database_choice
+    priority: 110
+    phrases:
+      - 数据库
+      - 使用数据库
+      - 从数据库拉取
+      - 数据库诊断
+    default_inputs:
+      data_source_mode: database
+      platform: multi
+      period_days: 30
+
+  - name: s14_excel_choice
+    priority: 110
+    phrases:
+      - 上传Excel
+      - 上传 Excel
+      - 使用Excel
+      - 使用 Excel
+      - 上传表格
+    default_inputs:
+      data_source_mode: excel_pending
+      platform: multi
+      period_days: 30
+
+parameter_extractors:
+  period_days:
+    example: 最近30天
+    type: integer
+    min: 1
+    max: 366
+  hotel_id:
+    mapping:
+      puyue: puyue
+      璞悦: puyue
+      璞悦酒店: puyue
+
+safety:
+  report_only: true
+  dry_run: true

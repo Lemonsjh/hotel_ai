@@ -1,0 +1,82 @@
+{
+  "version": 3,
+  "description": "Copy to a private server path. Do not commit real API keys, exact hotel coordinates, provider endpoints, city locations, or event credentials.",
+  "hotels": {
+    "example-hotel": {
+      "weather": {
+        "provider": "open_meteo",
+        "enabled": true,
+        "latitude": "00.000000",
+        "longitude": "000.000000",
+        "timezone": "Asia/Shanghai",
+        "display_location": "REPLACE_WITH_PRIVATE_HOTEL_BUSINESS_AREA",
+        "fallback_providers": ["wttr_http"],
+        "location": "REPLACE_WITH_CITY_DISTRICT_COUNTRY",
+        "timeout_seconds": 5,
+        "cache_ttl_seconds": 900
+      },
+      "events": {
+        "provider": "verified_http_json",
+        "enabled": false,
+        "endpoint": "https://events.example.invalid/hotel-ota/events",
+        "bearer_token_env": "HOTEL_OTA_EVENT_PROVIDER_TOKEN",
+        "lookahead_days": 14,
+        "limit": 20,
+        "timeout_seconds": 5,
+        "cache_ttl_seconds": 21600,
+        "direct_price_trigger_allowed": false,
+        "legacy_bridge": {
+          "provider": "openclaw_bridge_http_search",
+          "enabled": false,
+          "endpoint": "http://127.0.0.1:8787/search",
+          "expected_service_id": "hotel-ota-event-search-bridge",
+          "source_type": "verified_search",
+          "query_template": "{business_date} {hotel_id} nearby hotel demand events",
+          "bearer_token_env": "HOTEL_OTA_EVENT_BRIDGE_CREDENTIAL",
+          "allow_demo_results": false
+        }
+      },
+      "holiday": {
+        "provider": "apisbo",
+        "enabled": true,
+        "commercial_use_confirmed": true,
+        "fallback_providers": ["jiejiariapi"],
+        "providers": {
+          "apisbo": {
+            "provider": "apisbo",
+            "endpoint_template": "https://api.apisbo.com/holidays/year/{year}",
+            "enabled": true,
+            "commercial_use_confirmed": true,
+            "timeout_seconds": 50,
+            "cache_ttl_seconds": 86400
+          },
+          "jiejiariapi": {
+            "provider": "jiejiariapi",
+            "enabled": true,
+            "commercial_use_confirmed": false,
+            "allow_anonymous": true,
+            "anonymous_daily_limit": 50,
+            "endpoint_template": "https://api.jiejiariapi.com/v1/holidays/{year}",
+            "api_key_env": "JIEJIARI_API_KEY",
+            "api_key_query_param": "key",
+            "timeout_seconds": 50,
+            "cache_ttl_seconds": 86400
+          }
+        },
+        "timeout_seconds": 50,
+        "cache_ttl_seconds": 86400
+      },
+      "regional_heat": {
+        "provider": "composite",
+        "enabled": true,
+        "weights": {
+          "event_heat": 0.25,
+          "ota_conversion": 0.25,
+          "historical_same_period": 0.2,
+          "competitor_signal": 0.15,
+          "booking_progress": 0.15
+        }
+      }
+    }
+  }
+}

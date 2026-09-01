@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.1",
+  "skill_id": "S11",
+  "algorithm_rules_ref": "runtime/algorithm_rules/promotion_execution_rules.yaml",
+  "cases": [
+    {
+      "case_id": "s11_demo_readonly_plan",
+      "fixture": "examples/demo_data/nodes/N021.json",
+      "expected": {
+        "data_source_type": "demo_data",
+        "approval_data_allowed": false,
+        "live_allowed": false,
+        "read_only": true,
+        "ai_invoked": false,
+        "write_performed": false,
+        "status_in": [
+          "suggestion_only",
+          "data_gap",
+          "clarification_required"
+        ]
+      }
+    },
+    {
+      "case_id": "s11_ambiguous_plan_requires_clarification",
+      "input": {
+        "hotel_id": "puyue",
+        "message": "关闭这个计划",
+        "s8_result": {
+          "status": "ok",
+          "rows": [
+            {"plan_id": "P1", "plan_name": "计划甲", "launch_id": "L1"},
+            {"plan_id": "P2", "plan_name": "计划乙", "launch_id": "L2"}
+          ]
+        }
+      },
+      "expected": {
+        "status": "clarification_required",
+        "scope_resolution": "clarification_required",
+        "plan_scope": null,
+        "write_performed": false
+      }
+    },
+    {
+      "case_id": "s11_missing_hard_required",
+      "input": {
+        "message": "推广建议"
+      },
+      "expected": {
+        "allowed": false,
+        "reason": "missing_hard_required_fields"
+      }
+    }
+  ]
+}

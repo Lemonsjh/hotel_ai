@@ -1,0 +1,32 @@
+# Default: keep text files normalized as LF in repository and working tree
+* text=auto eol=lf
+
+# Python / config / docs
+*.py text eol=lf
+*.md text eol=lf
+*.json text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+*.toml text eol=lf
+*.ini text eol=lf
+*.txt text eol=lf
+
+# Shell scripts must be LF for Linux
+*.sh text eol=lf
+
+# Windows scripts can keep CRLF
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+
+# Binary files
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.pdf binary
+*.xlsx binary
+*.drawio binary
+*.sqlite binary
+*.db binary

@@ -1,0 +1,54 @@
+intent: operation_diagnosis
+phrases:
+  - 跑一下 S14
+  - 查看 S14
+  - 综合运营诊断
+  - 本店运营诊断
+  - 本店OTA运营诊断
+  - 运营诊断
+  - 问题明细
+  - 核查建议
+required_role: operator
+required_permission: operation_diagnosis_read
+command_name: s14-diagnosis
+runtime_command: python runtime/hotel_ota_runtime.py s14-diagnosis --hotel-id <resolved_hotel_id> --date <target_business_date> --as-of-datetime <as_of_datetime>
+input_contract: references/input_schema.json
+output_contract: references/output_schema.json
+required_capabilities:
+  - S2
+  - S4
+  - S7
+  - S8
+  - S9
+  - S10
+  - S12
+  - S15
+  - S16
+  - S17
+collection_policy: reuse_saved_then_run_missing
+result_store:
+  - capability_results
+  - s14_diagnosis_runs
+data_guardrails:
+  - versioned_capability_results_only
+  - exact_organization_hotel_date_asof_revision_alignment
+  - captured_at_not_after_as_of
+  - different_effective_windows_allowed
+  - missing_capability_degrades_only_affected_modules
+  - demo_sample_synthetic_hardcoded_results_rejected
+  - no_excel_csv_screenshot_manual_rpa_source
+  - no_operation_diagnosis_database_template
+  - no_cross_hotel_cross_date_cross_platform_fill
+output_guardrails:
+  - deterministic_items_only
+  - health_score_display_only
+  - no_task_creation
+  - existing_handoff_refs_only
+  - no_buttons_callbacks_or_card_updates
+  - no_sql_model_parameters_customer_rows_physical_ids_secrets_or_private_paths
+  - write_performed_false
+  - direct_execution_allowed_false
+examples:
+  - user: 跑一下 S14
+    route: operation_diagnosis
+    command: python runtime/hotel_ota_runtime.py s14-diagnosis --hotel-id <resolved_hotel_id> --date <target_business_date> --as-of-datetime <as_of_datetime>

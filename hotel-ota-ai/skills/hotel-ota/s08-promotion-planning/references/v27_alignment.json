@@ -1,0 +1,106 @@
+{
+  "skill_id": "S8",
+  "skill_name": "S8",
+  "node_ids": [
+    "N012"
+  ],
+  "agent_id": "A3",
+  "agent_ids": [
+    "A3"
+  ],
+  "blueprint_basis": [
+    "BP05",
+    "BP02",
+    "BP06",
+    "BP07"
+  ],
+  "input_field_ids": [],
+  "output_field_ids": [],
+  "input_fields": [],
+  "output_fields": [],
+  "source": "contracts/v27/contract.json",
+  "field_registry_ref": "contracts/v27/field_registry.yaml",
+  "node_io_contract_ref": "contracts/v27/node_io_contract.yaml",
+  "demo_safety_fields": [
+    "data_source_type=demo_data",
+    "freshness_status=demo_data",
+    "approval_data_allowed=false",
+    "live_allowed=false"
+  ],
+  "runtime_scope_override": {
+    "status": "active",
+    "scope": "display_only",
+    "reason": "S8 is restricted to read-only Meituan promotion-performance display on this branch.",
+    "source_table": "meituan_ota_promotion_performance_30d",
+    "trigger_mode": "read_on_s8_invocation",
+    "tenant_key": "hotel_id",
+    "snapshot_policy": "latest_snapshot_for_hotel_or_latest_not_after_as_of_time",
+    "runtime_inputs": [
+      "hotel_id",
+      "as_of_time"
+    ],
+    "runtime_output_path": "evidence.promotion_display",
+    "upstream_skill_dependencies": [],
+    "recommendations_allowed": false,
+    "actions_allowed": false,
+    "approval_allowed": false,
+    "write_allowed": false
+  },
+  "deprecated_v27_input_field_ids": [
+    "ACT001",
+    "ACT002",
+    "ACT003",
+    "ACT004",
+    "PR004",
+    "CFG001",
+    "PR006",
+    "CMP007",
+    "DEM007",
+    "ROOM005",
+    "ACT015",
+    "N020_OUT001",
+    "N020_OUT002",
+    "N020_OUT005",
+    "N015_OUT001",
+    "N015_OUT004",
+    "N015_OUT006",
+    "N011_OUT001",
+    "N011_OUT003",
+    "N011_OUT004",
+    "N005_OUT001",
+    "N005_OUT002",
+    "N005_OUT003",
+    "N006_OUT001",
+    "N006_OUT002",
+    "N006_OUT004",
+    "N009_OUT003",
+    "N009_OUT005",
+    "N009_OUT004",
+    "N007_OUT001",
+    "N007_OUT002"
+  ],
+  "deprecated_v27_output_field_ids": [
+    "N012_OUT001",
+    "N012_OUT002",
+    "N012_OUT003",
+    "N012_OUT004",
+    "N012_OUT005",
+    "N012_OUT006",
+    "N012_OUT007",
+    "N012_OUT008"
+  ],
+  "forbidden_actions": [
+    "read_non_meituan_promotion_table",
+    "read_activity_or_price_tables",
+    "depend_on_other_skill_outputs",
+    "display_or_infer_promotion_status",
+    "generate_promotion_plan",
+    "generate_budget_or_bid_advice",
+    "generate_enable_pause_close_action",
+    "create_approval",
+    "create_execution_task",
+    "perform_ota_write",
+    "fallback_to_demo_sample_synthetic_or_cached_rows",
+    "treat_demo_data_as_real_today_data"
+  ]
+}

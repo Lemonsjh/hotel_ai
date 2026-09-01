@@ -1,0 +1,58 @@
+intent: review_reply
+phrases:
+  - 待回复评论
+  - 帮我写差评回复
+  - 生成评论回复
+  - 评论回复任务状态
+  - 确认回复任务
+  - 重试评论回复
+allowed_roles:
+  - owner
+  - operator
+blocked_roles:
+  - viewer
+  - frontdesk
+required_permission: review_reply_task
+commands:
+  list_pending: review-reply-list
+  generate_draft: review-reply-draft
+  submit_human_draft: review-reply-preview
+  confirm: review-reply-confirm
+  reject: review-reply-reject
+  cancel: review-reply-cancel
+  query_status: review-reply-status
+  retry: review-reply-retry
+input_contract:
+  locator: opaque_review_ref
+  issuer: S12
+  reject_direct_fields:
+    - review_id
+    - review_content
+    - platform
+    - channel_source
+    - guest_name
+    - order_id
+write_scope:
+  allowed_platforms:
+    - meituan
+  allowed_channel_sources:
+    - meituan
+  other_platform_behavior: copy_only
+safety_rules:
+  - 服务端必须按当前 RequestContext 解析 exact hotel 和 review_ref
+  - 纯评分评论 review_content=NULL 合法且必须可生成确定性草稿
+  - 每次编辑生成新 draft_version 和 content_hash，旧确认失效
+  - 写入必须使用固定 DML 并完成 exact pending readback
+  - failed/cancelled 只允许新确认后的 CAS UPDATE
+  - 未验证 pending readback 不得声称任务已提交
+  - task success 不等于 OTA 公开页面回复成功
+  - 不使用 V27、OpenClaw、N017/A4、admin/guest 或自动补偿语义
+examples:
+  - user: 帮我写这条评论的回复
+    route: review_reply
+    required_input: opaque review_ref
+    command: review-reply-draft
+  - user: 查询这条回复任务
+    route: review_reply
+    required_input: request_id or opaque review_ref
+    command: review-reply-status

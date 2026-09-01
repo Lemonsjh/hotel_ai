@@ -1,0 +1,67 @@
+{
+  "schema_version": "0.1",
+  "skill_id": "S15",
+  "skill_dir": "s15-sales-baseline",
+  "node_id": "N010",
+  "node_name": "S15 销售基准线",
+  "agent_id": "A2",
+  "phase": "P0",
+  "node_registry_ref": "architecture/node_registry.json",
+  "edge_registry_ref": "architecture/edge_registry.json",
+  "scenario_registry_ref": "architecture/scenario_chain_registry.json",
+  "field_registry_ref": "contracts/field_registry.yaml",
+  "node_io_contract_ref": "contracts/node_io_contract.yaml",
+  "algorithm_rules_ref": "runtime/algorithm_rules/baseline_rules.yaml",
+  "demo_node_fixture": "examples/demo_data/nodes/N010.json",
+  "demo_scenarios": [
+    "SC03",
+    "SC04"
+  ],
+  "upstream_edges": [
+    {
+      "edge_id": "E010",
+      "source_node_id": "N005",
+      "why": "销售基准线需要房量、历史指标和经营快照。"
+    },
+    {
+      "edge_id": "E060",
+      "source_node_id": "N006",
+      "why": "销售基准线需要日期属性、节假日、天气、活动等需求背景修正目标曲线。"
+    }
+  ],
+  "downstream_edges": [
+    {
+      "edge_id": "E011",
+      "target_node_id": "N011",
+      "why": "有基准线后才能判断当前进度偏差。"
+    },
+    {
+      "edge_id": "E031",
+      "target_node_id": "N020",
+      "why": "小时峰谷需要和销售基准线/上周同小时曲线比较。"
+    },
+    {
+      "edge_id": "E052",
+      "target_node_id": "N018",
+      "why": "用户只问销售基准线/目标曲线时，基准线结果直接输出。"
+    },
+    {
+      "edge_id": "E061",
+      "target_node_id": "N015",
+      "why": "销售基准线本身也是收益决策的目标约束，可直接参与收益策略。"
+    }
+  ],
+  "forbidden_actions": [
+    "treat_demo_data_as_real_today_data",
+    "create_formal_approval_from_demo_or_stale_data",
+    "bypass_data_gate_or_approval_guard"
+  ],
+  "demo_safety": {
+    "data_source_type": "demo_data",
+    "freshness_status": "demo_data",
+    "business_status": "demo_or_historical",
+    "today_label_allowed": false,
+    "approval_data_allowed": false,
+    "live_allowed": false
+  }
+}

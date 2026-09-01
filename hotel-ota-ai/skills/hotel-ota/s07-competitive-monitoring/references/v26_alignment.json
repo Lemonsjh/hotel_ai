@@ -1,0 +1,69 @@
+{
+  "schema_version": "v26.0",
+  "source": "contracts/v26/skill_io_contract.yaml",
+  "skill_id": "S7",
+  "skill_name": "竞态监控",
+  "english_dir_name": "competitive-monitoring",
+  "node_ids": [
+    "N007"
+  ],
+  "agent_id": "A1",
+  "blueprint_basis": "BP06/BP02/BP05",
+  "direct_trigger": "竞对价格/排名/活动",
+  "chain_trigger": "调价、活动建议、诊断参考",
+  "input_fields": [
+    "fixed_competitor_pool",
+    "competitor_price",
+    "competitor_rank",
+    "competitor_activity",
+    "current_price"
+  ],
+  "output_fields": [
+    "competitor_context",
+    "competitor_alert_level",
+    "competitor_price_index"
+  ],
+  "upstream_dependencies": [
+    "CMP001 fixed_competitor_pool",
+    "CMP002 competitor_low_high_price",
+    "CMP003 competitor_price_updated_at",
+    "CMP008 competitor_sales_rank",
+    "CMP009 competitor_activity",
+    "CMP010 competitor_rating",
+    "CMP011 competitor_rank",
+    "CMP012 business_area_share",
+    "PR001 current_price",
+    "PR004 net_price_after_activity"
+  ],
+  "downstream_dependencies": [
+    "N012/N015/N018"
+  ],
+  "runtime_command": "competition-alert",
+  "demo_data_files": [
+    "examples/demo_data/demo_manifest.json",
+    "examples/demo_data/nodes/N007.json"
+  ],
+  "error_handling": "竞对只预警，不直接调价",
+  "acceptance_tests": [
+    "tests/contracts/test_v26_skill_io_contract.py"
+  ],
+  "node_registry_ref": "architecture/node_registry.json",
+  "edge_registry_ref": "architecture/edge_registry.json",
+  "scenario_registry_ref": "architecture/scenario_chain_registry.json",
+  "field_registry_ref": "contracts/v26/field_registry.yaml",
+  "node_io_contract_ref": "contracts/v26/node_io_contract.yaml",
+  "algorithm_rules_ref": "runtime/algorithm_rules/competition_rules.yaml",
+  "demo_node_fixture": "examples/demo_data/nodes/N007.json",
+  "forbidden_actions": [
+    "treat_demo_data_as_real_today_data",
+    "create_formal_approval_from_demo_or_stale_data",
+    "bypass_data_gate_or_approval_guard"
+  ],
+  "demo_safety": {
+    "data_source_type": "demo_data",
+    "approval_data_allowed": false,
+    "live_allowed": false,
+    "formal_approval_created": false,
+    "live_execution_count": 0
+  }
+}

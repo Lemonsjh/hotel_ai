@@ -1,0 +1,92 @@
+{
+  "skill_id": "S11",
+  "skill_name": "S11",
+  "node_ids": ["N021"],
+  "agent_id": "A4",
+  "agent_ids": ["A4"],
+  "blueprint_basis": ["BP05", "BP07", "BP10"],
+  "input_field_ids": [],
+  "output_field_ids": [],
+  "input_fields": [],
+  "output_fields": [],
+  "runtime_command": "promotion-suggestion --read-only",
+  "runtime_semantics": {
+    "mode": "read_only_recommendation_only",
+    "allowed_output": "PromotionPlan",
+    "deterministic_sources": ["S8", "S9", "S10", "S16"],
+    "ai_invoked": false,
+    "task_creation_supported": false,
+    "approval_supported": false,
+    "dispatch_supported": false,
+    "ota_write_supported": false,
+    "control_plane_write_supported": false,
+    "promotion_state_mutation_supported": false,
+    "readback_supported": false
+  },
+  "legacy_v27_execution_contract": {
+    "status": "retired_from_current_s11_runtime",
+    "note": "The canonical V27 registry still contains historical N021 execution-oriented fields. They are retained as compatibility history only and MUST NOT be treated as current S11 inputs or outputs.",
+    "retired_input_field_ids": [
+      "EXE001",
+      "ACT014",
+      "ACT015",
+      "FNL018",
+      "CFG005",
+      "CFG004",
+      "EXE005",
+      "ACT020",
+      "ACT019",
+      "N012_OUT006",
+      "N012_OUT005",
+      "N012_OUT008",
+      "N012_OUT004",
+      "N013_OUT003",
+      "N013_OUT002",
+      "N013_OUT004"
+    ],
+    "retired_output_field_ids": [
+      "N021_OUT001",
+      "N021_OUT002",
+      "N021_OUT003",
+      "N021_OUT004",
+      "N021_OUT005",
+      "N021_OUT006",
+      "N021_OUT007"
+    ],
+    "forbidden_current_meanings": [
+      "approval_id",
+      "live_switch",
+      "promotion_execution_task",
+      "execution_result",
+      "execution_status",
+      "ota_readback_status"
+    ],
+    "s8_legacy_outputs_retired": [
+      "N012_OUT004 approval_required",
+      "N012_OUT005 budget_range",
+      "N012_OUT006 promotion_action",
+      "N012_OUT008 time_windows"
+    ]
+  },
+  "demo_data_files": [
+    "examples/demo_data/demo_manifest.json",
+    "examples/demo_data/nodes/N021.json"
+  ],
+  "error_handling": "Missing deterministic sources become data gaps; ambiguous plan identity becomes clarification_required; no condition enables execution.",
+  "acceptance_tests": [
+    "tests/test_s11_readonly_promotion_plan.py",
+    "tests/test_s11_promotion_suggestion.py",
+    "tests/skills/test_v27_skill_reference_schema_alignment.py"
+  ],
+  "schema_version": "v27.0-runtime-override",
+  "source": "contracts/v27/contract.json",
+  "field_registry_ref": "contracts/v27/field_registry.yaml",
+  "node_io_contract_ref": "contracts/v27/node_io_contract.yaml",
+  "legacy_v26_alignment_ref": "references/v26_alignment.json",
+  "demo_safety_fields": [
+    "data_source_type=demo_data",
+    "freshness_status=demo_data",
+    "approval_data_allowed=false",
+    "live_allowed=false"
+  ]
+}

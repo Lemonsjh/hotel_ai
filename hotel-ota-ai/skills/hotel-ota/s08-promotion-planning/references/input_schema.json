@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "schema_version": "v27-wrapper",
+  "title": "S8 display-only input wrapper",
+  "type": "object",
+  "canonical_source": "contracts/v27/node_io_contract.yaml",
+  "secondary_source": "contracts/v27/skill_io_contract.yaml",
+  "alignment_source": "references/v27_alignment.json",
+  "skill_id": "S8",
+  "skill_name": "S8",
+  "node_id": "N012",
+  "node_ids": [
+    "N012"
+  ],
+  "agent_id": "A3",
+  "agent_ids": [
+    "A3"
+  ],
+  "source_contract": "contracts/v27/contract.json",
+  "field_registry_ref": "contracts/v27/field_registry.yaml",
+  "node_io_contract_ref": "contracts/v27/node_io_contract.yaml",
+  "demo_safety_fields": [
+    "data_source_type=demo_data",
+    "freshness_status=demo_data",
+    "approval_data_allowed=false",
+    "live_allowed=false"
+  ],
+  "input_field_ids": [],
+  "required_inputs": [],
+  "optional_inputs": [],
+  "upstream_node_outputs": [],
+  "deprecated_legacy_fields": {
+    "business_fields": {
+      "deprecated": true,
+      "description": "S8 no longer accepts planning business_fields."
+    },
+    "promotion_balance": {
+      "deprecated": true,
+      "description": "No longer used by S8 display-only runtime."
+    },
+    "promotion_cost": {
+      "deprecated": true,
+      "description": "No longer used as an external S8 input."
+    },
+    "activity_type": {
+      "deprecated": true,
+      "description": "Activity inputs are outside S8 scope."
+    },
+    "net_price_after_activity": {
+      "deprecated": true,
+      "description": "Price inputs are outside S8 scope."
+    },
+    "price_floor": {
+      "deprecated": true,
+      "description": "Price-floor planning is outside S8 scope."
+    },
+    "payment_conversion_rate": {
+      "deprecated": true,
+      "description": "External conversion inputs are outside S8 scope."
+    },
+    "upstream_skill_outputs": {
+      "deprecated": true,
+      "description": "S8 display-only runtime does not depend on S2/S4/S5/S7/S9/S10/S16 outputs."
+    }
+  },
+  "properties": {
+    "hotel_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Trusted hotel scope used for exact tenant isolation."
+    },
+    "as_of_time": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Optional trusted runtime cutoff; when provided, S8 reads the latest snapshot_time not later than this value."
+    }
+  },
+  "required": [
+    "hotel_id"
+  ],
+  "additionalProperties": false
+}

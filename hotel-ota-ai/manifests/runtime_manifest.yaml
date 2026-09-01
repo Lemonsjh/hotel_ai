@@ -1,0 +1,67 @@
+{
+  "schema_version": "0.1",
+  "purpose": "Define files required by OpenClaw runtime workspace.",
+  "runtime_required": {
+    "root_files": [
+      "AGENTS.md",
+      "S15_S16_AI_OUTPUT.md",
+      "BOOTSTRAP.md",
+      "TOOLS.md",
+      "README.md"
+    ],
+    "directories": [
+      "skills/hotel-ota/",
+      "runtime/",
+      "contracts/",
+      "router/",
+      "architecture/"
+    ]
+  },
+  "runtime_required_data_files": [
+    "data/holiday-seeds/holiday-seed-2026.json"
+  ],
+  "runtime_required_architecture_files": [
+    "architecture/agent_registry.json",
+    "architecture/node_registry.json",
+    "architecture/edge_registry.json",
+    "architecture/node_agent_mapping.json",
+    "architecture/scenario_chain_registry.json",
+    "architecture/skill_node_alignment.json"
+  ],
+  "runtime_required_contract_files": [
+    "contracts/v27/contract.json",
+    "contracts/v27/field_registry.yaml",
+    "contracts/v27/node_io_contract.yaml",
+    "contracts/v27/skill_io_contract.yaml",
+    "contracts/v27/edge_payload_contract.yaml",
+    "contracts/v27/scenario_chain_contract.yaml",
+    "contracts/v27/source_alias_mapping.yaml",
+    "contracts/v27/data_gap_impact_matrix.yaml",
+    "contracts/v27/field_governance_policy.yaml"
+  ],
+  "runtime_required_skill_files": [
+    "skills/hotel-ota/**/SKILL.md",
+    "skills/hotel-ota/**/references/input_schema.json",
+    "skills/hotel-ota/**/references/output_schema.json",
+    "skills/hotel-ota/**/references/rules.md",
+    "skills/hotel-ota/**/references/runtime_commands.md",
+    "skills/hotel-ota/**/references/v27_alignment.json"
+  ],
+  "legacy_skill_reference_files": [
+    "skills/hotel-ota/**/references/v20_alignment.json",
+    "skills/hotel-ota/**/references/v20_behavior_cases.json"
+  ],
+  "must_not_include_secrets": [
+    ".env",
+    ".env.*",
+    "config/*secret*",
+    "config/*private*",
+    "config/feishu-role-map.json",
+    "config/database-source.json"
+  ],
+  "runtime_guards": [
+    "demo_data_must_not_allow_formal_approval",
+    "demo_data_must_not_allow_live_execution",
+    "stale_or_missing_date_must_not_create_formal_approval"
+  ]
+}

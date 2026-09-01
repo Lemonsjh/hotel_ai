@@ -1,0 +1,70 @@
+{
+  "schema_version": "v26.0",
+  "source": "contracts/v26/skill_io_contract.yaml",
+  "skill_id": "S15",
+  "skill_name": "销售基准线",
+  "english_dir_name": "sales-baseline",
+  "node_ids": [
+    "N010"
+  ],
+  "agent_id": "A2",
+  "blueprint_basis": "BP08/BP02/BP01",
+  "direct_trigger": "今日目标、小时目标",
+  "chain_trigger": "调价、偏差、流量峰谷前置",
+  "input_fields": [
+    "historical_same_period",
+    "room_total",
+    "demand_index",
+    "operating_snapshot"
+  ],
+  "output_fields": [
+    "sales_baseline",
+    "hourly_target_curve",
+    "target_room_nights"
+  ],
+  "upstream_dependencies": [
+    "HOT001 hotel_id",
+    "CTX003 business_date",
+    "ROOM009 room_total",
+    "DEM011 historical_same_period",
+    "DEM007 demand_index",
+    "OP005 occupancy_rate",
+    "OP006 adr",
+    "OP007 revpar",
+    "N005_OUT001 operating_snapshot",
+    "N006_OUT001 demand_index",
+    "N006_OUT006 calendar_context",
+    "N006_OUT004 demand_reasons"
+  ],
+  "downstream_dependencies": [
+    "N011/N015/N018/N020"
+  ],
+  "runtime_command": "baseline",
+  "demo_data_files": [
+    "examples/demo_data/demo_manifest.json",
+    "examples/demo_data/nodes/N010.json"
+  ],
+  "error_handling": "历史不足要标注降级口径",
+  "acceptance_tests": [
+    "tests/contracts/test_v26_skill_io_contract.py"
+  ],
+  "node_registry_ref": "architecture/node_registry.json",
+  "edge_registry_ref": "architecture/edge_registry.json",
+  "scenario_registry_ref": "architecture/scenario_chain_registry.json",
+  "field_registry_ref": "contracts/v26/field_registry.yaml",
+  "node_io_contract_ref": "contracts/v26/node_io_contract.yaml",
+  "algorithm_rules_ref": "runtime/algorithm_rules/baseline_rules.yaml",
+  "demo_node_fixture": "examples/demo_data/nodes/N010.json",
+  "forbidden_actions": [
+    "treat_demo_data_as_real_today_data",
+    "create_formal_approval_from_demo_or_stale_data",
+    "bypass_data_gate_or_approval_guard"
+  ],
+  "demo_safety": {
+    "data_source_type": "demo_data",
+    "approval_data_allowed": false,
+    "live_allowed": false,
+    "formal_approval_created": false,
+    "live_execution_count": 0
+  }
+}

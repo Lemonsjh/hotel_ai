@@ -1,0 +1,151 @@
+{
+  "schema_version": "1.0",
+  "phase": "Phase 7",
+  "status": "implemented",
+  "skills": [
+    {
+      "skill_id": "S1",
+      "node_id": "N003",
+      "agent_id": "A0",
+      "algorithm_rules_ref": "runtime/algorithm_rules/auth_policy.yaml",
+      "behavior_cases_ref": "skills/hotel-ota/s01-control-config/references/v20_behavior_cases.json",
+      "status": "implemented"
+    },
+    {
+      "skill_id": "S2",
+      "node_id": "N005",
+      "agent_id": "A1",
+      "algorithm_rules_ref": "runtime/algorithm_rules/operating_snapshot_rules.yaml",
+      "behavior_cases_ref": "skills/hotel-ota/s02-operating-snapshot/references/v20_behavior_cases.json",
+      "status": "implemented"
+    },
+    {
+      "skill_id": "S3",
+      "node_id": "N018",
+      "agent_id": "A5",
+      "algorithm_rules_ref": "runtime/algorithm_rules/message_templates_policy.yaml",
+      "behavior_cases_ref": "skills/hotel-ota/s03-message-hub/references/v20_behavior_cases.json",
+      "status": "implemented"
+    },
+    {
+      "skill_id": "S4",
+      "node_id": "N006",
+      "agent_id": "A1",
+      "algorithm_rules_ref": "runtime/algorithm_rules/demand_rules.yaml",
+      "behavior_cases_ref": "skills/hotel-ota/s04-market-context/references/v20_behavior_cases.json",
+      "status": "implemented"
+    },
+    {
+      "skill_id": "S5",
+      "node_id": "N015",
+      "agent_id": "A3",
+      "algorithm_rules_ref": "runtime/algorithm_rules/revenue_rules.yaml",
+      "behavior_cases_ref": "skills/hotel-ota/s05-revenue-decision/references/v20_behavior_cases.json",
+      "status": "implemented"
+    },
+    {
+      "skill_id": "S6",
+      "node_id": "N016",
+      "agent_id": "A4",
+      "algorithm_rules_ref": "runtime/algorithm_rules/execution_guard.yaml",
+      "behavior_cases_ref": "skills/hotel-ota/s06-price-sync-execution/references/v20_behavior_cases.json",
+      "status": "implemented"
+    },
+    {
+      "skill_id": "S7",
+      "node_id": "N007",
+      "agent_id": "A1",
+      "algorithm_rules_ref": "runtime/algorithm_rules/competition_rules.yaml",
+      "behavior_cases_ref": "skills/hotel-ota/s07-competitive-monitoring/references/v20_behavior_cases.json",
+      "status": "implemented"
+    },
+    {
+      "skill_id": "S8",
+      "node_id": "N012",
+      "agent_id": "A3",
+      "algorithm_rules_ref": "runtime/algorithm_rules/promotion_rules.yaml",
+      "behavior_cases_ref": "skills/hotel-ota/s08-promotion-planning/references/v20_behavior_cases.json",
+      "status": "implemented"
+    },
+    {
+      "skill_id": "S9",
+      "node_id": "N020",
+      "agent_id": "A1",
+      "algorithm_rules_ref": "runtime/algorithm_rules/traffic_rules.yaml",
+      "behavior_cases_ref": "skills/hotel-ota/s09-traffic-peak-valley/references/v20_behavior_cases.json",
+      "status": "implemented"
+    },
+    {
+      "skill_id": "S10",
+      "node_id": "N013",
+      "agent_id": "A3",
+      "algorithm_rules_ref": "runtime/algorithm_rules/roi_rules.yaml",
+      "behavior_cases_ref": "skills/hotel-ota/s10-roi-decision/references/v20_behavior_cases.json",
+      "status": "implemented"
+    },
+    {
+      "skill_id": "S11",
+      "node_id": "N021",
+      "agent_id": "A4",
+      "algorithm_rules_ref": "runtime/algorithm_rules/promotion_execution_rules.yaml",
+      "behavior_cases_ref": "skills/hotel-ota/s11-promotion-execution/references/v20_behavior_cases.json",
+      "status": "implemented"
+    },
+    {
+      "skill_id": "S12",
+      "node_id": "N008",
+      "agent_id": "A1",
+      "algorithm_rules_ref": "runtime/algorithm_rules/reputation_rules.yaml",
+      "behavior_cases_ref": "skills/hotel-ota/s12-reputation-management/references/v20_behavior_cases.json",
+      "status": "implemented"
+    },
+    {
+      "skill_id": "S13",
+      "node_id": "N017",
+      "agent_id": "A4",
+      "algorithm_rules_ref": "runtime/algorithm_rules/review_publish_rules.yaml",
+      "behavior_cases_ref": "skills/hotel-ota/s13-review-reply/references/v20_behavior_cases.json",
+      "status": "implemented"
+    },
+    {
+      "skill_id": "S14",
+      "node_id": "N009",
+      "agent_id": "A2",
+      "algorithm_rules_ref": "runtime/algorithm_rules/operation_diagnosis_rules.yaml",
+      "behavior_cases_ref": "skills/hotel-ota/s14-operation-diagnosis/references/v20_behavior_cases.json",
+      "status": "implemented"
+    },
+    {
+      "skill_id": "S14-EXT",
+      "node_id": "N022",
+      "agent_id": "A2",
+      "algorithm_rules_ref": "runtime/algorithm_rules/external_diagnosis_rules.yaml",
+      "behavior_cases_ref": "skills/hotel-ota/s14-ext-third-party-diagnosis/references/v20_behavior_cases.json",
+      "status": "implemented"
+    },
+    {
+      "skill_id": "S15",
+      "node_id": "N010",
+      "agent_id": "A2",
+      "algorithm_rules_ref": "runtime/algorithm_rules/baseline_rules.yaml",
+      "behavior_cases_ref": "skills/hotel-ota/s15-sales-baseline/references/v20_behavior_cases.json",
+      "status": "implemented"
+    },
+    {
+      "skill_id": "S16",
+      "node_id": "N011",
+      "agent_id": "A2",
+      "algorithm_rules_ref": "runtime/algorithm_rules/progress_deviation_rules.yaml",
+      "behavior_cases_ref": "skills/hotel-ota/s16-progress-deviation/references/v20_behavior_cases.json",
+      "status": "implemented"
+    },
+    {
+      "skill_id": "S17",
+      "node_id": "N014",
+      "agent_id": "A1",
+      "algorithm_rules_ref": "runtime/algorithm_rules/customer_rules.yaml",
+      "behavior_cases_ref": "skills/hotel-ota/s17-customer-order-analysis/references/v20_behavior_cases.json",
+      "status": "implemented"
+    }
+  ]
+}

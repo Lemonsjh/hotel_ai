@@ -1,0 +1,158 @@
+{
+  "schema_version": "1.0",
+  "owner_skill": "S14",
+  "status": "implemented",
+  "placement": "runtime/algorithm_rules",
+  "node_id": "N009",
+  "agent_id": "A2",
+  "phase": "P0",
+  "source_refs": {
+    "node_registry": "architecture/node_registry.json",
+    "edge_registry": "architecture/edge_registry.json",
+    "scenario_registry": "architecture/scenario_chain_registry.json",
+    "field_registry": "contracts/v27/field_registry.yaml",
+    "node_io_contract": "contracts/v27/node_io_contract.yaml",
+    "skill_alignment": "skills/hotel-ota/s14-operation-diagnosis/references/v27_alignment.json",
+    "skill_rules": "skills/hotel-ota/s14-operation-diagnosis/references/rules.md",
+    "input_schema": "skills/hotel-ota/s14-operation-diagnosis/references/input_schema.json",
+    "output_schema": "skills/hotel-ota/s14-operation-diagnosis/references/output_schema.json"
+  },
+  "source_role_ownership": {
+    "current_actual": {
+      "owner": "domain_capability",
+      "preferred_sources": {
+        "sales_progress": "S2",
+        "traffic_and_conversion": "S9",
+        "price": "S7"
+      },
+      "s15_s16_fallback_allowed": false
+    },
+    "baseline": {
+      "owner": "S15",
+      "allowed_fields": [
+        "baseline",
+        "baseline_curve",
+        "maturity",
+        "sample_quality",
+        "effective_window"
+      ]
+    },
+    "deviation_and_diagnosis": {
+      "owner": "S16",
+      "requires_valid_s15": true,
+      "allowed_fields": [
+        "progress_status",
+        "gap",
+        "deviation",
+        "deviation_reasons",
+        "urgency_level",
+        "downstream_skill"
+      ]
+    }
+  },
+  "source_conflict_policy": {
+    "non_owner_duplicate_field": "ignore_for_business_projection_keep_for_internal_consistency_check",
+    "owner_mismatch": "emit_execution_data_quality_conflict_and_block_affected_axis",
+    "parallel_business_value_display_allowed": false,
+    "cross_owner_fallback_allowed": false,
+    "s14_recompute_delta_gap_allowed": false
+  },
+  "demo_safety": {
+    "data_source_type": "demo_data",
+    "freshness_status": "demo_data",
+    "business_status": "demo_or_historical",
+    "today_label_allowed": false,
+    "approval_data_allowed": false,
+    "live_allowed": false
+  },
+  "data_gate": {
+    "hard_required": [
+      "hotel_id",
+      "data_business_date",
+      "operating_snapshot_or_ota_health"
+    ],
+    "soft_required": [],
+    "missing_policy": "block_business_conclusion_or_live; allow demo preview only when demo safety flags are present"
+  },
+  "algorithm": {
+    "objective": "Diagnose OTA operation health and produce prioritized A/B action tasks without recomputing upstream business metrics.",
+    "ordered_steps": [
+      {
+        "step_id": "s14_00",
+        "action": "Apply source-role ownership before projection: current actual from domain capabilities, baseline from S15, deviation/diagnosis from S16. Ignore non-owner duplicates for business output and never recompute S16 gaps in S14."
+      },
+      {
+        "step_id": "s14_01",
+        "action": "Score content, price, traffic, conversion, HOS/PSI, reputation, and task closure dimensions."
+      },
+      {
+        "step_id": "s14_02",
+        "action": "Mark A tasks for blocking or high-impact issues and B tasks for ongoing optimization."
+      },
+      {
+        "step_id": "s14_03",
+        "action": "Route price actions to S5, reputation actions to S12/S13, and messages to S3."
+      },
+      {
+        "step_id": "s14_04",
+        "action": "Report missing data and confidence instead of writing long generic diagnosis."
+      }
+    ],
+    "thresholds": {
+      "a_task_score_at_or_above": 80,
+      "b_task_score_at_or_above": 50,
+      "field_coverage_warn_below": 0.8
+    },
+    "degradation": [
+      "When hard-required fields are missing, return missing_fields and confidence=low.",
+      "When input is demo/sample/stale, return preview_only or dry_run and block formal approval/live.",
+      "When source capability is read-only/manual, produce recommendation or task only.",
+      "When S15 is missing/conflict/stale/blocked, block S16-derived deviation conclusions instead of recomputing them in S14.",
+      "When a domain actual is missing, return data_gap instead of using S15/S16 copied values as fallback."
+    ],
+    "output_contract": [
+      "diagnosis_scorecard",
+      "a_tasks",
+      "b_tasks",
+      "confidence"
+    ]
+  },
+  "forbidden_actions": [
+    "treat_demo_data_as_real_today_data",
+    "create_formal_approval_from_demo_or_stale_data",
+    "bypass_data_gate_or_approval_guard",
+    "use_s15_as_current_actual_owner",
+    "use_s16_copied_actual_or_baseline_as_business_fallback",
+    "show_parallel_s15_s16_values_for_same_business_role",
+    "recompute_s16_delta_or_gap_inside_s14"
+  ],
+  "demo_behavior_cases": [
+    {
+      "case_id": "s14_demo_preview",
+      "fixture": "examples/demo_data/nodes/N009.json",
+      "expected": {
+        "data_source_type": "demo_data",
+        "approval_data_allowed": false,
+        "live_allowed": false,
+        "status_in": [
+          "preview_only",
+          "dry_run",
+          "simulation_only",
+          "ok"
+        ]
+      }
+    },
+    {
+      "case_id": "s14_missing_hard_required",
+      "input": {
+        "hotel_id": "puyue-demo"
+      },
+      "expected": {
+        "allowed": false,
+        "reason": "missing_hard_required_fields"
+      }
+    }
+  ],
+  "executed_by_runtime": [],
+  "runtime_execution_status": "rule_config_exists_but_not_executed"
+}

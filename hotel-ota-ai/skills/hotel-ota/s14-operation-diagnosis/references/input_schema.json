@@ -1,0 +1,164 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "s14-operation-diagnosis-input.schema.json",
+  "schema_version": "s14-capability-results.v1",
+  "title": "S14 综合运营诊断输入",
+  "description": "S14 只消费同一次请求中的版本化 capability results；不得直接读取 Excel、MySQL 业务表、sample、manual 或 RPA 原始指标。S15 仅作为基准 owner，S16 仅作为偏差/诊断 owner。",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "organization_id",
+    "hotel_id",
+    "target_business_date",
+    "as_of_datetime",
+    "contract_revision",
+    "policy_revision",
+    "capability_results"
+  ],
+  "properties": {
+    "organization_id": {"type": "string", "minLength": 1},
+    "hotel_id": {"type": "string", "minLength": 1},
+    "target_business_date": {"type": "string", "format": "date"},
+    "as_of_datetime": {"type": "string", "format": "date-time"},
+    "contract_revision": {"type": "string", "minLength": 1},
+    "policy_revision": {"type": "string", "minLength": 1},
+    "compatible_contract_revisions": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "uniqueItems": true,
+      "default": []
+    },
+    "compatible_policy_revisions": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "uniqueItems": true,
+      "default": []
+    },
+    "capability_results": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/capability_result"},
+      "minItems": 1,
+      "maxItems": 20
+    },
+    "handoffs": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/handoff"},
+      "default": []
+    }
+  },
+  "$defs": {
+    "result_status": {
+      "enum": ["ok", "partial", "data_gap", "conflict", "stale", "blocked", "not_applicable"]
+    },
+    "effective_window": {
+      "oneOf": [
+        {"type": "string", "minLength": 1},
+        {"type": "object", "additionalProperties": true}
+      ]
+    },
+    "capability_result": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "capability_id",
+        "result_id",
+        "result_version",
+        "status",
+        "organization_id",
+        "hotel_id",
+        "target_business_date",
+        "as_of_datetime",
+        "effective_window",
+        "captured_at",
+        "source_grain",
+        "source_units",
+        "deterministic_payload",
+        "evidence_refs",
+        "quality_flags",
+        "contract_revision",
+        "policy_revision"
+      ],
+      "properties": {
+        "capability_id": {
+          "enum": ["S2", "S4", "S7", "S8", "S9", "S10", "S12", "S15", "S16", "S17"]
+        },
+        "result_id": {"type": "string", "minLength": 1},
+        "result_version": {
+          "oneOf": [
+            {"type": "integer", "minimum": 1},
+            {"type": "string", "minLength": 1}
+          ]
+        },
+        "status": {"$ref": "#/$defs/result_status"},
+        "organization_id": {"type": "string", "minLength": 1},
+        "hotel_id": {"type": "string", "minLength": 1},
+        "target_business_date": {"type": "string", "format": "date"},
+        "as_of_datetime": {"type": "string", "format": "date-time"},
+        "effective_window": {"$ref": "#/$defs/effective_window"},
+        "captured_at": {"type": "string", "format": "date-time"},
+        "source_grain": {
+          "oneOf": [
+            {"type": "string", "minLength": 1},
+            {"type": "array", "items": {"type": "string", "minLength": 1}}
+          ]
+        },
+        "source_units": {"type": "object", "additionalProperties": true},
+        "deterministic_payload": {"type": "object", "additionalProperties": true},
+        "evidence_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "quality_flags": {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "contract_revision": {"type": "string", "minLength": 1},
+        "policy_revision": {"type": "string", "minLength": 1},
+        "depends_on_capabilities": {
+          "type": "array",
+          "items": {
+            "enum": ["S2", "S4", "S7", "S8", "S9", "S10", "S12", "S15", "S16", "S17"]
+          },
+          "uniqueItems": true
+        }
+      }
+    },
+    "handoff": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "capability_id",
+        "handoff_ref",
+        "hotel_id",
+        "scope",
+        "target_business_date",
+        "candidate_hash"
+      ],
+      "properties": {
+        "capability_id": {"enum": ["S5", "S6", "S8", "S13"]},
+        "handoff_ref": {"type": "string", "minLength": 1},
+        "hotel_id": {"type": "string", "minLength": 1},
+        "scope": {},
+        "target_business_date": {"type": "string", "format": "date"},
+        "candidate_hash": {"type": "string", "minLength": 1},
+        "display_text": {"type": ["string", "null"]}
+      }
+    }
+  },
+  "x-s14-source-policy": {
+    "required_capability_ids": ["S2", "S4", "S7", "S8", "S9", "S10", "S12", "S15", "S16", "S17"],
+    "direct_business_table_read_allowed": false,
+    "excel_source_allowed": false,
+    "sample_manual_rpa_fallback_allowed": false,
+    "missing_policy": "degrade_only_affected_modules_and_emit_missing_input_item",
+    "role_ownership": {
+      "current_actual": "domain_capability_only",
+      "baseline": "S15",
+      "deviation_and_diagnosis": "S16"
+    },
+    "domain_actual_preference": {
+      "sales_progress": "S2",
+      "traffic_and_conversion": "S9",
+      "price": "S7"
+    },
+    "non_owner_duplicate_field_policy": "ignore_for_business_projection_keep_for_internal_consistency_check",
+    "s15_s16_mismatch_policy": "emit_internal_data_quality_conflict_do_not_show_parallel_values",
+    "cross_owner_fallback_allowed": false,
+    "s14_recompute_delta_gap_allowed": false,
+    "s16_requires_valid_s15": true
+  }
+}

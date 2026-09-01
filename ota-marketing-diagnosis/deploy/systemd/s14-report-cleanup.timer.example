@@ -1,0 +1,11 @@
+[Unit]
+Description=Run S14 report retention cleanup daily
+
+[Timer]
+OnCalendar=*-*-* 03:20:00
+Persistent=true
+RandomizedDelaySec=10m
+Unit=s14-report-cleanup.service
+
+[Install]
+WantedBy=timers.target

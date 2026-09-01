@@ -1,0 +1,180 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "schema_version": "v27-wrapper",
+  "title": "S7 input wrapper",
+  "type": "object",
+  "canonical_source": "contracts/v27/node_io_contract.yaml",
+  "secondary_source": "contracts/v27/skill_io_contract.yaml",
+  "alignment_source": "references/v27_alignment.json",
+  "skill_id": "S7",
+  "skill_name": "S7",
+  "node_id": "N007",
+  "node_ids": [
+    "N007"
+  ],
+  "agent_id": "A1",
+  "agent_ids": [
+    "A1"
+  ],
+  "source_contract": "contracts/v27/contract.json",
+  "field_registry_ref": "contracts/v27/field_registry.yaml",
+  "node_io_contract_ref": "contracts/v27/node_io_contract.yaml",
+  "demo_safety_fields": [
+    "data_source_type=demo_data",
+    "freshness_status=demo_data",
+    "approval_data_allowed=false",
+    "live_allowed=false"
+  ],
+  "additionalProperties": true,
+  "input_field_ids": [
+    "CMP001",
+    "CMP002",
+    "CMP003",
+    "CMP008",
+    "CMP009",
+    "CMP010",
+    "CMP011",
+    "CMP012",
+    "PR001",
+    "PR004"
+  ],
+  "required_inputs": [
+    "CMP001",
+    "CMP002",
+    "CMP003",
+    "CMP008",
+    "CMP009",
+    "CMP010",
+    "CMP011",
+    "CMP012",
+    "PR001",
+    "PR004"
+  ],
+  "optional_inputs": [],
+  "upstream_node_outputs": [],
+  "deprecated_legacy_fields": {
+    "competitor_price": {
+      "deprecated": true,
+      "legacy_path": "business_fields.competitor_price",
+      "replacement_field_ids": [],
+      "description": "competitor_price from unified data contract"
+    },
+    "competitor_activity": {
+      "deprecated": true,
+      "legacy_path": "business_fields.competitor_activity",
+      "replacement_field_ids": [],
+      "description": "competitor_activity from unified data contract"
+    },
+    "competitor_rank": {
+      "deprecated": true,
+      "legacy_path": "business_fields.competitor_rank",
+      "replacement_field_ids": [],
+      "description": "competitor_rank from unified data contract"
+    },
+    "competitor_rating": {
+      "deprecated": true,
+      "legacy_path": "business_fields.competitor_rating",
+      "replacement_field_ids": [],
+      "description": "competitor_rating from unified data contract"
+    },
+    "peer_competitiveness_score": {
+      "deprecated": true,
+      "legacy_path": "business_fields.peer_competitiveness_score",
+      "replacement_field_ids": [],
+      "description": "peer_competitiveness_score from unified data contract"
+    }
+  },
+  "properties": {
+    "CMP001": {
+      "type": "string",
+      "canonical_key": "fixed_competitor_pool",
+      "project_field_name": "fixed_competitor_pool",
+      "field_status": "candidate_inferred",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "fixed_competitor_pool from V27 contract"
+    },
+    "CMP002": {
+      "type": "number",
+      "canonical_key": "competitor_low_high_price",
+      "project_field_name": "competitor_low_high_price",
+      "field_status": "candidate_inferred",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "competitor_low_high_price from V27 contract"
+    },
+    "CMP003": {
+      "type": "number",
+      "canonical_key": "competitor_price_updated_at",
+      "project_field_name": "competitor_price_updated_at",
+      "field_status": "candidate_inferred",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "competitor_price_updated_at from V27 contract"
+    },
+    "CMP008": {
+      "type": "string",
+      "canonical_key": "competitor_sales_rank",
+      "project_field_name": "competitor_sales_rank",
+      "field_status": "candidate_inferred",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "competitor_sales_rank from V27 contract"
+    },
+    "CMP009": {
+      "type": "string",
+      "canonical_key": "competitor_activity",
+      "project_field_name": "competitor_activity",
+      "field_status": "candidate_inferred",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "competitor_activity from V27 contract"
+    },
+    "CMP010": {
+      "type": "string",
+      "canonical_key": "competitor_rating",
+      "project_field_name": "competitor_rating",
+      "field_status": "candidate_inferred",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "competitor_rating from V27 contract"
+    },
+    "CMP011": {
+      "type": "string",
+      "canonical_key": "competitor_rank",
+      "project_field_name": "competitor_rank",
+      "field_status": "candidate_inferred",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "competitor_rank from V27 contract"
+    },
+    "CMP012": {
+      "type": "number",
+      "canonical_key": "business_area_share",
+      "project_field_name": "business_area_share",
+      "field_status": "candidate_inferred",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "business_area_share from V27 contract"
+    },
+    "PR001": {
+      "type": "number",
+      "canonical_key": "current_price",
+      "project_field_name": "current_price",
+      "field_status": "candidate_inferred",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "current_price from V27 contract"
+    },
+    "PR004": {
+      "type": "number",
+      "canonical_key": "net_price_after_activity",
+      "project_field_name": "net_price_after_activity",
+      "field_status": "candidate_inferred",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "net_price_after_activity from V27 contract"
+    }
+  },
+  "required": []
+}

@@ -1,0 +1,15 @@
+[Unit]
+Description=S14 report retention cleanup
+After=local-fs.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/flock -n /run/s14-report-cleanup/cleanup.lock /usr/local/sbin/s14-cleanup-reports --root /var/lib/ota-marketing-diagnosis/reports --retention-days 7 --apply --include-incomplete
+User=root
+Group=root
+RuntimeDirectory=s14-report-cleanup
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=strict
+ReadWritePaths=/var/lib/ota-marketing-diagnosis/reports

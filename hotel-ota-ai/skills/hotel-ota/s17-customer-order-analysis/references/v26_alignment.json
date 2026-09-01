@@ -1,0 +1,68 @@
+{
+  "schema_version": "v26.0",
+  "source": "contracts/v26/skill_io_contract.yaml",
+  "skill_id": "S17",
+  "skill_name": "客户订单分析",
+  "english_dir_name": "customer-order-analysis",
+  "node_ids": [
+    "N014"
+  ],
+  "agent_id": "A1",
+  "blueprint_basis": "BP08/BP09",
+  "direct_trigger": "客户、订单、复购",
+  "chain_trigger": "收益策略、任务、口碑参考",
+  "input_fields": [
+    "orders",
+    "paid_orders",
+    "cancel_orders",
+    "customer_segments",
+    "repeat_guest_rate"
+  ],
+  "output_fields": [
+    "customer_segments",
+    "repeat_guest_rate",
+    "loss_risk_alert",
+    "target_guest_tasks"
+  ],
+  "upstream_dependencies": [
+    "OP001 orders",
+    "OP002 paid_orders",
+    "OP003 cancel_orders",
+    "REP007 is_member",
+    "CUS001 customer_segments",
+    "CUS002 repeat_guest_rate",
+    "CUS003 loss_risk_alert",
+    "REP001 review_content"
+  ],
+  "downstream_dependencies": [
+    "N015/N018/N019"
+  ],
+  "runtime_command": "customer-analysis",
+  "demo_data_files": [
+    "examples/demo_data/demo_manifest.json",
+    "examples/demo_data/nodes/N014.json"
+  ],
+  "error_handling": "只输出聚合结论，不出行级订单",
+  "acceptance_tests": [
+    "tests/contracts/test_v26_skill_io_contract.py"
+  ],
+  "node_registry_ref": "architecture/node_registry.json",
+  "edge_registry_ref": "architecture/edge_registry.json",
+  "scenario_registry_ref": "architecture/scenario_chain_registry.json",
+  "field_registry_ref": "contracts/v26/field_registry.yaml",
+  "node_io_contract_ref": "contracts/v26/node_io_contract.yaml",
+  "algorithm_rules_ref": "runtime/algorithm_rules/customer_rules.yaml",
+  "demo_node_fixture": "examples/demo_data/nodes/N014.json",
+  "forbidden_actions": [
+    "treat_demo_data_as_real_today_data",
+    "create_formal_approval_from_demo_or_stale_data",
+    "bypass_data_gate_or_approval_guard"
+  ],
+  "demo_safety": {
+    "data_source_type": "demo_data",
+    "approval_data_allowed": false,
+    "live_allowed": false,
+    "formal_approval_created": false,
+    "live_execution_count": 0
+  }
+}

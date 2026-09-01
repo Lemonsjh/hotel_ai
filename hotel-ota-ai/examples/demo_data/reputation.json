@@ -1,0 +1,206 @@
+{
+  "manifest_ref": "demo_manifest.json",
+  "hotel_id": "puyue-demo",
+  "demo_business_date": "2026-06-11",
+  "rating": 4.6,
+  "rating_total": 4.6,
+  "rating_service": 4.5,
+  "negative_review_rate": 0.08,
+  "bad_review_rate": 0.08,
+  "reply_rate": 0.91,
+  "review_reply_preview": "演示回复：感谢反馈，我们会优先检查房间网络和前台指引。",
+  "complaint_risk": "medium",
+  "data_source_type": "demo_data",
+  "freshness_status": "demo_data",
+  "today_label_allowed": false,
+  "approval_data_allowed": false,
+  "live_allowed": false,
+  "reviews": [
+    {
+      "synthetic_id": "review-001",
+      "rating": 4.8,
+      "sentiment": "positive",
+      "theme": "房间整洁",
+      "desensitized_text": "房间干净，电脑配置符合预期，入住办理很快。",
+      "requires_reply": false
+    },
+    {
+      "synthetic_id": "review-002",
+      "rating": 4.7,
+      "sentiment": "positive",
+      "theme": "前台服务",
+      "desensitized_text": "前台提醒清楚，续住沟通顺畅。",
+      "requires_reply": false
+    },
+    {
+      "synthetic_id": "review-003",
+      "rating": 4.6,
+      "sentiment": "positive",
+      "theme": "电竞体验",
+      "desensitized_text": "网速稳定，外设维护不错，适合朋友开黑。",
+      "requires_reply": false
+    },
+    {
+      "synthetic_id": "review-004",
+      "rating": 4.5,
+      "sentiment": "positive",
+      "theme": "交通便利",
+      "desensitized_text": "离商圈近，夜宵选择多，停车指引清楚。",
+      "requires_reply": false
+    },
+    {
+      "synthetic_id": "review-005",
+      "rating": 4.2,
+      "sentiment": "neutral",
+      "theme": "隔音一般",
+      "desensitized_text": "整体可以，走廊偶尔有声音，希望夜间提醒更明显。",
+      "requires_reply": false
+    },
+    {
+      "synthetic_id": "review-006",
+      "rating": 4.1,
+      "sentiment": "neutral",
+      "theme": "设施维护",
+      "desensitized_text": "鼠标垫有使用痕迹，前台已更换。",
+      "requires_reply": true
+    },
+    {
+      "synthetic_id": "review-007",
+      "rating": 3.8,
+      "sentiment": "negative",
+      "theme": "噪音",
+      "desensitized_text": "夜间隔壁声音较明显，休息受到影响。",
+      "requires_reply": true
+    },
+    {
+      "synthetic_id": "review-008",
+      "rating": 3.6,
+      "sentiment": "negative",
+      "theme": "服务响应",
+      "desensitized_text": "反馈问题后等待时间偏长，希望响应更快。",
+      "requires_reply": true
+    },
+    {
+      "synthetic_id": "review-009",
+      "rating": 4.9,
+      "sentiment": "positive",
+      "theme": "性价比",
+      "desensitized_text": "价格合适，房间空间比预想更大。",
+      "requires_reply": false
+    },
+    {
+      "synthetic_id": "review-010",
+      "rating": 5.0,
+      "sentiment": "positive",
+      "theme": "入住效率",
+      "desensitized_text": "到店后很快拿到房卡，发票说明也清楚。",
+      "requires_reply": false
+    },
+    {
+      "synthetic_id": "review-011",
+      "rating": 4.8,
+      "sentiment": "positive",
+      "theme": "床品舒适",
+      "desensitized_text": "床品干净，休息体验不错。",
+      "requires_reply": false
+    },
+    {
+      "synthetic_id": "review-012",
+      "rating": 4.7,
+      "sentiment": "positive",
+      "theme": "网络稳定",
+      "desensitized_text": "游戏过程没有明显掉线，网络体验稳定。",
+      "requires_reply": false
+    },
+    {
+      "synthetic_id": "review-013",
+      "rating": 4.6,
+      "sentiment": "positive",
+      "theme": "卫生状态",
+      "desensitized_text": "卫生间和桌面都比较干净。",
+      "requires_reply": false
+    },
+    {
+      "synthetic_id": "review-014",
+      "rating": 4.5,
+      "sentiment": "positive",
+      "theme": "房态确认",
+      "desensitized_text": "预订后确认及时，到店没有等房。",
+      "requires_reply": false
+    },
+    {
+      "synthetic_id": "review-015",
+      "rating": 4.2,
+      "sentiment": "neutral",
+      "theme": "早餐选择",
+      "desensitized_text": "早餐种类一般，但基础需求能满足。",
+      "requires_reply": false
+    },
+    {
+      "synthetic_id": "review-016",
+      "rating": 4.1,
+      "sentiment": "neutral",
+      "theme": "空调温度",
+      "desensitized_text": "房间初始温度偏高，调整后可以接受。",
+      "requires_reply": true
+    },
+    {
+      "synthetic_id": "review-017",
+      "rating": 3.8,
+      "sentiment": "negative",
+      "theme": "清洁复核",
+      "desensitized_text": "桌面边角有灰尘，建议加强复核。",
+      "requires_reply": true
+    },
+    {
+      "synthetic_id": "review-018",
+      "rating": 3.6,
+      "sentiment": "negative",
+      "theme": "设备维护",
+      "desensitized_text": "耳机接触不稳定，影响部分体验。",
+      "requires_reply": true
+    },
+    {
+      "synthetic_id": "review-019",
+      "rating": 4.9,
+      "sentiment": "positive",
+      "theme": "位置便利",
+      "desensitized_text": "周边餐饮丰富，夜间出行方便。",
+      "requires_reply": false
+    },
+    {
+      "synthetic_id": "review-020",
+      "rating": 5.0,
+      "sentiment": "positive",
+      "theme": "整体推荐",
+      "desensitized_text": "整体体验好，下次还会优先考虑。",
+      "requires_reply": false
+    }
+  ],
+  "negative_review_samples": [
+    {
+      "synthetic_id": "review-007",
+      "rating": 3.8,
+      "sentiment": "negative",
+      "theme": "噪音",
+      "desensitized_text": "夜间隔壁声音较明显，休息受到影响。",
+      "requires_reply": true
+    },
+    {
+      "synthetic_id": "review-008",
+      "rating": 3.6,
+      "sentiment": "negative",
+      "theme": "服务响应",
+      "desensitized_text": "反馈问题后等待时间偏长，希望响应更快。",
+      "requires_reply": true
+    },
+    {
+      "synthetic_id": "review-017",
+      "rating": 3.8,
+      "sentiment": "negative",
+      "theme": "清洁复核",
+      "desensitized_text": "桌面边角有灰尘，建议加强复核。",
+      "requires_reply": true
+    }
+  ]
+}

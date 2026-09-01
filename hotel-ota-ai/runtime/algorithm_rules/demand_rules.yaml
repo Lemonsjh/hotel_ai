@@ -1,0 +1,120 @@
+{
+  "schema_version": "1.0",
+  "owner_skill": "S4",
+  "status": "implemented",
+  "placement": "runtime/algorithm_rules",
+  "node_id": "N006",
+  "agent_id": "A1",
+  "phase": "P1",
+  "source_refs": {
+    "node_registry": "architecture/node_registry.json",
+    "edge_registry": "architecture/edge_registry.json",
+    "scenario_registry": "architecture/scenario_chain_registry.json",
+    "field_registry": "contracts/v27/field_registry.yaml",
+    "node_io_contract": "contracts/v27/node_io_contract.yaml",
+    "skill_alignment": "skills/hotel-ota/s04-market-context/references/v27_alignment.json"
+  },
+  "demo_safety": {
+    "data_source_type": "demo_data",
+    "freshness_status": "demo_data",
+    "business_status": "demo_or_historical",
+    "today_label_allowed": false,
+    "approval_data_allowed": false,
+    "live_allowed": false
+  },
+  "data_gate": {
+    "hard_required": [
+      "hotel_id",
+      "data_business_date"
+    ],
+    "soft_required": [],
+    "missing_policy": "block_business_conclusion_or_live; allow demo preview only when demo safety flags are present"
+  },
+  "algorithm": {
+    "objective": "Compute demand and market context from calendar, weather, events, and operating pressure.",
+    "formula_version": "revised_first_formula_v27",
+    "formula_or_rule": "需求指数=日期环境分20%+区域热度分15%+历史同期分15%+当前预订进度分20%+当前流量分10%+当前转化分10%+房型库存压力分10%",
+    "deprecated_legacy_formula": "需求指数=历史需求分20%+当前进度25%+流量15%+转化15%+库存压力15%+日期属性10%",
+    "weights": {
+      "date_environment": 0.2,
+      "regional_heat": 0.15,
+      "historical_same_period": 0.15,
+      "booking_progress": 0.2,
+      "current_traffic": 0.1,
+      "current_conversion": 0.1,
+      "room_type_inventory_pressure": 0.1
+    },
+    "calibration_rules": {
+      "platform_valley_cap": "traffic_state=valley caps demand_index at 50 unless booking_progress is materially above historical_same_period",
+      "platform_peak_floor": "traffic_state=peak floors demand_index at 50 unless both booking_progress and current_conversion are materially weak"
+    },
+    "ordered_steps": [
+      {
+        "step_id": "s4_01",
+        "action": "Normalize date environment, regional heat, historical same-period, booking progress, traffic, conversion, and room-type inventory signals."
+      },
+      {
+        "step_id": "s4_02",
+        "action": "Score demand_index from revised_first_formula_v27 weighted signals and cap to 0..100."
+      },
+      {
+        "step_id": "s4_03",
+        "action": "Apply traffic peak-valley calibration before classifying demand_level into weak/normal/strong."
+      },
+      {
+        "step_id": "s4_04",
+        "action": "Emit missing signal list rather than inventing market facts."
+      }
+    ],
+    "thresholds": {
+      "weak_below": 40,
+      "strong_at_or_above": 70,
+      "surge_at_or_above": 85
+    },
+    "degradation": [
+      "When hard-required fields are missing, return missing_fields and confidence=low.",
+      "When input is demo/sample/stale, return preview_only or dry_run and block formal approval/live.",
+      "When source capability is read-only/manual, produce recommendation or task only."
+    ],
+    "output_contract": [
+      "demand_index",
+      "demand_level",
+      "signal_breakdown",
+      "missing_fields"
+    ]
+  },
+  "forbidden_actions": [
+    "treat_demo_data_as_real_today_data",
+    "create_formal_approval_from_demo_or_stale_data",
+    "bypass_data_gate_or_approval_guard"
+  ],
+  "demo_behavior_cases": [
+    {
+      "case_id": "s4_demo_preview",
+      "fixture": "examples/demo_data/nodes/N006.json",
+      "expected": {
+        "data_source_type": "demo_data",
+        "approval_data_allowed": false,
+        "live_allowed": false,
+        "status_in": [
+          "preview_only",
+          "dry_run",
+          "simulation_only",
+          "ok"
+        ]
+      }
+    },
+    {
+      "case_id": "s4_missing_hard_required",
+      "input": {
+        "hotel_id": "puyue-demo"
+      },
+      "expected": {
+        "allowed": false,
+        "reason": "missing_hard_required_fields"
+      }
+    }
+  ],
+  "executed_by_runtime": [],
+  "runtime_execution_status": "rule_config_exists_but_not_executed"
+}

@@ -1,0 +1,14 @@
+{
+  // Object-only patch: it never replaces Feishu account bindings or agent lists.
+  agents: {
+    defaults: {
+      contextInjection: "continuation-skip",
+      bootstrapTotalMaxChars: 80000,
+    },
+  },
+  skills: {
+    limits: {
+      maxSkillsPromptChars: 16000,
+    },
+  },
+}

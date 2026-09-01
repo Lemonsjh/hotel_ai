@@ -1,0 +1,64 @@
+{
+  "schema_version": "0.1",
+  "skill_id": "S7",
+  "skill_dir": "s07-competitive-monitoring",
+  "node_id": "N007",
+  "node_name": "S7 竞态监控",
+  "agent_id": "A1",
+  "phase": "P2",
+  "node_registry_ref": "architecture/node_registry.json",
+  "edge_registry_ref": "architecture/edge_registry.json",
+  "scenario_registry_ref": "architecture/scenario_chain_registry.json",
+  "field_registry_ref": "contracts/field_registry.yaml",
+  "node_io_contract_ref": "contracts/node_io_contract.yaml",
+  "algorithm_rules_ref": "runtime/algorithm_rules/competition_rules.yaml",
+  "demo_node_fixture": "examples/demo_data/nodes/N007.json",
+  "demo_scenarios": [
+    "SC02",
+    "SC03",
+    "SC05",
+    "SC06"
+  ],
+  "upstream_edges": [
+    {
+      "edge_id": "E006",
+      "source_node_id": "N004",
+      "why": "用户问竞对时直接触发；调价/活动需要竞对参考时链路触发。"
+    }
+  ],
+  "downstream_edges": [
+    {
+      "edge_id": "E014",
+      "target_node_id": "N015",
+      "why": "竞对只作为收益决策参考，不允许直接进入执行。"
+    },
+    {
+      "edge_id": "E050",
+      "target_node_id": "N018",
+      "why": "用户只问竞对情况时，竞态监控结果直接输出；不得直接执行价格变更。"
+    },
+    {
+      "edge_id": "E059",
+      "target_node_id": "N012",
+      "why": "竞对价格、活动、排名变化可作为活动/推广建议的参考输入。"
+    },
+    {
+      "edge_id": "E062",
+      "target_node_id": "N009",
+      "why": "竞对排名、评分和价格变化会影响 OTA 健康诊断中的竞态维度。"
+    }
+  ],
+  "forbidden_actions": [
+    "treat_demo_data_as_real_today_data",
+    "create_formal_approval_from_demo_or_stale_data",
+    "bypass_data_gate_or_approval_guard"
+  ],
+  "demo_safety": {
+    "data_source_type": "demo_data",
+    "freshness_status": "demo_data",
+    "business_status": "demo_or_historical",
+    "today_label_allowed": false,
+    "approval_data_allowed": false,
+    "live_allowed": false
+  }
+}

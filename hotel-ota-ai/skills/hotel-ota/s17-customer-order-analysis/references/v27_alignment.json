@@ -1,0 +1,163 @@
+{
+  "skill_id": "S17",
+  "skill_name": "客户与订单结构分析",
+  "node_ids": [
+    "N014"
+  ],
+  "agent_id": "A1",
+  "agent_ids": [
+    "A1"
+  ],
+  "blueprint_basis": [
+    "BP08",
+    "BP09"
+  ],
+  "input_field_ids": [
+    "S17I001",
+    "S17I002",
+    "S17I003"
+  ],
+  "output_field_ids": [
+    "N014_OUT001",
+    "N014_OUT002",
+    "N014_OUT003",
+    "N014_OUT004"
+  ],
+  "input_fields": [
+    {
+      "field_id": "S17I001",
+      "canonical_key": "request_context",
+      "project_field_name": "request_context",
+      "zh_name": "S17请求上下文",
+      "data_type": "object",
+      "required_level": "节点输入",
+      "source_type": "server_resolved",
+      "source_node": "",
+      "source_skill": "",
+      "downstream_node": [],
+      "missing_policy": "缺失时保留对应 population data_gap，不得编造或跨 population 补齐",
+      "evidence": "重构算法.md S17 客户订单分析"
+    },
+    {
+      "field_id": "S17I002",
+      "canonical_key": "active_privacy_policy",
+      "project_field_name": "active_privacy_policy",
+      "zh_name": "S17隐私策略",
+      "data_type": "object",
+      "required_level": "节点输入",
+      "source_type": "server_resolved",
+      "source_node": "",
+      "source_skill": "",
+      "downstream_node": [],
+      "missing_policy": "缺失时保留对应 population data_gap，不得编造或跨 population 补齐",
+      "evidence": "重构算法.md S17 客户订单分析"
+    },
+    {
+      "field_id": "S17I003",
+      "canonical_key": "source_populations",
+      "project_field_name": "source_populations",
+      "zh_name": "S17独立来源人口",
+      "data_type": "object",
+      "required_level": "节点输入",
+      "source_type": "server_resolved",
+      "source_node": "",
+      "source_skill": "",
+      "downstream_node": [],
+      "missing_policy": "缺失时保留对应 population data_gap，不得编造或跨 population 补齐",
+      "evidence": "重构算法.md S17 客户订单分析"
+    }
+  ],
+  "output_fields": [
+    {
+      "field_id": "N014_OUT001",
+      "canonical_key": "customer_order_populations",
+      "project_field_name": "customer_order_populations",
+      "zh_name": "客户与订单独立人口聚合",
+      "data_type": "object",
+      "required_level": "节点输出",
+      "source_type": "upstream_output",
+      "source_node": "N014",
+      "source_skill": "S17",
+      "downstream_node": [
+        "N015",
+        "N018",
+        "N019"
+      ],
+      "missing_policy": "缺失时保留对应 population data_gap，不得编造或跨 population 补齐",
+      "evidence": "重构算法.md S17 客户订单分析"
+    },
+    {
+      "field_id": "N014_OUT002",
+      "canonical_key": "repeat_booking_contact_share_proxy",
+      "project_field_name": "repeat_booking_contact_share_proxy",
+      "zh_name": "联系人复购代理",
+      "data_type": "number",
+      "required_level": "节点输出",
+      "source_type": "upstream_output",
+      "source_node": "N014",
+      "source_skill": "S17",
+      "downstream_node": [
+        "N015",
+        "N018",
+        "N019"
+      ],
+      "missing_policy": "缺失时保留对应 population data_gap，不得编造或跨 population 补齐",
+      "evidence": "重构算法.md S17 客户订单分析"
+    },
+    {
+      "field_id": "N014_OUT003",
+      "canonical_key": "provider_loss_proxy",
+      "project_field_name": "provider_loss_proxy",
+      "zh_name": "平台订单流失代理",
+      "data_type": "object",
+      "required_level": "节点输出",
+      "source_type": "upstream_output",
+      "source_node": "N014",
+      "source_skill": "S17",
+      "downstream_node": [
+        "N015",
+        "N018",
+        "N019"
+      ],
+      "missing_policy": "缺失时保留对应 population data_gap，不得编造或跨 population 补齐",
+      "evidence": "重构算法.md S17 客户订单分析"
+    },
+    {
+      "field_id": "N014_OUT004",
+      "canonical_key": "data_gaps",
+      "project_field_name": "data_gaps",
+      "zh_name": "S17数据缺口",
+      "data_type": "array",
+      "required_level": "节点输出",
+      "source_type": "upstream_output",
+      "source_node": "N014",
+      "source_skill": "S17",
+      "downstream_node": [
+        "N015",
+        "N018",
+        "N019"
+      ],
+      "missing_policy": "缺失时保留对应 population data_gap，不得编造或跨 population 补齐",
+      "evidence": "重构算法.md S17 客户订单分析"
+    }
+  ],
+  "runtime_command": "customer-analysis",
+  "demo_data_files": [
+    "examples/demo_data/nodes/N014.json"
+  ],
+  "error_handling": "population-level data_gap; no synthetic fallback",
+  "acceptance_tests": [
+    "tests/test_s17_customer_order_md.py"
+  ],
+  "schema_version": "v27.0",
+  "source": "contracts/v27/contract.json",
+  "field_registry_ref": "contracts/v27/field_registry.yaml",
+  "node_io_contract_ref": "contracts/v27/node_io_contract.yaml",
+  "legacy_v26_alignment_ref": "references/v26_alignment.json",
+  "demo_safety_fields": [
+    "data_source_type=demo_data",
+    "freshness_status=demo_data",
+    "approval_data_allowed=false",
+    "live_allowed=false"
+  ]
+}

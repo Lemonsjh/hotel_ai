@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0",
+  "skill_id": "S14",
+  "algorithm_rules_ref": "runtime/algorithm_rules/operation_diagnosis_rules.yaml",
+  "cases": [
+    {
+      "case_id": "s14_demo_preview",
+      "fixture": "examples/demo_data/nodes/N009.json",
+      "expected": {
+        "data_source_type": "demo_data",
+        "approval_data_allowed": false,
+        "live_allowed": false,
+        "status_in": [
+          "preview_only",
+          "dry_run",
+          "simulation_only",
+          "ok"
+        ]
+      }
+    },
+    {
+      "case_id": "s14_missing_hard_required",
+      "input": {
+        "hotel_id": "puyue-demo"
+      },
+      "expected": {
+        "allowed": false,
+        "reason": "missing_hard_required_fields"
+      }
+    },
+    {
+      "case_id": "s14_normal_structured_case_3",
+      "input": {
+        "hotel_id": "demo_value",
+        "data_business_date": "demo_value",
+        "operating_snapshot": "demo_value"
+      },
+      "expected": {
+        "status_in": [
+          "ok",
+          "preview_only",
+          "dry_run"
+        ],
+        "live_allowed": false
+      }
+    }
+  ]
+}

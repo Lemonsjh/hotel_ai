@@ -1,0 +1,111 @@
+{
+  "schema_version": "1.0",
+  "owner_skill": "S14-EXT",
+  "status": "implemented",
+  "placement": "runtime/algorithm_rules",
+  "node_id": "N022",
+  "agent_id": "A2",
+  "phase": "P0/P2",
+  "source_refs": {
+    "node_registry": "architecture/node_registry.json",
+    "edge_registry": "architecture/edge_registry.json",
+    "scenario_registry": "architecture/scenario_chain_registry.json",
+    "field_registry": "contracts/v27/field_registry.yaml",
+    "node_io_contract": "contracts/v27/node_io_contract.yaml",
+    "skill_alignment": "skills/hotel-ota/s14-ext-third-party-diagnosis/references/v27_alignment.json"
+  },
+  "demo_safety": {
+    "data_source_type": "demo_data",
+    "freshness_status": "demo_data",
+    "business_status": "demo_or_historical",
+    "today_label_allowed": false,
+    "approval_data_allowed": false,
+    "live_allowed": false
+  },
+  "data_gate": {
+    "hard_required": [
+      "external_hotel_profile",
+      "ota_report_payload"
+    ],
+    "soft_required": [],
+    "missing_policy": "block_business_conclusion_or_live; allow demo preview only when demo safety flags are present"
+  },
+  "algorithm": {
+    "objective": "Produce third-party OTA diagnosis HTML preview and field coverage from external report payloads.",
+    "ordered_steps": [
+      {
+        "step_id": "s14-ext_01",
+        "action": "Load external profile and report payload as demo/external evidence only."
+      },
+      {
+        "step_id": "s14-ext_02",
+        "action": "Compute field coverage against contracts without promoting fields to confirmed facts."
+      },
+      {
+        "step_id": "s14-ext_03",
+        "action": "Generate HTML report preview with missing field, diagnosis, and task sections."
+      },
+      {
+        "step_id": "s14-ext_04",
+        "action": "Block formal approval and live execution for all external/demo report outputs."
+      }
+    ],
+    "thresholds": {
+      "html_preview_allowed": true,
+      "formal_approval_allowed": false,
+      "live_allowed": false
+    },
+    "degradation": [
+      "When hard-required fields are missing, return missing_fields and confidence=low.",
+      "When input is demo/sample/stale, return preview_only or dry_run and block formal approval/live.",
+      "When source capability is read-only/manual, produce recommendation or task only."
+    ],
+    "output_contract": [
+      "field_coverage_rate",
+      "missing_fields",
+      "html_report_preview",
+      "live_allowed"
+    ]
+  },
+  "forbidden_actions": [
+    "treat_demo_data_as_real_today_data",
+    "create_formal_approval_from_demo_or_stale_data",
+    "bypass_data_gate_or_approval_guard",
+    "claim_external_report_is_current_hotel_fact",
+    "write_external_html_to_live_channel"
+  ],
+  "demo_behavior_cases": [
+    {
+      "case_id": "s14-ext_demo_preview",
+      "fixture": "examples/demo_data/nodes/N022.json",
+      "expected": {
+        "data_source_type": "demo_data",
+        "approval_data_allowed": false,
+        "live_allowed": false,
+        "status_in": [
+          "preview_only",
+          "dry_run",
+          "simulation_only",
+          "ok"
+        ]
+      }
+    },
+    {
+      "case_id": "s14-ext_missing_hard_required",
+      "input": {
+        "hotel_id": "puyue-demo"
+      },
+      "expected": {
+        "allowed": false,
+        "reason": "missing_hard_required_fields"
+      }
+    }
+  ],
+  "executed_by_runtime": [
+    "runtime/s14_ext_third_party_diagnosis.py",
+    "runtime/cli.py:s14-ext-diagnosis",
+    "runtime/demo_mode.py:demo-node-N022",
+    "runtime/feishu_command_router.py:third_party_report_preview"
+  ],
+  "runtime_execution_status": "implemented"
+}

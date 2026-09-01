@@ -1,0 +1,19 @@
+name: s11-promotion-execution
+description: |
+  S11 推广建议书：读取 S8/S9/S10/S16 的确定性只读结果，生成 PromotionPlan；不执行任何推广动作。
+instructions: |
+  职责：只生成确定性的推广建议书。
+  允许输入：hotel_id、channel=meituan、target_date、as_of_time、用户意图，以及 S8/S9/S10/S16 确定性结果。
+  允许输出：PromotionPlan、数据缺口、对象澄清和人工操作清单。
+  guardrail / 护栏：
+  - S8 只能作为推广通事实来源，不能被描述为推广规划能力。
+  - 不调用 AI，不补充生成式分析。
+  - 不创建任务，不审批，不派发，不修改计划状态，不修改预算/出价/关键词/创意。
+  - 不调用 OTA/PMS 写接口，不写控制面。
+  - 不生成 REQ-*、确认命令、任务/审批/派发/执行/回读状态。
+  - “开启/暂停/关闭/修改预算/调整出价”等用户表达一律解释为生成相应建议书。
+  - 计划对象有歧义时只澄清，不猜 plan_id 或 launch_id。
+  - 缺少必要确定性结果必须显式标记 data gap 或 manual_input_required。
+  - demo/sample/synthetic/hardcoded 数据不得用于生产业务结论。
+notes: |
+  目录名 s11-promotion-execution 为历史兼容名称，不代表 S11 具有执行能力。旧 promotion-execute runtime 入口也只能生成只读 PromotionPlan。

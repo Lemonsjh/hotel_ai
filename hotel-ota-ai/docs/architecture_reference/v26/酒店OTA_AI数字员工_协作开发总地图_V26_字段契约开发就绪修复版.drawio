@@ -1,0 +1,1315 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="app.diagrams.net" agent="ChatGPT" pages="15">
+  <diagram id="v19_487402" name="P01 总地图">
+    <mxGraphModel dx="4547" dy="2533" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="4300" pageHeight="2600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title_88523" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=none;fillColor=none;fontSize=28;fontStyle=1;fontColor=#0F172A;align=center;" value="V26 总地图｜字段契约开发就绪修复版：蓝图字段 → 来源别名 → Skill/节点/边 IO" vertex="1">
+          <mxGeometry height="45" width="4100" x="80" y="25" as="geometry" />
+        </mxCell>
+        <mxCell id="lane_65169" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DBEAFE;strokeColor=#CBD5E1;fontSize=16;fontStyle=1;fontColor=#334155;align=left;verticalAlign=top;spacing=8;opacity=35;" value="A区｜入口/权限/数据闸门" vertex="1">
+          <mxGeometry height="260" width="4100" x="40" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="lane_63989" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DCFCE7;strokeColor=#CBD5E1;fontSize=16;fontStyle=1;fontColor=#334155;align=left;verticalAlign=top;spacing=8;opacity=35;" value="B区｜并行采集/感知/诊断输入" vertex="1">
+          <mxGeometry height="430" width="4100" x="60" y="400" as="geometry" />
+        </mxCell>
+        <mxCell id="lane_61642" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FEF3C7;strokeColor=#CBD5E1;fontSize=16;fontStyle=1;fontColor=#334155;align=left;verticalAlign=top;spacing=8;opacity=35;" value="C区｜派生分析与决策汇聚" vertex="1">
+          <mxGeometry height="520" width="4100" x="40" y="870" as="geometry" />
+        </mxCell>
+        <mxCell id="lane_6665" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#EDE9FE;strokeColor=#CBD5E1;fontSize=16;fontStyle=1;fontColor=#334155;align=left;verticalAlign=top;spacing=8;opacity=35;" value="D区｜执行/消息/经验闭环" vertex="1">
+          <mxGeometry height="820" width="4100" x="40" y="1420" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N001" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#DBEAFE;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N001｜入口事件&lt;br&gt;Skill：-｜蓝图：BP00&lt;br&gt;输入字段：CTX001,CTX002,CTX003,HOT001&lt;br&gt;输出字段：N001_OUT001 intent_candidate,N001_OUT002 scenario_candidate,N001_OUT003 raw_context&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="150" width="390" x="80" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N002" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#DBEAFE;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N002｜S0 总控路由&lt;br&gt;Skill：-｜蓝图：BP00/BP10&lt;br&gt;输入字段：CTX001,HOT001,N001_OUT003,N001_OUT001&lt;br&gt;输出字段：N002_OUT001 scenario_id,N002_OUT002 required_blueprints,N002_OUT003 required_skill_chain,N002_OUT004 algorithm_required_fields,N002_OUT005 source_required_fields,…(+3)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="150" width="390" x="940" y="155" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N003" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#DBEAFE;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N003｜S1 顶层配置与权限安全&lt;br&gt;Skill：S1｜蓝图：BP00/BP10&lt;br&gt;输入字段：AUTH001,AUTH002,HOT001,CFG001,CFG002,CFG003,CFG004,CFG005,…(+6)&lt;br&gt;输出字段：N003_OUT001 safety_policy,N003_OUT002 allowed_actions,N003_OUT003 execution_boundary,N003_OUT004 blocked_reason,N003_OUT005 config_status,…(+1)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="150" width="390" x="1670" y="155" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N004" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#E0F2FE;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N004｜数据闸门&lt;br&gt;Skill：-｜蓝图：BP10&lt;br&gt;输入字段：CTX004,CTX005,CTX006,CTX008,CTX010,CFG005,N003_OUT002,N003_OUT006,…(+1)&lt;br&gt;输出字段：N004_OUT001 data_gate_result,N004_OUT002 missing_algorithm_fields,N004_OUT003 missing_source_fields,N004_OUT004 field_coverage_report,N004_OUT005 approval_data_allowed,…(+5)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="150" width="390" x="2370" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N005" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#DCFCE7;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N005｜S2 经营房态采集&lt;br&gt;Skill：S2｜蓝图：BP00/BP02/BP03/BP08/BP10&lt;br&gt;输入字段：HOT001,ROOM001,ROOM002,ROOM003,ROOM004,OP001,OP002,OP004,…(+9)&lt;br&gt;输出字段：N005_OUT001 operating_snapshot,N005_OUT002 inventory_snapshot,N005_OUT003 price_snapshot,N005_OUT004 source_coverage,N005_OUT005 freshness_status,…(+6)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="150" width="390" x="760" y="480" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N006" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#DCFCE7;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N006｜S4 环境行情感知&lt;br&gt;Skill：S4｜蓝图：BP01/BP02/BP05/BP08&lt;br&gt;输入字段：CTX003,DEM001,DEM002,DEM003,DEM004,DEM005,DEM006,DEM011,…(+3)&lt;br&gt;输出字段：N006_OUT001 demand_index,N006_OUT002 demand_level,N006_OUT003 action_strength,N006_OUT004 demand_reasons,N006_OUT005 pricing_effect,…(+1)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="150" width="390" x="2900" y="620" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N007" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#DCFCE7;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N007｜S7 竞态监控&lt;br&gt;Skill：S7｜蓝图：BP06/BP02/BP05&lt;br&gt;输入字段：CMP001,CMP002,CMP003,CMP008,CMP009,CMP010,CMP011,CMP012,…(+2)&lt;br&gt;输出字段：N007_OUT001 competitor_context,N007_OUT002 competitor_alert_level,N007_OUT003 competitor_price_index,N007_OUT004 direct_price_action_blocked,N007_OUT005 confidence_level,…(+1)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="150" width="390" x="3690" y="630" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N008" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#DCFCE7;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N008｜S12 口碑管理&lt;br&gt;Skill：S12｜蓝图：BP09/BP03&lt;br&gt;输入字段：REP001,REP002,REP003,REP004,REP005,REP006,REP010,REP011,…(+2)&lt;br&gt;输出字段：N008_OUT001 reputation_result,N008_OUT002 health_score_impact,N008_OUT003 reply_needed,N008_OUT004 reputation_tasks,N008_OUT005 problem_tags,…(+2)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="150" width="390" x="1600" y="540" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N020" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#DCFCE7;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N020｜S9 流量峰谷&lt;br&gt;Skill：S9｜蓝图：BP01/BP04/BP08&lt;br&gt;输入字段：CTX003,FNL014,OP014,FNL001,FNL002,OP002,DEM012,DEM007,…(+6)&lt;br&gt;输出字段：N020_OUT001 traffic_state,N020_OUT002 time_windows,N020_OUT003 recommended_actions,N020_OUT004 demand_index,N020_OUT005 hourly_demand_index,…(+2)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="150" width="390" x="1310" y="1080" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N009" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FEF3C7;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N009｜S14 酒店运营诊断&lt;br&gt;Skill：S14｜蓝图：BP03/BP04/BP02/BP05&lt;br&gt;输入字段：FNL001,FNL002,FNL003,FNL004,FNL005,FNL006,FNL007,HLT001,…(+16)&lt;br&gt;输出字段：N009_OUT001 ota_health_score,N009_OUT002 ota_health_level,N009_OUT003 conversion_bottleneck,N009_OUT004 diagnosis_actions,N009_OUT005 weak_items,…(+1)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="150" width="390" x="510" y="1080" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N010" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FEF3C7;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N010｜S15 销售基准线&lt;br&gt;Skill：S15｜蓝图：BP08/BP02/BP01&lt;br&gt;输入字段：HOT001,CTX003,ROOM009,DEM011,DEM007,OP005,OP006,OP007,…(+4)&lt;br&gt;输出字段：N010_OUT001 sales_baseline,N010_OUT002 hourly_target_curve,N010_OUT003 target_room_nights,N010_OUT004 baseline_confidence,N010_OUT005 historical_same_weekday_curve&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="150" width="390" x="80" y="490" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N011" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FEF3C7;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N011｜S16 进度偏差诊断&lt;br&gt;Skill：S16｜蓝图：BP08/BP02/BP03&lt;br&gt;输入字段：HOT001,CTX003,OP008,OP014,DEM007,FNL017,N010_OUT001,N010_OUT002,…(+3)&lt;br&gt;输出字段：N011_OUT001 progress_status,N011_OUT002 room_night_gap,N011_OUT003 deviation_reasons,N011_OUT004 urgency_level,N011_OUT005 downstream_skill&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="150" width="390" x="80" y="1080" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N012" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FEF3C7;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N012｜S8 推广投放与活动建议&lt;br&gt;Skill：S8｜蓝图：BP05/BP02/BP06/BP07&lt;br&gt;输入字段：ACT001,ACT002,ACT003,ACT004,PR004,CFG001,PR006,CMP007,…(+23)&lt;br&gt;输出字段：N012_OUT001 activity_plan,N012_OUT002 promotion_plan,N012_OUT003 activity_risks,N012_OUT004 approval_required,N012_OUT005 budget_range,…(+3)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="150" width="390" x="500" y="2080" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N013" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FEF3C7;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N013｜S10 ROI 决策&lt;br&gt;Skill：S10｜蓝图：BP08/BP05&lt;br&gt;输入字段：ROI001,ROI011,ROI008,ROI009,ROI010,ROI005,ROI006,CFG001,…(+3)&lt;br&gt;输出字段：N013_OUT001 promotion_roi,N013_OUT002 profit_simulation,N013_OUT003 roi_decision,N013_OUT004 data_gaps&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="150" width="390" x="80" y="2080" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N017" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FEF3C7;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N017｜S13 评论回复&lt;br&gt;Skill：S13｜蓝图：BP09/BP07&lt;br&gt;输入字段：REP001,REP026,REP013,REP014,REP015,REP016,REP017,CFG003,…(+3)&lt;br&gt;输出字段：N017_OUT001 reply_draft,N017_OUT002 compensation_suggestion,N017_OUT003 manager_escalation,N017_OUT004 sentiment,N017_OUT005 problem_tags,…(+1)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="150" width="390" x="3330" y="1970" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N015" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FCE7F3;strokeColor=#BE185D;fontSize=14;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N015｜S5 智能收益决策&lt;br&gt;Skill：S5｜蓝图：BP02/BP08/BP01/BP03/BP05/BP06&lt;br&gt;输入字段：CFG001,CFG002,CFG003,CFG004,CFG005,CFG006,CFG007,PR001,…(+29)&lt;br&gt;输出字段：N015_OUT001 revenue_decision,N015_OUT002 price_recommendations,N015_OUT003 approval_required,N015_OUT004 risk_warnings,N015_OUT005 price_confidence,…(+1)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="330" width="690" x="90" y="1570" as="geometry" />
+        </mxCell>
+        <mxCell id="atnqRGhzhSg-MjD0H108-7" edge="1" parent="1" source="mx_N016" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="mx_N018">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="atnqRGhzhSg-MjD0H108-8" connectable="0" parent="atnqRGhzhSg-MjD0H108-7" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="&lt;br&gt;&lt;table border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;264&quot; height=&quot;36&quot; style=&quot;border-collapse:collapse;width:132.03pt;&quot;&gt; &lt;colgroup&gt;&lt;col width=&quot;264&quot; style=&quot;width:132.00pt;&quot;&gt;&lt;/colgroup&gt; &lt;tbody&gt;&lt;tr height=&quot;36&quot; style=&quot;height:18.00pt;&quot;&gt;  &lt;td class=&quot;et2&quot; height=&quot;36&quot; width=&quot;264&quot; style=&quot;height:18.00pt;width:132.00pt;&quot;&gt;dry-run&lt;span class=&quot;font2&quot;&gt;、审批校验、执行结果都必须通过消息中台输出。&lt;/span&gt;&lt;/td&gt; &lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;" vertex="1">
+          <mxGeometry relative="1" x="0.0004" y="-3" as="geometry">
+            <mxPoint x="-1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="mx_N016" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#EDE9FE;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N016｜S6 房价同步执行&lt;br&gt;Skill：S6｜蓝图：BP02/BP10/BP07&lt;br&gt;输入字段：EXE001,PR011,CFG001,CFG002,CTX008,CFG005,CFG004,EXE005,…(+4)&lt;br&gt;输出字段：N016_OUT001 dry_run_preview,N016_OUT002 execution_result,N016_OUT003 blocked_reason,N016_OUT004 readback_check,N016_OUT005 rollback_or_review_task&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="120" width="360" x="1190" y="1850" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N021" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#EDE9FE;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N021｜S11 推广执行&lt;br&gt;Skill：S11｜蓝图：BP05/BP07/BP10&lt;br&gt;输入字段：EXE001,ACT014,ACT015,FNL018,CFG005,CFG004,EXE005,ACT020,…(+8)&lt;br&gt;输出字段：N021_OUT001 promotion_execution_preview,N021_OUT002 execution_result,N021_OUT003 blocked_reason,N021_OUT004 verification_checklist,N021_OUT005 promotion_execution_task,…(+2)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="150" width="390" x="2270" y="2060" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N018" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#EDE9FE;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N018｜S3 消息中台&lt;br&gt;Skill：S3｜蓝图：BP00/BP10/BP11/BP07&lt;br&gt;输入字段：MSG005,MSG006,MSG007,EXE001,CTX008,MSG008,EXE009,N015_OUT001,…(+49)&lt;br&gt;输出字段：N018_OUT001 rendered_message,N018_OUT002 approval_card,N018_OUT003 notification_status,N018_OUT004 experience_event_candidate,N018_OUT005 frontdesk_task_card&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="150" width="390" x="2270" y="1620" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N019" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F3F4F6;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N019｜EXP-LAYER 经验进化&lt;br&gt;Skill：-｜蓝图：BP11&lt;br&gt;输入字段：EXP001,EXP002,EXP003,EXP004,EXP005,CTX003,EXP006,EXE007,…(+33)&lt;br&gt;输出字段：N019_OUT001 approved_case,N019_OUT002 rule_candidate,N019_OUT003 runtime_test_candidate,N019_OUT004 retrieved_experience_summary&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="150" width="390" x="3330" y="1610" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E001_p01" edge="1" parent="1" source="mx_N001" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#2563EB;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N002" value="E001｜direct_trigger&lt;br&gt;入口事件必须先经过总控路由，不能直接进入业务Skill。&lt;br&gt;蓝图:BP00">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E002_p01" edge="1" parent="1" source="mx_N002" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N003" value="E002｜chain_trigger&lt;br&gt;所有业务链路必须先验权；权限不是记忆或用户自称决定。&lt;br&gt;蓝图:BP00/BP10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E003_p01" edge="1" parent="1" source="mx_N003" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N004" value="E003｜chain_trigger&lt;br&gt;权限和配置通过后才能读取业务数据；读取前要检查字段需求。&lt;br&gt;蓝图:BP10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E004_p01" edge="1" parent="1" source="mx_N004" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N005" value="E004｜chain_trigger&lt;br&gt;经营/诊断/调价/基准线/峰谷都需要统一经营快照作为数…&lt;br&gt;蓝图:BP00/BP02/BP03/BP08/BP10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E005_p01" edge="1" parent="1" source="mx_N004" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;exitX=0.695;exitY=0.994;exitDx=0;exitDy=0;exitPerimeter=0;" target="mx_N006" value="E005｜chain_trigger&lt;br&gt;需求、行情、调价、活动和基准线需要需求指数。&lt;br&gt;蓝图:BP01">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E006_p01" edge="1" parent="1" source="mx_N004" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#0EA5E9;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N007" value="E006｜direct_or_chain&lt;br&gt;用户问竞对时直接触发；调价/活动需要竞对参考时链路触发。&lt;br&gt;蓝图:BP06">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E007_p01" edge="1" parent="1" source="mx_N004" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#0EA5E9;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N008" value="E007｜direct_or_chain&lt;br&gt;用户问口碑时直接触发；诊断需要口碑维度时链路触发。&lt;br&gt;蓝图:BP09/BP03">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E008_p01" edge="1" parent="1" source="mx_N005" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N009" value="E008｜chain_trigger&lt;br&gt;OTA健康诊断需要经营、库存、价格快照作为基础证据。&lt;br&gt;蓝图:BP03/BP04">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E009_p01" edge="1" parent="1" source="mx_N008" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N009" value="E009｜chain_trigger&lt;br&gt;口碑结果会影响OTA健康分和诊断动作。&lt;br&gt;蓝图:BP09/BP03">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E010_p01" edge="1" parent="1" source="mx_N005" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N010" value="E010｜chain_trigger&lt;br&gt;销售基准线需要房量、历史指标和经营快照。&lt;br&gt;蓝图:BP08">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E011_p01" edge="1" parent="1" source="mx_N010" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N011" value="E011｜chain_trigger&lt;br&gt;有基准线后才能判断当前进度偏差。&lt;br&gt;蓝图:BP08">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E012_p01" edge="1" parent="1" source="mx_N005" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N011" value="E012｜chain_trigger&lt;br&gt;偏差诊断需要当前实际进度与基准线比较。&lt;br&gt;蓝图:BP08">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E013_p01" edge="1" parent="1" source="mx_N006" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;entryX=1;entryY=0;entryDx=0;entryDy=0;" target="mx_N015" value="E013｜chain_trigger&lt;br&gt;需求指数决定调价动作强度和策略保守程度。&lt;br&gt;蓝图:BP01/BP02">
+          <mxGeometry relative="1" x="-0.4883" y="7" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_E014_p01" edge="1" parent="1" source="mx_N014" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N015" value="E014｜chain_trigger&lt;br&gt;竞对只作为收益决策参考，不允许直接进入执行。&lt;br&gt;蓝图:BP06/BP02">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E015_p01" edge="1" parent="1" source="mx_N009" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N015" value="E015｜chain_trigger&lt;br&gt;健康诊断和转化瓶颈决定是否先修转化、口碑或库存，再调价。&lt;br&gt;蓝图:BP03/BP04/BP02">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E016_p01" edge="1" parent="1" source="mx_N011" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;" target="mx_N015" value="E016｜chain_trigger&lt;br&gt;进度落后/超前会改变收益策略，比如补救、观察或涨价。&lt;br&gt;蓝图:BP08/BP02">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E017_p01" edge="1" parent="1" source="mx_N012" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N015" value="E017｜chain_trigger&lt;br&gt;活动可能替代直接降价，也可能影响到手价和底价安全。&lt;br&gt;蓝图:BP05/BP02">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E018_p01" edge="1" parent="1" source="mx_N013" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;entryX=0.25;entryY=1;entryDx=0;entryDy=0;" target="mx_N015" value="E018｜chain_trigger&lt;br&gt;ROI或利润模拟是收益最大化策略的增强输入。&lt;br&gt;蓝图:BP08">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E019_p01" edge="1" parent="1" source="mx_N014" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N015" value="E019｜chain_trigger&lt;br&gt;客户结构可作为收益策略和任务建议参考，但不能阻断P0/…&lt;br&gt;蓝图:BP08/BP09">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E020_p01" edge="1" parent="1" source="mx_N015" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;exitX=1;exitY=1;exitDx=0;exitDy=0;" target="mx_N016" value="E020｜chain_trigger&lt;br&gt;只有S5产出调价建议后，S6才允许做dry-run/审…&lt;br&gt;蓝图:BP02/BP10">
+          <mxGeometry relative="1" x="-0.0735" y="3" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_E021_p01" edge="1" parent="1" source="mx_N015" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N018" value="E021｜chain_trigger&lt;br&gt;不需要执行或执行被阻断时，直接把收益建议输出给用户。&lt;br&gt;蓝图:BP00/BP02">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E022_p01" edge="1" parent="1" source="mx_N014" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N018" value="E022｜chain_trigger&lt;br&gt;dry-run、审批校验、执行结果都必须通过消息中台输…&lt;br&gt;蓝图:BP00/BP02/BP10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E023_p01" edge="1" parent="1" source="mx_N009" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N018" value="E023｜chain_trigger&lt;br&gt;诊断结果需要生成老板/运营可读报告。&lt;br&gt;蓝图:BP03/BP07">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E024_p01" edge="1" parent="1" source="mx_N012" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N018" value="E024｜chain_trigger&lt;br&gt;活动/推广建议需要输出风险、预算和执行建议。&lt;br&gt;蓝图:BP05">
+          <mxGeometry relative="1" x="0.3067" y="-2" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="2420" y="1770" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_E025_p01" edge="1" parent="1" source="mx_N017" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N018" value="E025｜chain_trigger&lt;br&gt;评论回复草稿和补偿建议需要人工确认后输出。&lt;br&gt;蓝图:BP09">
+          <mxGeometry relative="1" x="-0.4483" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_E026_p01" edge="1" parent="1" source="mx_N018" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#9333EA;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=1;" target="mx_N019" value="E026｜async_trigger&lt;br&gt;用户可见输出可形成脱敏复盘事件，但不阻塞业务主链路。&lt;br&gt;蓝图:BP11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E030_p01" edge="1" parent="1" source="mx_N005" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N020" value="E030｜chain_trigger&lt;br&gt;流量峰谷必须基于当前经营、订单、曝光/浏览/支付转化快…&lt;br&gt;蓝图:BP01/BP04">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E032_p01" edge="1" parent="1" source="mx_N020" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N009" value="E032｜chain_trigger&lt;br&gt;峰谷异常和转化异常需要回流到运营诊断，避免只靠调价解决。&lt;br&gt;蓝图:BP04/BP03">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E034_p01" edge="1" parent="1" source="mx_N020" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N015" value="E034｜chain_trigger&lt;br&gt;小时级需求和进单节奏会影响调价时点和动作强度。&lt;br&gt;蓝图:BP01/BP02">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E037_p01" edge="1" parent="1" source="mx_N012" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N021" value="E037｜chain_trigger&lt;br&gt;只有推广计划产出可执行动作后，S11才允许生成dry-…&lt;br&gt;蓝图:BP05/BP07/BP10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E039_p01" edge="1" parent="1" source="mx_N021" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N018" value="E039｜chain_trigger&lt;br&gt;推广执行任务、阻断原因、复核清单必须通过消息中台输出。&lt;br&gt;蓝图:BP00/BP05/BP10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="legend_bg" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F8FAFC;strokeColor=#CBD5E1;fontSize=13;fontColor=#334155;align=left;spacing=8;" value="图例：蓝色 direct_trigger｜灰色 chain_trigger｜紫色虚线 async_trigger｜橙色虚线 optional/扩展分支。V19 只画主链路边，扩展边不再画进地图。" vertex="1">
+          <mxGeometry height="70" width="1100" x="40" y="2390" as="geometry" />
+        </mxCell>
+        <mxCell id="atnqRGhzhSg-MjD0H108-1" edge="1" parent="1" source="mx_N007" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N014" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="2586" y="650" as="sourcePoint" />
+            <mxPoint x="1023" y="1560" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="mx_N014" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#DCFCE7;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N014｜S17 客户订单分析&lt;br&gt;Skill：S17｜蓝图：BP08/BP09&lt;br&gt;输入字段：OP001,OP002,OP003,REP007,CUS001,CUS002,CUS003,REP001&lt;br&gt;输出字段：N014_OUT001 customer_segments,N014_OUT002 repeat_guest_rate,N014_OUT003 loss_risk_alert,N014_OUT004 target_guest_tasks&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="150" width="390" x="3690" y="1110" as="geometry" />
+        </mxCell>
+      <mxCell id="v26_repair_note_p01" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EFF6FF;strokeColor=#60A5FA;fontSize=14;fontColor=#1E3A8A;spacing=8;align=left;verticalAlign=top;" value="V26修复说明：本图为协作开发总图，字段事实源优先级为：功能蓝图算法字段 → 整体架构分析/数据列表来源候选 → 当前项目证据。P01只画主干，完整边以03边注册表和场景页为准。" vertex="1"><mxGeometry x="80" y="2380" width="1250" height="140" as="geometry" /></mxCell><mxCell id="v26_n022_notice_p01" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0FDF4;strokeColor=#4ADE80;fontSize=14;fontColor=#166534;spacing=8;align=left;verticalAlign=top;" value="N022 / S14-EXT 第三方OTA诊断报告：属于扩展诊断节点，主链路在SC10；字段覆盖率必须由required/available/missing计算，HTML预览必须标明generated或structure_only。" vertex="1"><mxGeometry x="1380" y="2380" width="1250" height="140" as="geometry" /></mxCell><mxCell id="v26_missing_edges_notice_p01" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FEF2F2;strokeColor=#F87171;fontSize=14;fontColor=#7F1D1D;spacing=8;align=left;verticalAlign=top;" value="需在子页面/边注册表同步标注的关键边：E049 N006→N018（只问行情直接输出）、E052 N010→N018（只问销售基准线直接输出）、E054 N013→N018（只问ROI直接输出）、E060 N006→N010（基准线需求背景修正）。" vertex="1"><mxGeometry x="2680" y="2380" width="1380" height="140" as="geometry" /></mxCell></root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="v19_847631" name="P02 链路目录-主链路白名单">
+    <mxGraphModel dx="1600" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="3000" pageHeight="1700" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title_68682" value="P02 链路拆分目录｜V19 主链路边白名单" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=none;fillColor=none;fontSize=28;fontStyle=1;fontColor=#0F172A;align=center;" parent="1" vertex="1">
+          <mxGeometry x="80" y="25" width="2800" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="dir_h_0" value="场景" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#0F172A;strokeColor=#0F172A;fontColor=#FFFFFF;fontStyle=1;fontSize=14;align=center;" parent="1" vertex="1">
+          <mxGeometry x="130" y="170" width="180" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="dir_h_1" value="链路名称" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#0F172A;strokeColor=#0F172A;fontColor=#FFFFFF;fontStyle=1;fontSize=14;align=center;" parent="1" vertex="1">
+          <mxGeometry x="310" y="170" width="780" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="dir_h_2" value="画线数" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#0F172A;strokeColor=#0F172A;fontColor=#FFFFFF;fontStyle=1;fontSize=14;align=center;" parent="1" vertex="1">
+          <mxGeometry x="1090" y="170" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="dir_h_3" value="规则" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#0F172A;strokeColor=#0F172A;fontColor=#FFFFFF;fontStyle=1;fontSize=14;align=center;" parent="1" vertex="1">
+          <mxGeometry x="1250" y="170" width="1200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="dir_0_0" value="SC01" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;fontSize=13;fontColor=#0F172A;align=left;spacing=6;" parent="1" vertex="1">
+          <mxGeometry x="130" y="210" width="180" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="dir_0_1" value="今天经营怎么样 / 经营快报链路" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;fontSize=13;fontColor=#0F172A;align=left;spacing=6;" parent="1" vertex="1">
+          <mxGeometry x="310" y="210" width="780" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="dir_0_2" value="6" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;fontSize=13;fontColor=#0F172A;align=left;spacing=6;" parent="1" vertex="1">
+          <mxGeometry x="1090" y="210" width="160" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="dir_0_3" value="只画该场景默认主链路；可选/补救/经验扩展边不连线" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;fontSize=13;fontColor=#0F172A;align=left;spacing=6;" parent="1" vertex="1">
+          <mxGeometry x="1250" y="210" width="1200" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="dir_1_0" value="SC02" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;fontSize=13;fontColor=#0F172A;align=left;spacing=6;" parent="1" vertex="1">
+          <mxGeometry x="130" y="275" width="180" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="dir_1_1" value="做一次 OTA 诊断 / 酒店运营诊断链路" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;fontSize=13;fontColor=#0F172A;align=left;spacing=6;" parent="1" vertex="1">
+          <mxGeometry x="310" y="275" width="780" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="dir_1_2" value="13" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;fontSize=13;fontColor=#0F172A;align=left;spacing=6;" parent="1" vertex="1">
+          <mxGeometry x="1090" y="275" width="160" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="dir_1_3" value="只画该场景默认主链路；可选/补救/经验扩展边不连线" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;fontSize=13;fontColor=#0F172A;align=left;spacing=6;" parent="1" vertex="1">
+          <mxGeometry x="1250" y="275" width="1200" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="dir_2_0" value="SC03" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;fontSize=13;fontColor=#0F172A;align=left;spacing=6;" parent="1" vertex="1">
+          <mxGeometry x="130" y="340" width="180" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="dir_2_1" value="今天要不要调价 / 收益决策链路" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;fontSize=13;fontColor=#0F172A;align=left;spacing=6;" parent="1" vertex="1">
+          <mxGeometry x="310" y="340" width="780" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="dir_2_2" value="21" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;fontSize=13;fontColor=#0F172A;align=left;spacing=6;" parent="1" vertex="1">
+          <mxGeometry x="1090" y="340" width="160" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="dir_2_3" value="只画该场景默认主链路；可选/补救/经验扩展边不连线" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;fontSize=13;fontColor=#0F172A;align=left;spacing=6;" parent="1" vertex="1">
+          <mxGeometry x="1250" y="340" width="1200" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="dir_3_0" value="SC04" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;fontSize=13;fontColor=#0F172A;align=left;spacing=6;" parent="1" vertex="1">
+          <mxGeometry x="130" y="405" width="180" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="dir_3_1" value="每小时进度巡检 / 偏差链路" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;fontSize=13;fontColor=#0F172A;align=left;spacing=6;" parent="1" vertex="1">
+          <mxGeometry x="310" y="405" width="780" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="dir_3_2" value="9" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;fontSize=13;fontColor=#0F172A;align=left;spacing=6;" parent="1" vertex="1">
+          <mxGeometry x="1090" y="405" width="160" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="dir_3_3" value="只画该场景默认主链路；可选/补救/经验扩展边不连线" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;fontSize=13;fontColor=#0F172A;align=left;spacing=6;" parent="1" vertex="1">
+          <mxGeometry x="1250" y="405" width="1200" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="dir_4_0" value="SC05" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;fontSize=13;fontColor=#0F172A;align=left;spacing=6;" parent="1" vertex="1">
+          <mxGeometry x="130" y="470" width="180" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="dir_4_1" value="竞对降价怎么办 / 竞对预警链路" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;fontSize=13;fontColor=#0F172A;align=left;spacing=6;" parent="1" vertex="1">
+          <mxGeometry x="310" y="470" width="780" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="dir_4_2" value="9" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;fontSize=13;fontColor=#0F172A;align=left;spacing=6;" parent="1" vertex="1">
+          <mxGeometry x="1090" y="470" width="160" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="dir_4_3" value="只画该场景默认主链路；可选/补救/经验扩展边不连线" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;fontSize=13;fontColor=#0F172A;align=left;spacing=6;" parent="1" vertex="1">
+          <mxGeometry x="1250" y="470" width="1200" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="dir_5_0" value="SC06" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;fontSize=13;fontColor=#0F172A;align=left;spacing=6;" parent="1" vertex="1">
+          <mxGeometry x="130" y="535" width="180" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="dir_5_1" value="要不要开活动 / 活动推广链路" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;fontSize=13;fontColor=#0F172A;align=left;spacing=6;" parent="1" vertex="1">
+          <mxGeometry x="310" y="535" width="780" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="dir_5_2" value="12" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;fontSize=13;fontColor=#0F172A;align=left;spacing=6;" parent="1" vertex="1">
+          <mxGeometry x="1090" y="535" width="160" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="dir_5_3" value="只画该场景默认主链路；可选/补救/经验扩展边不连线" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;fontSize=13;fontColor=#0F172A;align=left;spacing=6;" parent="1" vertex="1">
+          <mxGeometry x="1250" y="535" width="1200" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="dir_6_0" value="SC07" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;fontSize=13;fontColor=#0F172A;align=left;spacing=6;" parent="1" vertex="1">
+          <mxGeometry x="130" y="600" width="180" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="dir_6_1" value="出现差评怎么处理 / 口碑回复链路" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;fontSize=13;fontColor=#0F172A;align=left;spacing=6;" parent="1" vertex="1">
+          <mxGeometry x="310" y="600" width="780" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="dir_6_2" value="9" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;fontSize=13;fontColor=#0F172A;align=left;spacing=6;" parent="1" vertex="1">
+          <mxGeometry x="1090" y="600" width="160" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="dir_6_3" value="只画该场景默认主链路；可选/补救/经验扩展边不连线" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;fontSize=13;fontColor=#0F172A;align=left;spacing=6;" parent="1" vertex="1">
+          <mxGeometry x="1250" y="600" width="1200" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="dir_7_0" value="SC08" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;fontSize=13;fontColor=#0F172A;align=left;spacing=6;" parent="1" vertex="1">
+          <mxGeometry x="130" y="665" width="180" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="dir_7_1" value="客户订单分析 / 客群链路" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;fontSize=13;fontColor=#0F172A;align=left;spacing=6;" parent="1" vertex="1">
+          <mxGeometry x="310" y="665" width="780" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="dir_7_2" value="8" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;fontSize=13;fontColor=#0F172A;align=left;spacing=6;" parent="1" vertex="1">
+          <mxGeometry x="1090" y="665" width="160" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="dir_7_3" value="只画该场景默认主链路；可选/补救/经验扩展边不连线" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;fontSize=13;fontColor=#0F172A;align=left;spacing=6;" parent="1" vertex="1">
+          <mxGeometry x="1250" y="665" width="1200" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="dir_8_0" value="SC09" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;fontSize=13;fontColor=#0F172A;align=left;spacing=6;" parent="1" vertex="1">
+          <mxGeometry x="130" y="730" width="180" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="dir_8_1" value="沉淀这次复盘 / 经验进化链路" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;fontSize=13;fontColor=#0F172A;align=left;spacing=6;" parent="1" vertex="1">
+          <mxGeometry x="310" y="730" width="780" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="dir_8_2" value="5" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;fontSize=13;fontColor=#0F172A;align=left;spacing=6;" parent="1" vertex="1">
+          <mxGeometry x="1090" y="730" width="160" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="dir_8_3" value="只画该场景默认主链路；可选/补救/经验扩展边不连线" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;fontSize=13;fontColor=#0F172A;align=left;spacing=6;" parent="1" vertex="1">
+          <mxGeometry x="1250" y="730" width="1200" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="dir_9_0" value="SC10" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;fontSize=13;fontColor=#0F172A;align=left;spacing=6;" parent="1" vertex="1">
+          <mxGeometry x="130" y="795" width="180" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="dir_9_1" value="第三方酒店 OTA 诊断 / S14-EXT 链路" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;fontSize=13;fontColor=#0F172A;align=left;spacing=6;" parent="1" vertex="1">
+          <mxGeometry x="310" y="795" width="780" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="dir_9_2" value="6" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;fontSize=13;fontColor=#0F172A;align=left;spacing=6;" parent="1" vertex="1">
+          <mxGeometry x="1090" y="795" width="160" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="dir_9_3" value="只画该场景默认主链路；可选/补救/经验扩展边不连线" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;fontSize=13;fontColor=#0F172A;align=left;spacing=6;" parent="1" vertex="1">
+          <mxGeometry x="1250" y="795" width="1200" height="65" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="v19_363176" name="P03 SC01 主链路">
+    <mxGraphModel dx="3148" dy="1754" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="4300" pageHeight="1600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title_27372" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=none;fillColor=none;fontSize=28;fontStyle=1;fontColor=#0F172A;align=center;" value="P03 SC01｜今天经营怎么样 / 经营快报链路" vertex="1">
+          <mxGeometry height="45" width="4100" x="80" y="25" as="geometry" />
+        </mxCell>
+        <mxCell id="lane_28225" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DBEAFE;strokeColor=#CBD5E1;fontSize=16;fontStyle=1;fontColor=#334155;align=left;verticalAlign=top;spacing=8;opacity=35;" value="入口与安全" vertex="1">
+          <mxGeometry height="1250" width="1450" x="60" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="lane_85359" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DCFCE7;strokeColor=#CBD5E1;fontSize=16;fontStyle=1;fontColor=#334155;align=left;verticalAlign=top;spacing=8;opacity=35;" value="采集/分析/决策" vertex="1">
+          <mxGeometry height="1250" width="1350" x="1530" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="lane_2010" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#EDE9FE;strokeColor=#CBD5E1;fontSize=16;fontStyle=1;fontColor=#334155;align=left;verticalAlign=top;spacing=8;opacity=35;" value="执行/输出/经验" vertex="1">
+          <mxGeometry height="1250" width="1200" x="2900" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N001" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#DBEAFE;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N001｜入口事件&lt;br&gt;Skill：-｜蓝图：BP00&lt;br&gt;输入字段：CTX001,CTX002,CTX003,HOT001&lt;br&gt;输出字段：N001_OUT001 intent_candidate,N001_OUT002 scenario_candidate,N001_OUT003 raw_context&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="80" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N002" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#DBEAFE;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N002｜S0 总控路由&lt;br&gt;Skill：-｜蓝图：BP00/BP10&lt;br&gt;输入字段：CTX001,HOT001,N001_OUT003,N001_OUT001&lt;br&gt;输出字段：N002_OUT001 scenario_id,N002_OUT002 required_blueprints,N002_OUT003 required_skill_chain,N002_OUT004 algorithm_required_fields,N002_OUT005 source_required_fields,…(+3)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="430" y="880" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N003" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#DBEAFE;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N003｜S1 顶层配置与权限安全&lt;br&gt;Skill：S1｜蓝图：BP00/BP10&lt;br&gt;输入字段：AUTH001,AUTH002,HOT001,CFG001,CFG002,CFG003,CFG004,CFG005,…(+6)&lt;br&gt;输出字段：N003_OUT001 safety_policy,N003_OUT002 allowed_actions,N003_OUT003 execution_boundary,N003_OUT004 blocked_reason,N003_OUT005 config_status,…(+1)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="870" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N004" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#E0F2FE;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N004｜数据闸门&lt;br&gt;Skill：-｜蓝图：BP10&lt;br&gt;输入字段：CTX004,CTX005,CTX006,CTX008,CTX010,CFG005,N003_OUT002,N003_OUT006,…(+1)&lt;br&gt;输出字段：N004_OUT001 data_gate_result,N004_OUT002 missing_algorithm_fields,N004_OUT003 missing_source_fields,N004_OUT004 field_coverage_report,N004_OUT005 approval_data_allowed,…(+5)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="1120" y="900" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N005" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#DCFCE7;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N005｜S2 经营房态采集&lt;br&gt;Skill：S2｜蓝图：BP00/BP02/BP03/BP08/BP10&lt;br&gt;输入字段：HOT001,ROOM001,ROOM002,ROOM003,ROOM004,OP001,OP002,OP004,…(+9)&lt;br&gt;输出字段：N005_OUT001 operating_snapshot,N005_OUT002 inventory_snapshot,N005_OUT003 price_snapshot,N005_OUT004 source_coverage,N005_OUT005 freshness_status,…(+6)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="1660" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N018" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#EDE9FE;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N018｜S3 消息中台&lt;br&gt;Skill：S3｜蓝图：BP00/BP10/BP11/BP07&lt;br&gt;输入字段：MSG005,MSG006,MSG007,EXE001,CTX008,MSG008,EXE009,N015_OUT001,…(+49)&lt;br&gt;输出字段：N018_OUT001 rendered_message,N018_OUT002 approval_card,N018_OUT003 notification_status,N018_OUT004 experience_event_candidate,N018_OUT005 frontdesk_task_card&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="3240" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N019" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F3F4F6;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N019｜EXP-LAYER 经验进化&lt;br&gt;Skill：-｜蓝图：BP11&lt;br&gt;输入字段：EXP001,EXP002,EXP003,EXP004,EXP005,CTX003,EXP006,EXE007,…(+33)&lt;br&gt;输出字段：N019_OUT001 approved_case,N019_OUT002 rule_candidate,N019_OUT003 runtime_test_candidate,N019_OUT004 retrieved_experience_summary&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="3650" y="820" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E001_SC01" edge="1" parent="1" source="mx_N001" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#2563EB;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N002" value="E001｜direct_trigger&lt;br&gt;为什么：入口事件必须先经过总控路由，不能直接进入业务Skill。&lt;br&gt;传递：raw_context,intent_candidate&lt;br&gt;蓝图:BP00">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E002_SC01" edge="1" parent="1" source="mx_N002" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N003" value="E002｜chain_trigger&lt;br&gt;为什么：所有业务链路必须先验权；权限不是记忆或用户自称决定。&lt;br&gt;传递：required_skill_chain,scenario…&lt;br&gt;蓝图:BP00/BP10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E003_SC01" edge="1" parent="1" source="mx_N003" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N004" value="E003｜chain_trigger&lt;br&gt;为什么：权限和配置通过后才能读取业务数据；读取前要检查字段需求。&lt;br&gt;传递：allowed_actions,required_fiel…&lt;br&gt;蓝图:BP10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E004_SC01" edge="1" parent="1" source="mx_N004" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N005" value="E004｜chain_trigger&lt;br&gt;为什么：经营/诊断/调价/基准线/峰谷都需要统一经营快照作为数据底座。&lt;br&gt;传递：data_gate_result+ROOM/OP/PR字段包&lt;br&gt;蓝图:BP00/BP02/BP03/BP08/BP10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E046_SC01" edge="1" parent="1" source="mx_N005" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N018" value="E046｜chain_trigger&lt;br&gt;为什么：用户只问经营快报时，经营房态采集结果直接进入消息中台输出，不进入收益决策。&lt;br&gt;传递：operating_snapshot,inventory_…&lt;br&gt;蓝图:BP00/BP10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E026_SC01" edge="1" parent="1" source="mx_N018" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#9333EA;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=1;" target="mx_N019" value="E026｜async_trigger&lt;br&gt;为什么：用户可见输出可形成脱敏复盘事件，但不阻塞业务主链路。&lt;br&gt;传递：experience_event_candidate&lt;br&gt;蓝图:BP11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="note_SC01" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF7ED;strokeColor=#FDBA74;fontSize=13;fontColor=#7C2D12;align=left;spacing=8;" value="本页只画主链路 6 条边。未画的扩展/可选依赖 0 条：。这些边只进入 Excel 扩展依赖，不在图上连线。" vertex="1">
+          <mxGeometry height="80" width="3900" x="90" y="1410" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="v19_676985" name="P04 SC02 主链路">
+    <mxGraphModel dx="4547" dy="2533" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="4300" pageHeight="1600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title_73426" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=none;fillColor=none;fontSize=28;fontStyle=1;fontColor=#0F172A;align=center;" value="P04 SC02｜做一次 OTA 诊断 / 酒店运营诊断链路｜" vertex="1">
+          <mxGeometry height="45" width="4100" x="80" y="25" as="geometry" />
+        </mxCell>
+        <mxCell id="lane_28225" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DBEAFE;strokeColor=#CBD5E1;fontSize=16;fontStyle=1;fontColor=#334155;align=left;verticalAlign=top;spacing=8;opacity=35;" value="入口与安全" vertex="1">
+          <mxGeometry height="1250" width="1450" x="60" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="lane_85359" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DCFCE7;strokeColor=#CBD5E1;fontSize=16;fontStyle=1;fontColor=#334155;align=left;verticalAlign=top;spacing=8;opacity=35;" value="采集/分析/决策" vertex="1">
+          <mxGeometry height="1250" width="1350" x="1530" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="lane_2010" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#EDE9FE;strokeColor=#CBD5E1;fontSize=16;fontStyle=1;fontColor=#334155;align=left;verticalAlign=top;spacing=8;opacity=35;" value="执行/输出/经验" vertex="1">
+          <mxGeometry height="1250" width="1200" x="2900" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N001" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#DBEAFE;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N001｜入口事件&lt;br&gt;Skill：-｜蓝图：BP00&lt;br&gt;输入字段：CTX001,CTX002,CTX003,HOT001&lt;br&gt;输出字段：N001_OUT001 intent_candidate,N001_OUT002 scenario_candidate,N001_OUT003 raw_context&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="80" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N002" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#DBEAFE;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N002｜S0 总控路由&lt;br&gt;Skill：-｜蓝图：BP00/BP10&lt;br&gt;输入字段：CTX001,HOT001,N001_OUT003,N001_OUT001&lt;br&gt;输出字段：N002_OUT001 scenario_id,N002_OUT002 required_blueprints,N002_OUT003 required_skill_chain,N002_OUT004 algorithm_required_fields,N002_OUT005 source_required_fields,…(+3)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="450" y="950" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N003" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#DBEAFE;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N003｜S1 顶层配置与权限安全&lt;br&gt;Skill：S1｜蓝图：BP00/BP10&lt;br&gt;输入字段：AUTH001,AUTH002,HOT001,CFG001,CFG002,CFG003,CFG004,CFG005,…(+6)&lt;br&gt;输出字段：N003_OUT001 safety_policy,N003_OUT002 allowed_actions,N003_OUT003 execution_boundary,N003_OUT004 blocked_reason,N003_OUT005 config_status,…(+1)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="870" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N004" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#E0F2FE;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N004｜数据闸门&lt;br&gt;Skill：-｜蓝图：BP10&lt;br&gt;输入字段：CTX004,CTX005,CTX006,CTX008,CTX010,CFG005,N003_OUT002,N003_OUT006,…(+1)&lt;br&gt;输出字段：N004_OUT001 data_gate_result,N004_OUT002 missing_algorithm_fields,N004_OUT003 missing_source_fields,N004_OUT004 field_coverage_report,N004_OUT005 approval_data_allowed,…(+5)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="1100" y="960" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N005" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#DCFCE7;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N005｜S2 经营房态采集&lt;br&gt;Skill：S2｜蓝图：BP00/BP02/BP03/BP08/BP10&lt;br&gt;输入字段：HOT001,ROOM001,ROOM002,ROOM003,ROOM004,OP001,OP002,OP004,…(+9)&lt;br&gt;输出字段：N005_OUT001 operating_snapshot,N005_OUT002 inventory_snapshot,N005_OUT003 price_snapshot,N005_OUT004 source_coverage,N005_OUT005 freshness_status,…(+6)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="1540" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N006" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#DCFCE7;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N006｜S4 环境行情感知&lt;br&gt;Skill：S4｜蓝图：BP01/BP02/BP05/BP08&lt;br&gt;输入字段：CTX003,DEM001,DEM002,DEM003,DEM004,DEM005,DEM006,DEM011,…(+3)&lt;br&gt;输出字段：N006_OUT001 demand_index,N006_OUT002 demand_level,N006_OUT003 action_strength,N006_OUT004 demand_reasons,N006_OUT005 pricing_effect,…(+1)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="1740" y="910" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N007" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#DCFCE7;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N007｜S7 竞态监控&lt;br&gt;Skill：S7｜蓝图：BP06/BP02/BP05&lt;br&gt;输入字段：CMP001,CMP002,CMP003,CMP008,CMP009,CMP010,CMP011,CMP012,…(+2)&lt;br&gt;输出字段：N007_OUT001 competitor_context,N007_OUT002 competitor_alert_level,N007_OUT003 competitor_price_index,N007_OUT004 direct_price_action_blocked,N007_OUT005 confidence_level,…(+1)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="1740" y="1200" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N008" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#DCFCE7;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N008｜S12 口碑管理&lt;br&gt;Skill：S12｜蓝图：BP09/BP03&lt;br&gt;输入字段：REP001,REP002,REP003,REP004,REP005,REP006,REP010,REP011,…(+2)&lt;br&gt;输出字段：N008_OUT001 reputation_result,N008_OUT002 health_score_impact,N008_OUT003 reply_needed,N008_OUT004 reputation_tasks,N008_OUT005 problem_tags,…(+2)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="1740" y="600" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N020" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#DCFCE7;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N020｜S9 流量峰谷&lt;br&gt;Skill：S9｜蓝图：BP01/BP04/BP08&lt;br&gt;输入字段：CTX003,FNL014,OP014,FNL001,FNL002,OP002,DEM012,DEM007,…(+6)&lt;br&gt;输出字段：N020_OUT001 traffic_state,N020_OUT002 time_windows,N020_OUT003 recommended_actions,N020_OUT004 demand_index,N020_OUT005 hourly_demand_index,…(+2)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="2540" y="650" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N009" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FEF3C7;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N009｜S14 酒店运营诊断&lt;br&gt;Skill：S14｜蓝图：BP03/BP04/BP02/BP05&lt;br&gt;输入字段：FNL001,FNL002,FNL003,FNL004,FNL005,FNL006,FNL007,HLT001,…(+16)&lt;br&gt;输出字段：N009_OUT001 ota_health_score,N009_OUT002 ota_health_level,N009_OUT003 conversion_bottleneck,N009_OUT004 diagnosis_actions,N009_OUT005 weak_items,…(+1)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="2540" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N018" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#EDE9FE;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N018｜S3 消息中台&lt;br&gt;Skill：S3｜蓝图：BP00/BP10/BP11/BP07&lt;br&gt;输入字段：MSG005,MSG006,MSG007,EXE001,CTX008,MSG008,EXE009,N015_OUT001,…(+49)&lt;br&gt;输出字段：N018_OUT001 rendered_message,N018_OUT002 approval_card,N018_OUT003 notification_status,N018_OUT004 experience_event_candidate,N018_OUT005 frontdesk_task_card&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="3240" y="650" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N019" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F3F4F6;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N019｜EXP-LAYER 经验进化&lt;br&gt;Skill：-｜蓝图：BP11&lt;br&gt;输入字段：EXP001,EXP002,EXP003,EXP004,EXP005,CTX003,EXP006,EXE007,…(+33)&lt;br&gt;输出字段：N019_OUT001 approved_case,N019_OUT002 rule_candidate,N019_OUT003 runtime_test_candidate,N019_OUT004 retrieved_experience_summary&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="3700" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E001_SC02" edge="1" parent="1" source="mx_N001" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#2563EB;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N002" value="E001｜direct_trigger&lt;br&gt;为什么：入口事件必须先经过总控路由，不能直接进入业务Skill。&lt;br&gt;传递：raw_context,intent_candidate&lt;br&gt;蓝图:BP00">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E002_SC02" edge="1" parent="1" source="mx_N002" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N003" value="E002｜chain_trigger&lt;br&gt;为什么：所有业务链路必须先验权；权限不是记忆或用户自称决定。&lt;br&gt;传递：required_skill_chain,scenario…&lt;br&gt;蓝图:BP00/BP10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E003_SC02" edge="1" parent="1" source="mx_N003" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N004" value="E003｜chain_trigger&lt;br&gt;为什么：权限和配置通过后才能读取业务数据；读取前要检查字段需求。&lt;br&gt;传递：allowed_actions,required_fiel…&lt;br&gt;蓝图:BP10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E004_SC02" edge="1" parent="1" source="mx_N004" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N005" value="E004｜chain_trigger&lt;br&gt;为什么：经营/诊断/调价/基准线/峰谷都需要统一经营快照作为数据底座。&lt;br&gt;传递：data_gate_result+ROOM/OP/PR字段包&lt;br&gt;蓝图:BP00/BP02/BP03/BP08/BP10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E005_SC02" edge="1" parent="1" source="mx_N004" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N006" value="E005｜chain_trigger&lt;br&gt;为什么：需求、行情、调价、活动和基准线需要需求指数。&lt;br&gt;传递：DEM/FNL/ROOM/OP字段包&lt;br&gt;蓝图:BP01">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E006_SC02" edge="1" parent="1" source="mx_N004" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#0EA5E9;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N007" value="E006｜direct_or_chain&lt;br&gt;为什么：用户问竞对时直接触发；调价/活动需要竞对参考时链路触发。&lt;br&gt;传递：CMP/PR/DEM字段包&lt;br&gt;蓝图:BP06">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E007_SC02" edge="1" parent="1" source="mx_N004" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#0EA5E9;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N008" value="E007｜direct_or_chain&lt;br&gt;为什么：用户问口碑时直接触发；诊断需要口碑维度时链路触发。&lt;br&gt;传递：REP字段包&lt;br&gt;蓝图:BP09/BP03">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E030_SC02" edge="1" parent="1" source="mx_N005" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N020" value="E030｜chain_trigger&lt;br&gt;为什么：流量峰谷必须基于当前经营、订单、曝光/浏览/支付转化快照。&lt;br&gt;传递：operating_snapshot,exposure,v…&lt;br&gt;蓝图:BP01/BP04">
+          <mxGeometry relative="1" x="-0.5898" y="9" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_E008_SC02" edge="1" parent="1" source="mx_N005" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N009" value="E008｜chain_trigger&lt;br&gt;为什么：OTA健康诊断需要经营、库存、价格快照作为基础证据。&lt;br&gt;传递：operating_snapshot,inventory_…&lt;br&gt;蓝图:BP03/BP04">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E009_SC02" edge="1" parent="1" source="mx_N008" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N009" value="E009｜chain_trigger&lt;br&gt;为什么：口碑结果会影响OTA健康分和诊断动作。&lt;br&gt;传递：reputation_result,health_scor…&lt;br&gt;蓝图:BP09/BP03">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E032_SC02" edge="1" parent="1" source="mx_N020" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N009" value="E032｜chain_trigger&lt;br&gt;为什么：峰谷异常和转化异常需要回流到运营诊断，避免只靠调价解决。&lt;br&gt;传递：traffic_state,peak_valley_evi…&lt;br&gt;蓝图:BP04/BP03">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E023_SC02" edge="1" parent="1" source="mx_N009" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N018" value="E023｜chain_trigger&lt;br&gt;为什么：诊断结果需要生成老板/运营可读报告。&lt;br&gt;传递：weak_items,diagnosis_actions,…&lt;br&gt;蓝图:BP03/BP07">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E026_SC02" edge="1" parent="1" source="mx_N018" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#9333EA;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=1;" target="mx_N019" value="E026｜async_trigger&lt;br&gt;为什么：用户可见输出可形成脱敏复盘事件，但不阻塞业务主链路。&lt;br&gt;传递：experience_event_candidate&lt;br&gt;蓝图:BP11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="note_SC02" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF7ED;strokeColor=#FDBA74;fontSize=13;fontColor=#7C2D12;align=left;spacing=8;" value="本页只画主链路 13 条边。未画的扩展/可选依赖 2 条：E062, E063。这些边只进入 Excel 扩展依赖，不在图上连线。" vertex="1">
+          <mxGeometry height="80" width="3900" x="90" y="1410" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="v19_551902" name="P05 SC03 主链路">
+    <mxGraphModel dx="4547" dy="2533" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="4300" pageHeight="1600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title_7217" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=none;fillColor=none;fontSize=28;fontStyle=1;fontColor=#0F172A;align=center;" value="P05 SC03｜今天要不要调价 / 收益决策链路｜" vertex="1">
+          <mxGeometry height="45" width="4100" x="80" y="25" as="geometry" />
+        </mxCell>
+        <mxCell id="lane_28225" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DBEAFE;strokeColor=#CBD5E1;fontSize=16;fontStyle=1;fontColor=#334155;align=left;verticalAlign=top;spacing=8;opacity=35;" value="入口与安全" vertex="1">
+          <mxGeometry height="1250" width="1450" x="60" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="lane_85359" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DCFCE7;strokeColor=#CBD5E1;fontSize=16;fontStyle=1;fontColor=#334155;align=left;verticalAlign=top;spacing=8;opacity=35;" value="采集/分析/决策" vertex="1">
+          <mxGeometry height="1250" width="1350" x="1530" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="lane_2010" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#EDE9FE;strokeColor=#CBD5E1;fontSize=16;fontStyle=1;fontColor=#334155;align=left;verticalAlign=top;spacing=8;opacity=35;" value="执行/输出/经验" vertex="1">
+          <mxGeometry height="1250" width="1200" x="2900" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N001" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#DBEAFE;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N001｜入口事件&lt;br&gt;Skill：-｜蓝图：BP00&lt;br&gt;输入字段：CTX001,CTX002,CTX003,HOT001&lt;br&gt;输出字段：N001_OUT001 intent_candidate,N001_OUT002 scenario_candidate,N001_OUT003 raw_context&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="80" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N002" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#DBEAFE;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N002｜S0 总控路由&lt;br&gt;Skill：-｜蓝图：BP00/BP10&lt;br&gt;输入字段：CTX001,HOT001,N001_OUT003,N001_OUT001&lt;br&gt;输出字段：N002_OUT001 scenario_id,N002_OUT002 required_blueprints,N002_OUT003 required_skill_chain,N002_OUT004 algorithm_required_fields,N002_OUT005 source_required_fields,…(+3)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="90" y="1105" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N003" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#DBEAFE;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N003｜S1 顶层配置与权限安全&lt;br&gt;Skill：S1｜蓝图：BP00/BP10&lt;br&gt;输入字段：AUTH001,AUTH002,HOT001,CFG001,CFG002,CFG003,CFG004,CFG005,…(+6)&lt;br&gt;输出字段：N003_OUT001 safety_policy,N003_OUT002 allowed_actions,N003_OUT003 execution_boundary,N003_OUT004 blocked_reason,N003_OUT005 config_status,…(+1)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="590" y="260" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N004" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#E0F2FE;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N004｜数据闸门&lt;br&gt;Skill：-｜蓝图：BP10&lt;br&gt;输入字段：CTX004,CTX005,CTX006,CTX008,CTX010,CFG005,N003_OUT002,N003_OUT006,…(+1)&lt;br&gt;输出字段：N004_OUT001 data_gate_result,N004_OUT002 missing_algorithm_fields,N004_OUT003 missing_source_fields,N004_OUT004 field_coverage_report,N004_OUT005 approval_data_allowed,…(+5)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="740" y="1105" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N005" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#DCFCE7;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N005｜S2 经营房态采集&lt;br&gt;Skill：S2｜蓝图：BP00/BP02/BP03/BP08/BP10&lt;br&gt;输入字段：HOT001,ROOM001,ROOM002,ROOM003,ROOM004,OP001,OP002,OP004,…(+9)&lt;br&gt;输出字段：N005_OUT001 operating_snapshot,N005_OUT002 inventory_snapshot,N005_OUT003 price_snapshot,N005_OUT004 source_coverage,N005_OUT005 freshness_status,…(+6)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="1550" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N006" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#DCFCE7;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N006｜S4 环境行情感知&lt;br&gt;Skill：S4｜蓝图：BP01/BP02/BP05/BP08&lt;br&gt;输入字段：CTX003,DEM001,DEM002,DEM003,DEM004,DEM005,DEM006,DEM011,…(+3)&lt;br&gt;输出字段：N006_OUT001 demand_index,N006_OUT002 demand_level,N006_OUT003 action_strength,N006_OUT004 demand_reasons,N006_OUT005 pricing_effect,…(+1)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="1550" y="380" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N007" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#DCFCE7;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N007｜S7 竞态监控&lt;br&gt;Skill：S7｜蓝图：BP06/BP02/BP05&lt;br&gt;输入字段：CMP001,CMP002,CMP003,CMP008,CMP009,CMP010,CMP011,CMP012,…(+2)&lt;br&gt;输出字段：N007_OUT001 competitor_context,N007_OUT002 competitor_alert_level,N007_OUT003 competitor_price_index,N007_OUT004 direct_price_action_blocked,N007_OUT005 confidence_level,…(+1)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="1550" y="560" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N008" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#DCFCE7;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N008｜S12 口碑管理&lt;br&gt;Skill：S12｜蓝图：BP09/BP03&lt;br&gt;输入字段：REP001,REP002,REP003,REP004,REP005,REP006,REP010,REP011,…(+2)&lt;br&gt;输出字段：N008_OUT001 reputation_result,N008_OUT002 health_score_impact,N008_OUT003 reply_needed,N008_OUT004 reputation_tasks,N008_OUT005 problem_tags,…(+2)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="1550" y="760" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N014" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#DCFCE7;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N014｜S17 客户订单分析&lt;br&gt;Skill：S17｜蓝图：BP08/BP09&lt;br&gt;输入字段：OP001,OP002,OP003,REP007,CUS001,CUS002,CUS003,REP001&lt;br&gt;输出字段：N014_OUT001 customer_segments,N014_OUT002 repeat_guest_rate,N014_OUT003 loss_risk_alert,N014_OUT004 target_guest_tasks&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="1550" y="930" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N020" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#DCFCE7;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N020｜S9 流量峰谷&lt;br&gt;Skill：S9｜蓝图：BP01/BP04/BP08&lt;br&gt;输入字段：CTX003,FNL014,OP014,FNL001,FNL002,OP002,DEM012,DEM007,…(+6)&lt;br&gt;输出字段：N020_OUT001 traffic_state,N020_OUT002 time_windows,N020_OUT003 recommended_actions,N020_OUT004 demand_index,N020_OUT005 hourly_demand_index,…(+2)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="1550" y="1130" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N009" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FEF3C7;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N009｜S14 酒店运营诊断&lt;br&gt;Skill：S14｜蓝图：BP03/BP04/BP02/BP05&lt;br&gt;输入字段：FNL001,FNL002,FNL003,FNL004,FNL005,FNL006,FNL007,HLT001,…(+16)&lt;br&gt;输出字段：N009_OUT001 ota_health_score,N009_OUT002 ota_health_level,N009_OUT003 conversion_bottleneck,N009_OUT004 diagnosis_actions,N009_OUT005 weak_items,…(+1)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="2460" y="170" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N010" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FEF3C7;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N010｜S15 销售基准线&lt;br&gt;Skill：S15｜蓝图：BP08/BP02/BP01&lt;br&gt;输入字段：HOT001,CTX003,ROOM009,DEM011,DEM007,OP005,OP006,OP007,…(+4)&lt;br&gt;输出字段：N010_OUT001 sales_baseline,N010_OUT002 hourly_target_curve,N010_OUT003 target_room_nights,N010_OUT004 baseline_confidence,N010_OUT005 historical_same_weekday_curve&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="2100" y="170" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N011" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FEF3C7;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N011｜S16 进度偏差诊断&lt;br&gt;Skill：S16｜蓝图：BP08/BP02/BP03&lt;br&gt;输入字段：HOT001,CTX003,OP008,OP014,DEM007,FNL017,N010_OUT001,N010_OUT002,…(+3)&lt;br&gt;输出字段：N011_OUT001 progress_status,N011_OUT002 room_night_gap,N011_OUT003 deviation_reasons,N011_OUT004 urgency_level,N011_OUT005 downstream_skill&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="2100" y="530" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N015" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FCE7F3;strokeColor=#BE185D;fontSize=14;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N015｜S5 智能收益决策&lt;br&gt;Skill：S5｜蓝图：BP02/BP08/BP01/BP03/BP05/BP06&lt;br&gt;输入字段：CFG001,CFG002,CFG003,CFG004,CFG005,CFG006,CFG007,PR001,…(+29)&lt;br&gt;输出字段：N015_OUT001 revenue_decision,N015_OUT002 price_recommendations,N015_OUT003 approval_required,N015_OUT004 risk_warnings,N015_OUT005 price_confidence,…(+1)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="2490" y="1130" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N016" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#EDE9FE;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N016｜S6 房价同步执行&lt;br&gt;Skill：S6｜蓝图：BP02/BP10/BP07&lt;br&gt;输入字段：EXE001,PR011,CFG001,CFG002,CTX008,CFG005,CFG004,EXE005,…(+4)&lt;br&gt;输出字段：N016_OUT001 dry_run_preview,N016_OUT002 execution_result,N016_OUT003 blocked_reason,N016_OUT004 readback_check,N016_OUT005 rollback_or_review_task&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="3290" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N018" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#EDE9FE;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N018｜S3 消息中台&lt;br&gt;Skill：S3｜蓝图：BP00/BP10/BP11/BP07&lt;br&gt;输入字段：MSG005,MSG006,MSG007,EXE001,CTX008,MSG008,EXE009,N015_OUT001,…(+49)&lt;br&gt;输出字段：N018_OUT001 rendered_message,N018_OUT002 approval_card,N018_OUT003 notification_status,N018_OUT004 experience_event_candidate,N018_OUT005 frontdesk_task_card&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="3280" y="760" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N019" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F3F4F6;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N019｜EXP-LAYER 经验进化&lt;br&gt;Skill：-｜蓝图：BP11&lt;br&gt;输入字段：EXP001,EXP002,EXP003,EXP004,EXP005,CTX003,EXP006,EXE007,…(+33)&lt;br&gt;输出字段：N019_OUT001 approved_case,N019_OUT002 rule_candidate,N019_OUT003 runtime_test_candidate,N019_OUT004 retrieved_experience_summary&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="3770" y="260" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E001_SC03" edge="1" parent="1" source="mx_N001" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#2563EB;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N002" value="E001｜direct_trigger&lt;br&gt;为什么：入口事件必须先经过总控路由，不能直接进入业务Skill。&lt;br&gt;传递：raw_context,intent_candidate&lt;br&gt;蓝图:BP00">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E002_SC03" edge="1" parent="1" source="mx_N002" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N003" value="E002｜chain_trigger&lt;br&gt;为什么：所有业务链路必须先验权；权限不是记忆或用户自称决定。&lt;br&gt;传递：required_skill_chain,scenario…&lt;br&gt;蓝图:BP00/BP10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E003_SC03" edge="1" parent="1" source="mx_N003" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N004" value="E003｜chain_trigger&lt;br&gt;为什么：权限和配置通过后才能读取业务数据；读取前要检查字段需求。&lt;br&gt;传递：allowed_actions,required_fiel…&lt;br&gt;蓝图:BP10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E004_SC03" edge="1" parent="1" source="mx_N004" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N005" value="E004｜chain_trigger&lt;br&gt;为什么：经营/诊断/调价/基准线/峰谷都需要统一经营快照作为数据底座。&lt;br&gt;传递：data_gate_result+ROOM/OP/PR字段包&lt;br&gt;蓝图:BP00/BP02/BP03/BP08/BP10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E005_SC03" edge="1" parent="1" source="mx_N004" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N006" value="E005｜chain_trigger&lt;br&gt;为什么：需求、行情、调价、活动和基准线需要需求指数。&lt;br&gt;传递：DEM/FNL/ROOM/OP字段包&lt;br&gt;蓝图:BP01">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E006_SC03" edge="1" parent="1" source="mx_N004" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#0EA5E9;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N007" value="E006｜direct_or_chain&lt;br&gt;为什么：用户问竞对时直接触发；调价/活动需要竞对参考时链路触发。&lt;br&gt;传递：CMP/PR/DEM字段包&lt;br&gt;蓝图:BP06">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E007_SC03" edge="1" parent="1" source="mx_N004" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#0EA5E9;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N008" value="E007｜direct_or_chain&lt;br&gt;为什么：用户问口碑时直接触发；诊断需要口碑维度时链路触发。&lt;br&gt;传递：REP字段包&lt;br&gt;蓝图:BP09/BP03">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E010_SC03" edge="1" parent="1" source="mx_N005" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N010" value="E010｜chain_trigger&lt;br&gt;为什么：销售基准线需要房量、历史指标和经营快照。&lt;br&gt;传递：operating_snapshot+historical…&lt;br&gt;蓝图:BP08">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E011_SC03" edge="1" parent="1" source="mx_N010" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N011" value="E011｜chain_trigger&lt;br&gt;为什么：有基准线后才能判断当前进度偏差。&lt;br&gt;传递：sales_baseline,hourly_target_…&lt;br&gt;蓝图:BP08">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E012_SC03" edge="1" parent="1" source="mx_N005" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N011" value="E012｜chain_trigger&lt;br&gt;为什么：偏差诊断需要当前实际进度与基准线比较。&lt;br&gt;传递：operating_snapshot,room_night…&lt;br&gt;蓝图:BP08">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E030_SC03" edge="1" parent="1" source="mx_N005" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N020" value="E030｜chain_trigger&lt;br&gt;为什么：流量峰谷必须基于当前经营、订单、曝光/浏览/支付转化快照。&lt;br&gt;传递：operating_snapshot,exposure,v…&lt;br&gt;蓝图:BP01/BP04">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E013_SC03" edge="1" parent="1" source="mx_N006" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N015" value="E013｜chain_trigger&lt;br&gt;为什么：需求指数决定调价动作强度和策略保守程度。&lt;br&gt;传递：demand_index,demand_level,act…&lt;br&gt;蓝图:BP01/BP02">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E014_SC03" edge="1" parent="1" source="mx_N007" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N015" value="E014｜chain_trigger&lt;br&gt;为什么：竞对只作为收益决策参考，不允许直接进入执行。&lt;br&gt;传递：competitor_context,warning_le…&lt;br&gt;蓝图:BP06/BP02">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E015_SC03" edge="1" parent="1" source="mx_N009" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N015" value="E015｜chain_trigger&lt;br&gt;为什么：健康诊断和转化瓶颈决定是否先修转化、口碑或库存，再调价。&lt;br&gt;传递：ota_health_score,conversion_b…&lt;br&gt;蓝图:BP03/BP04/BP02">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E016_SC03" edge="1" parent="1" source="mx_N011" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N015" value="E016｜chain_trigger&lt;br&gt;为什么：进度落后/超前会改变收益策略，比如补救、观察或涨价。&lt;br&gt;传递：progress_status,deviation_rea…&lt;br&gt;蓝图:BP08/BP02">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E019_SC03" edge="1" parent="1" source="mx_N014" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N015" value="E019｜chain_trigger&lt;br&gt;为什么：客户结构可作为收益策略和任务建议参考，但不能阻断P0/P1。&lt;br&gt;传递：customer_segments,loss_risk_a…&lt;br&gt;蓝图:BP08/BP09">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E034_SC03" edge="1" parent="1" source="mx_N020" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N015" value="E034｜chain_trigger&lt;br&gt;为什么：小时级需求和进单节奏会影响调价时点和动作强度。&lt;br&gt;传递：traffic_state,hourly_demand_i…&lt;br&gt;蓝图:BP01/BP02">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E020_SC03" edge="1" parent="1" source="mx_N015" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N016" value="E020｜chain_trigger&lt;br&gt;为什么：只有S5产出调价建议后，S6才允许做dry-run/审批/执行边界。&lt;br&gt;传递：price_recommendations,approva…&lt;br&gt;蓝图:BP02/BP10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E021_SC03" edge="1" parent="1" source="mx_N015" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N018" value="E021｜chain_trigger&lt;br&gt;为什么：不需要执行或执行被阻断时，直接把收益建议输出给用户。&lt;br&gt;传递：revenue_decision,risk_warnings&lt;br&gt;蓝图:BP00/BP02">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E022_SC03" edge="1" parent="1" source="mx_N016" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N018" value="E022｜chain_trigger&lt;br&gt;为什么：dry-run、审批校验、执行结果都必须通过消息中台输出。&lt;br&gt;传递：dry_run_preview,execution_res…&lt;br&gt;蓝图:BP00/BP02/BP10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E026_SC03" edge="1" parent="1" source="mx_N018" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#9333EA;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=1;" target="mx_N019" value="E026｜async_trigger&lt;br&gt;为什么：用户可见输出可形成脱敏复盘事件，但不阻塞业务主链路。&lt;br&gt;传递：experience_event_candidate&lt;br&gt;蓝图:BP11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="note_SC03" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF7ED;strokeColor=#FDBA74;fontSize=13;fontColor=#7C2D12;align=left;spacing=8;" value="本页只画主链路 21 条边。未画的扩展/可选依赖 16 条：E008, E009, E027, E028, E031, E032, E035, E036, E037, E038, E039, E040, E047, E061, E062, E063。这些边只进入 Excel 扩展依赖，不在图上连线。" vertex="1">
+          <mxGeometry height="80" width="3900" x="90" y="1410" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="v19_991257" name="P06 SC04 主链路">
+    <mxGraphModel dx="4547" dy="2533" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="4300" pageHeight="1600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title_26374" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=none;fillColor=none;fontSize=28;fontStyle=1;fontColor=#0F172A;align=center;" value="P06 SC04｜每小时进度巡检 / 偏差链路｜" vertex="1">
+          <mxGeometry height="45" width="4100" x="80" y="25" as="geometry" />
+        </mxCell>
+        <mxCell id="lane_28225" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DBEAFE;strokeColor=#CBD5E1;fontSize=16;fontStyle=1;fontColor=#334155;align=left;verticalAlign=top;spacing=8;opacity=35;" value="入口与安全" vertex="1">
+          <mxGeometry height="1250" width="1450" x="60" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="lane_85359" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DCFCE7;strokeColor=#CBD5E1;fontSize=16;fontStyle=1;fontColor=#334155;align=left;verticalAlign=top;spacing=8;opacity=35;" value="采集/分析/决策" vertex="1">
+          <mxGeometry height="1250" width="1350" x="1530" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="lane_2010" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#EDE9FE;strokeColor=#CBD5E1;fontSize=16;fontStyle=1;fontColor=#334155;align=left;verticalAlign=top;spacing=8;opacity=35;" value="执行/输出/经验" vertex="1">
+          <mxGeometry height="1250" width="1200" x="2900" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N001" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#DBEAFE;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N001｜入口事件&lt;br&gt;Skill：-｜蓝图：BP00&lt;br&gt;输入字段：CTX001,CTX002,CTX003,HOT001&lt;br&gt;输出字段：N001_OUT001 intent_candidate,N001_OUT002 scenario_candidate,N001_OUT003 raw_context&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="80" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N002" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#DBEAFE;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N002｜S0 总控路由&lt;br&gt;Skill：-｜蓝图：BP00/BP10&lt;br&gt;输入字段：CTX001,HOT001,N001_OUT003,N001_OUT001&lt;br&gt;输出字段：N002_OUT001 scenario_id,N002_OUT002 required_blueprints,N002_OUT003 required_skill_chain,N002_OUT004 algorithm_required_fields,N002_OUT005 source_required_fields,…(+3)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="80" y="1080" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N003" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#DBEAFE;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N003｜S1 顶层配置与权限安全&lt;br&gt;Skill：S1｜蓝图：BP00/BP10&lt;br&gt;输入字段：AUTH001,AUTH002,HOT001,CFG001,CFG002,CFG003,CFG004,CFG005,…(+6)&lt;br&gt;输出字段：N003_OUT001 safety_policy,N003_OUT002 allowed_actions,N003_OUT003 execution_boundary,N003_OUT004 blocked_reason,N003_OUT005 config_status,…(+1)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="580" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N004" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#E0F2FE;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N004｜数据闸门&lt;br&gt;Skill：-｜蓝图：BP10&lt;br&gt;输入字段：CTX004,CTX005,CTX006,CTX008,CTX010,CFG005,N003_OUT002,N003_OUT006,…(+1)&lt;br&gt;输出字段：N004_OUT001 data_gate_result,N004_OUT002 missing_algorithm_fields,N004_OUT003 missing_source_fields,N004_OUT004 field_coverage_report,N004_OUT005 approval_data_allowed,…(+5)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="780" y="1080" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N005" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#DCFCE7;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N005｜S2 经营房态采集&lt;br&gt;Skill：S2｜蓝图：BP00/BP02/BP03/BP08/BP10&lt;br&gt;输入字段：HOT001,ROOM001,ROOM002,ROOM003,ROOM004,OP001,OP002,OP004,…(+9)&lt;br&gt;输出字段：N005_OUT001 operating_snapshot,N005_OUT002 inventory_snapshot,N005_OUT003 price_snapshot,N005_OUT004 source_coverage,N005_OUT005 freshness_status,…(+6)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="1540" y="590" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N010" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FEF3C7;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N010｜S15 销售基准线&lt;br&gt;Skill：S15｜蓝图：BP08/BP02/BP01&lt;br&gt;输入字段：HOT001,CTX003,ROOM009,DEM011,DEM007,OP005,OP006,OP007,…(+4)&lt;br&gt;输出字段：N010_OUT001 sales_baseline,N010_OUT002 hourly_target_curve,N010_OUT003 target_room_nights,N010_OUT004 baseline_confidence,N010_OUT005 historical_same_weekday_curve&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="2055" y="225" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N011" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FEF3C7;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N011｜S16 进度偏差诊断&lt;br&gt;Skill：S16｜蓝图：BP08/BP02/BP03&lt;br&gt;输入字段：HOT001,CTX003,OP008,OP014,DEM007,FNL017,N010_OUT001,N010_OUT002,…(+3)&lt;br&gt;输出字段：N011_OUT001 progress_status,N011_OUT002 room_night_gap,N011_OUT003 deviation_reasons,N011_OUT004 urgency_level,N011_OUT005 downstream_skill&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="2110" y="1050" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N015" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FCE7F3;strokeColor=#BE185D;fontSize=14;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N015｜S5 智能收益决策&lt;br&gt;Skill：S5｜蓝图：BP02/BP08/BP01/BP03/BP05/BP06&lt;br&gt;输入字段：CFG001,CFG002,CFG003,CFG004,CFG005,CFG006,CFG007,PR001,…(+29)&lt;br&gt;输出字段：N015_OUT001 revenue_decision,N015_OUT002 price_recommendations,N015_OUT003 approval_required,N015_OUT004 risk_warnings,N015_OUT005 price_confidence,…(+1)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="2520" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N018" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#EDE9FE;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N018｜S3 消息中台&lt;br&gt;Skill：S3｜蓝图：BP00/BP10/BP11/BP07&lt;br&gt;输入字段：MSG005,MSG006,MSG007,EXE001,CTX008,MSG008,EXE009,N015_OUT001,…(+49)&lt;br&gt;输出字段：N018_OUT001 rendered_message,N018_OUT002 approval_card,N018_OUT003 notification_status,N018_OUT004 experience_event_candidate,N018_OUT005 frontdesk_task_card&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="3120" y="1060" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N019" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F3F4F6;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N019｜EXP-LAYER 经验进化&lt;br&gt;Skill：-｜蓝图：BP11&lt;br&gt;输入字段：EXP001,EXP002,EXP003,EXP004,EXP005,CTX003,EXP006,EXE007,…(+33)&lt;br&gt;输出字段：N019_OUT001 approved_case,N019_OUT002 rule_candidate,N019_OUT003 runtime_test_candidate,N019_OUT004 retrieved_experience_summary&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="3635" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E001_SC04" edge="1" parent="1" source="mx_N001" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#2563EB;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N002" value="E001｜direct_trigger&lt;br&gt;为什么：入口事件必须先经过总控路由，不能直接进入业务Skill。&lt;br&gt;传递：raw_context,intent_candidate&lt;br&gt;蓝图:BP00">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E002_SC04" edge="1" parent="1" source="mx_N002" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N003" value="E002｜chain_trigger&lt;br&gt;为什么：所有业务链路必须先验权；权限不是记忆或用户自称决定。&lt;br&gt;传递：required_skill_chain,scenario…&lt;br&gt;蓝图:BP00/BP10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E003_SC04" edge="1" parent="1" source="mx_N003" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N004" value="E003｜chain_trigger&lt;br&gt;为什么：权限和配置通过后才能读取业务数据；读取前要检查字段需求。&lt;br&gt;传递：allowed_actions,required_fiel…&lt;br&gt;蓝图:BP10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E004_SC04" edge="1" parent="1" source="mx_N004" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N005" value="E004｜chain_trigger&lt;br&gt;为什么：经营/诊断/调价/基准线/峰谷都需要统一经营快照作为数据底座。&lt;br&gt;传递：data_gate_result+ROOM/OP/PR字段包&lt;br&gt;蓝图:BP00/BP02/BP03/BP08/BP10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E010_SC04" edge="1" parent="1" source="mx_N005" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N010" value="E010｜chain_trigger&lt;br&gt;为什么：销售基准线需要房量、历史指标和经营快照。&lt;br&gt;传递：operating_snapshot+historical…&lt;br&gt;蓝图:BP08">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E011_SC04" edge="1" parent="1" source="mx_N010" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N011" value="E011｜chain_trigger&lt;br&gt;为什么：有基准线后才能判断当前进度偏差。&lt;br&gt;传递：sales_baseline,hourly_target_…&lt;br&gt;蓝图:BP08">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E016_SC04" edge="1" parent="1" source="mx_N011" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N015" value="E016｜chain_trigger&lt;br&gt;为什么：进度落后/超前会改变收益策略，比如补救、观察或涨价。&lt;br&gt;传递：progress_status,deviation_rea…&lt;br&gt;蓝图:BP08/BP02">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E021_SC04" edge="1" parent="1" source="mx_N015" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N018" value="E021｜chain_trigger&lt;br&gt;为什么：不需要执行或执行被阻断时，直接把收益建议输出给用户。&lt;br&gt;传递：revenue_decision,risk_warnings&lt;br&gt;蓝图:BP00/BP02">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E026_SC04" edge="1" parent="1" source="mx_N018" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#9333EA;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=1;" target="mx_N019" value="E026｜async_trigger&lt;br&gt;为什么：用户可见输出可形成脱敏复盘事件，但不阻塞业务主链路。&lt;br&gt;传递：experience_event_candidate&lt;br&gt;蓝图:BP11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="note_SC04" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF7ED;strokeColor=#FDBA74;fontSize=13;fontColor=#7C2D12;align=left;spacing=8;" value="本页只画主链路 9 条边。未画的扩展/可选依赖 9 条：E012, E024, E027, E030, E031, E034, E041, E053, E055。这些边只进入 Excel 扩展依赖，不在图上连线。" vertex="1">
+          <mxGeometry height="80" width="3900" x="90" y="1410" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="v19_210984" name="P07 SC05 主链路">
+    <mxGraphModel dx="4547" dy="2533" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="4300" pageHeight="1600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title_81004" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=none;fillColor=none;fontSize=28;fontStyle=1;fontColor=#0F172A;align=center;" value="P07 SC05｜竞对降价怎么办 / 竞对预警链路｜" vertex="1">
+          <mxGeometry height="45" width="4100" x="80" y="25" as="geometry" />
+        </mxCell>
+        <mxCell id="lane_28225" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DBEAFE;strokeColor=#CBD5E1;fontSize=16;fontStyle=1;fontColor=#334155;align=left;verticalAlign=top;spacing=8;opacity=35;" value="入口与安全" vertex="1">
+          <mxGeometry height="1250" width="1450" x="60" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="lane_85359" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DCFCE7;strokeColor=#CBD5E1;fontSize=16;fontStyle=1;fontColor=#334155;align=left;verticalAlign=top;spacing=8;opacity=35;" value="采集/分析/决策" vertex="1">
+          <mxGeometry height="1250" width="1350" x="1530" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="lane_2010" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#EDE9FE;strokeColor=#CBD5E1;fontSize=16;fontStyle=1;fontColor=#334155;align=left;verticalAlign=top;spacing=8;opacity=35;" value="执行/输出/经验" vertex="1">
+          <mxGeometry height="1250" width="1200" x="2900" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N001" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#DBEAFE;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N001｜入口事件&lt;br&gt;Skill：-｜蓝图：BP00&lt;br&gt;输入字段：CTX001,CTX002,CTX003,HOT001&lt;br&gt;输出字段：N001_OUT001 intent_candidate,N001_OUT002 scenario_candidate,N001_OUT003 raw_context&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="80" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N002" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#DBEAFE;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N002｜S0 总控路由&lt;br&gt;Skill：-｜蓝图：BP00/BP10&lt;br&gt;输入字段：CTX001,HOT001,N001_OUT003,N001_OUT001&lt;br&gt;输出字段：N002_OUT001 scenario_id,N002_OUT002 required_blueprints,N002_OUT003 required_skill_chain,N002_OUT004 algorithm_required_fields,N002_OUT005 source_required_fields,…(+3)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="80" y="1000" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N003" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#DBEAFE;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N003｜S1 顶层配置与权限安全&lt;br&gt;Skill：S1｜蓝图：BP00/BP10&lt;br&gt;输入字段：AUTH001,AUTH002,HOT001,CFG001,CFG002,CFG003,CFG004,CFG005,…(+6)&lt;br&gt;输出字段：N003_OUT001 safety_policy,N003_OUT002 allowed_actions,N003_OUT003 execution_boundary,N003_OUT004 blocked_reason,N003_OUT005 config_status,…(+1)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="870" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N004" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#E0F2FE;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N004｜数据闸门&lt;br&gt;Skill：-｜蓝图：BP10&lt;br&gt;输入字段：CTX004,CTX005,CTX006,CTX008,CTX010,CFG005,N003_OUT002,N003_OUT006,…(+1)&lt;br&gt;输出字段：N004_OUT001 data_gate_result,N004_OUT002 missing_algorithm_fields,N004_OUT003 missing_source_fields,N004_OUT004 field_coverage_report,N004_OUT005 approval_data_allowed,…(+5)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="870" y="1020" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N005" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#DCFCE7;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N005｜S2 经营房态采集&lt;br&gt;Skill：S2｜蓝图：BP00/BP02/BP03/BP08/BP10&lt;br&gt;输入字段：HOT001,ROOM001,ROOM002,ROOM003,ROOM004,OP001,OP002,OP004,…(+9)&lt;br&gt;输出字段：N005_OUT001 operating_snapshot,N005_OUT002 inventory_snapshot,N005_OUT003 price_snapshot,N005_OUT004 source_coverage,N005_OUT005 freshness_status,…(+6)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="1660" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N006" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#DCFCE7;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N006｜S4 环境行情感知&lt;br&gt;Skill：S4｜蓝图：BP01/BP02/BP05/BP08&lt;br&gt;输入字段：CTX003,DEM001,DEM002,DEM003,DEM004,DEM005,DEM006,DEM011,…(+3)&lt;br&gt;输出字段：N006_OUT001 demand_index,N006_OUT002 demand_level,N006_OUT003 action_strength,N006_OUT004 demand_reasons,N006_OUT005 pricing_effect,…(+1)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="1690" y="630" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N007" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#DCFCE7;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N007｜S7 竞态监控&lt;br&gt;Skill：S7｜蓝图：BP06/BP02/BP05&lt;br&gt;输入字段：CMP001,CMP002,CMP003,CMP008,CMP009,CMP010,CMP011,CMP012,…(+2)&lt;br&gt;输出字段：N007_OUT001 competitor_context,N007_OUT002 competitor_alert_level,N007_OUT003 competitor_price_index,N007_OUT004 direct_price_action_blocked,N007_OUT005 confidence_level,…(+1)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="1700" y="1020" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N015" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FCE7F3;strokeColor=#BE185D;fontSize=14;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N015｜S5 智能收益决策&lt;br&gt;Skill：S5｜蓝图：BP02/BP08/BP01/BP03/BP05/BP06&lt;br&gt;输入字段：CFG001,CFG002,CFG003,CFG004,CFG005,CFG006,CFG007,PR001,…(+29)&lt;br&gt;输出字段：N015_OUT001 revenue_decision,N015_OUT002 price_recommendations,N015_OUT003 approval_required,N015_OUT004 risk_warnings,N015_OUT005 price_confidence,…(+1)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="2450" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N018" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#EDE9FE;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N018｜S3 消息中台&lt;br&gt;Skill：S3｜蓝图：BP00/BP10/BP11/BP07&lt;br&gt;输入字段：MSG005,MSG006,MSG007,EXE001,CTX008,MSG008,EXE009,N015_OUT001,…(+49)&lt;br&gt;输出字段：N018_OUT001 rendered_message,N018_OUT002 approval_card,N018_OUT003 notification_status,N018_OUT004 experience_event_candidate,N018_OUT005 frontdesk_task_card&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="3070" y="1010" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N019" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F3F4F6;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N019｜EXP-LAYER 经验进化&lt;br&gt;Skill：-｜蓝图：BP11&lt;br&gt;输入字段：EXP001,EXP002,EXP003,EXP004,EXP005,CTX003,EXP006,EXE007,…(+33)&lt;br&gt;输出字段：N019_OUT001 approved_case,N019_OUT002 rule_candidate,N019_OUT003 runtime_test_candidate,N019_OUT004 retrieved_experience_summary&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="3635" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E001_SC05" edge="1" parent="1" source="mx_N001" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#2563EB;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N002" value="E001｜direct_trigger&lt;br&gt;为什么：入口事件必须先经过总控路由，不能直接进入业务Skill。&lt;br&gt;传递：raw_context,intent_candidate&lt;br&gt;蓝图:BP00">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E002_SC05" edge="1" parent="1" source="mx_N002" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N003" value="E002｜chain_trigger&lt;br&gt;为什么：所有业务链路必须先验权；权限不是记忆或用户自称决定。&lt;br&gt;传递：required_skill_chain,scenario…&lt;br&gt;蓝图:BP00/BP10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E003_SC05" edge="1" parent="1" source="mx_N003" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N004" value="E003｜chain_trigger&lt;br&gt;为什么：权限和配置通过后才能读取业务数据；读取前要检查字段需求。&lt;br&gt;传递：allowed_actions,required_fiel…&lt;br&gt;蓝图:BP10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E006_SC05" edge="1" parent="1" source="mx_N004" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#0EA5E9;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N007" value="E006｜direct_or_chain&lt;br&gt;为什么：用户问竞对时直接触发；调价/活动需要竞对参考时链路触发。&lt;br&gt;传递：CMP/PR/DEM字段包&lt;br&gt;蓝图:BP06">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E004_SC05" edge="1" parent="1" source="mx_N004" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N005" value="E004｜chain_trigger&lt;br&gt;为什么：经营/诊断/调价/基准线/峰谷都需要统一经营快照作为数据底座。&lt;br&gt;传递：data_gate_result+ROOM/OP/PR字段包&lt;br&gt;蓝图:BP00/BP02/BP03/BP08/BP10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E005_SC05" edge="1" parent="1" source="mx_N004" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N006" value="E005｜chain_trigger&lt;br&gt;为什么：需求、行情、调价、活动和基准线需要需求指数。&lt;br&gt;传递：DEM/FNL/ROOM/OP字段包&lt;br&gt;蓝图:BP01">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E014_SC05" edge="1" parent="1" source="mx_N007" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N015" value="E014｜chain_trigger&lt;br&gt;为什么：竞对只作为收益决策参考，不允许直接进入执行。&lt;br&gt;传递：competitor_context,warning_le…&lt;br&gt;蓝图:BP06/BP02">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E021_SC05" edge="1" parent="1" source="mx_N015" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N018" value="E021｜chain_trigger&lt;br&gt;为什么：不需要执行或执行被阻断时，直接把收益建议输出给用户。&lt;br&gt;传递：revenue_decision,risk_warnings&lt;br&gt;蓝图:BP00/BP02">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E026_SC05" edge="1" parent="1" source="mx_N018" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#9333EA;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=1;" target="mx_N019" value="E026｜async_trigger&lt;br&gt;为什么：用户可见输出可形成脱敏复盘事件，但不阻塞业务主链路。&lt;br&gt;传递：experience_event_candidate&lt;br&gt;蓝图:BP11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="note_SC05" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF7ED;strokeColor=#FDBA74;fontSize=13;fontColor=#7C2D12;align=left;spacing=8;" value="本页只画主链路 9 条边。未画的扩展/可选依赖 7 条：E008, E013, E015, E027, E050, E062, E063。这些边只进入 Excel 扩展依赖，不在图上连线。" vertex="1">
+          <mxGeometry height="80" width="3900" x="90" y="1410" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="v19_949424" name="P08 SC06 主链路">
+    <mxGraphModel dx="4547" dy="2533" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="4300" pageHeight="1600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title_29270" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=none;fillColor=none;fontSize=28;fontStyle=1;fontColor=#0F172A;align=center;" value="P08 SC06｜要不要开活动 / 活动推广链路｜" vertex="1">
+          <mxGeometry height="45" width="4100" x="80" y="25" as="geometry" />
+        </mxCell>
+        <mxCell id="lane_28225" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DBEAFE;strokeColor=#CBD5E1;fontSize=16;fontStyle=1;fontColor=#334155;align=left;verticalAlign=top;spacing=8;opacity=35;" value="入口与安全" vertex="1">
+          <mxGeometry height="1250" width="1450" x="60" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="lane_85359" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DCFCE7;strokeColor=#CBD5E1;fontSize=16;fontStyle=1;fontColor=#334155;align=left;verticalAlign=top;spacing=8;opacity=35;" value="采集/分析/决策" vertex="1">
+          <mxGeometry height="1250" width="1350" x="1530" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="lane_2010" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#EDE9FE;strokeColor=#CBD5E1;fontSize=16;fontStyle=1;fontColor=#334155;align=left;verticalAlign=top;spacing=8;opacity=35;" value="执行/输出/经验" vertex="1">
+          <mxGeometry height="1250" width="1200" x="2900" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N001" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#DBEAFE;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N001｜入口事件&lt;br&gt;Skill：-｜蓝图：BP00&lt;br&gt;输入字段：CTX001,CTX002,CTX003,HOT001&lt;br&gt;输出字段：N001_OUT001 intent_candidate,N001_OUT002 scenario_candidate,N001_OUT003 raw_context&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="80" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N002" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#DBEAFE;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N002｜S0 总控路由&lt;br&gt;Skill：-｜蓝图：BP00/BP10&lt;br&gt;输入字段：CTX001,HOT001,N001_OUT003,N001_OUT001&lt;br&gt;输出字段：N002_OUT001 scenario_id,N002_OUT002 required_blueprints,N002_OUT003 required_skill_chain,N002_OUT004 algorithm_required_fields,N002_OUT005 source_required_fields,…(+3)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="90" y="1060" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N003" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#DBEAFE;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N003｜S1 顶层配置与权限安全&lt;br&gt;Skill：S1｜蓝图：BP00/BP10&lt;br&gt;输入字段：AUTH001,AUTH002,HOT001,CFG001,CFG002,CFG003,CFG004,CFG005,…(+6)&lt;br&gt;输出字段：N003_OUT001 safety_policy,N003_OUT002 allowed_actions,N003_OUT003 execution_boundary,N003_OUT004 blocked_reason,N003_OUT005 config_status,…(+1)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="620" y="290" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N004" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#E0F2FE;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N004｜数据闸门&lt;br&gt;Skill：-｜蓝图：BP10&lt;br&gt;输入字段：CTX004,CTX005,CTX006,CTX008,CTX010,CFG005,N003_OUT002,N003_OUT006,…(+1)&lt;br&gt;输出字段：N004_OUT001 data_gate_result,N004_OUT002 missing_algorithm_fields,N004_OUT003 missing_source_fields,N004_OUT004 field_coverage_report,N004_OUT005 approval_data_allowed,…(+5)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="630" y="1060" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N005" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#DCFCE7;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N005｜S2 经营房态采集&lt;br&gt;Skill：S2｜蓝图：BP00/BP02/BP03/BP08/BP10&lt;br&gt;输入字段：HOT001,ROOM001,ROOM002,ROOM003,ROOM004,OP001,OP002,OP004,…(+9)&lt;br&gt;输出字段：N005_OUT001 operating_snapshot,N005_OUT002 inventory_snapshot,N005_OUT003 price_snapshot,N005_OUT004 source_coverage,N005_OUT005 freshness_status,…(+6)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="1660" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N006" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#DCFCE7;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N006｜S4 环境行情感知&lt;br&gt;Skill：S4｜蓝图：BP01/BP02/BP05/BP08&lt;br&gt;输入字段：CTX003,DEM001,DEM002,DEM003,DEM004,DEM005,DEM006,DEM011,…(+3)&lt;br&gt;输出字段：N006_OUT001 demand_index,N006_OUT002 demand_level,N006_OUT003 action_strength,N006_OUT004 demand_reasons,N006_OUT005 pricing_effect,…(+1)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="1660" y="365" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N007" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#DCFCE7;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N007｜S7 竞态监控&lt;br&gt;Skill：S7｜蓝图：BP06/BP02/BP05&lt;br&gt;输入字段：CMP001,CMP002,CMP003,CMP008,CMP009,CMP010,CMP011,CMP012,…(+2)&lt;br&gt;输出字段：N007_OUT001 competitor_context,N007_OUT002 competitor_alert_level,N007_OUT003 competitor_price_index,N007_OUT004 direct_price_action_blocked,N007_OUT005 confidence_level,…(+1)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="1660" y="550" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N008" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#DCFCE7;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N008｜S12 口碑管理&lt;br&gt;Skill：S12｜蓝图：BP09/BP03&lt;br&gt;输入字段：REP001,REP002,REP003,REP004,REP005,REP006,REP010,REP011,…(+2)&lt;br&gt;输出字段：N008_OUT001 reputation_result,N008_OUT002 health_score_impact,N008_OUT003 reply_needed,N008_OUT004 reputation_tasks,N008_OUT005 problem_tags,…(+2)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="1660" y="735" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N012" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FEF3C7;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N012｜S8 推广投放与活动建议&lt;br&gt;Skill：S8｜蓝图：BP05/BP02/BP06/BP07&lt;br&gt;输入字段：ACT001,ACT002,ACT003,ACT004,PR004,CFG001,PR006,CMP007,…(+23)&lt;br&gt;输出字段：N012_OUT001 activity_plan,N012_OUT002 promotion_plan,N012_OUT003 activity_risks,N012_OUT004 approval_required,N012_OUT005 budget_range,…(+3)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="2460" y="760" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N018" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#EDE9FE;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N018｜S3 消息中台&lt;br&gt;Skill：S3｜蓝图：BP00/BP10/BP11/BP07&lt;br&gt;输入字段：MSG005,MSG006,MSG007,EXE001,CTX008,MSG008,EXE009,N015_OUT001,…(+49)&lt;br&gt;输出字段：N018_OUT001 rendered_message,N018_OUT002 approval_card,N018_OUT003 notification_status,N018_OUT004 experience_event_candidate,N018_OUT005 frontdesk_task_card&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="3240" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N019" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F3F4F6;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N019｜EXP-LAYER 经验进化&lt;br&gt;Skill：-｜蓝图：BP11&lt;br&gt;输入字段：EXP001,EXP002,EXP003,EXP004,EXP005,CTX003,EXP006,EXE007,…(+33)&lt;br&gt;输出字段：N019_OUT001 approved_case,N019_OUT002 rule_candidate,N019_OUT003 runtime_test_candidate,N019_OUT004 retrieved_experience_summary&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="3660" y="750" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E001_SC06" edge="1" parent="1" source="mx_N001" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#2563EB;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N002" value="E001｜direct_trigger&lt;br&gt;为什么：入口事件必须先经过总控路由，不能直接进入业务Skill。&lt;br&gt;传递：raw_context,intent_candidate&lt;br&gt;蓝图:BP00">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E002_SC06" edge="1" parent="1" source="mx_N002" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N003" value="E002｜chain_trigger&lt;br&gt;为什么：所有业务链路必须先验权；权限不是记忆或用户自称决定。&lt;br&gt;传递：required_skill_chain,scenario…&lt;br&gt;蓝图:BP00/BP10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E003_SC06" edge="1" parent="1" source="mx_N003" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N004" value="E003｜chain_trigger&lt;br&gt;为什么：权限和配置通过后才能读取业务数据；读取前要检查字段需求。&lt;br&gt;传递：allowed_actions,required_fiel…&lt;br&gt;蓝图:BP10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E004_SC06" edge="1" parent="1" source="mx_N004" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N005" value="E004｜chain_trigger&lt;br&gt;为什么：经营/诊断/调价/基准线/峰谷都需要统一经营快照作为数据底座。&lt;br&gt;传递：data_gate_result+ROOM/OP/PR字段包&lt;br&gt;蓝图:BP00/BP02/BP03/BP08/BP10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E005_SC06" edge="1" parent="1" source="mx_N004" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N006" value="E005｜chain_trigger&lt;br&gt;为什么：需求、行情、调价、活动和基准线需要需求指数。&lt;br&gt;传递：DEM/FNL/ROOM/OP字段包&lt;br&gt;蓝图:BP01">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E006_SC06" edge="1" parent="1" source="mx_N004" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#0EA5E9;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N007" value="E006｜direct_or_chain&lt;br&gt;为什么：用户问竞对时直接触发；调价/活动需要竞对参考时链路触发。&lt;br&gt;传递：CMP/PR/DEM字段包&lt;br&gt;蓝图:BP06">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E007_SC06" edge="1" parent="1" source="mx_N004" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#0EA5E9;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N008" value="E007｜direct_or_chain&lt;br&gt;为什么：用户问口碑时直接触发；诊断需要口碑维度时链路触发。&lt;br&gt;传递：REP字段包&lt;br&gt;蓝图:BP09/BP03">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E056_SC06" edge="1" parent="1" source="mx_N005" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N012" value="E056｜chain_trigger&lt;br&gt;为什么：活动/推广建议需要经营、价格、库存快照判断活动后到手价和库存压力。&lt;br&gt;传递：operating_snapshot,inventory_…&lt;br&gt;蓝图:BP05/BP02">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E057_SC06" edge="1" parent="1" source="mx_N006" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N012" value="E057｜chain_trigger&lt;br&gt;为什么：环境行情和需求指数影响活动/推广是否开启、保留或调整。&lt;br&gt;传递：demand_index,demand_level,dem…&lt;br&gt;蓝图:BP01/BP05">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E059_SC06" edge="1" parent="1" source="mx_N007" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N012" value="E059｜chain_trigger&lt;br&gt;为什么：竞对价格、活动、排名变化可作为活动/推广建议的参考输入。&lt;br&gt;传递：competitor_context,competitor…&lt;br&gt;蓝图:BP06/BP05">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E024_SC06" edge="1" parent="1" source="mx_N012" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N018" value="E024｜chain_trigger&lt;br&gt;为什么：活动/推广建议需要输出风险、预算和执行建议。&lt;br&gt;传递：activity_plan,promotion_plan,…&lt;br&gt;蓝图:BP05">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E026_SC06" edge="1" parent="1" source="mx_N018" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#9333EA;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=1;" target="mx_N019" value="E026｜async_trigger&lt;br&gt;为什么：用户可见输出可形成脱敏复盘事件，但不阻塞业务主链路。&lt;br&gt;传递：experience_event_candidate&lt;br&gt;蓝图:BP11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="note_SC06" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF7ED;strokeColor=#FDBA74;fontSize=13;fontColor=#7C2D12;align=left;spacing=8;" value="本页只画主链路 12 条边。未画的扩展/可选依赖 11 条：E008, E009, E030, E032, E033, E036, E037, E038, E039, E040, E058。这些边只进入 Excel 扩展依赖，不在图上连线。" vertex="1">
+          <mxGeometry height="80" width="3900" x="90" y="1410" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="v19_514460" name="P09 SC07 主链路">
+    <mxGraphModel dx="4547" dy="2533" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="4300" pageHeight="1600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title_43644" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=none;fillColor=none;fontSize=28;fontStyle=1;fontColor=#0F172A;align=center;" value="P09 SC07｜出现差评怎么处理 / 口碑回复链路｜" vertex="1">
+          <mxGeometry height="45" width="4100" x="80" y="25" as="geometry" />
+        </mxCell>
+        <mxCell id="lane_28225" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DBEAFE;strokeColor=#CBD5E1;fontSize=16;fontStyle=1;fontColor=#334155;align=left;verticalAlign=top;spacing=8;opacity=35;" value="入口与安全" vertex="1">
+          <mxGeometry height="1250" width="1450" x="60" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="lane_85359" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DCFCE7;strokeColor=#CBD5E1;fontSize=16;fontStyle=1;fontColor=#334155;align=left;verticalAlign=top;spacing=8;opacity=35;" value="采集/分析/决策" vertex="1">
+          <mxGeometry height="1250" width="1350" x="1530" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="lane_2010" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#EDE9FE;strokeColor=#CBD5E1;fontSize=16;fontStyle=1;fontColor=#334155;align=left;verticalAlign=top;spacing=8;opacity=35;" value="执行/输出/经验" vertex="1">
+          <mxGeometry height="1250" width="1200" x="2900" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N001" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#DBEAFE;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N001｜入口事件&lt;br&gt;Skill：-｜蓝图：BP00&lt;br&gt;输入字段：CTX001,CTX002,CTX003,HOT001&lt;br&gt;输出字段：N001_OUT001 intent_candidate,N001_OUT002 scenario_candidate,N001_OUT003 raw_context&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="80" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N002" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#DBEAFE;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N002｜S0 总控路由&lt;br&gt;Skill：-｜蓝图：BP00/BP10&lt;br&gt;输入字段：CTX001,HOT001,N001_OUT003,N001_OUT001&lt;br&gt;输出字段：N002_OUT001 scenario_id,N002_OUT002 required_blueprints,N002_OUT003 required_skill_chain,N002_OUT004 algorithm_required_fields,N002_OUT005 source_required_fields,…(+3)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="90" y="1050" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N003" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#DBEAFE;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N003｜S1 顶层配置与权限安全&lt;br&gt;Skill：S1｜蓝图：BP00/BP10&lt;br&gt;输入字段：AUTH001,AUTH002,HOT001,CFG001,CFG002,CFG003,CFG004,CFG005,…(+6)&lt;br&gt;输出字段：N003_OUT001 safety_policy,N003_OUT002 allowed_actions,N003_OUT003 execution_boundary,N003_OUT004 blocked_reason,N003_OUT005 config_status,…(+1)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="650" y="280" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N004" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#E0F2FE;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N004｜数据闸门&lt;br&gt;Skill：-｜蓝图：BP10&lt;br&gt;输入字段：CTX004,CTX005,CTX006,CTX008,CTX010,CFG005,N003_OUT002,N003_OUT006,…(+1)&lt;br&gt;输出字段：N004_OUT001 data_gate_result,N004_OUT002 missing_algorithm_fields,N004_OUT003 missing_source_fields,N004_OUT004 field_coverage_report,N004_OUT005 approval_data_allowed,…(+5)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="860" y="1050" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N008" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#DCFCE7;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N008｜S12 口碑管理&lt;br&gt;Skill：S12｜蓝图：BP09/BP03&lt;br&gt;输入字段：REP001,REP002,REP003,REP004,REP005,REP006,REP010,REP011,…(+2)&lt;br&gt;输出字段：N008_OUT001 reputation_result,N008_OUT002 health_score_impact,N008_OUT003 reply_needed,N008_OUT004 reputation_tasks,N008_OUT005 problem_tags,…(+2)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="1550" y="260" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N009" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FEF3C7;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N009｜S14 酒店运营诊断&lt;br&gt;Skill：S14｜蓝图：BP03/BP04/BP02/BP05&lt;br&gt;输入字段：FNL001,FNL002,FNL003,FNL004,FNL005,FNL006,FNL007,HLT001,…(+16)&lt;br&gt;输出字段：N009_OUT001 ota_health_score,N009_OUT002 ota_health_level,N009_OUT003 conversion_bottleneck,N009_OUT004 diagnosis_actions,N009_OUT005 weak_items,…(+1)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="2150" y="1070" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N017" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FEF3C7;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N017｜S13 评论回复&lt;br&gt;Skill：S13｜蓝图：BP09/BP07&lt;br&gt;输入字段：REP001,REP026,REP013,REP014,REP015,REP016,REP017,CFG003,…(+3)&lt;br&gt;输出字段：N017_OUT001 reply_draft,N017_OUT002 compensation_suggestion,N017_OUT003 manager_escalation,N017_OUT004 sentiment,N017_OUT005 problem_tags,…(+1)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="1560" y="1060" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N018" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#EDE9FE;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N018｜S3 消息中台&lt;br&gt;Skill：S3｜蓝图：BP00/BP10/BP11/BP07&lt;br&gt;输入字段：MSG005,MSG006,MSG007,EXE001,CTX008,MSG008,EXE009,N015_OUT001,…(+49)&lt;br&gt;输出字段：N018_OUT001 rendered_message,N018_OUT002 approval_card,N018_OUT003 notification_status,N018_OUT004 experience_event_candidate,N018_OUT005 frontdesk_task_card&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="3240" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N019" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F3F4F6;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N019｜EXP-LAYER 经验进化&lt;br&gt;Skill：-｜蓝图：BP11&lt;br&gt;输入字段：EXP001,EXP002,EXP003,EXP004,EXP005,CTX003,EXP006,EXE007,…(+33)&lt;br&gt;输出字段：N019_OUT001 approved_case,N019_OUT002 rule_candidate,N019_OUT003 runtime_test_candidate,N019_OUT004 retrieved_experience_summary&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="3635" y="1070" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E001_SC07" edge="1" parent="1" source="mx_N001" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#2563EB;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N002" value="E001｜direct_trigger&lt;br&gt;为什么：入口事件必须先经过总控路由，不能直接进入业务Skill。&lt;br&gt;传递：raw_context,intent_candidate&lt;br&gt;蓝图:BP00">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E002_SC07" edge="1" parent="1" source="mx_N002" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N003" value="E002｜chain_trigger&lt;br&gt;为什么：所有业务链路必须先验权；权限不是记忆或用户自称决定。&lt;br&gt;传递：required_skill_chain,scenario…&lt;br&gt;蓝图:BP00/BP10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E003_SC07" edge="1" parent="1" source="mx_N003" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N004" value="E003｜chain_trigger&lt;br&gt;为什么：权限和配置通过后才能读取业务数据；读取前要检查字段需求。&lt;br&gt;传递：allowed_actions,required_fiel…&lt;br&gt;蓝图:BP10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E007_SC07" edge="1" parent="1" source="mx_N004" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#0EA5E9;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N008" value="E007｜direct_or_chain&lt;br&gt;为什么：用户问口碑时直接触发；诊断需要口碑维度时链路触发。&lt;br&gt;传递：REP字段包&lt;br&gt;蓝图:BP09/BP03">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E042_SC07" edge="1" parent="1" source="mx_N008" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N017" value="E042｜chain_trigger&lt;br&gt;为什么：口碑管理识别需要回复的评论后，进入回复草稿生成。&lt;br&gt;传递：review_content,reply_needed,s…&lt;br&gt;蓝图:BP09">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E025_SC07" edge="1" parent="1" source="mx_N017" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N018" value="E025｜chain_trigger&lt;br&gt;为什么：评论回复草稿和补偿建议需要人工确认后输出。&lt;br&gt;传递：reply_draft,compensation_sugg…&lt;br&gt;蓝图:BP09">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E009_SC07" edge="1" parent="1" source="mx_N008" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N009" value="E009｜chain_trigger&lt;br&gt;为什么：口碑结果会影响OTA健康分和诊断动作。&lt;br&gt;传递：reputation_result,health_scor…&lt;br&gt;蓝图:BP09/BP03">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E023_SC07" edge="1" parent="1" source="mx_N009" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N018" value="E023｜chain_trigger&lt;br&gt;为什么：诊断结果需要生成老板/运营可读报告。&lt;br&gt;传递：weak_items,diagnosis_actions,…&lt;br&gt;蓝图:BP03/BP07">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E026_SC07" edge="1" parent="1" source="mx_N018" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#9333EA;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=1;" target="mx_N019" value="E026｜async_trigger&lt;br&gt;为什么：用户可见输出可形成脱敏复盘事件，但不阻塞业务主链路。&lt;br&gt;传递：experience_event_candidate&lt;br&gt;蓝图:BP11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="note_SC07" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF7ED;strokeColor=#FDBA74;fontSize=13;fontColor=#7C2D12;align=left;spacing=8;" value="本页只画主链路 9 条边。未画的扩展/可选依赖 3 条：E051, E064, E066。这些边只进入 Excel 扩展依赖，不在图上连线。" vertex="1">
+          <mxGeometry height="80" width="3900" x="90" y="1410" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="v19_926695" name="P10 SC08 主链路">
+    <mxGraphModel dx="4547" dy="2533" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="4300" pageHeight="1600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title_24883" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=none;fillColor=none;fontSize=28;fontStyle=1;fontColor=#0F172A;align=center;" value="P10 SC08｜客户订单分析 / 客群链路｜" vertex="1">
+          <mxGeometry height="45" width="4100" x="80" y="25" as="geometry" />
+        </mxCell>
+        <mxCell id="lane_28225" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DBEAFE;strokeColor=#CBD5E1;fontSize=16;fontStyle=1;fontColor=#334155;align=left;verticalAlign=top;spacing=8;opacity=35;" value="入口与安全" vertex="1">
+          <mxGeometry height="1250" width="1450" x="60" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="lane_85359" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DCFCE7;strokeColor=#CBD5E1;fontSize=16;fontStyle=1;fontColor=#334155;align=left;verticalAlign=top;spacing=8;opacity=35;" value="采集/分析/决策" vertex="1">
+          <mxGeometry height="1250" width="1350" x="1530" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="lane_2010" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#EDE9FE;strokeColor=#CBD5E1;fontSize=16;fontStyle=1;fontColor=#334155;align=left;verticalAlign=top;spacing=8;opacity=35;" value="执行/输出/经验" vertex="1">
+          <mxGeometry height="1250" width="1200" x="2900" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N001" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#DBEAFE;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N001｜入口事件&lt;br&gt;Skill：-｜蓝图：BP00&lt;br&gt;输入字段：CTX001,CTX002,CTX003,HOT001&lt;br&gt;输出字段：N001_OUT001 intent_candidate,N001_OUT002 scenario_candidate,N001_OUT003 raw_context&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="80" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N002" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#DBEAFE;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N002｜S0 总控路由&lt;br&gt;Skill：-｜蓝图：BP00/BP10&lt;br&gt;输入字段：CTX001,HOT001,N001_OUT003,N001_OUT001&lt;br&gt;输出字段：N002_OUT001 scenario_id,N002_OUT002 required_blueprints,N002_OUT003 required_skill_chain,N002_OUT004 algorithm_required_fields,N002_OUT005 source_required_fields,…(+3)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="80" y="1070" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N003" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#DBEAFE;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N003｜S1 顶层配置与权限安全&lt;br&gt;Skill：S1｜蓝图：BP00/BP10&lt;br&gt;输入字段：AUTH001,AUTH002,HOT001,CFG001,CFG002,CFG003,CFG004,CFG005,…(+6)&lt;br&gt;输出字段：N003_OUT001 safety_policy,N003_OUT002 allowed_actions,N003_OUT003 execution_boundary,N003_OUT004 blocked_reason,N003_OUT005 config_status,…(+1)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="570" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N004" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#E0F2FE;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N004｜数据闸门&lt;br&gt;Skill：-｜蓝图：BP10&lt;br&gt;输入字段：CTX004,CTX005,CTX006,CTX008,CTX010,CFG005,N003_OUT002,N003_OUT006,…(+1)&lt;br&gt;输出字段：N004_OUT001 data_gate_result,N004_OUT002 missing_algorithm_fields,N004_OUT003 missing_source_fields,N004_OUT004 field_coverage_report,N004_OUT005 approval_data_allowed,…(+5)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="830" y="1070" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N014" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#DCFCE7;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N014｜S17 客户订单分析&lt;br&gt;Skill：S17｜蓝图：BP08/BP09&lt;br&gt;输入字段：OP001,OP002,OP003,REP007,CUS001,CUS002,CUS003,REP001&lt;br&gt;输出字段：N014_OUT001 customer_segments,N014_OUT002 repeat_guest_rate,N014_OUT003 loss_risk_alert,N014_OUT004 target_guest_tasks&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="1660" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N015" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FCE7F3;strokeColor=#BE185D;fontSize=14;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N015｜S5 智能收益决策&lt;br&gt;Skill：S5｜蓝图：BP02/BP08/BP01/BP03/BP05/BP06&lt;br&gt;输入字段：CFG001,CFG002,CFG003,CFG004,CFG005,CFG006,CFG007,PR001,…(+29)&lt;br&gt;输出字段：N015_OUT001 revenue_decision,N015_OUT002 price_recommendations,N015_OUT003 approval_required,N015_OUT004 risk_warnings,N015_OUT005 price_confidence,…(+1)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="1660" y="1100" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N018" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#EDE9FE;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N018｜S3 消息中台&lt;br&gt;Skill：S3｜蓝图：BP00/BP10/BP11/BP07&lt;br&gt;输入字段：MSG005,MSG006,MSG007,EXE001,CTX008,MSG008,EXE009,N015_OUT001,…(+49)&lt;br&gt;输出字段：N018_OUT001 rendered_message,N018_OUT002 approval_card,N018_OUT003 notification_status,N018_OUT004 experience_event_candidate,N018_OUT005 frontdesk_task_card&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="2920" y="590" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N019" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F3F4F6;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N019｜EXP-LAYER 经验进化&lt;br&gt;Skill：-｜蓝图：BP11&lt;br&gt;输入字段：EXP001,EXP002,EXP003,EXP004,EXP005,CTX003,EXP006,EXE007,…(+33)&lt;br&gt;输出字段：N019_OUT001 approved_case,N019_OUT002 rule_candidate,N019_OUT003 runtime_test_candidate,N019_OUT004 retrieved_experience_summary&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="3750" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E001_SC08" edge="1" parent="1" source="mx_N001" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#2563EB;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N002" value="E001｜direct_trigger&lt;br&gt;为什么：入口事件必须先经过总控路由，不能直接进入业务Skill。&lt;br&gt;传递：raw_context,intent_candidate&lt;br&gt;蓝图:BP00">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E002_SC08" edge="1" parent="1" source="mx_N002" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N003" value="E002｜chain_trigger&lt;br&gt;为什么：所有业务链路必须先验权；权限不是记忆或用户自称决定。&lt;br&gt;传递：required_skill_chain,scenario…&lt;br&gt;蓝图:BP00/BP10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E003_SC08" edge="1" parent="1" source="mx_N003" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N004" value="E003｜chain_trigger&lt;br&gt;为什么：权限和配置通过后才能读取业务数据；读取前要检查字段需求。&lt;br&gt;传递：allowed_actions,required_fiel…&lt;br&gt;蓝图:BP10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E047_SC08" edge="1" parent="1" source="mx_N004" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#0EA5E9;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N014" value="E047｜direct_or_chain&lt;br&gt;为什么：客户/订单分析可以由用户直接触发，也可以作为收益策略参考字段包读取。&lt;br&gt;传递：CUS字段包,OP订单字段,REP口碑字段&lt;br&gt;蓝图:BP08/BP09/BP10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E048_SC08" edge="1" parent="1" source="mx_N014" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N018" value="E048｜chain_trigger&lt;br&gt;为什么：客户订单分析如果只需要分层/流失预警，可直接输出给用户，不必强制进入收益决…&lt;br&gt;传递：customer_segments,repeat_gues…&lt;br&gt;蓝图:BP00/BP08/BP09">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E019_SC08" edge="1" parent="1" source="mx_N014" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N015" value="E019｜chain_trigger&lt;br&gt;为什么：客户结构可作为收益策略和任务建议参考，但不能阻断P0/P1。&lt;br&gt;传递：customer_segments,loss_risk_a…&lt;br&gt;蓝图:BP08/BP09">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E021_SC08" edge="1" parent="1" source="mx_N015" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N018" value="E021｜chain_trigger&lt;br&gt;为什么：不需要执行或执行被阻断时，直接把收益建议输出给用户。&lt;br&gt;传递：revenue_decision,risk_warnings&lt;br&gt;蓝图:BP00/BP02">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E026_SC08" edge="1" parent="1" source="mx_N018" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#9333EA;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=1;" target="mx_N019" value="E026｜async_trigger&lt;br&gt;为什么：用户可见输出可形成脱敏复盘事件，但不阻塞业务主链路。&lt;br&gt;传递：experience_event_candidate&lt;br&gt;蓝图:BP11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="note_SC08" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF7ED;strokeColor=#FDBA74;fontSize=13;fontColor=#7C2D12;align=left;spacing=8;" value="本页只画主链路 8 条边。未画的扩展/可选依赖 2 条：E027, E067。这些边只进入 Excel 扩展依赖，不在图上连线。" vertex="1">
+          <mxGeometry height="80" width="3900" x="90" y="1410" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="v19_469614" name="P11 SC09 主链路">
+    <mxGraphModel dx="4547" dy="2533" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="4300" pageHeight="1600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title_78941" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=none;fillColor=none;fontSize=28;fontStyle=1;fontColor=#0F172A;align=center;" value="P11 SC09｜沉淀这次复盘 / 经验进化链路｜" vertex="1">
+          <mxGeometry height="45" width="4100" x="80" y="25" as="geometry" />
+        </mxCell>
+        <mxCell id="lane_28225" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DBEAFE;strokeColor=#CBD5E1;fontSize=16;fontStyle=1;fontColor=#334155;align=left;verticalAlign=top;spacing=8;opacity=35;" value="入口与安全" vertex="1">
+          <mxGeometry height="1250" width="1450" x="60" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="lane_85359" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DCFCE7;strokeColor=#CBD5E1;fontSize=16;fontStyle=1;fontColor=#334155;align=left;verticalAlign=top;spacing=8;opacity=35;" value="采集/分析/决策" vertex="1">
+          <mxGeometry height="1250" width="1350" x="1530" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="lane_2010" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#EDE9FE;strokeColor=#CBD5E1;fontSize=16;fontStyle=1;fontColor=#334155;align=left;verticalAlign=top;spacing=8;opacity=35;" value="执行/输出/经验" vertex="1">
+          <mxGeometry height="1250" width="1200" x="2900" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N013" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FEF3C7;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N013｜S10 ROI 决策&lt;br&gt;Skill：S10｜蓝图：BP08/BP05&lt;br&gt;输入字段：ROI001,ROI011,ROI008,ROI009,ROI010,ROI005,ROI006,CFG001,…(+3)&lt;br&gt;输出字段：N013_OUT001 promotion_roi,N013_OUT002 profit_simulation,N013_OUT003 roi_decision,N013_OUT004 data_gaps&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="1570" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N015" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FCE7F3;strokeColor=#BE185D;fontSize=14;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N015｜S5 智能收益决策&lt;br&gt;Skill：S5｜蓝图：BP02/BP08/BP01/BP03/BP05/BP06&lt;br&gt;输入字段：CFG001,CFG002,CFG003,CFG004,CFG005,CFG006,CFG007,PR001,…(+29)&lt;br&gt;输出字段：N015_OUT001 revenue_decision,N015_OUT002 price_recommendations,N015_OUT003 approval_required,N015_OUT004 risk_warnings,N015_OUT005 price_confidence,…(+1)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="1580" y="1010" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N016" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#EDE9FE;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N016｜S6 房价同步执行&lt;br&gt;Skill：S6｜蓝图：BP02/BP10/BP07&lt;br&gt;输入字段：EXE001,PR011,CFG001,CFG002,CTX008,CFG005,CFG004,EXE005,…(+4)&lt;br&gt;输出字段：N016_OUT001 dry_run_preview,N016_OUT002 execution_result,N016_OUT003 blocked_reason,N016_OUT004 readback_check,N016_OUT005 rollback_or_review_task&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="3635" y="960" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N018" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#EDE9FE;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N018｜S3 消息中台&lt;br&gt;Skill：S3｜蓝图：BP00/BP10/BP11/BP07&lt;br&gt;输入字段：MSG005,MSG006,MSG007,EXE001,CTX008,MSG008,EXE009,N015_OUT001,…(+49)&lt;br&gt;输出字段：N018_OUT001 rendered_message,N018_OUT002 approval_card,N018_OUT003 notification_status,N018_OUT004 experience_event_candidate,N018_OUT005 frontdesk_task_card&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="2950" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N019" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F3F4F6;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N019｜EXP-LAYER 经验进化&lt;br&gt;Skill：-｜蓝图：BP11&lt;br&gt;输入字段：EXP001,EXP002,EXP003,EXP004,EXP005,CTX003,EXP006,EXE007,…(+33)&lt;br&gt;输出字段：N019_OUT001 approved_case,N019_OUT002 rule_candidate,N019_OUT003 runtime_test_candidate,N019_OUT004 retrieved_experience_summary&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="3750" y="260" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E018_SC09" edge="1" parent="1" source="mx_N013" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N015" value="E018｜chain_trigger&lt;br&gt;为什么：ROI或利润模拟是收益最大化策略的增强输入。&lt;br&gt;传递：promotion_roi,profit_simulati…&lt;br&gt;蓝图:BP08">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E026_SC09" edge="1" parent="1" source="mx_N018" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#9333EA;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=1;" target="mx_N019" value="E026｜async_trigger&lt;br&gt;为什么：用户可见输出可形成脱敏复盘事件，但不阻塞业务主链路。&lt;br&gt;传递：experience_event_candidate&lt;br&gt;蓝图:BP11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E027_SC09" edge="1" parent="1" source="mx_N015" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#9333EA;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=1;" target="mx_N019" value="E027｜async_trigger&lt;br&gt;为什么：收益决策过程可用于后续运营复盘和规则候选。&lt;br&gt;传递：revenue_decision,risk_warnings&lt;br&gt;蓝图:BP11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E028_SC09" edge="1" parent="1" source="mx_N016" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#9333EA;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=1;" target="mx_N019" value="E028｜async_trigger&lt;br&gt;为什么：dry-run和执行结果是最重要的经验沉淀来源。&lt;br&gt;传递：dry_run_preview,execution_res…&lt;br&gt;蓝图:BP11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E029_SC09" edge="1" parent="1" source="mx_N019" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N018" value="E029｜chain_trigger&lt;br&gt;为什么：用户询问历史经验或复盘结论时，经验层只提供脱敏摘要给消息中台。&lt;br&gt;传递：retrieved_experience_summary&lt;br&gt;蓝图:BP11/BP00">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="note_SC09" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF7ED;strokeColor=#FDBA74;fontSize=13;fontColor=#7C2D12;align=left;spacing=8;" value="本页只画主链路 5 条边。未画的扩展/可选依赖 6 条：E040, E045, E064, E065, E066, E067。这些边只进入 Excel 扩展依赖，不在图上连线。" vertex="1">
+          <mxGeometry height="80" width="3900" x="90" y="1410" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="v19_466269" name="P12 SC10 主链路">
+    <mxGraphModel dx="4547" dy="2533" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="4300" pageHeight="1600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title_18896" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=none;fillColor=none;fontSize=28;fontStyle=1;fontColor=#0F172A;align=center;" value="P12 SC10｜第三方酒店 OTA 诊断 / S14-EXT 链路｜" vertex="1">
+          <mxGeometry height="45" width="4100" x="80" y="25" as="geometry" />
+        </mxCell>
+        <mxCell id="lane_28225" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DBEAFE;strokeColor=#CBD5E1;fontSize=16;fontStyle=1;fontColor=#334155;align=left;verticalAlign=top;spacing=8;opacity=35;" value="入口与安全" vertex="1">
+          <mxGeometry height="1250" width="1450" x="60" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="lane_85359" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DCFCE7;strokeColor=#CBD5E1;fontSize=16;fontStyle=1;fontColor=#334155;align=left;verticalAlign=top;spacing=8;opacity=35;" value="采集/分析/决策" vertex="1">
+          <mxGeometry height="1250" width="1350" x="1530" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="lane_2010" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#EDE9FE;strokeColor=#CBD5E1;fontSize=16;fontStyle=1;fontColor=#334155;align=left;verticalAlign=top;spacing=8;opacity=35;" value="执行/输出/经验" vertex="1">
+          <mxGeometry height="1250" width="1200" x="2900" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N001" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#DBEAFE;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N001｜入口事件&lt;br&gt;Skill：-｜蓝图：BP00&lt;br&gt;输入字段：CTX001,CTX002,CTX003,HOT001&lt;br&gt;输出字段：N001_OUT001 intent_candidate,N001_OUT002 scenario_candidate,N001_OUT003 raw_context&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="80" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N002" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#DBEAFE;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N002｜S0 总控路由&lt;br&gt;Skill：-｜蓝图：BP00/BP10&lt;br&gt;输入字段：CTX001,HOT001,N001_OUT003,N001_OUT001&lt;br&gt;输出字段：N002_OUT001 scenario_id,N002_OUT002 required_blueprints,N002_OUT003 required_skill_chain,N002_OUT004 algorithm_required_fields,N002_OUT005 source_required_fields,…(+3)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="80" y="1000" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N003" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#DBEAFE;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N003｜S1 顶层配置与权限安全&lt;br&gt;Skill：S1｜蓝图：BP00/BP10&lt;br&gt;输入字段：AUTH001,AUTH002,HOT001,CFG001,CFG002,CFG003,CFG004,CFG005,…(+6)&lt;br&gt;输出字段：N003_OUT001 safety_policy,N003_OUT002 allowed_actions,N003_OUT003 execution_boundary,N003_OUT004 blocked_reason,N003_OUT005 config_status,…(+1)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="870" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N004" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#E0F2FE;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N004｜数据闸门&lt;br&gt;Skill：-｜蓝图：BP10&lt;br&gt;输入字段：CTX004,CTX005,CTX006,CTX008,CTX010,CFG005,N003_OUT002,N003_OUT006,…(+1)&lt;br&gt;输出字段：N004_OUT001 data_gate_result,N004_OUT002 missing_algorithm_fields,N004_OUT003 missing_source_fields,N004_OUT004 field_coverage_report,N004_OUT005 approval_data_allowed,…(+5)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="870" y="1020" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N022" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#DCFCE7;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N022｜S14-EXT 第三方OTA诊断HTML报告模式&lt;br&gt;Skill：S14-EXT｜蓝图：BP03/BP04/BP10&lt;br&gt;输入字段：MSG017,MSG018,CTX006,CTX016,MSG011,CTX015,FNL001,FNL002,…(+5)&lt;br&gt;输出字段：N022_OUT001 external_diagnosis_report_html,N022_OUT002 diagnosis_scorecard,N022_OUT003 data_gap_list,N022_OUT004 field_coverage_report,N022_OUT005 followup_purchase_recommendation,…(+1)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="1660" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N018" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#EDE9FE;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N018｜S3 消息中台&lt;br&gt;Skill：S3｜蓝图：BP00/BP10/BP11/BP07&lt;br&gt;输入字段：MSG005,MSG006,MSG007,EXE001,CTX008,MSG008,EXE009,N015_OUT001,…(+49)&lt;br&gt;输出字段：N018_OUT001 rendered_message,N018_OUT002 approval_card,N018_OUT003 notification_status,N018_OUT004 experience_event_candidate,N018_OUT005 frontdesk_task_card&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="3450" y="960" as="geometry" />
+        </mxCell>
+        <mxCell id="mx_N019" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F3F4F6;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N019｜EXP-LAYER 经验进化&lt;br&gt;Skill：-｜蓝图：BP11&lt;br&gt;输入字段：EXP001,EXP002,EXP003,EXP004,EXP005,CTX003,EXP006,EXE007,…(+33)&lt;br&gt;输出字段：N019_OUT001 approved_case,N019_OUT002 rule_candidate,N019_OUT003 runtime_test_candidate,N019_OUT004 retrieved_experience_summary&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="130" width="330" x="3480" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E001_SC10" edge="1" parent="1" source="mx_N001" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#2563EB;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N002" value="E001｜direct_trigger&lt;br&gt;为什么：入口事件必须先经过总控路由，不能直接进入业务Skill。&lt;br&gt;传递：raw_context,intent_candidate&lt;br&gt;蓝图:BP00">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E002_SC10" edge="1" parent="1" source="mx_N002" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N003" value="E002｜chain_trigger&lt;br&gt;为什么：所有业务链路必须先验权；权限不是记忆或用户自称决定。&lt;br&gt;传递：required_skill_chain,scenario…&lt;br&gt;蓝图:BP00/BP10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E003_SC10" edge="1" parent="1" source="mx_N003" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N004" value="E003｜chain_trigger&lt;br&gt;为什么：权限和配置通过后才能读取业务数据；读取前要检查字段需求。&lt;br&gt;传递：allowed_actions,required_fiel…&lt;br&gt;蓝图:BP10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E043_SC10" edge="1" parent="1" source="mx_N004" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N022" value="E043｜chain_trigger&lt;br&gt;为什么：外部诊断模式的数据通过字段闸门后，进入独立报告链路。&lt;br&gt;传递：external_upload_context,field…&lt;br&gt;蓝图:BP03/BP04/BP10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E044_SC10" edge="1" parent="1" source="mx_N022" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="mx_N018" value="E044｜chain_trigger&lt;br&gt;为什么：第三方诊断报告需要通过飞书/HTML载体输出。&lt;br&gt;传递：external_diagnosis_report_htm…&lt;br&gt;蓝图:BP00/BP03/BP04">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_E045_SC10" edge="1" parent="1" source="mx_N022" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#9333EA;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=1;" target="mx_N019" value="E045｜async_trigger&lt;br&gt;为什么：外部诊断案例可脱敏沉淀，但不能直接改正式规则。&lt;br&gt;传递：sanitized_external_diagnosis_…&lt;br&gt;蓝图:BP11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="note_SC10" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF7ED;strokeColor=#FDBA74;fontSize=13;fontColor=#7C2D12;align=left;spacing=8;" value="本页只画主链路 6 条边。未画的扩展/可选依赖 1 条：E026。这些边只进入 Excel 扩展依赖，不在图上连线。" vertex="1">
+          <mxGeometry height="80" width="3900" x="90" y="1410" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="v19_138123" name="P13 字段治理支撑页">
+    <mxGraphModel dx="2923" dy="1629" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="3000" pageHeight="1500" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title_99480" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=none;fillColor=none;fontSize=28;fontStyle=1;fontColor=#0F172A;align=center;" value="P14 字段治理支撑页｜不画业务连接，只说明字段关系" vertex="1">
+          <mxGeometry height="45" width="2800" x="80" y="25" as="geometry" />
+        </mxCell>
+        <mxCell id="field_0" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F8FAFC;strokeColor=#64748B;fontSize=18;fontColor=#0F172A;align=left;verticalAlign=top;spacing=14;" value="功能逻辑蓝图算法字段&lt;br&gt;&lt;br&gt;先确定算法真正要什么字段。字段不是以当前代码为准。" vertex="1">
+          <mxGeometry height="230" width="570" x="160" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="field_1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F8FAFC;strokeColor=#64748B;fontSize=18;fontColor=#0F172A;align=left;verticalAlign=top;spacing=14;" value="PMS/OTA/外部可采集字段&lt;br&gt;&lt;br&gt;再用整体架构分析里的实际来源字段做可采集性校验。" vertex="1">
+          <mxGeometry height="230" width="570" x="840" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="field_2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F8FAFC;strokeColor=#64748B;fontSize=18;fontColor=#0F172A;align=left;verticalAlign=top;spacing=14;" value="统一数据契约&lt;br&gt;&lt;br&gt;最后映射成项目内部统一字段名，允许继续调整。" vertex="1">
+          <mxGeometry height="230" width="570" x="1520" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="field_3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F8FAFC;strokeColor=#64748B;fontSize=18;fontColor=#0F172A;align=left;verticalAlign=top;spacing=14;" value="缺字段降级策略&lt;br&gt;&lt;br&gt;缺失字段只降级或提示 missing_fields，不编造结论。" vertex="1">
+          <mxGeometry height="230" width="570" x="2200" y="220" as="geometry" />
+        </mxCell>
+      <mxCell id="v26_field_governance_policy_p13" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ECFEFF;strokeColor=#06B6D4;fontSize=14;fontColor=#164E63;spacing=8;align=left;verticalAlign=top;" value="V26字段治理：1）蓝图决定算法字段；2）整体架构分析/数据列表只作为真实来源候选与别名池；3）每个字段必须有canonical_key、中文名、英文落地名、data_type、来源匹配状态、缺失策略；4）节点输出必须能通过边payload追溯到下游输入。" vertex="1"><mxGeometry x="80" y="2160" width="1300" height="170" as="geometry" /></mxCell><mxCell id="v26_status_definitions_p13" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F3FF;strokeColor=#8B5CF6;fontSize=14;fontColor=#4C1D95;spacing=8;align=left;verticalAlign=top;" value="字段状态标准：confirmed_exact / confirmed_alias / candidate_inferred / project_only / config_only / algorithm_output / upstream_output / manual_required / not_available / deprecated。禁止用fixed代替业务确认。" vertex="1"><mxGeometry x="1440" y="2160" width="1260" height="170" as="geometry" /></mxCell><mxCell id="v26_developer_views_p13" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFBEB;strokeColor=#F59E0B;fontSize=14;fontColor=#78350F;spacing=8;align=left;verticalAlign=top;" value="新增开发视图：20蓝图字段原文抽取、21来源字段别名映射、22字段命名最终表、23按Skill开发输入输出、24字段缺失降级策略、25开发验收视图。" vertex="1"><mxGeometry x="2760" y="2160" width="1260" height="170" as="geometry" /></mxCell></root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="R4hMNXk8XjCNlWVnYoVK" name="P14 归档-临时草稿页">
+    <mxGraphModel dx="3410" dy="1900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="_z1uw_VPkpR-CNjQLHlG-1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=none;fillColor=none;fontSize=28;fontStyle=1;fontColor=#0F172A;align=center;" value="V25 总地图｜字段契约逐行全量校准：Excel / JSON / drawio 同步" vertex="1">
+          <mxGeometry height="45" width="4100" x="480" y="450" as="geometry" />
+        </mxCell>
+        <mxCell id="_z1uw_VPkpR-CNjQLHlG-2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DBEAFE;strokeColor=#CBD5E1;fontSize=16;fontStyle=1;fontColor=#334155;align=left;verticalAlign=top;spacing=8;opacity=35;" value="A区｜入口/权限/数据闸门" vertex="1">
+          <mxGeometry height="260" width="4100" x="440" y="525" as="geometry" />
+        </mxCell>
+        <mxCell id="_z1uw_VPkpR-CNjQLHlG-3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DCFCE7;strokeColor=#CBD5E1;fontSize=16;fontStyle=1;fontColor=#334155;align=left;verticalAlign=top;spacing=8;opacity=35;" value="B区｜并行采集/感知/诊断输入" vertex="1">
+          <mxGeometry height="430" width="4100" x="460" y="825" as="geometry" />
+        </mxCell>
+        <mxCell id="_z1uw_VPkpR-CNjQLHlG-4" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FEF3C7;strokeColor=#CBD5E1;fontSize=16;fontStyle=1;fontColor=#334155;align=left;verticalAlign=top;spacing=8;opacity=35;" value="C区｜派生分析与决策汇聚" vertex="1">
+          <mxGeometry height="520" width="4100" x="440" y="1295" as="geometry" />
+        </mxCell>
+        <mxCell id="_z1uw_VPkpR-CNjQLHlG-5" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#EDE9FE;strokeColor=#CBD5E1;fontSize=16;fontStyle=1;fontColor=#334155;align=left;verticalAlign=top;spacing=8;opacity=35;" value="D区｜执行/消息/经验闭环" vertex="1">
+          <mxGeometry height="820" width="4100" x="440" y="1845" as="geometry" />
+        </mxCell>
+        <mxCell id="_z1uw_VPkpR-CNjQLHlG-6" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#DBEAFE;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N001｜入口事件&lt;br&gt;Skill：-｜蓝图：BP00&lt;br&gt;输入字段：CTX001,CTX002,CTX003,HOT001&lt;br&gt;输出字段：N001_OUT001 intent_candidate,N001_OUT002 scenario_candidate,N001_OUT003 raw_context&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="150" width="390" x="480" y="575" as="geometry" />
+        </mxCell>
+        <mxCell id="_z1uw_VPkpR-CNjQLHlG-7" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#DBEAFE;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N002｜S0 总控路由&lt;br&gt;Skill：-｜蓝图：BP00/BP10&lt;br&gt;输入字段：CTX001,HOT001,N001_OUT003,N001_OUT001&lt;br&gt;输出字段：N002_OUT001 scenario_id,N002_OUT002 required_blueprints,N002_OUT003 required_skill_chain,N002_OUT004 algorithm_required_fields,N002_OUT005 source_required_fields,…(+3)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="150" width="390" x="1340" y="580" as="geometry" />
+        </mxCell>
+        <mxCell id="_z1uw_VPkpR-CNjQLHlG-8" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#DBEAFE;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N003｜S1 顶层配置与权限安全&lt;br&gt;Skill：S1｜蓝图：BP00/BP10&lt;br&gt;输入字段：AUTH001,AUTH002,HOT001,CFG001,CFG002,CFG003,CFG004,CFG005,…(+6)&lt;br&gt;输出字段：N003_OUT001 safety_policy,N003_OUT002 allowed_actions,N003_OUT003 execution_boundary,N003_OUT004 blocked_reason,N003_OUT005 config_status,…(+1)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="150" width="390" x="2070" y="580" as="geometry" />
+        </mxCell>
+        <mxCell id="_z1uw_VPkpR-CNjQLHlG-9" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#E0F2FE;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N004｜数据闸门&lt;br&gt;Skill：-｜蓝图：BP10&lt;br&gt;输入字段：CTX004,CTX005,CTX006,CTX008,CTX010,CFG005,N003_OUT002,N003_OUT006,…(+1)&lt;br&gt;输出字段：N004_OUT001 data_gate_result,N004_OUT002 missing_algorithm_fields,N004_OUT003 missing_source_fields,N004_OUT004 field_coverage_report,N004_OUT005 approval_data_allowed,…(+5)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="150" width="390" x="2770" y="575" as="geometry" />
+        </mxCell>
+        <mxCell id="_z1uw_VPkpR-CNjQLHlG-10" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#DCFCE7;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N005｜S2 经营房态采集&lt;br&gt;Skill：S2｜蓝图：BP00/BP02/BP03/BP08/BP10&lt;br&gt;输入字段：HOT001,ROOM001,ROOM002,ROOM003,ROOM004,OP001,OP002,OP004,…(+9)&lt;br&gt;输出字段：N005_OUT001 operating_snapshot,N005_OUT002 inventory_snapshot,N005_OUT003 price_snapshot,N005_OUT004 source_coverage,N005_OUT005 freshness_status,…(+6)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="150" width="390" x="1170" y="915" as="geometry" />
+        </mxCell>
+        <mxCell id="_z1uw_VPkpR-CNjQLHlG-11" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#DCFCE7;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N006｜S4 环境行情感知&lt;br&gt;Skill：S4｜蓝图：BP01/BP02/BP05/BP08&lt;br&gt;输入字段：CTX003,DEM001,DEM002,DEM003,DEM004,DEM005,DEM006,DEM011,…(+3)&lt;br&gt;输出字段：N006_OUT001 demand_index,N006_OUT002 demand_level,N006_OUT003 action_strength,N006_OUT004 demand_reasons,N006_OUT005 pricing_effect,…(+1)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="150" width="390" x="2410" y="910" as="geometry" />
+        </mxCell>
+        <mxCell id="_z1uw_VPkpR-CNjQLHlG-15" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FEF3C7;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N009｜S14 酒店运营诊断&lt;br&gt;Skill：S14｜蓝图：BP03/BP04/BP02/BP05&lt;br&gt;输入字段：FNL001,FNL002,FNL003,FNL004,FNL005,FNL006,FNL007,HLT001,…(+16)&lt;br&gt;输出字段：N009_OUT001 ota_health_score,N009_OUT002 ota_health_level,N009_OUT003 conversion_bottleneck,N009_OUT004 diagnosis_actions,N009_OUT005 weak_items,…(+1)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="150" width="390" x="1160" y="1505" as="geometry" />
+        </mxCell>
+        <mxCell id="_z1uw_VPkpR-CNjQLHlG-16" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FEF3C7;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N010｜S15 销售基准线&lt;br&gt;Skill：S15｜蓝图：BP08/BP02/BP01&lt;br&gt;输入字段：HOT001,CTX003,ROOM009,DEM011,DEM007,OP005,OP006,OP007,…(+4)&lt;br&gt;输出字段：N010_OUT001 sales_baseline,N010_OUT002 hourly_target_curve,N010_OUT003 target_room_nights,N010_OUT004 baseline_confidence,N010_OUT005 historical_same_weekday_curve&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="150" width="390" x="480" y="915" as="geometry" />
+        </mxCell>
+        <mxCell id="_z1uw_VPkpR-CNjQLHlG-17" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FEF3C7;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N011｜S16 进度偏差诊断&lt;br&gt;Skill：S16｜蓝图：BP08/BP02/BP03&lt;br&gt;输入字段：HOT001,CTX003,OP008,OP014,DEM007,FNL017,N010_OUT001,N010_OUT002,…(+3)&lt;br&gt;输出字段：N011_OUT001 progress_status,N011_OUT002 room_night_gap,N011_OUT003 deviation_reasons,N011_OUT004 urgency_level,N011_OUT005 downstream_skill&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="150" width="390" x="480" y="1505" as="geometry" />
+        </mxCell>
+        <mxCell id="_z1uw_VPkpR-CNjQLHlG-21" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FCE7F3;strokeColor=#BE185D;fontSize=14;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N015｜S5 智能收益决策&lt;br&gt;Skill：S5｜蓝图：BP02/BP08/BP01/BP03/BP05/BP06&lt;br&gt;输入字段：CFG001,CFG002,CFG003,CFG004,CFG005,CFG006,CFG007,PR001,…(+29)&lt;br&gt;输出字段：N015_OUT001 revenue_decision,N015_OUT002 price_recommendations,N015_OUT003 approval_required,N015_OUT004 risk_warnings,N015_OUT005 price_confidence,…(+1)&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="330" width="690" x="500" y="1980" as="geometry" />
+        </mxCell>
+        <mxCell id="_z1uw_VPkpR-CNjQLHlG-22" edge="1" parent="1" source="_z1uw_VPkpR-CNjQLHlG-24" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="_z1uw_VPkpR-CNjQLHlG-26">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="_z1uw_VPkpR-CNjQLHlG-23" connectable="0" parent="_z1uw_VPkpR-CNjQLHlG-22" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="&lt;br&gt;&lt;table border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;264&quot; height=&quot;36&quot; style=&quot;border-collapse:collapse;width:132.03pt;&quot;&gt; &lt;colgroup&gt;&lt;col width=&quot;264&quot; style=&quot;width:132.00pt;&quot;&gt;&lt;/colgroup&gt; &lt;tbody&gt;&lt;tr height=&quot;36&quot; style=&quot;height:18.00pt;&quot;&gt;  &lt;td class=&quot;et2&quot; height=&quot;36&quot; width=&quot;264&quot; style=&quot;height:18.00pt;width:132.00pt;&quot;&gt;dry-run&lt;span class=&quot;font2&quot;&gt;、审批校验、执行结果都必须通过消息中台输出。&lt;/span&gt;&lt;/td&gt; &lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;" vertex="1">
+          <mxGeometry relative="1" x="0.0004" y="-3" as="geometry">
+            <mxPoint x="-1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_z1uw_VPkpR-CNjQLHlG-24" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#EDE9FE;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N016｜S6 房价同步执行&lt;br&gt;Skill：S6｜蓝图：BP02/BP10/BP07&lt;br&gt;输入字段：EXE001,PR011,CFG001,CFG002,CTX008,CFG005,CFG004,EXE005,…(+4)&lt;br&gt;输出字段：N016_OUT001 dry_run_preview,N016_OUT002 execution_result,N016_OUT003 blocked_reason,N016_OUT004 readback_check,N016_OUT005 rollback_or_review_task&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="120" width="360" x="1550" y="2230" as="geometry" />
+        </mxCell>
+        <mxCell id="_z1uw_VPkpR-CNjQLHlG-26" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#EDE9FE;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N018｜S3 消息中台&lt;br&gt;Skill：S3｜蓝图：BP00/BP10/BP11/BP07&lt;br&gt;输入字段：MSG005,MSG006,MSG007,EXE001,CTX008,MSG008,EXE009,N015_OUT001,…(+49)&lt;br&gt;输出字段：N018_OUT001 rendered_message,N018_OUT002 approval_card,N018_OUT003 notification_status,N018_OUT004 experience_event_candidate,N018_OUT005 frontdesk_task_card&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="150" width="390" x="2230" y="2050" as="geometry" />
+        </mxCell>
+        <mxCell id="_z1uw_VPkpR-CNjQLHlG-27" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F3F4F6;strokeColor=#334155;fontSize=12;fontColor=#0F172A;align=left;verticalAlign=top;spacing=8;" value="N019｜EXP-LAYER 经验进化&lt;br&gt;Skill：-｜蓝图：BP11&lt;br&gt;输入字段：EXP001,EXP002,EXP003,EXP004,EXP005,CTX003,EXP006,EXE007,…(+33)&lt;br&gt;输出字段：N019_OUT001 approved_case,N019_OUT002 rule_candidate,N019_OUT003 runtime_test_candidate,N019_OUT004 retrieved_experience_summary&lt;br&gt;V25：字段级IO已同步" vertex="1">
+          <mxGeometry height="150" width="390" x="3230" y="2060" as="geometry" />
+        </mxCell>
+        <mxCell id="_z1uw_VPkpR-CNjQLHlG-28" edge="1" parent="1" source="_z1uw_VPkpR-CNjQLHlG-6" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#2563EB;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="_z1uw_VPkpR-CNjQLHlG-7" value="E001｜direct_trigger&lt;br&gt;入口事件必须先经过总控路由，不能直接进入业务Skill。&lt;br&gt;蓝图:BP00">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="_z1uw_VPkpR-CNjQLHlG-29" edge="1" parent="1" source="_z1uw_VPkpR-CNjQLHlG-7" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="_z1uw_VPkpR-CNjQLHlG-8" value="E002｜chain_trigger&lt;br&gt;所有业务链路必须先验权；权限不是记忆或用户自称决定。&lt;br&gt;蓝图:BP00/BP10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="_z1uw_VPkpR-CNjQLHlG-30" edge="1" parent="1" source="_z1uw_VPkpR-CNjQLHlG-8" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="_z1uw_VPkpR-CNjQLHlG-9" value="E003｜chain_trigger&lt;br&gt;权限和配置通过后才能读取业务数据；读取前要检查字段需求。&lt;br&gt;蓝图:BP10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="_z1uw_VPkpR-CNjQLHlG-31" edge="1" parent="1" source="_z1uw_VPkpR-CNjQLHlG-9" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="_z1uw_VPkpR-CNjQLHlG-10" value="E004｜chain_trigger&lt;br&gt;经营/诊断/调价/基准线/峰谷都需要统一经营快照作为数…&lt;br&gt;蓝图:BP00/BP02/BP03/BP08/BP10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="_z1uw_VPkpR-CNjQLHlG-32" edge="1" parent="1" source="_z1uw_VPkpR-CNjQLHlG-9" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;exitX=0.695;exitY=0.994;exitDx=0;exitDy=0;exitPerimeter=0;" target="_z1uw_VPkpR-CNjQLHlG-11" value="E005｜chain_trigger&lt;br&gt;需求、行情、调价、活动和基准线需要需求指数。&lt;br&gt;蓝图:BP01">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="_z1uw_VPkpR-CNjQLHlG-35" edge="1" parent="1" source="_z1uw_VPkpR-CNjQLHlG-10" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="_z1uw_VPkpR-CNjQLHlG-15" value="E008｜chain_trigger&lt;br&gt;OTA健康诊断需要经营、库存、价格快照作为基础证据。&lt;br&gt;蓝图:BP03/BP04">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="_z1uw_VPkpR-CNjQLHlG-37" edge="1" parent="1" source="_z1uw_VPkpR-CNjQLHlG-10" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="_z1uw_VPkpR-CNjQLHlG-16" value="E010｜chain_trigger&lt;br&gt;销售基准线需要房量、历史指标和经营快照。&lt;br&gt;蓝图:BP08">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="_z1uw_VPkpR-CNjQLHlG-38" edge="1" parent="1" source="_z1uw_VPkpR-CNjQLHlG-16" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="_z1uw_VPkpR-CNjQLHlG-17" value="E011｜chain_trigger&lt;br&gt;有基准线后才能判断当前进度偏差。&lt;br&gt;蓝图:BP08">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="_z1uw_VPkpR-CNjQLHlG-39" edge="1" parent="1" source="_z1uw_VPkpR-CNjQLHlG-10" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="_z1uw_VPkpR-CNjQLHlG-17" value="E012｜chain_trigger&lt;br&gt;偏差诊断需要当前实际进度与基准线比较。&lt;br&gt;蓝图:BP08">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="_z1uw_VPkpR-CNjQLHlG-40" edge="1" parent="1" source="_z1uw_VPkpR-CNjQLHlG-11" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;entryX=1;entryY=0;entryDx=0;entryDy=0;" target="_z1uw_VPkpR-CNjQLHlG-21" value="E013｜chain_trigger&lt;br&gt;需求指数决定调价动作强度和策略保守程度。&lt;br&gt;蓝图:BP01/BP02">
+          <mxGeometry relative="1" x="-0.4883" y="7" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_z1uw_VPkpR-CNjQLHlG-42" edge="1" parent="1" source="_z1uw_VPkpR-CNjQLHlG-15" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="_z1uw_VPkpR-CNjQLHlG-21" value="E015｜chain_trigger&lt;br&gt;健康诊断和转化瓶颈决定是否先修转化、口碑或库存，再调价。&lt;br&gt;蓝图:BP03/BP04/BP02">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="_z1uw_VPkpR-CNjQLHlG-43" edge="1" parent="1" source="_z1uw_VPkpR-CNjQLHlG-17" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;" target="_z1uw_VPkpR-CNjQLHlG-21" value="E016｜chain_trigger&lt;br&gt;进度落后/超前会改变收益策略，比如补救、观察或涨价。&lt;br&gt;蓝图:BP08/BP02">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="_z1uw_VPkpR-CNjQLHlG-47" edge="1" parent="1" source="_z1uw_VPkpR-CNjQLHlG-21" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;exitX=1;exitY=1;exitDx=0;exitDy=0;" target="_z1uw_VPkpR-CNjQLHlG-24" value="E020｜chain_trigger&lt;br&gt;只有S5产出调价建议后，S6才允许做dry-run/审…&lt;br&gt;蓝图:BP02/BP10">
+          <mxGeometry relative="1" x="-0.0735" y="3" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_z1uw_VPkpR-CNjQLHlG-48" edge="1" parent="1" source="_z1uw_VPkpR-CNjQLHlG-21" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="_z1uw_VPkpR-CNjQLHlG-26" value="E021｜chain_trigger&lt;br&gt;不需要执行或执行被阻断时，直接把收益建议输出给用户。&lt;br&gt;蓝图:BP00/BP02">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="_z1uw_VPkpR-CNjQLHlG-50" edge="1" parent="1" source="_z1uw_VPkpR-CNjQLHlG-15" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#475569;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=0;" target="_z1uw_VPkpR-CNjQLHlG-26" value="E023｜chain_trigger&lt;br&gt;诊断结果需要生成老板/运营可读报告。&lt;br&gt;蓝图:BP03/BP07">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="_z1uw_VPkpR-CNjQLHlG-53" edge="1" parent="1" source="_z1uw_VPkpR-CNjQLHlG-26" style="edgeStyle=none;rounded=0;curved=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#9333EA;fontSize=10;fontColor=#111827;labelBackgroundColor=#FFFFFF;dashed=1;" target="_z1uw_VPkpR-CNjQLHlG-27" value="E026｜async_trigger&lt;br&gt;用户可见输出可形成脱敏复盘事件，但不阻塞业务主链路。&lt;br&gt;蓝图:BP11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="_z1uw_VPkpR-CNjQLHlG-59" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F8FAFC;strokeColor=#CBD5E1;fontSize=13;fontColor=#334155;align=left;spacing=8;" value="图例：蓝色 direct_trigger｜灰色 chain_trigger｜紫色虚线 async_trigger｜橙色虚线 optional/扩展分支。V19 只画主链路边，扩展边不再画进地图。" vertex="1">
+          <mxGeometry height="70" width="1100" x="440" y="2815" as="geometry" />
+        </mxCell>
+      <mxCell id="v26_archive_notice_p14" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F8FAFC;strokeColor=#94A3B8;fontSize=14;fontColor=#334155;spacing=8;align=left;verticalAlign=top;" value="此页为历史临时草稿归档页，不作为开发字段契约事实源。正式协作以P01-P13、V26 Excel和V26 JSON为准。" vertex="1"><mxGeometry x="80" y="80" width="900" height="120" as="geometry" /></mxCell></root>
+    </mxGraphModel>
+  </diagram>
+<diagram id="v26_repair_index" name="P15 V26修复索引"><mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1800" pageHeight="1200" math="0" shadow="0"><root><mxCell id="0" /><mxCell id="1" parent="0" /><mxCell id="v26_title" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0F172A;strokeColor=#0F172A;fontSize=22;fontColor=#FFFFFF;spacing=8;align=left;verticalAlign=top;" value="V26 修复索引｜蓝图字段 → 来源别名 → Skill/节点/边 IO → 开发验收" vertex="1"><mxGeometry x="60" y="40" width="1650" height="70" as="geometry" /></mxCell><mxCell id="v26_col1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EFF6FF;strokeColor=#3B82F6;fontSize=15;fontColor=#1E3A8A;spacing=8;align=left;verticalAlign=top;" value="一、字段事实源&#10;- 功能蓝图是算法字段最高事实源&#10;- 整体架构分析/数据列表是PMS/OTA/外部字段候选池&#10;- 当前项目仅作证据参考，不反向定义字段" vertex="1"><mxGeometry x="60" y="150" width="500" height="220" as="geometry" /></mxCell><mxCell id="v26_col2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0FDF4;strokeColor=#22C55E;fontSize=15;fontColor=#14532D;spacing=8;align=left;verticalAlign=top;" value="二、新增Excel视图&#10;20 蓝图字段原文抽取&#10;21 来源字段别名映射&#10;22 字段命名最终表&#10;23 按Skill开发输入输出&#10;24 字段缺失降级策略&#10;25 开发验收视图" vertex="1"><mxGeometry x="620" y="150" width="500" height="220" as="geometry" /></mxCell><mxCell id="v26_col3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FEF2F2;strokeColor=#EF4444;fontSize=15;fontColor=#7F1D1D;spacing=8;align=left;verticalAlign=top;" value="三、重点修复&#10;- 待命名字段&#10;- 错误data_type&#10;- 17核心Skill + S14-EXT扩展&#10;- E049/E052/E054/E060边标注&#10;- N022扩展诊断说明" vertex="1"><mxGeometry x="1180" y="150" width="500" height="220" as="geometry" /></mxCell><mxCell id="v26_col4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFBEB;strokeColor=#F59E0B;fontSize=15;fontColor=#78350F;spacing=8;align=left;verticalAlign=top;" value="四、开发验收&#10;每个字段必须能回答：&#10;1 蓝图为什么需要&#10;2 真实来源/别名是什么&#10;3 项目英文名是什么&#10;4 进入哪个节点&#10;5 输出给哪个下游&#10;6 缺失时如何降级/阻断" vertex="1"><mxGeometry x="60" y="430" width="780" height="300" as="geometry" /></mxCell><mxCell id="v26_col5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F3FF;strokeColor=#8B5CF6;fontSize=15;fontColor=#4C1D95;spacing=8;align=left;verticalAlign=top;" value="五、同步范围&#10;- V26 Excel：字段契约与开发视图&#10;- V26 JSON：结构化注册表和治理政策&#10;- V26 drawio：总图、字段治理页和修复索引&#10;注意：drawio主图不画全量蜘蛛网，完整边以03边注册表和场景页为准。" vertex="1"><mxGeometry x="900" y="430" width="780" height="300" as="geometry" /></mxCell></root></mxGraphModel></diagram></mxfile>

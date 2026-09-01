@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0",
+  "skill_id": "S12",
+  "algorithm_rules_ref": "runtime/algorithm_rules/reputation_rules.yaml",
+  "cases": [
+    {
+      "case_id": "s12_demo_preview",
+      "fixture": "examples/demo_data/nodes/N008.json",
+      "expected": {
+        "data_source_type": "demo_data",
+        "approval_data_allowed": false,
+        "live_allowed": false,
+        "status_in": [
+          "preview_only",
+          "dry_run",
+          "simulation_only",
+          "ok"
+        ]
+      }
+    },
+    {
+      "case_id": "s12_missing_hard_required",
+      "input": {
+        "hotel_id": "puyue-demo"
+      },
+      "expected": {
+        "allowed": false,
+        "reason": "missing_hard_required_fields"
+      }
+    }
+  ]
+}

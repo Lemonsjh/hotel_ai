@@ -1,0 +1,59 @@
+{
+  "contract_version": "pms_room_type_forecast_v1",
+  "skill_id": "S2",
+  "source_table": "pms_room_type_forecast",
+  "read_only": true,
+  "identity": {
+    "filter": "hotel_id = RequestContext.hotel_id",
+    "name_fallback": false
+  },
+  "time": {
+    "business_date": "stay_date",
+    "snapshot": "latest snapshot_time for hotel_id and stay_date",
+    "as_of_constraint": "snapshot_time <= as_of_datetime when supplied"
+  },
+  "required_columns": [
+    "hotel_id",
+    "stay_date",
+    "snapshot_time",
+    "room_type_id",
+    "total_rooms",
+    "available_rooms",
+    "overbooking_rooms"
+  ],
+  "optional_columns": [
+    "room_type_name",
+    "occupied_rooms",
+    "room_revenue",
+    "adr",
+    "revpar"
+  ],
+  "calculation": {
+    "base_committed_sold_rooms": "max(sum(total_rooms) - sum(available_rooms), 0)",
+    "committed_sold_rooms": "base_committed_sold_rooms + max(sum(overbooking_rooms), 0)",
+    "physical_occupied_rooms": "sum(occupied_rooms)",
+    "committed_occupancy_rate": "committed_sold_rooms / total_rooms"
+  },
+  "optional_readonly_views": {
+    "flow_conversion": {
+      "tables": ["meituan_ota_business_metrics", "ctrip_ota_business_metrics"],
+      "time": "the complete business date immediately before the S2 PMS target date; retain each platform business_date, snapshot and unit",
+      "rule": "vertical metrics are identified by metric_code and metric_unit; Meituan renders only FLOW_EXPOSURE_UV, FLOW_INTENTION_UV, FLOW_PAY_ORDER_CNT, FLOW_INTENTION_PER_EXPOSURE and FLOW_PAY_ORDER_PER_INTENTION, never their legacy aliases; never sum unlike metrics; distinguish no_records, missing platform, missing metric_code, and source/schema/query failure"
+    },
+    "market_competition": {
+      "tables": ["meituan_ota_business_metrics", "ctrip_ota_business_metrics", "ctrip_ota_competition_metrics_30d", "meituan_ota_order_loss_monthly", "ctrip_ota_order_loss_monthly"],
+      "time": "PMS target business_date for peer aggregates and lead-price metrics; monthly-loss sources retain their own period window",
+      "rule": "only peer_aggregate or loss_context; no exact room-type price gap without exact competitor products"
+    },
+    "price_and_lead": {
+      "tables": ["meituan_ota_goods_price_mapping", "ctrip_ota_goods_price_mapping", "meituan_ota_business_metrics", "ctrip_ota_business_metrics"],
+      "rule": "show own OTA products and hotel-level lead-price metrics only; Meituan lead price is ota_business_metrics.metric_code=DAY_ROOM_LOWEST_PRICE_AVG on the PMS target business_date; the Meituan table has no platform column, so table identity supplies the channel"
+    },
+    "promotion_activity": {
+      "tables": ["meituan_ota_promotion_activity", "ctrip_ota_promotion_activity", "meituan_ota_activity_product_detail", "ctrip_ota_activity_product_detail"],
+      "rule": "show activity and canonical room-type mapping coverage; missing mappings remain visible; a truncated product retrieval is a lower-bound count, never an assertion that no activity exists"
+    }
+  },
+  "orchestration": "PMS core is required. Optional views are independent read-only queries run in parallel; S2 does not invoke S5/S6/S8/S13 or create actions.",
+  "fallback": "data_gap; kf11_room_status_snapshot and daily settlement tables are not S2 fallbacks"
+}

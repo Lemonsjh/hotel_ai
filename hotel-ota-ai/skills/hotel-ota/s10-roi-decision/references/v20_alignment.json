@@ -1,0 +1,57 @@
+{
+  "schema_version": "0.1",
+  "skill_id": "S10",
+  "skill_dir": "s10-roi-decision",
+  "node_id": "N013",
+  "node_name": "S10 ROI 决策",
+  "agent_id": "A3",
+  "phase": "P2",
+  "node_registry_ref": "architecture/node_registry.json",
+  "edge_registry_ref": "architecture/edge_registry.json",
+  "scenario_registry_ref": "architecture/scenario_chain_registry.json",
+  "field_registry_ref": "contracts/field_registry.yaml",
+  "node_io_contract_ref": "contracts/node_io_contract.yaml",
+  "algorithm_rules_ref": "runtime/algorithm_rules/roi_rules.yaml",
+  "demo_node_fixture": "examples/demo_data/nodes/N013.json",
+  "demo_scenarios": [
+    "SC03",
+    "SC06"
+  ],
+  "upstream_edges": [
+    {
+      "edge_id": "E036",
+      "source_node_id": "N012",
+      "why": "推广计划涉及预算和收益时，需要 ROI 决策补充。"
+    }
+  ],
+  "downstream_edges": [
+    {
+      "edge_id": "E018",
+      "target_node_id": "N015",
+      "why": "ROI或利润模拟是收益最大化策略的增强输入。"
+    },
+    {
+      "edge_id": "E038",
+      "target_node_id": "N021",
+      "why": "ROI 决策为执行推广提供保留、降低、暂停或调整依据。"
+    },
+    {
+      "edge_id": "E054",
+      "target_node_id": "N018",
+      "why": "用户只问 ROI/利润模拟时，ROI 决策结果直接输出。"
+    }
+  ],
+  "forbidden_actions": [
+    "treat_demo_data_as_real_today_data",
+    "create_formal_approval_from_demo_or_stale_data",
+    "bypass_data_gate_or_approval_guard"
+  ],
+  "demo_safety": {
+    "data_source_type": "demo_data",
+    "freshness_status": "demo_data",
+    "business_status": "demo_or_historical",
+    "today_label_allowed": false,
+    "approval_data_allowed": false,
+    "live_allowed": false
+  }
+}

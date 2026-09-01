@@ -1,0 +1,169 @@
+{
+  "schema_version": "s13-review-reply.rules.v2",
+  "owner_skill": "S13",
+  "status": "implemented",
+  "placement": "runtime/algorithm_rules",
+  "source_refs": {
+    "authority": "contracts/s13_review_reply_contract.json",
+    "architecture": "architecture/s13_review_reply_runtime.json",
+    "skill": "skills/hotel-ota/s13-review-reply/SKILL.md",
+    "input_schema": "skills/hotel-ota/s13-review-reply/references/input_schema.json",
+    "output_schema": "skills/hotel-ota/s13-review-reply/references/output_schema.json",
+    "rules": "skills/hotel-ota/s13-review-reply/references/rules.md"
+  },
+  "data_gate": {
+    "locator": "opaque_review_ref_from_S12",
+    "server_resolved_fields": [
+      "hotel_id",
+      "platform",
+      "review_id",
+      "source_snapshot",
+      "star_rating",
+      "review_content",
+      "is_replied"
+    ],
+    "forbidden_direct_inputs": [
+      "review_id",
+      "review_content",
+      "platform",
+      "channel_source",
+      "guest_name",
+      "order_id",
+      "room_no",
+      "draft_version",
+      "content_hash"
+    ],
+    "pure_rating_policy": "review_content_null_is_valid",
+    "image_text_policy": "not_used_in_v1"
+  },
+  "permissions": {
+    "allowed_roles": ["owner", "operator"],
+    "blocked_roles": ["viewer", "frontdesk", "admin", "guest"],
+    "permission_names": [
+      "review_reply_list",
+      "review_reply_draft",
+      "review_reply_confirm",
+      "review_reply_status",
+      "review_reply_retry"
+    ]
+  },
+  "algorithm": {
+    "objective": "Generate a safe versioned reply candidate and submit only an exact confirmed Meituan task.",
+    "ordered_steps": [
+      {
+        "step_id": "s13_01",
+        "action": "Resolve opaque review ref under the current RequestContext and re-read the exact source record."
+      },
+      {
+        "step_id": "s13_02",
+        "action": "Check unreplied state, ref expiry, source digest, permission, active task conflict and deterministic escalation rules."
+      },
+      {
+        "step_id": "s13_03",
+        "action": "For review_content=NULL generate a deterministic rating-only draft without inventing comment text."
+      },
+      {
+        "step_id": "s13_04",
+        "action": "For ordinary non-empty text, redact PII and generate a validated candidate with deterministic fallback."
+      },
+      {
+        "step_id": "s13_05",
+        "action": "Assign draft_version and content_hash; every regeneration or edit invalidates previous confirmation."
+      },
+      {
+        "step_id": "s13_06",
+        "action": "User sends only REQ; server validates sealed version/hash, expiry, identity and latest draft."
+      },
+      {
+        "step_id": "s13_07",
+        "action": "On exact confirmation, permit fixed DML only for approved platform/channel pairs: meituan/meituan or dianping/dianping."
+      },
+      {
+        "step_id": "s13_08",
+        "action": "Require affected_rows=1 and exact pending readback before reporting task submission."
+      },
+      {
+        "step_id": "s13_09",
+        "action": "For failed/cancelled tasks, require new draft, new confirmation and compare-and-set UPDATE followed by pending readback."
+      },
+      {
+        "step_id": "s13_10",
+        "action": "Use an idempotency key and reconcile duplicate or uncertain writes through exact task readback."
+      },
+      {
+        "step_id": "s13_11",
+        "action": "Observe provider task status without claiming public OTA page verification."
+      }
+    ],
+    "candidate_output_contract": [
+      "draft",
+      "tone",
+      "acknowledged_topics",
+      "risk_flags",
+      "requires_human_escalation"
+    ],
+    "write_contract": {
+      "table": "ota_review_reply_task",
+      "allowed_platforms": ["meituan", "dianping"],
+      "allowed_channel_sources": ["meituan", "dianping"],
+      "insert_status": "pending",
+      "nullable_review_content": true,
+      "required_write_evidence": [
+        "affected_rows=1",
+        "pending_readback_verified=true",
+        "idempotency_verified=true",
+        "reconciliation_status=verified|recovered"
+      ],
+      "other_platform_behavior": "copy_only"
+    },
+    "retry_contract": {
+      "allowed_old_statuses": ["failed", "cancelled"],
+      "mode": "compare_and_set_update",
+      "where_must_include": [
+        "primary_key",
+        "exact_hotel_id",
+        "exact approved platform",
+        "exact approved channel_source",
+        "review_id",
+        "old_status",
+        "old_reply_content",
+        "old_created_at"
+      ],
+      "required_postcondition": "exact_pending_readback"
+    }
+  },
+  "forbidden_actions": [
+    "accept_direct_review_id_or_review_content_as_locator",
+    "reject_rating_only_review_because_review_content_is_null",
+    "write_unapproved_platform_review_task",
+    "blind_reinsert_on_unique_conflict",
+    "overwrite_pending_processing_or_success_task",
+    "claim_public_reply_success_from_task_success",
+    "generate_automatic_compensation_or_private_message",
+    "use_v27_or_openclaw_or_n017_a4_semantics",
+    "grant_s13_through_admin_or_guest_role",
+    "execute_s13_command_twice_in_safe_router"
+  ],
+  "executed_by_runtime": [
+    "runtime/s12_review_refs.py",
+    "runtime/s13/repository.py",
+    "runtime/s13/source.py",
+    "runtime/s13/task_outbox.py",
+    "runtime/s13/policy.py",
+    "runtime/s13/service.py",
+    "runtime/s13/cli.py",
+    "runtime/s13/feishu.py",
+    "runtime/s13_runtime_patch.py"
+  ],
+  "runtime_commands": [
+    "review-reply-list",
+    "review-reply-draft",
+    "review-reply-preview",
+    "review-reply-confirm",
+    "review-reply-reject",
+    "review-reply-cancel",
+    "review-reply-status",
+    "review-reply-retry"
+  ],
+  "runtime_execution_status": "implemented_and_unit_tested"
+}

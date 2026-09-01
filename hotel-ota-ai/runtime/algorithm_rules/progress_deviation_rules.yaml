@@ -1,0 +1,82 @@
+{
+  "schema_version": "2.0",
+  "owner_skill": "S16",
+  "status": "implemented",
+  "placement": "runtime/sales_progress",
+  "formula_version": "sales-progress.real-field.v1",
+  "policy_version": "s16-deviation.v1",
+  "dependency_boundary": {
+    "depends_on_skill_outputs": [],
+    "consumes_internal_s15_contract": true,
+    "does_not_depend_on": ["S2", "S5", "S14"],
+    "database_mapping_config_used": false,
+    "business_database_write_allowed": false
+  },
+  "current_fact": {
+    "table": "pms_room_type_forecast",
+    "fields": [
+      "hotel_id", "stay_date", "snapshot_time", "room_type_id",
+      "pms_room_type_id", "total_rooms", "available_rooms",
+      "occupied_rooms", "overbooking_rooms", "room_revenue", "adr", "revpar"
+    ],
+    "actual_formula": "max(total_rooms - available_rooms + overbooking_rooms, 0)",
+    "occupied_rooms_role": "physical_occupancy_background_only"
+  },
+  "comparisons": [
+    "hotel_capacity_line",
+    "hotel_target_completion_line",
+    "room_type_capacity_line",
+    "room_type_target_completion_line"
+  ],
+  "formulas": {
+    "actual_capacity_progress": "actual_committed_sold / total_rooms",
+    "capacity_progress_delta_pp": "(actual_capacity_progress - historical_capacity_median) * 100",
+    "capacity_expected_sold": "total_rooms * historical_capacity_median",
+    "capacity_room_gap": "actual_committed_sold - capacity_expected_sold",
+    "actual_target_completion": "actual_committed_sold / effective_target_room_nights",
+    "expected_sold_at_hour": "effective_target_room_nights * historical_target_completion_median",
+    "sales_progress_delta_pp": "(actual_target_completion - historical_target_completion_median) * 100",
+    "checkpoint_room_gap": "actual_committed_sold - expected_sold_at_hour",
+    "remaining_target_gap": "effective_target_room_nights - actual_committed_sold"
+  },
+  "thresholds_pp": {
+    "severe_slow": "delta <= -25",
+    "significant_slow": "-25 < delta <= -15",
+    "slow": "-15 < delta < -8",
+    "normal": "-8 <= delta < 8",
+    "fast": "8 <= delta < 15",
+    "significant_fast": "delta >= 15"
+  },
+  "combined_diagnosis": {
+    "target_slow_and_capacity_slow": "genuine_sales_lag",
+    "target_slow_and_capacity_normal_or_fast": "ambitious_target_gap",
+    "target_normal_or_fast_and_capacity_slow": "conservative_target_on_track",
+    "both_normal_or_fast": "on_track_or_ahead",
+    "one_line_unavailable": "partial_single_line"
+  },
+  "room_structure": {
+    "slow_threshold_pp": -8,
+    "fast_threshold_pp": 8,
+    "broad_based_slowdown": "hotel_slow and slow_target_share >= 0.50",
+    "room_type_structural_lag": "hotel_normal and room_target_share >= 0.15 and room_significantly_slow",
+    "mix_offset_detected": "hotel_normal and slow_and_fast_room_types_coexist"
+  },
+  "scope_rules": {
+    "future_stay_date": "not_applicable_without_lead_time_baseline",
+    "historical_stay_date": "requires_hourly_replay",
+    "partial_room_scope": "preserve_available_lines_and_mark_partial",
+    "hotel_room_gap_reconciliation": "only_when_room_scope_and_targets_are_complete"
+  },
+  "forbidden_actions": [
+    "derive_current_actual_from_jd01_jd04_kf11",
+    "use_occupied_rooms_as_committed_sold",
+    "infer_price_action_inside_s16",
+    "average_capacity_and_target_lines_into_one_score",
+    "replace_missing_values_with_zero"
+  ],
+  "executed_by_runtime": [
+    "runtime/sales_progress/deviation_service.py",
+    "runtime/decisions/deviation.py"
+  ],
+  "runtime_execution_status": "executed"
+}

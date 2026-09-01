@@ -1,0 +1,86 @@
+{
+  "schema_version": "0.1",
+  "skill_id": "S14",
+  "skill_dir": "s14-operation-diagnosis",
+  "node_id": "N009",
+  "node_name": "S14 酒店运营诊断",
+  "agent_id": "A2",
+  "phase": "P0",
+  "node_registry_ref": "architecture/node_registry.json",
+  "edge_registry_ref": "architecture/edge_registry.json",
+  "scenario_registry_ref": "architecture/scenario_chain_registry.json",
+  "field_registry_ref": "contracts/field_registry.yaml",
+  "node_io_contract_ref": "contracts/node_io_contract.yaml",
+  "algorithm_rules_ref": "runtime/algorithm_rules/operation_diagnosis_rules.yaml",
+  "demo_node_fixture": "examples/demo_data/nodes/N009.json",
+  "demo_scenarios": [
+    "SC02",
+    "SC03",
+    "SC05",
+    "SC06",
+    "SC07",
+    "SC09"
+  ],
+  "upstream_edges": [
+    {
+      "edge_id": "E008",
+      "source_node_id": "N005",
+      "why": "OTA健康诊断需要经营、库存、价格快照作为基础证据。"
+    },
+    {
+      "edge_id": "E009",
+      "source_node_id": "N008",
+      "why": "口碑结果会影响 OTA 健康分和诊断动作。"
+    },
+    {
+      "edge_id": "E032",
+      "source_node_id": "N020",
+      "why": "峰谷异常和转化异常需要回流到运营诊断，避免只靠调价解决。"
+    },
+    {
+      "edge_id": "E062",
+      "source_node_id": "N007",
+      "why": "竞对排名、评分和价格变化会影响 OTA 健康诊断中的竞态维度。"
+    },
+    {
+      "edge_id": "E063",
+      "source_node_id": "N006",
+      "why": "需求环境影响诊断结论解释，避免把外部行情误判为酒店自身问题。"
+    }
+  ],
+  "downstream_edges": [
+    {
+      "edge_id": "E015",
+      "target_node_id": "N015",
+      "why": "健康诊断和转化瓶颈决定是否先修转化、口碑或库存，再调价。"
+    },
+    {
+      "edge_id": "E023",
+      "target_node_id": "N018",
+      "why": "诊断结果需要生成老板/运营可读报告。"
+    },
+    {
+      "edge_id": "E058",
+      "target_node_id": "N012",
+      "why": "诊断弱项和转化瓶颈会影响活动/推广建议，避免用推广掩盖内容或转化问题。"
+    },
+    {
+      "edge_id": "E064",
+      "target_node_id": "N019",
+      "why": "诊断结论、弱项和整改动作可脱敏沉淀为运营案例和测试候选。"
+    }
+  ],
+  "forbidden_actions": [
+    "treat_demo_data_as_real_today_data",
+    "create_formal_approval_from_demo_or_stale_data",
+    "bypass_data_gate_or_approval_guard"
+  ],
+  "demo_safety": {
+    "data_source_type": "demo_data",
+    "freshness_status": "demo_data",
+    "business_status": "demo_or_historical",
+    "today_label_allowed": false,
+    "approval_data_allowed": false,
+    "live_allowed": false
+  }
+}

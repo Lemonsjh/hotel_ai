@@ -1,0 +1,984 @@
+{
+  "schema_version": "v26.0",
+  "edge_count": 67,
+  "edges": [
+    {
+      "edge_id": "E001",
+      "source_node_id": "N001",
+      "target_node_id": "N002",
+      "trigger_type": "direct_trigger",
+      "why": "入口事件必须先经过总控路由，不能直接进入业务 Skill。",
+      "payload": [
+        "raw_context",
+        "intent_candidate"
+      ],
+      "blueprint": "BP00",
+      "source_output_mapping_required": true,
+      "target_input_mapping_required": true
+    },
+    {
+      "edge_id": "E002",
+      "source_node_id": "N002",
+      "target_node_id": "N003",
+      "trigger_type": "chain_trigger",
+      "why": "所有业务链路必须先验权；权限不是记忆或用户自称决定。",
+      "payload": [
+        "required_skill_chain",
+        "scenario_id",
+        "agent_plan"
+      ],
+      "blueprint": "BP00/BP10",
+      "source_output_mapping_required": true,
+      "target_input_mapping_required": true
+    },
+    {
+      "edge_id": "E003",
+      "source_node_id": "N003",
+      "target_node_id": "N004",
+      "trigger_type": "chain_trigger",
+      "why": "权限和配置通过后才能读取业务数据；读取前要检查字段需求。",
+      "payload": [
+        "allowed_actions",
+        "required_field_packages",
+        "execution_boundary"
+      ],
+      "blueprint": "BP10",
+      "source_output_mapping_required": true,
+      "target_input_mapping_required": true
+    },
+    {
+      "edge_id": "E004",
+      "source_node_id": "N004",
+      "target_node_id": "N005",
+      "trigger_type": "chain_trigger",
+      "why": "经营/诊断/调价/基准线/峰谷都需要统一经营快照作为数据底座。",
+      "payload": [
+        "data_gate_result + ROOM/OP/PR字段包"
+      ],
+      "blueprint": "BP00/BP02/BP03/BP08/BP10",
+      "source_output_mapping_required": true,
+      "target_input_mapping_required": true
+    },
+    {
+      "edge_id": "E005",
+      "source_node_id": "N004",
+      "target_node_id": "N006",
+      "trigger_type": "chain_trigger",
+      "why": "需求、行情、调价、活动和基准线需要需求指数。",
+      "payload": [
+        "DEM/FNL/ROOM/OP字段包"
+      ],
+      "blueprint": "BP01",
+      "source_output_mapping_required": true,
+      "target_input_mapping_required": true
+    },
+    {
+      "edge_id": "E006",
+      "source_node_id": "N004",
+      "target_node_id": "N007",
+      "trigger_type": "direct_or_chain",
+      "why": "用户问竞对时直接触发；调价/活动需要竞对参考时链路触发。",
+      "payload": [
+        "CMP/PR/DEM字段包"
+      ],
+      "blueprint": "BP06",
+      "source_output_mapping_required": true,
+      "target_input_mapping_required": true
+    },
+    {
+      "edge_id": "E007",
+      "source_node_id": "N004",
+      "target_node_id": "N008",
+      "trigger_type": "direct_or_chain",
+      "why": "用户问口碑时直接触发；诊断需要口碑维度时链路触发。",
+      "payload": [
+        "REP字段包"
+      ],
+      "blueprint": "BP09/BP03",
+      "source_output_mapping_required": true,
+      "target_input_mapping_required": true
+    },
+    {
+      "edge_id": "E008",
+      "source_node_id": "N005",
+      "target_node_id": "N009",
+      "trigger_type": "chain_trigger",
+      "why": "OTA健康诊断需要经营、库存、价格快照作为基础证据。",
+      "payload": [
+        "operating_snapshot",
+        "inventory_snapshot",
+        "price_snapshot"
+      ],
+      "blueprint": "BP03/BP04",
+      "source_output_mapping_required": true,
+      "target_input_mapping_required": true
+    },
+    {
+      "edge_id": "E009",
+      "source_node_id": "N008",
+      "target_node_id": "N009",
+      "trigger_type": "chain_trigger",
+      "why": "口碑结果会影响 OTA 健康分和诊断动作。",
+      "payload": [
+        "reputation_result",
+        "health_score_impact"
+      ],
+      "blueprint": "BP09/BP03",
+      "source_output_mapping_required": true,
+      "target_input_mapping_required": true
+    },
+    {
+      "edge_id": "E010",
+      "source_node_id": "N005",
+      "target_node_id": "N010",
+      "trigger_type": "chain_trigger",
+      "why": "销售基准线需要房量、历史指标和经营快照。",
+      "payload": [
+        "operating_snapshot + historical metrics"
+      ],
+      "blueprint": "BP08",
+      "source_output_mapping_required": true,
+      "target_input_mapping_required": true
+    },
+    {
+      "edge_id": "E011",
+      "source_node_id": "N010",
+      "target_node_id": "N011",
+      "trigger_type": "chain_trigger",
+      "why": "有基准线后才能判断当前进度偏差。",
+      "payload": [
+        "sales_baseline",
+        "hourly_target_curve"
+      ],
+      "blueprint": "BP08",
+      "source_output_mapping_required": true,
+      "target_input_mapping_required": true
+    },
+    {
+      "edge_id": "E012",
+      "source_node_id": "N005",
+      "target_node_id": "N011",
+      "trigger_type": "chain_trigger",
+      "why": "偏差诊断需要当前实际进度与基准线比较。",
+      "payload": [
+        "operating_snapshot",
+        "room_nights",
+        "sold_rooms"
+      ],
+      "blueprint": "BP08",
+      "source_output_mapping_required": true,
+      "target_input_mapping_required": true
+    },
+    {
+      "edge_id": "E013",
+      "source_node_id": "N006",
+      "target_node_id": "N015",
+      "trigger_type": "chain_trigger",
+      "why": "需求指数决定调价动作强度和策略保守程度。",
+      "payload": [
+        "demand_index",
+        "demand_level",
+        "action_strength"
+      ],
+      "blueprint": "BP01/BP02",
+      "source_output_mapping_required": true,
+      "target_input_mapping_required": true
+    },
+    {
+      "edge_id": "E014",
+      "source_node_id": "N007",
+      "target_node_id": "N015",
+      "trigger_type": "chain_trigger",
+      "why": "竞对只作为收益决策参考，不允许直接进入执行。",
+      "payload": [
+        "competitor_context",
+        "warning_level"
+      ],
+      "blueprint": "BP06/BP02",
+      "source_output_mapping_required": true,
+      "target_input_mapping_required": true
+    },
+    {
+      "edge_id": "E015",
+      "source_node_id": "N009",
+      "target_node_id": "N015",
+      "trigger_type": "chain_trigger",
+      "why": "健康诊断和转化瓶颈决定是否先修转化、口碑或库存，再调价。",
+      "payload": [
+        "ota_health_score",
+        "conversion_bottleneck",
+        "diagnosis_actions"
+      ],
+      "blueprint": "BP03/BP04/BP02",
+      "source_output_mapping_required": true,
+      "target_input_mapping_required": true
+    },
+    {
+      "edge_id": "E016",
+      "source_node_id": "N011",
+      "target_node_id": "N015",
+      "trigger_type": "chain_trigger",
+      "why": "进度落后/超前会改变收益策略，比如补救、观察或涨价。",
+      "payload": [
+        "progress_status",
+        "deviation_reasons"
+      ],
+      "blueprint": "BP08/BP02",
+      "source_output_mapping_required": true,
+      "target_input_mapping_required": true
+    },
+    {
+      "edge_id": "E017",
+      "source_node_id": "N012",
+      "target_node_id": "N015",
+      "trigger_type": "chain_trigger",
+      "why": "活动可能替代直接降价，也可能影响到手价和底价安全。",
+      "payload": [
+        "activity_plan",
+        "activity_risks",
+        "promotion_plan"
+      ],
+      "blueprint": "BP05/BP02",
+      "source_output_mapping_required": true,
+      "target_input_mapping_required": true
+    },
+    {
+      "edge_id": "E018",
+      "source_node_id": "N013",
+      "target_node_id": "N015",
+      "trigger_type": "chain_trigger",
+      "why": "ROI或利润模拟是收益最大化策略的增强输入。",
+      "payload": [
+        "promotion_roi",
+        "profit_simulation"
+      ],
+      "blueprint": "BP08",
+      "source_output_mapping_required": true,
+      "target_input_mapping_required": true
+    },
+    {
+      "edge_id": "E019",
+      "source_node_id": "N014",
+      "target_node_id": "N015",
+      "trigger_type": "chain_trigger",
+      "why": "客户结构可作为收益策略和任务建议参考，但不能阻断 P0/P1。",
+      "payload": [
+        "customer_segments",
+        "loss_risk_alert"
+      ],
+      "blueprint": "BP08/BP09",
+      "source_output_mapping_required": true,
+      "target_input_mapping_required": true
+    },
+    {
+      "edge_id": "E020",
+      "source_node_id": "N015",
+      "target_node_id": "N016",
+      "trigger_type": "chain_trigger",
+      "why": "只有 S5 产出调价建议后，S6 才允许做 dry-run/审批/执行边界。",
+      "payload": [
+        "price_recommendations",
+        "approval_required"
+      ],
+      "blueprint": "BP02/BP10",
+      "source_output_mapping_required": true,
+      "target_input_mapping_required": true
+    },
+    {
+      "edge_id": "E021",
+      "source_node_id": "N015",
+      "target_node_id": "N018",
+      "trigger_type": "chain_trigger",
+      "why": "不需要执行或执行被阻断时，直接把收益建议输出给用户。",
+      "payload": [
+        "revenue_decision",
+        "risk_warnings"
+      ],
+      "blueprint": "BP00/BP02",
+      "source_output_mapping_required": true,
+      "target_input_mapping_required": true
+    },
+    {
+      "edge_id": "E022",
+      "source_node_id": "N016",
+      "target_node_id": "N018",
+      "trigger_type": "chain_trigger",
+      "why": "dry-run、审批校验、执行结果都必须通过消息中台输出。",
+      "payload": [
+        "dry_run_preview",
+        "execution_result",
+        "blocked_reason"
+      ],
+      "blueprint": "BP00/BP02/BP10",
+      "source_output_mapping_required": true,
+      "target_input_mapping_required": true
+    },
+    {
+      "edge_id": "E023",
+      "source_node_id": "N009",
+      "target_node_id": "N018",
+      "trigger_type": "chain_trigger",
+      "why": "诊断结果需要生成老板/运营可读报告。",
+      "payload": [
+        "weak_items",
+        "diagnosis_actions",
+        "ab_tasks"
+      ],
+      "blueprint": "BP03/BP07",
+      "source_output_mapping_required": true,
+      "target_input_mapping_required": true
+    },
+    {
+      "edge_id": "E024",
+      "source_node_id": "N012",
+      "target_node_id": "N018",
+      "trigger_type": "chain_trigger",
+      "why": "活动/推广建议需要输出风险、预算和执行建议。",
+      "payload": [
+        "activity_plan",
+        "promotion_plan",
+        "activity_risks"
+      ],
+      "blueprint": "BP05",
+      "source_output_mapping_required": true,
+      "target_input_mapping_required": true
+    },
+    {
+      "edge_id": "E025",
+      "source_node_id": "N017",
+      "target_node_id": "N018",
+      "trigger_type": "chain_trigger",
+      "why": "评论回复草稿和补偿建议需要人工确认后输出。",
+      "payload": [
+        "reply_draft",
+        "compensation_suggestion"
+      ],
+      "blueprint": "BP09",
+      "source_output_mapping_required": true,
+      "target_input_mapping_required": true
+    },
+    {
+      "edge_id": "E026",
+      "source_node_id": "N018",
+      "target_node_id": "N019",
+      "trigger_type": "async_trigger",
+      "why": "用户可见输出可形成脱敏复盘事件，但不阻塞业务主链路。",
+      "payload": [
+        "experience_event_candidate"
+      ],
+      "blueprint": "BP11",
+      "source_output_mapping_required": true,
+      "target_input_mapping_required": true
+    },
+    {
+      "edge_id": "E027",
+      "source_node_id": "N015",
+      "target_node_id": "N019",
+      "trigger_type": "async_trigger",
+      "why": "收益决策过程可用于后续运营复盘和规则候选。",
+      "payload": [
+        "revenue_decision",
+        "risk_warnings"
+      ],
+      "blueprint": "BP11",
+      "source_output_mapping_required": true,
+      "target_input_mapping_required": true
+    },
+    {
+      "edge_id": "E028",
+      "source_node_id": "N016",
+      "target_node_id": "N019",
+      "trigger_type": "async_trigger",
+      "why": "dry-run 和执行结果是最重要的经验沉淀来源。",
+      "payload": [
+        "dry_run_preview",
+        "execution_result"
+      ],
+      "blueprint": "BP11",
+      "source_output_mapping_required": true,
+      "target_input_mapping_required": true
+    },
+    {
+      "edge_id": "E029",
+      "source_node_id": "N019",
+      "target_node_id": "N018",
+      "trigger_type": "chain_trigger",
+      "why": "用户询问历史经验或复盘结论时，经验层只提供脱敏摘要给消息中台。",
+      "payload": [
+        "retrieved_experience_summary"
+      ],
+      "blueprint": "BP11/BP00",
+      "source_output_mapping_required": true,
+      "target_input_mapping_required": true
+    },
+    {
+      "edge_id": "E030",
+      "source_node_id": "N005",
+      "target_node_id": "N020",
+      "trigger_type": "chain_trigger",
+      "why": "流量峰谷必须基于当前经营、订单、曝光/浏览/支付转化快照。",
+      "payload": [
+        "operating_snapshot",
+        "exposure",
+        "views",
+        "paid_orders"
+      ],
+      "blueprint": "BP01/BP04",
+      "source_output_mapping_required": true,
+      "target_input_mapping_required": true
+    },
+    {
+      "edge_id": "E031",
+      "source_node_id": "N010",
+      "target_node_id": "N020",
+      "trigger_type": "chain_trigger",
+      "why": "小时峰谷需要和销售基准线/上周同小时曲线比较。",
+      "payload": [
+        "hourly_target_curve",
+        "historical_same_weekday_curve"
+      ],
+      "blueprint": "BP01/BP08",
+      "source_output_mapping_required": true,
+      "target_input_mapping_required": true
+    },
+    {
+      "edge_id": "E032",
+      "source_node_id": "N020",
+      "target_node_id": "N009",
+      "trigger_type": "chain_trigger",
+      "why": "峰谷异常和转化异常需要回流到运营诊断，避免只靠调价解决。",
+      "payload": [
+        "traffic_state",
+        "peak_valley_evidence",
+        "conversion_signal"
+      ],
+      "blueprint": "BP04/BP03",
+      "source_output_mapping_required": true,
+      "target_input_mapping_required": true
+    },
+    {
+      "edge_id": "E033",
+      "source_node_id": "N020",
+      "target_node_id": "N012",
+      "trigger_type": "chain_trigger",
+      "why": "低谷时段和流量缺口决定推广投放窗口与预算建议。",
+      "payload": [
+        "traffic_state",
+        "time_windows",
+        "hourly_demand_index"
+      ],
+      "blueprint": "BP01/BP05",
+      "source_output_mapping_required": true,
+      "target_input_mapping_required": true
+    },
+    {
+      "edge_id": "E034",
+      "source_node_id": "N020",
+      "target_node_id": "N015",
+      "trigger_type": "chain_trigger",
+      "why": "小时级需求和进单节奏会影响调价时点和动作强度。",
+      "payload": [
+        "traffic_state",
+        "hourly_demand_index",
+        "recommended_actions"
+      ],
+      "blueprint": "BP01/BP02",
+      "source_output_mapping_required": true,
+      "target_input_mapping_required": true
+    },
+    {
+      "edge_id": "E035",
+      "source_node_id": "N015",
+      "target_node_id": "N012",
+      "trigger_type": "optional_chain",
+      "why": "收益决策发现降价不合适或转化风险高时，可改用活动/推广候选动作。",
+      "payload": [
+        "revenue_decision",
+        "risk_warnings",
+        "alternative_action_needed"
+      ],
+      "blueprint": "BP02/BP05",
+      "source_output_mapping_required": true,
+      "target_input_mapping_required": true
+    },
+    {
+      "edge_id": "E036",
+      "source_node_id": "N012",
+      "target_node_id": "N013",
+      "trigger_type": "chain_trigger",
+      "why": "推广计划涉及预算和收益时，需要 ROI 决策补充。",
+      "payload": [
+        "promotion_plan",
+        "budget_range",
+        "expected_return"
+      ],
+      "blueprint": "BP05/BP08",
+      "source_output_mapping_required": true,
+      "target_input_mapping_required": true
+    },
+    {
+      "edge_id": "E037",
+      "source_node_id": "N012",
+      "target_node_id": "N021",
+      "trigger_type": "chain_trigger",
+      "why": "只有推广计划产出可执行动作后，S11 才允许生成 dry-run/任务/审批执行。",
+      "payload": [
+        "promotion_action",
+        "budget_range",
+        "time_windows",
+        "approval_required"
+      ],
+      "blueprint": "BP05/BP07/BP10",
+      "source_output_mapping_required": true,
+      "target_input_mapping_required": true
+    },
+    {
+      "edge_id": "E038",
+      "source_node_id": "N013",
+      "target_node_id": "N021",
+      "trigger_type": "chain_trigger",
+      "why": "ROI 决策为执行推广提供保留、降低、暂停或调整依据。",
+      "payload": [
+        "roi_decision",
+        "profit_simulation",
+        "data_gaps"
+      ],
+      "blueprint": "BP08/BP05",
+      "source_output_mapping_required": true,
+      "target_input_mapping_required": true
+    },
+    {
+      "edge_id": "E039",
+      "source_node_id": "N021",
+      "target_node_id": "N018",
+      "trigger_type": "chain_trigger",
+      "why": "推广执行任务、阻断原因、复核清单必须通过消息中台输出。",
+      "payload": [
+        "promotion_execution_task",
+        "execution_status",
+        "verification_checklist"
+      ],
+      "blueprint": "BP00/BP05/BP10",
+      "source_output_mapping_required": true,
+      "target_input_mapping_required": true
+    },
+    {
+      "edge_id": "E040",
+      "source_node_id": "N021",
+      "target_node_id": "N019",
+      "trigger_type": "async_trigger",
+      "why": "推广执行结果和复核数据进入脱敏复盘，用于后续规则候选。",
+      "payload": [
+        "execution_status",
+        "verification_checklist",
+        "blocked_reason"
+      ],
+      "blueprint": "BP11",
+      "source_output_mapping_required": true,
+      "target_input_mapping_required": true
+    },
+    {
+      "edge_id": "E041",
+      "source_node_id": "N011",
+      "target_node_id": "N012",
+      "trigger_type": "chain_trigger",
+      "why": "进度落后但不宜立即降价时，可触发推广/活动候选。",
+      "payload": [
+        "progress_status",
+        "deviation_reasons",
+        "urgency_level"
+      ],
+      "blueprint": "BP08/BP05",
+      "source_output_mapping_required": true,
+      "target_input_mapping_required": true
+    },
+    {
+      "edge_id": "E042",
+      "source_node_id": "N008",
+      "target_node_id": "N017",
+      "trigger_type": "chain_trigger",
+      "why": "口碑管理识别需要回复的评论后，进入回复草稿生成。",
+      "payload": [
+        "review_content",
+        "reply_needed",
+        "sentiment"
+      ],
+      "blueprint": "BP09",
+      "source_output_mapping_required": true,
+      "target_input_mapping_required": true
+    },
+    {
+      "edge_id": "E043",
+      "source_node_id": "N004",
+      "target_node_id": "N022",
+      "trigger_type": "chain_trigger",
+      "why": "外部诊断模式的数据通过字段闸门后，进入独立报告链路。",
+      "payload": [
+        "external_upload_context",
+        "field_coverage_report"
+      ],
+      "blueprint": "BP03/BP04/BP10",
+      "source_output_mapping_required": true,
+      "target_input_mapping_required": true
+    },
+    {
+      "edge_id": "E044",
+      "source_node_id": "N022",
+      "target_node_id": "N018",
+      "trigger_type": "chain_trigger",
+      "why": "第三方诊断报告需要通过飞书/HTML载体输出。",
+      "payload": [
+        "external_diagnosis_report_html",
+        "data_gap_list"
+      ],
+      "blueprint": "BP00/BP03/BP04",
+      "source_output_mapping_required": true,
+      "target_input_mapping_required": true
+    },
+    {
+      "edge_id": "E045",
+      "source_node_id": "N022",
+      "target_node_id": "N019",
+      "trigger_type": "async_trigger",
+      "why": "外部诊断案例可脱敏沉淀，但不能直接改正式规则。",
+      "payload": [
+        "sanitized_external_diagnosis_case"
+      ],
+      "blueprint": "BP11",
+      "source_output_mapping_required": true,
+      "target_input_mapping_required": true
+    },
+    {
+      "edge_id": "E046",
+      "source_node_id": "N005",
+      "target_node_id": "N018",
+      "trigger_type": "chain_trigger",
+      "why": "用户只问经营快报时，经营房态采集结果直接进入消息中台输出，不进入收益决策。",
+      "payload": [
+        "operating_snapshot",
+        "inventory_snapshot",
+        "price_snapshot",
+        "freshness_status"
+      ],
+      "blueprint": "BP00/BP10",
+      "source_output_mapping_required": true,
+      "target_input_mapping_required": true
+    },
+    {
+      "edge_id": "E047",
+      "source_node_id": "N004",
+      "target_node_id": "N014",
+      "trigger_type": "direct_or_chain",
+      "why": "客户/订单分析可以由用户直接触发，也可以作为收益策略参考字段包读取。",
+      "payload": [
+        "CUS字段包",
+        "OP订单字段",
+        "REP口碑字段"
+      ],
+      "blueprint": "BP08/BP09/BP10",
+      "source_output_mapping_required": true,
+      "target_input_mapping_required": true
+    },
+    {
+      "edge_id": "E048",
+      "source_node_id": "N014",
+      "target_node_id": "N018",
+      "trigger_type": "chain_trigger",
+      "why": "客户订单分析如果只需要分层/流失预警，可直接输出给用户，不必强制进入收益决策。",
+      "payload": [
+        "customer_segments",
+        "repeat_guest_rate",
+        "loss_risk_alert"
+      ],
+      "blueprint": "BP00/BP08/BP09",
+      "source_output_mapping_required": true,
+      "target_input_mapping_required": true
+    },
+    {
+      "edge_id": "E049",
+      "source_node_id": "N006",
+      "target_node_id": "N018",
+      "trigger_type": "chain_trigger",
+      "why": "用户只问行情/天气/节假日/市场热度时，环境行情结果直接进入消息中台输出。",
+      "payload": [
+        "demand_index",
+        "demand_level",
+        "demand_reasons",
+        "pricing_effect"
+      ],
+      "blueprint": "BP00/BP01",
+      "source_output_mapping_required": true,
+      "target_input_mapping_required": true
+    },
+    {
+      "edge_id": "E050",
+      "source_node_id": "N007",
+      "target_node_id": "N018",
+      "trigger_type": "chain_trigger",
+      "why": "用户只问竞对情况时，竞态监控结果直接输出；不得直接执行价格变更。",
+      "payload": [
+        "competitor_context",
+        "competitor_alert_level",
+        "confidence_level"
+      ],
+      "blueprint": "BP00/BP06",
+      "source_output_mapping_required": true,
+      "target_input_mapping_required": true
+    },
+    {
+      "edge_id": "E051",
+      "source_node_id": "N008",
+      "target_node_id": "N018",
+      "trigger_type": "chain_trigger",
+      "why": "用户只问口碑概览时，口碑管理结果直接输出；评论内容需脱敏。",
+      "payload": [
+        "reputation_result",
+        "health_score_impact",
+        "reputation_tasks"
+      ],
+      "blueprint": "BP00/BP09",
+      "source_output_mapping_required": true,
+      "target_input_mapping_required": true
+    },
+    {
+      "edge_id": "E052",
+      "source_node_id": "N010",
+      "target_node_id": "N018",
+      "trigger_type": "chain_trigger",
+      "why": "用户只问销售基准线/目标曲线时，基准线结果直接输出。",
+      "payload": [
+        "sales_baseline",
+        "hourly_target_curve",
+        "target_room_nights"
+      ],
+      "blueprint": "BP00/BP08",
+      "source_output_mapping_required": true,
+      "target_input_mapping_required": true
+    },
+    {
+      "edge_id": "E053",
+      "source_node_id": "N011",
+      "target_node_id": "N018",
+      "trigger_type": "chain_trigger",
+      "why": "进度偏差诊断可以直接输出偏差预警和原因，不一定触发收益动作。",
+      "payload": [
+        "progress_status",
+        "room_night_gap",
+        "deviation_reasons",
+        "urgency_level"
+      ],
+      "blueprint": "BP00/BP08",
+      "source_output_mapping_required": true,
+      "target_input_mapping_required": true
+    },
+    {
+      "edge_id": "E054",
+      "source_node_id": "N013",
+      "target_node_id": "N018",
+      "trigger_type": "chain_trigger",
+      "why": "用户只问 ROI/利润模拟时，ROI 决策结果直接输出。",
+      "payload": [
+        "promotion_roi",
+        "profit_simulation",
+        "roi_decision"
+      ],
+      "blueprint": "BP00/BP08",
+      "source_output_mapping_required": true,
+      "target_input_mapping_required": true
+    },
+    {
+      "edge_id": "E055",
+      "source_node_id": "N020",
+      "target_node_id": "N018",
+      "trigger_type": "chain_trigger",
+      "why": "用户只问流量峰谷/进单时段时，峰谷结果直接输出。",
+      "payload": [
+        "traffic_state",
+        "time_windows",
+        "hourly_demand_index",
+        "peak_valley_evidence"
+      ],
+      "blueprint": "BP00/BP01/BP04",
+      "source_output_mapping_required": true,
+      "target_input_mapping_required": true
+    },
+    {
+      "edge_id": "E056",
+      "source_node_id": "N005",
+      "target_node_id": "N012",
+      "trigger_type": "chain_trigger",
+      "why": "活动/推广建议需要经营、价格、库存快照判断活动后到手价和库存压力。",
+      "payload": [
+        "operating_snapshot",
+        "inventory_snapshot",
+        "price_snapshot"
+      ],
+      "blueprint": "BP05/BP02",
+      "source_output_mapping_required": true,
+      "target_input_mapping_required": true
+    },
+    {
+      "edge_id": "E057",
+      "source_node_id": "N006",
+      "target_node_id": "N012",
+      "trigger_type": "chain_trigger",
+      "why": "环境行情和需求指数影响活动/推广是否开启、保留或调整。",
+      "payload": [
+        "demand_index",
+        "demand_level",
+        "demand_reasons"
+      ],
+      "blueprint": "BP01/BP05",
+      "source_output_mapping_required": true,
+      "target_input_mapping_required": true
+    },
+    {
+      "edge_id": "E058",
+      "source_node_id": "N009",
+      "target_node_id": "N012",
+      "trigger_type": "chain_trigger",
+      "why": "诊断弱项和转化瓶颈会影响活动/推广建议，避免用推广掩盖内容或转化问题。",
+      "payload": [
+        "conversion_bottleneck",
+        "weak_items",
+        "diagnosis_actions"
+      ],
+      "blueprint": "BP03/BP05",
+      "source_output_mapping_required": true,
+      "target_input_mapping_required": true
+    },
+    {
+      "edge_id": "E059",
+      "source_node_id": "N007",
+      "target_node_id": "N012",
+      "trigger_type": "chain_trigger",
+      "why": "竞对价格、活动、排名变化可作为活动/推广建议的参考输入。",
+      "payload": [
+        "competitor_context",
+        "competitor_alert_level"
+      ],
+      "blueprint": "BP06/BP05",
+      "source_output_mapping_required": true,
+      "target_input_mapping_required": true
+    },
+    {
+      "edge_id": "E060",
+      "source_node_id": "N006",
+      "target_node_id": "N010",
+      "trigger_type": "chain_trigger",
+      "why": "销售基准线需要日期属性、节假日、天气、活动等需求背景修正目标曲线。",
+      "payload": [
+        "demand_index",
+        "calendar_context",
+        "demand_reasons"
+      ],
+      "blueprint": "BP01/BP08",
+      "source_output_mapping_required": true,
+      "target_input_mapping_required": true
+    },
+    {
+      "edge_id": "E061",
+      "source_node_id": "N010",
+      "target_node_id": "N015",
+      "trigger_type": "chain_trigger",
+      "why": "销售基准线本身也是收益决策的目标约束，可直接参与收益策略。",
+      "payload": [
+        "sales_baseline",
+        "target_room_nights",
+        "baseline_confidence"
+      ],
+      "blueprint": "BP08/BP02",
+      "source_output_mapping_required": true,
+      "target_input_mapping_required": true
+    },
+    {
+      "edge_id": "E062",
+      "source_node_id": "N007",
+      "target_node_id": "N009",
+      "trigger_type": "chain_trigger",
+      "why": "竞对排名、评分和价格变化会影响 OTA 健康诊断中的竞态维度。",
+      "payload": [
+        "competitor_context",
+        "competitor_alert_level"
+      ],
+      "blueprint": "BP06/BP03",
+      "source_output_mapping_required": true,
+      "target_input_mapping_required": true
+    },
+    {
+      "edge_id": "E063",
+      "source_node_id": "N006",
+      "target_node_id": "N009",
+      "trigger_type": "chain_trigger",
+      "why": "需求环境影响诊断结论解释，避免把外部行情误判为酒店自身问题。",
+      "payload": [
+        "demand_index",
+        "demand_reasons",
+        "calendar_context"
+      ],
+      "blueprint": "BP01/BP03",
+      "source_output_mapping_required": true,
+      "target_input_mapping_required": true
+    },
+    {
+      "edge_id": "E064",
+      "source_node_id": "N009",
+      "target_node_id": "N019",
+      "trigger_type": "async_trigger",
+      "why": "诊断结论、弱项和整改动作可脱敏沉淀为运营案例和测试候选。",
+      "payload": [
+        "ota_health_score",
+        "weak_items",
+        "diagnosis_actions"
+      ],
+      "blueprint": "BP11/BP03",
+      "source_output_mapping_required": true,
+      "target_input_mapping_required": true
+    },
+    {
+      "edge_id": "E065",
+      "source_node_id": "N011",
+      "target_node_id": "N019",
+      "trigger_type": "async_trigger",
+      "why": "偏差原因和补救效果可脱敏沉淀为进度巡检经验。",
+      "payload": [
+        "progress_status",
+        "deviation_reasons",
+        "urgency_level"
+      ],
+      "blueprint": "BP11/BP08",
+      "source_output_mapping_required": true,
+      "target_input_mapping_required": true
+    },
+    {
+      "edge_id": "E066",
+      "source_node_id": "N008",
+      "target_node_id": "N019",
+      "trigger_type": "async_trigger",
+      "why": "口碑分类和处理结果可脱敏沉淀为评论处理经验。",
+      "payload": [
+        "reputation_result",
+        "problem_tags",
+        "reply_needed"
+      ],
+      "blueprint": "BP11/BP09",
+      "source_output_mapping_required": true,
+      "target_input_mapping_required": true
+    },
+    {
+      "edge_id": "E067",
+      "source_node_id": "N014",
+      "target_node_id": "N019",
+      "trigger_type": "async_trigger",
+      "why": "客户结构和流失风险可脱敏沉淀为客群运营经验。",
+      "payload": [
+        "customer_segments",
+        "loss_risk_alert",
+        "target_guest_tasks"
+      ],
+      "blueprint": "BP11/BP08/BP09",
+      "source_output_mapping_required": true,
+      "target_input_mapping_required": true
+    }
+  ]
+}

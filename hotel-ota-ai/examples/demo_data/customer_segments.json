@@ -1,0 +1,66 @@
+{
+  "manifest_ref": "demo_manifest.json",
+  "hotel_id": "puyue-demo",
+  "demo_business_date": "2026-06-11",
+  "customer_segment_summary": {
+    "esports_short_stay": 0.46,
+    "repeat_business": 0.18,
+    "family_weekend": 0.22,
+    "price_sensitive": 0.14
+  },
+  "repeat_rate": 0.24,
+  "churn_risk": "medium",
+  "no_row_level_order_details": true,
+  "data_source_type": "demo_data",
+  "freshness_status": "demo_data",
+  "today_label_allowed": false,
+  "approval_data_allowed": false,
+  "live_allowed": false,
+  "segments": [
+    {
+      "synthetic_id": "segment-esports-short-stay",
+      "segment_name": "esports_short_stay",
+      "display_name": "电竞短住客群",
+      "share": 0.34,
+      "repurchase_risk": "medium",
+      "suggested_action": "推送电竞主题套餐和夜宵权益"
+    },
+    {
+      "synthetic_id": "segment-repeat-business",
+      "segment_name": "repeat_business",
+      "display_name": "复购商务客群",
+      "share": 0.18,
+      "repurchase_risk": "low",
+      "suggested_action": "保留会员价和延迟退房权益"
+    },
+    {
+      "synthetic_id": "segment-family-weekend",
+      "segment_name": "family_weekend",
+      "display_name": "周末亲子客群",
+      "share": 0.16,
+      "repurchase_risk": "medium",
+      "suggested_action": "周末前推送家庭房库存提醒"
+    },
+    {
+      "synthetic_id": "segment-price-sensitive",
+      "segment_name": "price_sensitive",
+      "display_name": "价格敏感客群",
+      "share": 0.2,
+      "repurchase_risk": "high",
+      "suggested_action": "仅使用底价以上的限量优惠券"
+    },
+    {
+      "synthetic_id": "segment-late-night-walkin",
+      "segment_name": "late_night_walkin",
+      "display_name": "夜间临订客群",
+      "share": 0.12,
+      "repurchase_risk": "medium",
+      "suggested_action": "晚高峰后保留少量可售房并提示前台复核"
+    }
+  ],
+  "repurchase_risk_summary": {
+    "low": 1,
+    "medium": 3,
+    "high": 1
+  }
+}

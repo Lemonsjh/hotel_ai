@@ -1,0 +1,20 @@
+schema_version: openclaw_context_manifest.v1
+current_fact_source: contracts/v27/contract.json
+purpose: "Minimal OpenClaw startup context list."
+context_policy:
+  default: "read_first"
+  avoid_process_records: true
+  notes:
+    - "Do not load local repair planning logs as OpenClaw runtime context."
+    - "Demo mode prefers latest synthetic SQLite data when present; static fixtures are fallback preview data only."
+root_context_files:
+  - "AGENTS.md"
+  - "S15_S16_AI_OUTPUT.md"
+  - "BOOTSTRAP.md"
+  - "HEARTBEAT.md"
+  - "IDENTITY.md"
+  - "MEMORY.md"
+  - "README.md"
+  - "SOUL.md"
+  - "TOOLS.md"
+  - "USER.md"

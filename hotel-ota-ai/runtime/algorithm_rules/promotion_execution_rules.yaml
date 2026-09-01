@@ -1,0 +1,156 @@
+{
+  "schema_version": "1.1",
+  "owner_skill": "S11",
+  "status": "implemented",
+  "placement": "runtime/algorithm_rules",
+  "node_id": "N021",
+  "agent_id": "A4",
+  "phase": "P2",
+  "source_refs": {
+    "node_registry": "architecture/node_registry.json",
+    "edge_registry": "architecture/edge_registry.json",
+    "scenario_registry": "architecture/scenario_chain_registry.json",
+    "field_registry": "contracts/v27/field_registry.yaml",
+    "node_io_contract": "contracts/v27/node_io_contract.yaml",
+    "legacy_v27_alignment": "skills/hotel-ota/s11-promotion-execution/references/v27_alignment.json",
+    "runtime_skill_contract": "skills/hotel-ota/s11-promotion-execution/SKILL.md"
+  },
+  "demo_safety": {
+    "data_source_type": "demo_data",
+    "freshness_status": "demo_data",
+    "business_status": "demo_or_historical",
+    "today_label_allowed": false,
+    "approval_data_allowed": false,
+    "live_allowed": false
+  },
+  "data_gate": {
+    "hard_required": ["hotel_id"],
+    "soft_required": ["target_date", "as_of_time"],
+    "missing_policy": "return data_gap or clarification_required; never substitute demo/sample/synthetic values for production facts"
+  },
+  "algorithm": {
+    "objective": "Generate a deterministic read-only PromotionPlan from aligned S8/S9/S10/S16 results. S11 never executes promotion changes.",
+    "ordered_steps": [
+      {
+        "step_id": "s11_01",
+        "action": "Read S8 promotion-display facts, S9 traffic-conversion facts, S10 promotion-effect observations, and S16 sales-progress facts for the same hotel/channel/time scope."
+      },
+      {
+        "step_id": "s11_02",
+        "action": "Resolve the target plan or launch deterministically from S8 identity facts; when multiple candidates match or the object is ambiguous, return clarification_required and do not guess plan_id or launch_id."
+      },
+      {
+        "step_id": "s11_03",
+        "action": "Derive only a suggested action, suggested time window, budget/bid suggestion or manual_input_required, activity-conflict manual check, observation metrics, stop conditions, risks, and manual-operation checklist."
+      },
+      {
+        "step_id": "s11_04",
+        "action": "Return PromotionPlan with read_only=true, ai_invoked=false, write_performed=false and no request, approval, task, dispatch, execution, OTA-write, control-plane-write, or readback artifact."
+      },
+      {
+        "step_id": "s11_05",
+        "action": "Expose missing deterministic sources as data gaps; demo/sample/synthetic/stale inputs never become production conclusions or executable state."
+      }
+    ],
+    "thresholds": {
+      "ai_invoked": false,
+      "write_performed": false,
+      "live_allowed": false,
+      "execution_supported": false,
+      "task_creation_supported": false,
+      "approval_supported": false
+    },
+    "degradation": [
+      "When hotel_id is missing, return data_gap and do not fabricate scope.",
+      "When S8 object identity is ambiguous, return clarification_required before generating an object-specific plan.",
+      "When S8/S9/S10/S16 inputs are incomplete, preserve the missing source in source_alignment and lower the recommendation to available deterministic facts only.",
+      "When budget, bid, time window, or activity conflict cannot be determined, return manual_input_required instead of inventing a value.",
+      "No permission, approval, confirmation, live switch, or operator role can turn S11 into an execution path."
+    ],
+    "output_contract": [
+      "promotion_plan.type=PromotionPlan",
+      "promotion_plan.suggested_action in [开启,恢复,维持,观察,暂停,关闭]",
+      "promotion_plan.source_alignment includes S8/S9/S10/S16",
+      "read_only=true",
+      "ai_invoked=false",
+      "write_performed=false",
+      "boundary.mode=read_only_recommendation_only",
+      "no_request_or_confirmation_command",
+      "no_approval_or_task_artifact",
+      "no_dispatch_execution_or_readback_state"
+    ]
+  },
+  "forbidden_actions": [
+    "treat_demo_data_as_real_today_data",
+    "invoke_ai_for_s11_plan",
+    "emit_request_id",
+    "emit_confirmation_command",
+    "create_formal_approval",
+    "create_promotion_task",
+    "dispatch_promotion_task",
+    "execute_promotion_change",
+    "write_ota_promotion_state",
+    "write_control_plane_promotion_state",
+    "modify_budget_or_bid",
+    "modify_plan_state",
+    "simulate_ota_readback_state",
+    "claim_submitted",
+    "claim_executing",
+    "claim_opened_or_paused",
+    "guess_ambiguous_plan_id_or_launch_id"
+  ],
+  "demo_behavior_cases": [
+    {
+      "case_id": "s11_demo_readonly_plan",
+      "fixture": "examples/demo_data/nodes/N021.json",
+      "expected": {
+        "data_source_type": "demo_data",
+        "approval_data_allowed": false,
+        "live_allowed": false,
+        "read_only": true,
+        "ai_invoked": false,
+        "write_performed": false,
+        "status_in": [
+          "suggestion_only",
+          "data_gap",
+          "clarification_required"
+        ]
+      }
+    },
+    {
+      "case_id": "s11_ambiguous_plan_requires_clarification",
+      "input": {
+        "hotel_id": "puyue",
+        "message": "关闭这个计划",
+        "s8_result": {
+          "status": "ok",
+          "rows": [
+            {"plan_id": "P1", "plan_name": "计划甲", "launch_id": "L1"},
+            {"plan_id": "P2", "plan_name": "计划乙", "launch_id": "L2"}
+          ]
+        }
+      },
+      "expected": {
+        "status": "clarification_required",
+        "scope_resolution": "clarification_required",
+        "plan_scope": null,
+        "write_performed": false
+      }
+    },
+    {
+      "case_id": "s11_missing_hard_required",
+      "input": {
+        "message": "推广建议"
+      },
+      "expected": {
+        "allowed": false,
+        "reason": "missing_hard_required_fields"
+      }
+    }
+  ],
+  "executed_by_runtime": [
+    "runtime.decisions.promotion.promotion_execute",
+    "runtime.algorithms.s11_promotion_plan.build_s11_promotion_plan"
+  ],
+  "runtime_execution_status": "read_only_recommendation_path"
+}

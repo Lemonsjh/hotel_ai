@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "schema_version": "s13-review-reply.input.v2",
+  "title": "S13 评论智能回复输入",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "request_context": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "hotel_id": {"type": "string", "minLength": 1},
+        "as_of_datetime": {"type": "string", "format": "date-time"},
+        "principal_role": {"type": "string", "enum": ["admin", "owner", "operator", "frontdesk", "viewer"]},
+        "principal_ref": {"type": "string", "minLength": 1}
+      },
+      "required": ["hotel_id", "as_of_datetime", "principal_role", "principal_ref"]
+    },
+    "action": {
+      "type": "string",
+      "enum": [
+        "list_pending",
+        "generate_draft",
+        "submit_human_draft",
+        "confirm",
+        "reject",
+        "cancel",
+        "query_status",
+        "retry"
+      ]
+    },
+    "review_ref": {
+      "type": "string",
+      "pattern": "^REV-[A-Za-z0-9_-]{16,}$",
+      "description": "仅接受 S12 在当前酒店范围签发的 opaque review ref；不得传入物理 review_id。"
+    },
+    "human_reply_content": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 2000,
+      "description": "人工填写或编辑后的最终回复；不能为空。源 review_content 是否为空与此字段无关。"
+    },
+    "request_id": {
+      "type": "string",
+      "pattern": "^REQ-[A-Za-z0-9_-]+$",
+      "description": "确认、拒绝、取消、查询和重试只提交 REQ；draft_version/content_hash 由服务端 sealed request 读取并重新校验。"
+    }
+  },
+  "required": ["request_context", "action"],
+  "allOf": [
+    {
+      "if": {"properties": {"action": {"enum": ["generate_draft", "submit_human_draft"]}}},
+      "then": {"required": ["review_ref"]}
+    },
+    {
+      "if": {"properties": {"action": {"const": "submit_human_draft"}}},
+      "then": {"required": ["human_reply_content"]}
+    },
+    {
+      "if": {"properties": {"action": {"enum": ["confirm", "reject", "cancel", "retry"]}}},
+      "then": {"required": ["request_id"]}
+    },
+    {
+      "if": {"properties": {"action": {"const": "query_status"}}},
+      "then": {"anyOf": [{"required": ["request_id"]}, {"required": ["review_ref"]}]}
+    }
+  ],
+  "forbidden_direct_fields": [
+    "review_content",
+    "review_id",
+    "platform",
+    "channel_source",
+    "hotel_name",
+    "poi_id",
+    "guest_name",
+    "order_id",
+    "room_no",
+    "sentiment",
+    "severity",
+    "categories",
+    "need_private_message",
+    "need_compensation",
+    "need_manager_escalation",
+    "approval_policy",
+    "draft_version",
+    "content_hash"
+  ],
+  "notes": [
+    "酒店、平台、物理 review_id、星级、正文、is_replied 和 source snapshot 必须由服务端通过 review_ref 解析并重新查询。",
+    "review_content 可在源记录和任务表中为 NULL；纯评分评论不得因正文为空被拒绝。",
+    "admin/owner/operator 可以使用评论回复；viewer/frontdesk 不能生成、确认或重试回复任务。",
+    "确认文本是 确认 REQ-*；客户端不提交 draft_version 或 content_hash。"
+  ]
+}

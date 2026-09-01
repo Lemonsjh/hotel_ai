@@ -1,0 +1,77 @@
+{
+  "schema_version": "v26.0",
+  "source": "contracts/v26/skill_io_contract.yaml",
+  "skill_id": "S11",
+  "skill_name": "推广执行",
+  "english_dir_name": "promotion-execution",
+  "node_ids": [
+    "N021"
+  ],
+  "agent_id": "A4",
+  "blueprint_basis": "BP05/BP10",
+  "direct_trigger": "执行推广、开关投放",
+  "chain_trigger": "S8/S10 handoff",
+  "input_fields": [
+    "promotion_plan",
+    "approval_id",
+    "live_switch",
+    "budget_guard_status"
+  ],
+  "output_fields": [
+    "promotion_dry_run",
+    "write_attempted",
+    "readback_required"
+  ],
+  "upstream_dependencies": [
+    "EXE001 approval_id",
+    "ACT014 promotion_action",
+    "ACT015 budget_range",
+    "FNL018 time_windows",
+    "CFG005 source_capability",
+    "CFG004 live_switch",
+    "EXE005 readback_check",
+    "ACT020 campaign_id_or_plan_id",
+    "ACT019 budget_guard",
+    "N012_OUT006 promotion_action",
+    "N012_OUT005 budget_range",
+    "N012_OUT008 time_windows",
+    "N012_OUT004 approval_required",
+    "N013_OUT003 roi_decision",
+    "N013_OUT002 profit_simulation",
+    "N013_OUT004 data_gaps"
+  ],
+  "downstream_dependencies": [
+    "N018/N019"
+  ],
+  "runtime_command": "demo-node --node N021",
+  "demo_data_files": [
+    "examples/demo_data/demo_manifest.json",
+    "examples/demo_data/nodes/N021.json"
+  ],
+  "error_handling": "demo下只预览",
+  "acceptance_tests": [
+    "tests/contracts/test_v26_skill_io_contract.py"
+  ],
+  "node_registry_ref": "architecture/node_registry.json",
+  "edge_registry_ref": "architecture/edge_registry.json",
+  "scenario_registry_ref": "architecture/scenario_chain_registry.json",
+  "field_registry_ref": "contracts/v26/field_registry.yaml",
+  "node_io_contract_ref": "contracts/v26/node_io_contract.yaml",
+  "algorithm_rules_ref": "runtime/algorithm_rules/promotion_execution_rules.yaml",
+  "demo_node_fixture": "examples/demo_data/nodes/N021.json",
+  "forbidden_actions": [
+    "treat_demo_data_as_real_today_data",
+    "create_formal_approval_from_demo_or_stale_data",
+    "bypass_data_gate_or_approval_guard",
+    "recalculate_upstream_business_decision",
+    "live_write_in_demo_mode",
+    "execute_without_admin_or_owner_approval"
+  ],
+  "demo_safety": {
+    "data_source_type": "demo_data",
+    "approval_data_allowed": false,
+    "live_allowed": false,
+    "formal_approval_created": false,
+    "live_execution_count": 0
+  }
+}

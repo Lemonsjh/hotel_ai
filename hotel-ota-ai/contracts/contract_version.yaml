@@ -1,0 +1,6 @@
+{
+  "schema_version": "v27.0",
+  "current_machine_contract": "contracts/v27/contract.json",
+  "source_version": "V27_project_repair_executable_contract",
+  "compatibility_note": "Top-level contract files mirror contracts/v27. contracts/v26 is legacy migration reference only."
+}

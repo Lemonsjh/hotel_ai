@@ -1,0 +1,43 @@
+{
+  "schema_version": "v27.0",
+  "current_machine_contract": "contracts/v27/contract.json",
+  "source_version": "V27_project_repair_executable_contract",
+  "source_priority": [
+    "功能逻辑蓝图算法字段（最高优先级：先确定算法需要什么）",
+    "整体架构分析(1).xlsx 与 数据列表.txt 的 PMS/OTA/外部字段候选（真实来源/别名/口径待确认）",
+    "当前 hotel-ota-ai 项目证据（仅参考，不反向定义字段）",
+    "V26 Excel/JSON/drawio 字段契约标准（协作开发落地物）"
+  ],
+  "current_fact_policy": [
+    "contracts/v27/contract.json is the only current machine-readable engineering contract.",
+    "docs/architecture_reference/v27/酒店OTA_AI数字员工_协作开发总地图_V27_项目修复可执行契约版.json is the archived V27 source copy.",
+    "docs/architecture_reference/v27/数据列表.txt is an archived V27 source-candidate supplement, not a higher authority than contract.json.",
+    "contracts/v26 and docs/architecture_reference/v26 are legacy migration references only.",
+    "Current project evidence may not reverse-define fields, nodes, edges, scenarios, or demo outputs."
+  ],
+  "derived_artifacts": [
+    "contracts/v27/field_registry.yaml",
+    "contracts/v27/node_io_contract.yaml",
+    "contracts/v27/skill_io_contract.yaml",
+    "contracts/v27/edge_payload_contract.yaml",
+    "contracts/v27/scenario_chain_contract.yaml",
+    "contracts/v27/source_alias_mapping.yaml",
+    "contracts/v27/field_governance_policy.yaml",
+    "architecture/node_registry.json",
+    "architecture/edge_registry.json",
+    "architecture/scenario_chain_registry.json",
+    "architecture/agent_registry.json",
+    "architecture/node_agent_mapping.json"
+  ],
+  "source_archives": {
+    "v27_contract_source": "docs/architecture_reference/v27/酒店OTA_AI数字员工_协作开发总地图_V27_项目修复可执行契约版.json",
+    "v27_source_field_reference": "docs/architecture_reference/v27/整体架构分析(1).xlsx",
+    "v27_source_data_list": "docs/architecture_reference/v27/数据列表.txt",
+    "v26_legacy_reference_dir": "docs/architecture_reference/v26",
+    "external_not_archived": []
+  },
+  "legacy_references": {
+    "contracts/v26": "legacy migration reference, not current source of truth",
+    "docs/architecture_reference/v26": "legacy collaboration archive"
+  }
+}

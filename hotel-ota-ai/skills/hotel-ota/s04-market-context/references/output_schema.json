@@ -1,0 +1,166 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "schema_version": "v27-wrapper",
+  "title": "S4 output wrapper",
+  "type": "object",
+  "canonical_source": "contracts/v27/node_io_contract.yaml",
+  "secondary_source": "contracts/v27/skill_io_contract.yaml",
+  "alignment_source": "references/v27_alignment.json",
+  "skill_id": "S4",
+  "skill_name": "S4",
+  "node_id": "N006",
+  "node_ids": [
+    "N006"
+  ],
+  "agent_id": "A1",
+  "agent_ids": [
+    "A1"
+  ],
+  "source_contract": "contracts/v27/contract.json",
+  "field_registry_ref": "contracts/v27/field_registry.yaml",
+  "node_io_contract_ref": "contracts/v27/node_io_contract.yaml",
+  "demo_safety_fields": [
+    "data_source_type=demo_data",
+    "freshness_status=demo_data",
+    "approval_data_allowed=false",
+    "live_allowed=false"
+  ],
+  "additionalProperties": true,
+  "output_field_ids": [
+    "N006_OUT001",
+    "N006_OUT002",
+    "N006_OUT003",
+    "N006_OUT004",
+    "N006_OUT005",
+    "N006_OUT006"
+  ],
+  "required_outputs": [
+    "N006_OUT001",
+    "N006_OUT002",
+    "N006_OUT003",
+    "N006_OUT004",
+    "N006_OUT005",
+    "N006_OUT006"
+  ],
+  "optional_outputs": [],
+  "downstream_node_outputs": [
+    "N006_OUT001",
+    "N006_OUT002",
+    "N006_OUT003",
+    "N006_OUT004",
+    "N006_OUT005",
+    "N006_OUT006"
+  ],
+  "deprecated_legacy_outputs": {
+    "actual_orders": {
+      "deprecated": true,
+      "legacy_path": "actual_orders",
+      "replacement_keys": [
+        "actual_room_nights"
+      ],
+      "description": "Compatibility output retained by runtime only; not canonical V27 output."
+    },
+    "target_orders": {
+      "deprecated": true,
+      "legacy_path": "target_orders",
+      "replacement_keys": [
+        "target_room_nights"
+      ],
+      "description": "Compatibility output retained by runtime only; not canonical V27 output."
+    },
+    "checkpoint_target_orders": {
+      "deprecated": true,
+      "legacy_path": "checkpoint_target_orders",
+      "replacement_keys": [
+        "checkpoint_target_room_nights"
+      ],
+      "description": "Compatibility output retained by runtime only; not canonical V27 output."
+    },
+    "direction": {
+      "deprecated": true,
+      "legacy_path": "direction",
+      "replacement_keys": [
+        "progress_status"
+      ],
+      "description": "Compatibility output retained by runtime only; not canonical V27 output."
+    },
+    "completion_rate": {
+      "deprecated": true,
+      "legacy_path": "completion_rate",
+      "replacement_keys": [
+        "progress_status",
+        "room_night_gap"
+      ],
+      "description": "Compatibility output retained by runtime only; not canonical V27 output."
+    }
+  },
+  "properties": {
+    "N006_OUT001": {
+      "type": "number",
+      "canonical_key": "demand_index",
+      "project_field_name": "demand_index",
+      "field_status": "upstream_output",
+      "required_level": "节点输出",
+      "source_node": "N006",
+      "source_skill": "S4",
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "description": "demand_index from V27 contract"
+    },
+    "N006_OUT002": {
+      "type": "string",
+      "canonical_key": "demand_level",
+      "project_field_name": "demand_level",
+      "field_status": "upstream_output",
+      "required_level": "节点输出",
+      "source_node": "N006",
+      "source_skill": "S4",
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "description": "demand_level from V27 contract"
+    },
+    "N006_OUT003": {
+      "type": "string",
+      "canonical_key": "action_strength",
+      "project_field_name": "action_strength",
+      "field_status": "upstream_output",
+      "required_level": "节点输出",
+      "source_node": "N006",
+      "source_skill": "S4",
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "description": "action_strength from V27 contract"
+    },
+    "N006_OUT004": {
+      "type": "object",
+      "canonical_key": "demand_reasons",
+      "project_field_name": "demand_reasons",
+      "field_status": "upstream_output",
+      "required_level": "节点输出",
+      "source_node": "N006",
+      "source_skill": "S4",
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "description": "demand_reasons from V27 contract"
+    },
+    "N006_OUT005": {
+      "type": "string",
+      "canonical_key": "pricing_effect",
+      "project_field_name": "pricing_effect",
+      "field_status": "upstream_output",
+      "required_level": "节点输出",
+      "source_node": "N006",
+      "source_skill": "S4",
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "description": "pricing_effect from V27 contract"
+    },
+    "N006_OUT006": {
+      "type": "object",
+      "canonical_key": "calendar_context",
+      "project_field_name": "calendar_context",
+      "field_status": "upstream_output",
+      "required_level": "节点输出",
+      "source_node": "N006",
+      "source_skill": "S4",
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "description": "calendar_context from V27 contract"
+    }
+  },
+  "required": []
+}

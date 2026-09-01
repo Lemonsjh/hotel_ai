@@ -1,0 +1,29 @@
+{
+  "manifest_ref": "demo_manifest.json",
+  "data_source_type": "demo_data",
+  "freshness_status": "demo_data",
+  "approval_data_allowed": false,
+  "live_allowed": false,
+  "candidates": [
+    {
+      "candidate_id": "exp-demo-001",
+      "created_at": "2026-06-11 10:00:00",
+      "source_run_id": "demo-chain-sc09",
+      "source_scenario_id": "SC09",
+      "source_node_id": "N019",
+      "source_skill_id": "EXP-LAYER",
+      "experience_type": "fallback",
+      "observation": "Demo chain kept approval and live blocked while still producing preview outputs.",
+      "proposed_rule": "Demo data may create reviewable candidates only; it cannot directly promote rules.",
+      "evidence_items": ["demo_data", "approval_data_allowed=false", "live_allowed=false"],
+      "risk_level": "low",
+      "requires_human_review": true,
+      "privacy_checked": true,
+      "contains_real_customer_data": false,
+      "source_data_source_type": "demo_data",
+      "approval_data_allowed": false,
+      "live_allowed": false,
+      "status": "candidate"
+    }
+  ]
+}

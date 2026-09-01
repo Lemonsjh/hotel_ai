@@ -1,0 +1,29 @@
+[project]
+name = "hotel-ota-ai"
+version = "0.27.0"
+description = "Hotel OTA AI digital employee runtime and controlled capability workspace."
+requires-python = ">=3.11"
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+  "openpyxl>=3.1",
+  "PyYAML>=6.0",
+]
+mysql = [
+  "PyMySQL>=1.1",
+]
+
+[tool.hotel_ota]
+current_machine_contract = "contracts/v27/contract.json"
+s13_machine_contract = "contracts/s13_review_reply_contract.json"
+runtime_entrypoint = "runtime/hotel_ota_runtime.py"
+
+[tool.hotel_ota.verification]
+commands = [
+  "python runtime/hotel_ota_runtime.py env-check",
+  "python tools/validate_v27_contract.py",
+  "python tools/audit_v27_contract_drift.py",
+  "python -m unittest discover -s tests/s13 -v",
+  "python -m unittest discover tests",
+]

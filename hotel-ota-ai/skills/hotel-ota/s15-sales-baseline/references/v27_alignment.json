@@ -1,0 +1,384 @@
+{
+  "skill_id": "S15",
+  "skill_name": "S15",
+  "node_ids": [
+    "N010"
+  ],
+  "agent_id": "A2",
+  "agent_ids": [
+    "A2"
+  ],
+  "blueprint_basis": [
+    "BP08",
+    "BP02",
+    "BP01"
+  ],
+  "input_field_ids": [
+    "HOT001",
+    "CTX003",
+    "ROOM009",
+    "DEM011",
+    "DEM007",
+    "OP005",
+    "OP006",
+    "OP007",
+    "N005_OUT001",
+    "N006_OUT001",
+    "N006_OUT006",
+    "N006_OUT004"
+  ],
+  "output_field_ids": [
+    "N010_OUT001",
+    "N010_OUT002",
+    "N010_OUT003",
+    "N010_OUT004",
+    "N010_OUT005"
+  ],
+  "input_fields": [
+    {
+      "field_id": "HOT001",
+      "canonical_key": "hotel_id",
+      "project_field_name": "hotel_id",
+      "zh_name": "酒店编号",
+      "data_type": "string",
+      "required_level": "必选/增强",
+      "source_type": "manual_required",
+      "source_node": "",
+      "source_skill": "",
+      "downstream_node": [
+        "N011",
+        "N015",
+        "N018",
+        "N020"
+      ],
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "evidence": "V25字段契约直接输入"
+    },
+    {
+      "field_id": "CTX003",
+      "canonical_key": "business_date",
+      "project_field_name": "business_date",
+      "zh_name": "业务日期",
+      "data_type": "datetime",
+      "required_level": "必选/增强",
+      "source_type": "project_only",
+      "source_node": "",
+      "source_skill": "",
+      "downstream_node": [
+        "N011",
+        "N015",
+        "N018",
+        "N020"
+      ],
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "evidence": "V25字段契约直接输入"
+    },
+    {
+      "field_id": "ROOM009",
+      "canonical_key": "room_total",
+      "project_field_name": "room_total",
+      "zh_name": "房间总数",
+      "data_type": "number",
+      "required_level": "必选/增强",
+      "source_type": "candidate_inferred",
+      "source_node": "",
+      "source_skill": "",
+      "downstream_node": [
+        "N011",
+        "N015",
+        "N018",
+        "N020"
+      ],
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "evidence": "V25字段契约直接输入"
+    },
+    {
+      "field_id": "DEM011",
+      "canonical_key": "historical_same_period",
+      "project_field_name": "historical_same_period",
+      "zh_name": "历史同期",
+      "data_type": "string",
+      "required_level": "必选/增强",
+      "source_type": "algorithm_output",
+      "source_node": "",
+      "source_skill": "",
+      "downstream_node": [
+        "N011",
+        "N015",
+        "N018",
+        "N020"
+      ],
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "evidence": "V25字段契约直接输入"
+    },
+    {
+      "field_id": "DEM007",
+      "canonical_key": "demand_index",
+      "project_field_name": "demand_index",
+      "zh_name": "需求指数",
+      "data_type": "number",
+      "required_level": "必选/增强",
+      "source_type": "algorithm_output",
+      "source_node": "",
+      "source_skill": "",
+      "downstream_node": [
+        "N011",
+        "N015",
+        "N018",
+        "N020"
+      ],
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "evidence": "V25字段契约直接输入"
+    },
+    {
+      "field_id": "OP005",
+      "canonical_key": "occupancy",
+      "project_field_name": "occupancy_rate",
+      "zh_name": "出租率",
+      "data_type": "number",
+      "required_level": "必选/增强",
+      "source_type": "candidate_inferred",
+      "source_node": "",
+      "source_skill": "",
+      "downstream_node": [
+        "N011",
+        "N015",
+        "N018",
+        "N020"
+      ],
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "evidence": "V25字段契约直接输入"
+    },
+    {
+      "field_id": "OP006",
+      "canonical_key": "adr",
+      "project_field_name": "adr",
+      "zh_name": "平均房价 ADR",
+      "data_type": "number",
+      "required_level": "必选/增强",
+      "source_type": "candidate_inferred",
+      "source_node": "",
+      "source_skill": "",
+      "downstream_node": [
+        "N011",
+        "N015",
+        "N018",
+        "N020"
+      ],
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "evidence": "V25字段契约直接输入"
+    },
+    {
+      "field_id": "OP007",
+      "canonical_key": "revpar",
+      "project_field_name": "revpar",
+      "zh_name": "RevPAR",
+      "data_type": "number",
+      "required_level": "必选/增强",
+      "source_type": "candidate_inferred",
+      "source_node": "",
+      "source_skill": "",
+      "downstream_node": [
+        "N011",
+        "N015",
+        "N018",
+        "N020"
+      ],
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "evidence": "V25字段契约直接输入"
+    },
+    {
+      "field_id": "N005_OUT001",
+      "canonical_key": "operating_snapshot",
+      "project_field_name": "operating_snapshot",
+      "zh_name": "经营快照",
+      "data_type": "object",
+      "required_level": "按链路触发必需",
+      "source_type": "upstream_output",
+      "source_node": "N005",
+      "source_skill": "S2",
+      "downstream_node": [
+        "N011",
+        "N015",
+        "N018",
+        "N020"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "15_上游输出展开 E010"
+    },
+    {
+      "field_id": "N006_OUT001",
+      "canonical_key": "demand_index",
+      "project_field_name": "demand_index",
+      "zh_name": "需求指数",
+      "data_type": "number",
+      "required_level": "按链路触发必需",
+      "source_type": "upstream_output",
+      "source_node": "N006",
+      "source_skill": "S4",
+      "downstream_node": [
+        "N011",
+        "N015",
+        "N018",
+        "N020"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "15_上游输出展开 E060"
+    },
+    {
+      "field_id": "N006_OUT006",
+      "canonical_key": "calendar_context",
+      "project_field_name": "calendar_context",
+      "zh_name": "上下文",
+      "data_type": "object",
+      "required_level": "按链路触发必需",
+      "source_type": "upstream_output",
+      "source_node": "N006",
+      "source_skill": "S4",
+      "downstream_node": [
+        "N011",
+        "N015",
+        "N018",
+        "N020"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "15_上游输出展开 E060"
+    },
+    {
+      "field_id": "N006_OUT004",
+      "canonical_key": "demand_reasons",
+      "project_field_name": "demand_reasons",
+      "zh_name": "需求原因",
+      "data_type": "object",
+      "required_level": "按链路触发必需",
+      "source_type": "upstream_output",
+      "source_node": "N006",
+      "source_skill": "S4",
+      "downstream_node": [
+        "N011",
+        "N015",
+        "N018",
+        "N020"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "15_上游输出展开 E060"
+    }
+  ],
+  "output_fields": [
+    {
+      "field_id": "N010_OUT001",
+      "canonical_key": "sales_baseline",
+      "project_field_name": "sales_baseline",
+      "zh_name": "销售基准线",
+      "data_type": "object",
+      "required_level": "节点输出",
+      "source_type": "upstream_output",
+      "source_node": "N010",
+      "source_skill": "S15",
+      "downstream_node": [
+        "N011",
+        "N015",
+        "N018",
+        "N020"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "14_输出字段字典"
+    },
+    {
+      "field_id": "N010_OUT002",
+      "canonical_key": "hourly_target_curve",
+      "project_field_name": "hourly_target_curve",
+      "zh_name": "小时目标曲线",
+      "data_type": "array",
+      "required_level": "节点输出",
+      "source_type": "upstream_output",
+      "source_node": "N010",
+      "source_skill": "S15",
+      "downstream_node": [
+        "N011",
+        "N015",
+        "N018",
+        "N020"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "14_输出字段字典"
+    },
+    {
+      "field_id": "N010_OUT003",
+      "canonical_key": "target_room_nights",
+      "project_field_name": "target_room_nights",
+      "zh_name": "目标间夜",
+      "data_type": "number",
+      "required_level": "节点输出",
+      "source_type": "upstream_output",
+      "source_node": "N010",
+      "source_skill": "S15",
+      "downstream_node": [
+        "N011",
+        "N015",
+        "N018",
+        "N020"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "14_输出字段字典"
+    },
+    {
+      "field_id": "N010_OUT004",
+      "canonical_key": "baseline_confidence",
+      "project_field_name": "baseline_confidence",
+      "zh_name": "基准线置信度",
+      "data_type": "string",
+      "required_level": "节点输出",
+      "source_type": "upstream_output",
+      "source_node": "N010",
+      "source_skill": "S15",
+      "downstream_node": [
+        "N011",
+        "N015",
+        "N018",
+        "N020"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "14_输出字段字典"
+    },
+    {
+      "field_id": "N010_OUT005",
+      "canonical_key": "historical_same_weekday_curve",
+      "project_field_name": "historical_same_weekday_curve",
+      "zh_name": "历史同星期曲线",
+      "data_type": "object",
+      "required_level": "节点输出",
+      "source_type": "upstream_output",
+      "source_node": "N010",
+      "source_skill": "S15",
+      "downstream_node": [
+        "N011",
+        "N015",
+        "N018",
+        "N020"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "14_输出字段字典"
+    }
+  ],
+  "runtime_command": "",
+  "demo_data_files": [
+    "examples/demo_data/demo_manifest.json",
+    "examples/demo_data/nodes/N010.json"
+  ],
+  "error_handling": "",
+  "acceptance_tests": [
+    "tests/contracts/test_v27_skill_io_contract.py"
+  ],
+  "schema_version": "v27.0",
+  "source": "contracts/v27/contract.json",
+  "field_registry_ref": "contracts/v27/field_registry.yaml",
+  "node_io_contract_ref": "contracts/v27/node_io_contract.yaml",
+  "legacy_v26_alignment_ref": "references/v26_alignment.json",
+  "demo_safety_fields": [
+    "data_source_type=demo_data",
+    "freshness_status=demo_data",
+    "approval_data_allowed=false",
+    "live_allowed=false"
+  ]
+}

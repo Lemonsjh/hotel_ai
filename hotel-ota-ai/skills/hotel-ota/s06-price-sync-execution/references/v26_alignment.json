@@ -1,0 +1,75 @@
+{
+  "schema_version": "v26.0",
+  "source": "contracts/v26/skill_io_contract.yaml",
+  "skill_id": "S6",
+  "skill_name": "房价同步执行",
+  "english_dir_name": "price-sync",
+  "node_ids": [
+    "N016"
+  ],
+  "agent_id": "A4",
+  "blueprint_basis": "BP02/BP10",
+  "direct_trigger": "执行调价、dry-run",
+  "chain_trigger": "S5 handoff",
+  "input_fields": [
+    "price_recommendations",
+    "approval_id",
+    "live_switch",
+    "source_capability",
+    "execution_boundary"
+  ],
+  "output_fields": [
+    "dry_run_preview",
+    "write_attempted",
+    "readback_required",
+    "blocked_reason"
+  ],
+  "upstream_dependencies": [
+    "EXE001 approval_id",
+    "PR011 candidate_price",
+    "CFG001 price_floor",
+    "CFG002 price_ceiling",
+    "CTX008 freshness_status",
+    "CFG005 source_capability",
+    "CFG004 live_switch",
+    "EXE005 readback_check",
+    "EXE003 approval_data_allowed",
+    "EXE004 live_allowed",
+    "N015_OUT002 price_recommendations",
+    "N015_OUT003 approval_required"
+  ],
+  "downstream_dependencies": [
+    "N018/N019"
+  ],
+  "runtime_command": "demo-node --node N016",
+  "demo_data_files": [
+    "examples/demo_data/demo_manifest.json",
+    "examples/demo_data/nodes/N016.json"
+  ],
+  "error_handling": "demo_data永不live",
+  "acceptance_tests": [
+    "tests/contracts/test_v26_skill_io_contract.py"
+  ],
+  "node_registry_ref": "architecture/node_registry.json",
+  "edge_registry_ref": "architecture/edge_registry.json",
+  "scenario_registry_ref": "architecture/scenario_chain_registry.json",
+  "field_registry_ref": "contracts/v26/field_registry.yaml",
+  "node_io_contract_ref": "contracts/v26/node_io_contract.yaml",
+  "algorithm_rules_ref": "runtime/algorithm_rules/execution_guard.yaml",
+  "demo_node_fixture": "examples/demo_data/nodes/N016.json",
+  "forbidden_actions": [
+    "treat_demo_data_as_real_today_data",
+    "create_formal_approval_from_demo_or_stale_data",
+    "bypass_data_gate_or_approval_guard",
+    "recalculate_upstream_business_decision",
+    "live_write_in_demo_mode",
+    "execute_without_admin_or_owner_approval"
+  ],
+  "demo_safety": {
+    "data_source_type": "demo_data",
+    "approval_data_allowed": false,
+    "live_allowed": false,
+    "formal_approval_created": false,
+    "live_execution_count": 0
+  }
+}

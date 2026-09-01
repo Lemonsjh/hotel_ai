@@ -1,0 +1,157 @@
+schema_version: hotel-ota-s15-s16-responsibility.v1
+contract_revision: s15-s16-final-responsibility.v2
+
+capabilities:
+  S15:
+    name: 销售基准线
+    result_type: baseline_package
+    cache_policy:
+      backend: sqlite_baselines
+      ttl_seconds: 86400
+      key:
+        - hotel_id
+        - target_business_date
+        - baseline_package_version
+      invalidate_when:
+        - package_version_changed
+        - historical_cutoff_changed
+        - calendar_or_channel_configuration_changed
+        - cache_corrupt
+        - explicit_force_rebuild
+    required_outputs:
+      - hotel_final_sales_target
+      - room_type_final_sales_targets
+      - hotel_hourly_sales_baseline
+      - room_type_hourly_sales_baselines
+      - market_orders_baseline
+      - market_share_baseline
+      - browse_baseline
+      - first_conversion_baseline
+      - second_conversion_baseline
+      - room_type_transaction_references
+      - ota_product_price_baselines
+      - lead_price_baseline
+      - sample_maturity
+      - comparability
+      - data_gaps
+    forbidden_outputs:
+      - dynamic_diagnosis
+      - action_candidates
+      - observation_state
+      - automatic_execution_qualification
+
+  S16:
+    name: 进度偏差诊断
+    result_type: progress_deviation_diagnosis
+    required_dependencies:
+      - S15
+    forbidden_dependencies:
+      - S14
+    required_inputs:
+      - baseline_package
+      - current_hotel_sales_facts
+      - current_room_type_sales_facts
+      - current_meituan_jd01_order_proxy
+      - current_meituan_peer_order_context
+      - current_meituan_funnel_facts
+      - current_inventory_and_product_facts
+      - current_meituan_commission_and_activity_facts
+    required_outputs:
+      - progress_status
+      - room_type_structure
+      - meituan_market_proxy
+      - meituan_market_share_estimate
+      - meituan_daily_pace_insights
+      - primary_issue
+      - secondary_issues
+      - action_candidates
+      - estimated_price_advisories
+      - observation_state
+      - cooldown_state
+      - automatic_execution_qualification
+      - data_limitations
+    execution_boundary:
+      direct_price_write_allowed: false
+      direct_promotion_write_allowed: false
+      direct_task_creation_allowed: false
+      estimated_price_advisory_auto_execution_allowed: false
+      price_handoff: S5
+      price_execution_handoff: S6
+      promotion_handoff: S8
+
+meituan_market_estimation:
+  own_order_proxy:
+    source: jd01_booking_detail
+    platform_identity_fields:
+      - member_level
+      - operator_name
+      - guest_source
+      - remarks
+    date_field: booking_time
+    aggregation: count_distinct_order_id
+    subtract_later_cancelled_orders: false
+    user_facing_label: PMS订单明细中的美团订单代理值
+  peer_context:
+    source: meituan_ota_business_metrics
+    metric_code: PAY_ORDER_CNT
+    required_fields:
+      - peer_average
+      - competitor_rank
+  formulas:
+    estimated_market_orders: own_order_proxy + peer_average * (peer_hotel_count - 1)
+    estimated_market_share: own_order_proxy / estimated_market_orders
+  direct_platform_market_total_claim_allowed: false
+
+meituan_daily_projection:
+  minimum_elapsed_day_fraction: 0.35
+  formula: current_accumulated / elapsed_day_fraction
+  supported_metrics:
+    - estimated_market_orders
+    - browse_users
+  hourly_baseline_claim_allowed: false
+  automatic_action_eligible: false
+  conversion_rates:
+    first_conversion:
+      minimum_exposure_users: 300
+      minimum_browse_users: 30
+    second_conversion:
+      minimum_browse_users: 50
+      minimum_pay_orders: 3
+
+price_comparability:
+  exact_product_history_required_for_formal_candidate: true
+  required_identity:
+    - hotel_id
+    - platform
+    - ota_product_id
+    - product_type
+  required_scope:
+    - target_stay_date_or_comparable_window
+    - occupancy
+    - room_count
+    - night_count
+    - package_content
+    - cancellation_terms
+    - tax_and_discount_basis
+  pms_room_type_transaction_reference_can_prove_ota_price_high: false
+  missing_exact_product_history:
+    display_current_price: true
+    classify_high_or_low_as_fact: false
+    formal_price_action_eligible: false
+    low_confidence_read_only_advisory_allowed: true
+    advisory_auto_execution_allowed: false
+    advisory_handoff: S5
+  estimated_advisory_basis:
+    - room_type_sales_progress
+    - commission_net_base_price
+    - all_valid_activity_factors_compounded
+    - estimated_activity_net_price
+    - pms_room_type_transaction_p20_median_p80
+  estimated_advisory_limits:
+    slow: -0.03
+    significant_slow: -0.05
+    severe_slow: -0.08
+    fast: 0.03
+    significant_fast: 0.05
+    max_decrease_advisories: 2
+    max_increase_advisories: 2

@@ -1,0 +1,213 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "schema_version": "v27-wrapper",
+  "title": "S10 input wrapper",
+  "type": "object",
+  "canonical_source": "contracts/v27/node_io_contract.yaml",
+  "secondary_source": "contracts/v27/skill_io_contract.yaml",
+  "alignment_source": "references/v27_alignment.json",
+  "skill_id": "S10",
+  "skill_name": "S10",
+  "node_id": "N013",
+  "node_ids": [
+    "N013"
+  ],
+  "agent_id": "A3",
+  "agent_ids": [
+    "A3"
+  ],
+  "source_contract": "contracts/v27/contract.json",
+  "field_registry_ref": "contracts/v27/field_registry.yaml",
+  "node_io_contract_ref": "contracts/v27/node_io_contract.yaml",
+  "demo_safety_fields": [
+    "data_source_type=demo_data",
+    "freshness_status=demo_data",
+    "approval_data_allowed=false",
+    "live_allowed=false"
+  ],
+  "additionalProperties": true,
+  "input_field_ids": [
+    "ROI001",
+    "ROI011",
+    "ROI008",
+    "ROI009",
+    "ROI010",
+    "ROI005",
+    "ROI006",
+    "CFG001",
+    "N012_OUT002",
+    "N012_OUT005",
+    "N012_OUT007"
+  ],
+  "required_inputs": [
+    "ROI001",
+    "ROI011",
+    "ROI008",
+    "ROI009",
+    "ROI010",
+    "ROI005",
+    "ROI006",
+    "CFG001",
+    "N012_OUT002",
+    "N012_OUT005",
+    "N012_OUT007"
+  ],
+  "optional_inputs": [],
+  "upstream_node_outputs": [
+    "N012_OUT002",
+    "N012_OUT005",
+    "N012_OUT007"
+  ],
+  "deprecated_legacy_fields": {
+    "promotion_cost": {
+      "deprecated": true,
+      "legacy_path": "business_fields.promotion_cost",
+      "replacement_field_ids": [],
+      "description": "promotion_cost from unified data contract"
+    },
+    "promotion_revenue": {
+      "deprecated": true,
+      "legacy_path": "business_fields.promotion_revenue",
+      "replacement_field_ids": [],
+      "description": "promotion_revenue from unified data contract"
+    },
+    "room_nights": {
+      "deprecated": true,
+      "legacy_path": "business_fields.room_nights",
+      "replacement_field_ids": [],
+      "description": "room_nights from unified data contract"
+    },
+    "adr": {
+      "deprecated": true,
+      "legacy_path": "business_fields.adr",
+      "replacement_field_ids": [],
+      "description": "adr from unified data contract"
+    },
+    "revpar": {
+      "deprecated": true,
+      "legacy_path": "business_fields.revpar",
+      "replacement_field_ids": [],
+      "description": "revpar from unified data contract"
+    },
+    "commission": {
+      "deprecated": true,
+      "legacy_path": "business_fields.commission",
+      "replacement_field_ids": [],
+      "description": "commission from unified data contract"
+    },
+    "refund_amount": {
+      "deprecated": true,
+      "legacy_path": "business_fields.refund_amount",
+      "replacement_field_ids": [],
+      "description": "refund_amount from unified data contract"
+    }
+  },
+  "properties": {
+    "ROI001": {
+      "type": "number",
+      "canonical_key": "promotion_cost",
+      "project_field_name": "promotion_cost",
+      "field_status": "manual_required",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "promotion_cost from V27 contract"
+    },
+    "ROI011": {
+      "type": "string",
+      "canonical_key": "attribution_revenue",
+      "project_field_name": "attribution_revenue",
+      "field_status": "manual_required",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "attribution_revenue from V27 contract"
+    },
+    "ROI008": {
+      "type": "number",
+      "canonical_key": "fee",
+      "project_field_name": "fee",
+      "field_status": "candidate_inferred",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "fee from V27 contract"
+    },
+    "ROI009": {
+      "type": "number",
+      "canonical_key": "refund",
+      "project_field_name": "refund",
+      "field_status": "candidate_inferred",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "refund from V27 contract"
+    },
+    "ROI010": {
+      "type": "number",
+      "canonical_key": "settlement_amount",
+      "project_field_name": "settlement_amount",
+      "field_status": "candidate_inferred",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "settlement_amount from V27 contract"
+    },
+    "ROI005": {
+      "type": "number",
+      "canonical_key": "fixed_cost",
+      "project_field_name": "fixed_cost",
+      "field_status": "candidate_inferred",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "fixed_cost from V27 contract"
+    },
+    "ROI006": {
+      "type": "number",
+      "canonical_key": "variable_cost_per_room",
+      "project_field_name": "variable_cost_per_room",
+      "field_status": "candidate_inferred",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "variable_cost_per_room from V27 contract"
+    },
+    "CFG001": {
+      "type": "number",
+      "canonical_key": "price_floor",
+      "project_field_name": "price_floor",
+      "field_status": "config_only",
+      "required_level": "必选",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "price_floor from V27 contract"
+    },
+    "N012_OUT002": {
+      "type": "object",
+      "canonical_key": "promotion_plan",
+      "project_field_name": "promotion_plan",
+      "field_status": "upstream_output",
+      "required_level": "按链路触发必需",
+      "source_node": "N012",
+      "source_skill": "S8",
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "description": "promotion_plan from V27 contract"
+    },
+    "N012_OUT005": {
+      "type": "object",
+      "canonical_key": "budget_range",
+      "project_field_name": "budget_range",
+      "field_status": "upstream_output",
+      "required_level": "按链路触发必需",
+      "source_node": "N012",
+      "source_skill": "S8",
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "description": "budget_range from V27 contract"
+    },
+    "N012_OUT007": {
+      "type": "object",
+      "canonical_key": "expected_return",
+      "project_field_name": "expected_return",
+      "field_status": "upstream_output",
+      "required_level": "按链路触发必需",
+      "source_node": "N012",
+      "source_skill": "S8",
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "description": "expected_return from V27 contract"
+    }
+  },
+  "required": []
+}

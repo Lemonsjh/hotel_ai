@@ -1,0 +1,27 @@
+name: s16-progress-deviation
+description: |
+  进度偏差诊断: 处理销售进度、房型结构及其经营原因，只根据 runtime 证据输出结论。
+  直接询问“需要调价吗 / 要不要涨降价 / 哪些商品要调价”属于 S5 收益决策，不应选择 S16。
+  对应 runtime 命令: python runtime/hotel_ota_runtime.py deviation --hotel-id <hotel_id>
+  runtime commands: deviation
+instructions: |
+  职责: 处理进度偏差诊断场景，只根据 runtime 证据输出结论。
+  允许输入: hotel_id, business_date, as_of_time, runtime context.
+  输出口径: runtime result, evidence, risk flags, data_gap, blocked_reason.
+  数据来源要求: runtime CLI and controlled database-query only.
+  路由边界:
+  - 直接问是否需要调价、涨价、降价或哪些商品需要调价时，交给 S5 revenue_decision。
+  - 只有在用户询问销售落后原因、经营偏差、大盘、份额、流量或转化时，S16 才把价格作为原因之一解释。
+  - 如果请求已经进入 S16，必须先回答已有经营事实；不得只说“这是 S5 范围，请改问 S5”。
+  - 具体收益候选、目标价格和调价任务仍由 S5/S6 负责。
+  guardrail / 护栏:
+  - 生产 Feishu 必须使用 verified role；需要时由 HOTEL_OTA_REQUIRE_VERIFIED_ROLE 强制
+  - 只能调用 runtime 已暴露的受控命令；agent 不得自行执行 SQL、改文件或直接调用 OTA/PMS live API
+  - demo/sample/synthetic/hardcoded 数据不得用于 production Feishu 业务结论
+  - 缺少必要数据必须返回 data_gap，不得编造成 0 或继续给正式结论
+  - 禁用渠道不得参与读取、分析和展示
+  - 生产飞书输出必须遵守 feishu-output-gate 语义
+  - 不得输出 DSN、token、服务器私有路径、原始订单行、payload_hash 或内部 request payload；no private path
+  - runtime 未返回 write_performed=true、affected_rows>0、config_change_applied=true 或 audit_id 时，不得声称已执行、已删除、已写入或已配置
+notes: |
+  triggers.yaml 只是 skill 标准化配置和后续迁移依据，当前生产事实路由仍是 runtime/feishu_command_router.py。 不得创建或依赖 skills/ota-diagnosis。

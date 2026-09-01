@@ -1,0 +1,67 @@
+{
+  "manifest_ref": "demo_manifest.json",
+  "hotel_id": "puyue-demo",
+  "demo_business_date": "2026-06-11",
+  "captured_at": "2026-06-11T16:00:00+08:00",
+  "stay_date": "2026-06-11",
+  "room_type_mapping_status": "demo_mapped",
+  "competitor_price_freshness": "demo_data",
+  "direct_price_trigger_allowed": false,
+  "competitors": [
+    {
+      "synthetic_id": "competitor-001",
+      "competitor_name": "周边电竞酒店A",
+      "competitor_price": 218,
+      "competitor_rank": 3,
+      "competitor_inventory": 4,
+      "competitor_activity_label": "会员满减",
+      "competitor_price_gap": 19,
+      "channel": "Mtop"
+    },
+    {
+      "synthetic_id": "competitor-002",
+      "competitor_name": "同档商务酒店B",
+      "competitor_price": 198,
+      "competitor_rank": 5,
+      "competitor_inventory": 7,
+      "competitor_activity_label": "限时折扣",
+      "competitor_price_gap": -1,
+      "channel": "Fliggy"
+    },
+    {
+      "synthetic_id": "competitor-003",
+      "competitor_name": "商圈精选酒店C",
+      "competitor_price": 205,
+      "competitor_rank": 4,
+      "competitor_inventory": 5,
+      "competitor_activity_label": "连住优惠",
+      "competitor_price_gap": 6,
+      "channel": "Douyin"
+    },
+    {
+      "synthetic_id": "competitor-004",
+      "competitor_name": "车站便捷酒店D",
+      "competitor_price": 189,
+      "competitor_rank": 7,
+      "competitor_inventory": 9,
+      "competitor_activity_label": "无活动",
+      "competitor_price_gap": -10,
+      "channel": "Ctrip"
+    },
+    {
+      "synthetic_id": "competitor-005",
+      "competitor_name": "高分设计酒店E",
+      "competitor_price": 229,
+      "competitor_rank": 2,
+      "competitor_inventory": 3,
+      "competitor_activity_label": "早餐礼包",
+      "competitor_price_gap": 30,
+      "channel": "Mtop"
+    }
+  ],
+  "data_source_type": "demo_data",
+  "freshness_status": "demo_data",
+  "today_label_allowed": false,
+  "approval_data_allowed": false,
+  "live_allowed": false
+}

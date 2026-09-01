@@ -1,0 +1,98 @@
+{
+  "schema_version": "hotel-ota-node-registry-overlay.v1",
+  "overlay_id": "s15-s16-final-responsibility.v2",
+  "nodes": {
+    "N010": {
+      "name": "S15 销售基准线",
+      "skill_id": "S15",
+      "responsibility": "cacheable_complete_baseline_package",
+      "direct_trigger": "用户查询销售目标、小时基准、历史正常值、样本数量、成熟度、P20/中位/P80或完整基准数据包。",
+      "inputs": [
+        "hotel_id",
+        "target_business_date",
+        "historical_sales_facts",
+        "historical_market_and_funnel_facts",
+        "historical_room_type_transaction_facts",
+        "historical_exact_ota_product_price_facts",
+        "calendar_context",
+        "enabled_channels"
+      ],
+      "outputs": [
+        "baseline_package",
+        "hotel_final_sales_target",
+        "room_type_final_sales_targets",
+        "hotel_hourly_sales_baseline",
+        "room_type_hourly_sales_baselines",
+        "market_orders_baseline",
+        "market_share_baseline",
+        "browse_baseline",
+        "first_conversion_baseline",
+        "second_conversion_baseline",
+        "room_type_transaction_references",
+        "ota_product_price_baselines",
+        "lead_price_baseline",
+        "sample_maturity",
+        "comparability",
+        "data_gaps"
+      ],
+      "forbidden_outputs": [
+        "dynamic_root_cause",
+        "pricing_action",
+        "promotion_action",
+        "observation_state",
+        "automatic_execution_qualification"
+      ],
+      "downstream": ["N011", "N015", "N009"]
+    },
+    "N011": {
+      "name": "S16 进度偏差诊断",
+      "skill_id": "S16",
+      "responsibility": "progress_deviation_with_dynamic_cause_explanation_and_read_only_advisories",
+      "direct_trigger": "用户询问今天经营怎么样、为什么销售落后、美团大盘/份额/浏览/一转/二转问题、是否需要调价或推广、哪些房型需要处理。",
+      "inputs": [
+        "baseline_package",
+        "current_hotel_sales_facts",
+        "current_room_type_sales_facts",
+        "current_meituan_jd01_order_proxy",
+        "current_meituan_peer_order_context",
+        "current_meituan_funnel_facts",
+        "current_inventory",
+        "current_promotion_and_activity_state",
+        "current_meituan_product_prices",
+        "current_meituan_commission_rates",
+        "current_meituan_activity_product_details",
+        "action_observation_and_cooldown_state"
+      ],
+      "outputs": [
+        "progress_status",
+        "room_type_structure",
+        "meituan_market_proxy",
+        "meituan_market_share_estimate",
+        "meituan_daily_pace_insights",
+        "browse_assessment",
+        "first_conversion_assessment",
+        "second_conversion_assessment",
+        "product_price_comparability",
+        "meituan_activity_net_price_estimates",
+        "estimated_price_advisories",
+        "primary_issue",
+        "secondary_issues",
+        "action_candidates",
+        "observation_state",
+        "cooldown_state",
+        "automatic_execution_qualification",
+        "data_limitations"
+      ],
+      "advisory_boundary": {
+        "formal_price_candidate_requires_exact_product_history": true,
+        "low_confidence_read_only_price_advisory_allowed_without_exact_product_history": true,
+        "advisory_must_be_exact_ota_product": true,
+        "advisory_auto_execution_allowed": false,
+        "advisory_handoff": "S5"
+      },
+      "requires": ["N010"],
+      "does_not_require": ["N009"],
+      "downstream": ["N012", "N015", "N018", "N019", "N020"]
+    }
+  }
+}

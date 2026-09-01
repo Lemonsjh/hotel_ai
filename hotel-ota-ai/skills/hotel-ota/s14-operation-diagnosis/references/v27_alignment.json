@@ -1,0 +1,33 @@
+{
+  "skill_id": "S14",
+  "skill_name": "S14 综合运营诊断",
+  "schema_version": "s14-capability-results.v1",
+  "legacy_node_ids": ["N009"],
+  "legacy_agent_ids": ["A2"],
+  "legacy_v27_status": "deprecated_compatibility_metadata_only",
+  "authoritative_spec": "飞书测试(2).md#S14 综合运营诊断",
+  "source_policy": "versioned_capability_results_only",
+  "required_capability_ids": [
+    "S2",
+    "S4",
+    "S7",
+    "S8",
+    "S9",
+    "S10",
+    "S12",
+    "S15",
+    "S16",
+    "S17"
+  ],
+  "allowed_handoff_capability_ids": ["S5", "S6", "S8", "S13"],
+  "direct_business_table_read_allowed": false,
+  "excel_source_allowed": false,
+  "sample_manual_rpa_fallback_allowed": false,
+  "runtime_entrypoint": "python -m runtime.s14_capability_cli --request-file <trusted_request_bundle.json>",
+  "legacy_runtime_entries": {
+    "s14-diagnosis source-mode excel": "blocked",
+    "s14-diagnosis source-mode mysql": "blocked",
+    "database-query operation_diagnosis": "blocked"
+  },
+  "blocking_reason": "s14_direct_source_removed_use_versioned_capability_results"
+}

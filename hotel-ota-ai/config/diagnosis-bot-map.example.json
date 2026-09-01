@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "group_chat_bots": [
+    {
+      "chat_id": "oc_replace_with_group_chat_id",
+      "bot_name": "酒店综合诊断机器人",
+      "status": "active"
+    }
+  ]
+}

@@ -1,0 +1,85 @@
+{
+  "schema_version": "v26.0",
+  "source": "contracts/v26/skill_io_contract.yaml",
+  "skill_id": "S14",
+  "skill_name": "酒店运营诊断",
+  "english_dir_name": "operation-diagnosis",
+  "node_ids": [
+    "N009"
+  ],
+  "agent_id": "A2",
+  "blueprint_basis": "BP03/BP04/BP02/BP05",
+  "direct_trigger": "OTA诊断、运营诊断",
+  "chain_trigger": "调价前健康保护",
+  "input_fields": [
+    "funnel_metrics",
+    "ota_health_score",
+    "price_snapshot",
+    "inventory_snapshot",
+    "reputation_result",
+    "competitor_context"
+  ],
+  "output_fields": [
+    "ota_health_score",
+    "ota_health_level",
+    "conversion_bottleneck",
+    "diagnosis_actions"
+  ],
+  "upstream_dependencies": [
+    "FNL001 exposure",
+    "FNL002 views",
+    "FNL003 submit_count",
+    "FNL004 payment_count",
+    "FNL005 first_conversion_rate",
+    "FNL006 second_conversion_rate",
+    "FNL007 overall_conversion_rate",
+    "HLT001 ota_health_score",
+    "HLT003 hos_score",
+    "REP019 rating_score",
+    "REP021 bad_review_rate",
+    "N005_OUT001 operating_snapshot",
+    "N005_OUT002 inventory_snapshot",
+    "N005_OUT003 price_snapshot",
+    "N008_OUT001 reputation_result",
+    "N008_OUT002 health_score_impact",
+    "N020_OUT001 traffic_state",
+    "N020_OUT006 peak_valley_evidence",
+    "N020_OUT007 conversion_signal",
+    "N007_OUT001 competitor_context",
+    "N007_OUT002 competitor_alert_level",
+    "N006_OUT001 demand_index",
+    "N006_OUT004 demand_reasons",
+    "N006_OUT006 calendar_context"
+  ],
+  "downstream_dependencies": [
+    "N015/N018/N019"
+  ],
+  "runtime_command": "ota-health / conversion-diagnosis",
+  "demo_data_files": [
+    "examples/demo_data/demo_manifest.json",
+    "examples/demo_data/nodes/N009.json"
+  ],
+  "error_handling": "缺字段只输出可计算项",
+  "acceptance_tests": [
+    "tests/contracts/test_v26_skill_io_contract.py"
+  ],
+  "node_registry_ref": "architecture/node_registry.json",
+  "edge_registry_ref": "architecture/edge_registry.json",
+  "scenario_registry_ref": "architecture/scenario_chain_registry.json",
+  "field_registry_ref": "contracts/v26/field_registry.yaml",
+  "node_io_contract_ref": "contracts/v26/node_io_contract.yaml",
+  "algorithm_rules_ref": "runtime/algorithm_rules/operation_diagnosis_rules.yaml",
+  "demo_node_fixture": "examples/demo_data/nodes/N009.json",
+  "forbidden_actions": [
+    "treat_demo_data_as_real_today_data",
+    "create_formal_approval_from_demo_or_stale_data",
+    "bypass_data_gate_or_approval_guard"
+  ],
+  "demo_safety": {
+    "data_source_type": "demo_data",
+    "approval_data_allowed": false,
+    "live_allowed": false,
+    "formal_approval_created": false,
+    "live_execution_count": 0
+  }
+}

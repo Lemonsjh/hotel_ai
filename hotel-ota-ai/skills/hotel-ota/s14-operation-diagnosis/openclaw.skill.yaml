@@ -1,0 +1,47 @@
+name: s14-operation-diagnosis
+description: |
+  S14 综合运营诊断：自动收集、版本化并存档 S2/S4/S7/S8/S9/S10/S12/S15/S16/S17
+  的确定性结果，再形成八模块证据图、风险排序、七轴摘要、房型异常和受控 handoff。
+instructions: |
+  职责：
+  - 固定 organization_id、exact hotel_id、target_business_date、as_of_datetime、
+    contract_revision 和 policy_revision。
+  - 优先复用同酒店、同目标日、captured_at 不晚于 as-of 的兼容版本化结果。
+  - 缺少结果时调用对应 capability 的受控 runtime，包装并保存新版本。
+  - 某个能力失败时保存 data_gap/conflict/stale/blocked 状态，只降级受影响模块。
+  - S14只消费 versioned capability results，不直接读取平行业务表。
+  - 不重算出租率、销售进度、流量转化、价格位置、ROI、口碑或客户聚合。
+  - S14不创建任务、不申请 confirmation、不发起 approval、不调用 OTA/Provider。
+
+  正式 runtime：
+  python runtime/hotel_ota_runtime.py s14-diagnosis --hotel-id <hotel_id> --date <YYYY-MM-DD> --as-of-datetime <ISO8601>
+
+  调试 runtime：
+  python -m runtime.s14_capability_cli --request-file <trusted_request_bundle.json>
+
+  禁止数据源：
+  - Excel/CSV/截图作为主 S14 输入
+  - MySQL operation_diagnosis 聚合模板
+  - manual/RPA/sample/demo/synthetic/hardcoded 正式结论
+  - 其他酒店、日期、平台或旧合同结果
+
+  输出：
+  - modules、coverage_score、observed_health_score
+  - deterministic items、root cause clusters
+  - seven decision axes
+  - room type exceptions、product facts、existing handoffs
+  - capability_collection、diagnosis_run_id、data limitations
+
+  guardrail / 护栏：
+  - 生产 Feishu 必须使用 verified role
+  - direct_business_table_read_allowed=false
+  - write_performed=false
+  - direct_execution_allowed=false
+  - approval_requested=false
+  - live_allowed=false
+  - no private path
+  - 生产飞书不得输出 SQL、模型参数、客户行、物理ID、Secret或内部路径。
+notes: |
+  capability_results 与 s14_diagnosis_runs 由 runtime 自动建表。
+  旧 s14-diagnosis Excel/MySQL 参数和 operation_diagnosis 数据库模板只保留失败关闭兼容。
+  S14-EXT 已迁移到独立服务，不得重新接入主 S14。

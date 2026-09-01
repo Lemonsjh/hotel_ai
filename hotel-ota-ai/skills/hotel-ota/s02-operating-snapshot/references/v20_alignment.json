@@ -1,0 +1,76 @@
+{
+  "schema_version": "0.1",
+  "skill_id": "S2",
+  "skill_dir": "s02-operating-snapshot",
+  "node_id": "N005",
+  "node_name": "S2 经营房态采集",
+  "agent_id": "A1",
+  "phase": "P0",
+  "node_registry_ref": "architecture/node_registry.json",
+  "edge_registry_ref": "architecture/edge_registry.json",
+  "scenario_registry_ref": "architecture/scenario_chain_registry.json",
+  "field_registry_ref": "contracts/field_registry.yaml",
+  "node_io_contract_ref": "contracts/node_io_contract.yaml",
+  "algorithm_rules_ref": "runtime/algorithm_rules/operating_snapshot_rules.yaml",
+  "demo_node_fixture": "examples/demo_data/nodes/N005.json",
+  "demo_scenarios": [
+    "SC01",
+    "SC02",
+    "SC03",
+    "SC04",
+    "SC05",
+    "SC06"
+  ],
+  "upstream_edges": [
+    {
+      "edge_id": "E004",
+      "source_node_id": "N004",
+      "why": "经营/诊断/调价/基准线/峰谷都需要统一经营快照作为数据底座。"
+    }
+  ],
+  "downstream_edges": [
+    {
+      "edge_id": "E008",
+      "target_node_id": "N009",
+      "why": "OTA健康诊断需要经营、库存、价格快照作为基础证据。"
+    },
+    {
+      "edge_id": "E010",
+      "target_node_id": "N010",
+      "why": "销售基准线需要房量、历史指标和经营快照。"
+    },
+    {
+      "edge_id": "E012",
+      "target_node_id": "N011",
+      "why": "偏差诊断需要当前实际进度与基准线比较。"
+    },
+    {
+      "edge_id": "E030",
+      "target_node_id": "N020",
+      "why": "流量峰谷必须基于当前经营、订单、曝光/浏览/支付转化快照。"
+    },
+    {
+      "edge_id": "E046",
+      "target_node_id": "N018",
+      "why": "用户只问经营快报时，经营房态采集结果直接进入消息中台输出，不进入收益决策。"
+    },
+    {
+      "edge_id": "E056",
+      "target_node_id": "N012",
+      "why": "活动/推广建议需要经营、价格、库存快照判断活动后到手价和库存压力。"
+    }
+  ],
+  "forbidden_actions": [
+    "treat_demo_data_as_real_today_data",
+    "create_formal_approval_from_demo_or_stale_data",
+    "bypass_data_gate_or_approval_guard"
+  ],
+  "demo_safety": {
+    "data_source_type": "demo_data",
+    "freshness_status": "demo_data",
+    "business_status": "demo_or_historical",
+    "today_label_allowed": false,
+    "approval_data_allowed": false,
+    "live_allowed": false
+  }
+}

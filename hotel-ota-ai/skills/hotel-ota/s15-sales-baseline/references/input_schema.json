@@ -1,0 +1,224 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "schema_version": "v27-wrapper",
+  "title": "S15 input wrapper",
+  "type": "object",
+  "canonical_source": "contracts/v27/node_io_contract.yaml",
+  "secondary_source": "contracts/v27/skill_io_contract.yaml",
+  "alignment_source": "references/v27_alignment.json",
+  "skill_id": "S15",
+  "skill_name": "S15",
+  "node_id": "N010",
+  "node_ids": [
+    "N010"
+  ],
+  "agent_id": "A2",
+  "agent_ids": [
+    "A2"
+  ],
+  "source_contract": "contracts/v27/contract.json",
+  "field_registry_ref": "contracts/v27/field_registry.yaml",
+  "node_io_contract_ref": "contracts/v27/node_io_contract.yaml",
+  "demo_safety_fields": [
+    "data_source_type=demo_data",
+    "freshness_status=demo_data",
+    "approval_data_allowed=false",
+    "live_allowed=false"
+  ],
+  "additionalProperties": true,
+  "input_field_ids": [
+    "HOT001",
+    "CTX003",
+    "ROOM009",
+    "DEM011",
+    "DEM007",
+    "OP005",
+    "OP006",
+    "OP007",
+    "N005_OUT001",
+    "N006_OUT001",
+    "N006_OUT006",
+    "N006_OUT004"
+  ],
+  "required_inputs": [
+    "HOT001",
+    "CTX003",
+    "ROOM009",
+    "DEM011",
+    "DEM007",
+    "OP005",
+    "OP006",
+    "OP007",
+    "N005_OUT001",
+    "N006_OUT001",
+    "N006_OUT006",
+    "N006_OUT004"
+  ],
+  "optional_inputs": [],
+  "upstream_node_outputs": [
+    "N005_OUT001",
+    "N006_OUT001",
+    "N006_OUT006",
+    "N006_OUT004"
+  ],
+  "deprecated_legacy_fields": {
+    "business_date": {
+      "deprecated": true,
+      "legacy_path": "business_fields.business_date",
+      "replacement_field_ids": [],
+      "description": "business_date from unified data contract"
+    },
+    "historical_same_weekday": {
+      "deprecated": true,
+      "legacy_path": "business_fields.historical_same_weekday",
+      "replacement_field_ids": [],
+      "description": "historical_same_weekday from unified data contract"
+    },
+    "historical_same_date_type": {
+      "deprecated": true,
+      "legacy_path": "business_fields.historical_same_date_type",
+      "replacement_field_ids": [],
+      "description": "historical_same_date_type from unified data contract"
+    },
+    "holiday_history": {
+      "deprecated": true,
+      "legacy_path": "business_fields.holiday_history",
+      "replacement_field_ids": [],
+      "description": "holiday_history from unified data contract"
+    },
+    "target_orders": {
+      "deprecated": true,
+      "legacy_path": "business_fields.target_orders",
+      "replacement_field_ids": [
+        "N010_OUT003"
+      ],
+      "description": "target_orders from unified data contract"
+    },
+    "hourly_curve": {
+      "deprecated": true,
+      "legacy_path": "business_fields.hourly_curve",
+      "replacement_field_ids": [],
+      "description": "hourly_curve from unified data contract"
+    }
+  },
+  "properties": {
+    "HOT001": {
+      "type": "string",
+      "canonical_key": "hotel_id",
+      "project_field_name": "hotel_id",
+      "field_status": "manual_required",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "hotel_id from V27 contract"
+    },
+    "CTX003": {
+      "type": "string",
+      "canonical_key": "business_date",
+      "project_field_name": "business_date",
+      "field_status": "project_only",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "business_date from V27 contract",
+      "format": "date-time"
+    },
+    "ROOM009": {
+      "type": "number",
+      "canonical_key": "room_total",
+      "project_field_name": "room_total",
+      "field_status": "candidate_inferred",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "room_total from V27 contract"
+    },
+    "DEM011": {
+      "type": "string",
+      "canonical_key": "historical_same_period",
+      "project_field_name": "historical_same_period",
+      "field_status": "algorithm_output",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "historical_same_period from V27 contract"
+    },
+    "DEM007": {
+      "type": "number",
+      "canonical_key": "demand_index",
+      "project_field_name": "demand_index",
+      "field_status": "algorithm_output",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "demand_index from V27 contract"
+    },
+    "OP005": {
+      "type": "number",
+      "canonical_key": "occupancy",
+      "project_field_name": "occupancy_rate",
+      "field_status": "candidate_inferred",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "occupancy from V27 contract"
+    },
+    "OP006": {
+      "type": "number",
+      "canonical_key": "adr",
+      "project_field_name": "adr",
+      "field_status": "candidate_inferred",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "adr from V27 contract"
+    },
+    "OP007": {
+      "type": "number",
+      "canonical_key": "revpar",
+      "project_field_name": "revpar",
+      "field_status": "candidate_inferred",
+      "required_level": "必选/增强",
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "description": "revpar from V27 contract"
+    },
+    "N005_OUT001": {
+      "type": "object",
+      "canonical_key": "operating_snapshot",
+      "project_field_name": "operating_snapshot",
+      "field_status": "upstream_output",
+      "required_level": "按链路触发必需",
+      "source_node": "N005",
+      "source_skill": "S2",
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "description": "operating_snapshot from V27 contract"
+    },
+    "N006_OUT001": {
+      "type": "number",
+      "canonical_key": "demand_index",
+      "project_field_name": "demand_index",
+      "field_status": "upstream_output",
+      "required_level": "按链路触发必需",
+      "source_node": "N006",
+      "source_skill": "S4",
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "description": "demand_index from V27 contract"
+    },
+    "N006_OUT006": {
+      "type": "object",
+      "canonical_key": "calendar_context",
+      "project_field_name": "calendar_context",
+      "field_status": "upstream_output",
+      "required_level": "按链路触发必需",
+      "source_node": "N006",
+      "source_skill": "S4",
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "description": "calendar_context from V27 contract"
+    },
+    "N006_OUT004": {
+      "type": "object",
+      "canonical_key": "demand_reasons",
+      "project_field_name": "demand_reasons",
+      "field_status": "upstream_output",
+      "required_level": "按链路触发必需",
+      "source_node": "N006",
+      "source_skill": "S4",
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "description": "demand_reasons from V27 contract"
+    }
+  },
+  "required": []
+}

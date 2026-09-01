@@ -1,0 +1,343 @@
+{
+  "skill_id": "S10",
+  "skill_name": "S10",
+  "node_ids": [
+    "N013"
+  ],
+  "agent_id": "A3",
+  "agent_ids": [
+    "A3"
+  ],
+  "blueprint_basis": [
+    "BP08",
+    "BP05"
+  ],
+  "input_field_ids": [
+    "ROI001",
+    "ROI011",
+    "ROI008",
+    "ROI009",
+    "ROI010",
+    "ROI005",
+    "ROI006",
+    "CFG001",
+    "N012_OUT002",
+    "N012_OUT005",
+    "N012_OUT007"
+  ],
+  "output_field_ids": [
+    "N013_OUT001",
+    "N013_OUT002",
+    "N013_OUT003",
+    "N013_OUT004"
+  ],
+  "input_fields": [
+    {
+      "field_id": "ROI001",
+      "canonical_key": "promotion_cost",
+      "project_field_name": "promotion_cost",
+      "zh_name": "推广成本",
+      "data_type": "number",
+      "required_level": "必选/增强",
+      "source_type": "manual_required",
+      "source_node": "",
+      "source_skill": "",
+      "downstream_node": [
+        "N012",
+        "N015",
+        "N018",
+        "N021"
+      ],
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "evidence": "V25字段契约直接输入"
+    },
+    {
+      "field_id": "ROI011",
+      "canonical_key": "attribution_revenue",
+      "project_field_name": "attribution_revenue",
+      "zh_name": "归因收入",
+      "data_type": "string",
+      "required_level": "必选/增强",
+      "source_type": "manual_required",
+      "source_node": "",
+      "source_skill": "",
+      "downstream_node": [
+        "N012",
+        "N015",
+        "N018",
+        "N021"
+      ],
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "evidence": "V25字段契约直接输入"
+    },
+    {
+      "field_id": "ROI008",
+      "canonical_key": "fee",
+      "project_field_name": "fee",
+      "zh_name": "手续费",
+      "data_type": "number",
+      "required_level": "必选/增强",
+      "source_type": "candidate_inferred",
+      "source_node": "",
+      "source_skill": "",
+      "downstream_node": [
+        "N012",
+        "N015",
+        "N018",
+        "N021"
+      ],
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "evidence": "V25字段契约直接输入"
+    },
+    {
+      "field_id": "ROI009",
+      "canonical_key": "refund",
+      "project_field_name": "refund",
+      "zh_name": "退款",
+      "data_type": "number",
+      "required_level": "必选/增强",
+      "source_type": "candidate_inferred",
+      "source_node": "",
+      "source_skill": "",
+      "downstream_node": [
+        "N012",
+        "N015",
+        "N018",
+        "N021"
+      ],
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "evidence": "V25字段契约直接输入"
+    },
+    {
+      "field_id": "ROI010",
+      "canonical_key": "settlement_amount",
+      "project_field_name": "settlement_amount",
+      "zh_name": "结算金额",
+      "data_type": "number",
+      "required_level": "必选/增强",
+      "source_type": "candidate_inferred",
+      "source_node": "",
+      "source_skill": "",
+      "downstream_node": [
+        "N012",
+        "N015",
+        "N018",
+        "N021"
+      ],
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "evidence": "V25字段契约直接输入"
+    },
+    {
+      "field_id": "ROI005",
+      "canonical_key": "fixed_cost",
+      "project_field_name": "fixed_cost",
+      "zh_name": "固定成本",
+      "data_type": "number",
+      "required_level": "必选/增强",
+      "source_type": "candidate_inferred",
+      "source_node": "",
+      "source_skill": "",
+      "downstream_node": [
+        "N012",
+        "N015",
+        "N018",
+        "N021"
+      ],
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "evidence": "V25字段契约直接输入"
+    },
+    {
+      "field_id": "ROI006",
+      "canonical_key": "variable_cost_per_room",
+      "project_field_name": "variable_cost_per_room",
+      "zh_name": "单房变动成本",
+      "data_type": "number",
+      "required_level": "必选/增强",
+      "source_type": "candidate_inferred",
+      "source_node": "",
+      "source_skill": "",
+      "downstream_node": [
+        "N012",
+        "N015",
+        "N018",
+        "N021"
+      ],
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "evidence": "V25字段契约直接输入"
+    },
+    {
+      "field_id": "CFG001",
+      "canonical_key": "price_floor",
+      "project_field_name": "price_floor",
+      "zh_name": "价格底线",
+      "data_type": "number",
+      "required_level": "必选",
+      "source_type": "config_only",
+      "source_node": "",
+      "source_skill": "",
+      "downstream_node": [
+        "N012",
+        "N015",
+        "N018",
+        "N021"
+      ],
+      "missing_policy": "缺失时降级/标记 data_gap，不编造",
+      "evidence": "V25字段契约直接输入"
+    },
+    {
+      "field_id": "N012_OUT002",
+      "canonical_key": "promotion_plan",
+      "project_field_name": "promotion_plan",
+      "zh_name": "推广计划",
+      "data_type": "object",
+      "required_level": "按链路触发必需",
+      "source_type": "upstream_output",
+      "source_node": "N012",
+      "source_skill": "S8",
+      "downstream_node": [
+        "N012",
+        "N015",
+        "N018",
+        "N021"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "15_上游输出展开 E036"
+    },
+    {
+      "field_id": "N012_OUT005",
+      "canonical_key": "budget_range",
+      "project_field_name": "budget_range",
+      "zh_name": "预算区间",
+      "data_type": "object",
+      "required_level": "按链路触发必需",
+      "source_type": "upstream_output",
+      "source_node": "N012",
+      "source_skill": "S8",
+      "downstream_node": [
+        "N012",
+        "N015",
+        "N018",
+        "N021"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "15_上游输出展开 E036"
+    },
+    {
+      "field_id": "N012_OUT007",
+      "canonical_key": "expected_return",
+      "project_field_name": "expected_return",
+      "zh_name": "预期回报",
+      "data_type": "object",
+      "required_level": "按链路触发必需",
+      "source_type": "upstream_output",
+      "source_node": "N012",
+      "source_skill": "S8",
+      "downstream_node": [
+        "N012",
+        "N015",
+        "N018",
+        "N021"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "15_上游输出展开 E036"
+    }
+  ],
+  "output_fields": [
+    {
+      "field_id": "N013_OUT001",
+      "canonical_key": "promotion_roi",
+      "project_field_name": "promotion_roi",
+      "zh_name": "推广ROI",
+      "data_type": "object",
+      "required_level": "节点输出",
+      "source_type": "upstream_output",
+      "source_node": "N013",
+      "source_skill": "S10",
+      "downstream_node": [
+        "N012",
+        "N015",
+        "N018",
+        "N021"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "14_输出字段字典"
+    },
+    {
+      "field_id": "N013_OUT002",
+      "canonical_key": "profit_simulation",
+      "project_field_name": "profit_simulation",
+      "zh_name": "利润模拟",
+      "data_type": "object",
+      "required_level": "节点输出",
+      "source_type": "upstream_output",
+      "source_node": "N013",
+      "source_skill": "S10",
+      "downstream_node": [
+        "N012",
+        "N015",
+        "N018",
+        "N021"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "14_输出字段字典"
+    },
+    {
+      "field_id": "N013_OUT003",
+      "canonical_key": "roi_decision",
+      "project_field_name": "roi_decision",
+      "zh_name": "ROI决策",
+      "data_type": "object",
+      "required_level": "节点输出",
+      "source_type": "upstream_output",
+      "source_node": "N013",
+      "source_skill": "S10",
+      "downstream_node": [
+        "N012",
+        "N015",
+        "N018",
+        "N021"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "14_输出字段字典"
+    },
+    {
+      "field_id": "N013_OUT004",
+      "canonical_key": "data_gaps",
+      "project_field_name": "data_gaps",
+      "zh_name": "数据缺口",
+      "data_type": "array",
+      "required_level": "节点输出",
+      "source_type": "upstream_output",
+      "source_node": "N013",
+      "source_skill": "S10",
+      "downstream_node": [
+        "N012",
+        "N015",
+        "N018",
+        "N021"
+      ],
+      "missing_policy": "输出缺失时不得伪造，由下游按缺口处理",
+      "evidence": "14_输出字段字典"
+    }
+  ],
+  "runtime_command": "",
+  "demo_data_files": [
+    "examples/demo_data/demo_manifest.json",
+    "examples/demo_data/nodes/N013.json"
+  ],
+  "error_handling": "",
+  "acceptance_tests": [
+    "tests/contracts/test_v27_skill_io_contract.py"
+  ],
+  "schema_version": "v27.0",
+  "source": "contracts/v27/contract.json",
+  "field_registry_ref": "contracts/v27/field_registry.yaml",
+  "node_io_contract_ref": "contracts/v27/node_io_contract.yaml",
+  "legacy_v26_alignment_ref": "references/v26_alignment.json",
+  "demo_safety_fields": [
+    "data_source_type=demo_data",
+    "freshness_status=demo_data",
+    "approval_data_allowed=false",
+    "live_allowed=false"
+  ]
+}
