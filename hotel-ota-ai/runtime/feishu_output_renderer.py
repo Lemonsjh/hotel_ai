@@ -435,8 +435,12 @@ def _template_for_intent(result: dict[str, Any]) -> str:
         return "identity"
     if intent == "chat_binding_status":
         return "chat_binding_status"
-    if intent in {"health_ping", "runtime_status"}:
+    if intent == "health_ping":
+        return "health_ping"
+    if intent == "runtime_status":
         return "system_health"
+    if intent in {"model_info", "assistant_about", "unmatched_help"}:
+        return intent
     if intent == "model_config_request":
         return "model_config_blocked"
     if intent == "config_change_request":
@@ -514,7 +518,7 @@ def render_feishu_output(result: dict[str, Any], output_profile: str | None = No
             "message_send_attempted": False,
             "template": "guest_limited",
         }
-    if result.get("intent") in {"health_ping", "runtime_status", "model_config_request", "config_change_request", "maintenance_safety_refusal"}:
+    if result.get("intent") in {"health_ping", "runtime_status", "model_info", "assistant_about", "unmatched_help", "model_config_request", "config_change_request", "maintenance_safety_refusal"}:
         text = _render_template(system_template, _context(result))
         return {
             "status": "ok",

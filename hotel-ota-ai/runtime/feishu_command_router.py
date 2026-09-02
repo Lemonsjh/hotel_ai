@@ -1798,11 +1798,21 @@ def _detect_intent(message: str) -> str:
         ],
     ):
         return "runtime_status"
-    if _contains_any(text, ["ping", "health ping", "hello"]) or _contains_any(raw, ["\u5728\u5417", "\u4f60\u597d", "\u5065\u5eb7\u68c0\u67e5"]):
+    if re.fullmatch(r"(?:hi|hey)[!,.!? ]*", text) or _contains_any(
+        text, ["ping", "health ping", "hello"]
+    ) or _contains_any(raw, ["\u5728\u5417", "\u4f60\u597d", "\u55e8", "\u5065\u5eb7\u68c0\u67e5"]):
         return "health_ping"
     if _config_change_request_detected(raw):
         return "config_change_request"
-    if _contains_any(text, ["model", "provider", "flash"]) or _contains_any(raw, ["\u6a21\u578b", "\u5207\u6362"]):
+    if _contains_any(raw, ["\u4f60\u662f\u4ec0\u4e48\u6a21\u578b", "\u5f53\u524d\u6a21\u578b", "\u4f7f\u7528\u4ec0\u4e48\u6a21\u578b", "\u6a21\u578b\u662f\u4ec0\u4e48"]) or _contains_any(
+        text, ["what model", "current model", "model info"]
+    ):
+        return "model_info"
+    if _contains_any(raw, ["\u4f60\u662f\u4ec0\u4e48", "\u4f60\u80fd\u505a\u4ec0\u4e48", "\u90e8\u7f72\u8bbe\u5907", "\u90e8\u7f72\u7684\u8bbe\u5907", "\u90e8\u7f72\u5728\u54ea", "\u8fd0\u884c\u5728\u54ea"]):
+        return "assistant_about"
+    if _contains_any(text, ["switch model", "change model", "configure model", "model config"]) or _contains_any(
+        raw, ["\u5207\u6362\u6a21\u578b", "\u66f4\u6362\u6a21\u578b", "\u914d\u7f6e\u6a21\u578b", "\u6a21\u578b\u914d\u7f6e"]
+    ):
         return "model_config_request"
     if _contains_any(
         text,
@@ -1905,7 +1915,7 @@ def _detect_intent(message: str) -> str:
         return "third_party_report_preview"
     if _contains_any(raw, ["\u7ecf\u9a8c"]) or "experience" in text:
         return "experience_candidates"
-    return "menu"
+    return "unmatched_help"
 
 
 def _priceable_product_platform(message: str) -> str | None:
@@ -3186,8 +3196,15 @@ def _health_ping(*, role: str, output_profile: str | None) -> dict[str, Any]:
         {
             "status": "ok",
             "runtime_command": "health-ping",
-            "summary": "Runtime reachable. Feishu can show status, demo chains, and dry-run previews; it does not grant live execution.",
+            # A greeting is runtime status, not a demo business result.  Keeping
+            # the demo provenance inherited from _base_result makes the final
+            # Feishu output gate reject an otherwise safe health response.
+            "data_source_type": "runtime_status",
+            "business_result_generated": False,
+            "blocked_reason": None,
+            "summary": "Runtime reachable. I can answer hotel operations questions and provide controlled diagnostics.",
             "environment_scope": "feishu_gateway_runtime",
+            "next_steps": "可直接询问经营快照、销售进度、OTA 运营或收益建议。",
         }
     )
     return result
@@ -3217,6 +3234,42 @@ def _model_config_refusal(*, role: str, output_profile: str | None) -> dict[str,
             "blocked_reason": "feishu_business_chat_cannot_change_model_config",
             "model_config_changed": False,
             "allowed_next_step": "Use an approved admin maintenance workflow for model configuration changes.",
+        }
+    )
+    return result
+
+
+def _model_info(*, role: str, output_profile: str | None) -> dict[str, Any]:
+    result = _base_result("model_info", role=role, output_profile=output_profile)
+    result.update(
+        {
+            "status": "ok",
+            "summary": "当前模型由网关统一配置；请以本消息页脚的 Model 字段为准。",
+            "live_allowed": False,
+        }
+    )
+    return result
+
+
+def _assistant_about(*, role: str, output_profile: str | None) -> dict[str, Any]:
+    result = _base_result("assistant_about", role=role, output_profile=output_profile)
+    result.update(
+        {
+            "status": "ok",
+            "summary": "我是酒店数字员工，提供经营分析、OTA 运营、收益建议和受控执行预览。",
+            "live_allowed": False,
+        }
+    )
+    return result
+
+
+def _unmatched_help(*, role: str, output_profile: str | None) -> dict[str, Any]:
+    result = _base_result("unmatched_help", role=role, output_profile=output_profile)
+    result.update(
+        {
+            "status": "ok",
+            "summary": "暂未识别该请求；可直接描述经营、OTA、评价、调价或推广问题。",
+            "live_allowed": False,
         }
     )
     return result
@@ -3763,6 +3816,12 @@ def route_feishu_command(
         )
     elif intent == "health_ping":
         result = _health_ping(role=role, output_profile=output_profile)
+    elif intent == "model_info":
+        result = _model_info(role=role, output_profile=output_profile)
+    elif intent == "assistant_about":
+        result = _assistant_about(role=role, output_profile=output_profile)
+    elif intent == "unmatched_help":
+        result = _unmatched_help(role=role, output_profile=output_profile)
     elif intent == "maintenance_safety_refusal":
         result = _maintenance_refusal(role=role, output_profile=output_profile)
     elif intent == "model_config_request":

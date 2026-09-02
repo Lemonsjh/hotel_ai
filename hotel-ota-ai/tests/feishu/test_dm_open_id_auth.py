@@ -65,6 +65,20 @@ class TestDmOpenIdAuth(unittest.TestCase):
         self.assertEqual(context["resolved_hotel_id"], "xingfeng")
         self.assertEqual(context["tenant_status"], "bound_by_open_id")
 
+    def test_private_oc_conversation_uses_open_id_membership_not_group_binding(self) -> None:
+        context = auth_module.build_auth_context(
+            source="feishu",
+            open_id="test-admin-open",
+            chat_id="oc_private_conversation",
+            chat_type="p2p",
+            auth_db_path=self.db_path,
+        )
+
+        self.assertEqual(context["auth_status"], "authorized")
+        self.assertEqual(context["user_role"], "admin")
+        self.assertEqual(context["resolved_hotel_id"], "xingfeng")
+        self.assertEqual(context["tenant_status"], "bound_by_open_id")
+
     def test_private_chat_open_id_without_membership_is_blocked_not_guest_fallback(self) -> None:
         with closing(connect(self.db_path)) as conn:
             with conn:

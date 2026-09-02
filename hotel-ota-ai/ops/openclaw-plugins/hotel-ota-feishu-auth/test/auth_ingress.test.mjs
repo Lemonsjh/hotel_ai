@@ -50,6 +50,26 @@ test("authorized hotel message is runtime-routed and never delegated to an agent
   assert.equal(deps.sent[0].text, "固定 runtime 回复");
 });
 
+test("OpenClaw session commands pass through to the channel plugin", async () => {
+  const deps = createDependencies();
+  const handler = createInboundClaimHandler(deps);
+
+  for (const text of ["/new", "/clear", "/stop", "/restart"]) {
+    assert.equal(await handler(event({ text })), undefined);
+  }
+  assert.equal(deps.sent.length, 0);
+});
+
+test("ordinary greetings and capability questions pass through to the chief agent", async () => {
+  const deps = createDependencies();
+  const handler = createInboundClaimHandler(deps);
+
+  for (const text of ["hi", "你好", "你可以干什么？", "你是什么模型", "你所部署的设备是？", "你当前运行在什么设备上？"]) {
+    assert.equal(await handler(event({ text })), undefined);
+  }
+  assert.equal(deps.sent.length, 0);
+});
+
 test("native plugin manifest declares the OpenClaw startup contract", async () => {
   const manifest = JSON.parse(await readFile(path.join(pluginRoot, "openclaw.plugin.json"), "utf8"));
   assert.equal(manifest.id, "hotel-ota-feishu-auth");
@@ -210,6 +230,33 @@ test("p2p canonical event separates auth chat id from Feishu send target", async
   assert.equal(routed[0].chatId, "oc_private_bound");
   assert.equal(deps.sent.length, 1);
   assert.equal(deps.sent[0].target, "user:ou_allowed");
+});
+
+test("explicit Feishu p2p type overrides an inherited group flag", async () => {
+  const routed = [];
+  const deps = createDependencies({
+    route: async (identity) => {
+      routed.push(identity);
+      return { send_payload: { text: "runtime p2p response" } };
+    },
+  });
+  const handler = createInboundClaimHandler(deps);
+
+  const result = await handler({
+    content: "你好",
+    channel: "feishu",
+    accountId: "hotel-ota-primary",
+    conversationId: "oc_private_bound",
+    senderId: "ou_allowed",
+    isGroup: true,
+    chat_type: "p2p",
+    target: "user:ou_allowed",
+    messageId: "om_explicit_p2p_001",
+  }, {});
+
+  assert.deepEqual(result, { handled: true });
+  assert.equal(routed.length, 1);
+  assert.equal(routed[0].chatType, "p2p");
 });
 
 test("group member-info lookup is passed to runtime when available", async () => {

@@ -5,6 +5,8 @@ const GENERIC_INVALID_IDENTITY = "您好，未收到可验证的飞书身份信�
 const GENERIC_DUPLICATE = "您好，重复消息已忽略，请稍后查看上一条回复。";
 const GENERIC_FAILURE = "您好，服务暂时不可用，请稍后重试。";
 const GENERIC_MENU = "您好，暂未识别该请求。请发送“菜单”或直接发送功能名称。";
+const OPENCLAW_SESSION_COMMAND = /^\/(?:new|clear|stop|restart)(?:\s|$)/i;
+const OPENCLAW_CONVERSATION_MESSAGE = /^(?:hi|hey|hello|你好|嗨|在吗|你可以干什么|你能做什么|你能干什么|有什么能力|能提供什么帮助|你是谁|你是什么模型|当前模型|使用什么模型|你所部署的设备是|你当前运行在什么设备上|部署在哪|what can you do|who are you|what model)[?？!！。.\s]*$/i;
 
 function asText(value) {
   return typeof value === "string" ? value.trim() : "";
@@ -90,11 +92,22 @@ export function extractInboundContext(event = {}, ctx = {}) {
     message.openId,
     message.open_id,
   );
-  const chatType = event.isGroup === true || ctx.isGroup === true
-    ? "group"
-    : event.isGroup === false || ctx.isGroup === false
-      ? "p2p"
-      : firstText(event.chatType, event.chat_type, message.chatType, message.chat_type, nestedValue(message, "chat", "type"));
+  // Prefer Feishu's explicit chat type. The host-level isGroup flag can be
+  // inherited from a dispatch context and has misclassified p2p events.
+  const explicitChatType = firstText(
+    event.chatType,
+    event.chat_type,
+    message.chatType,
+    message.chat_type,
+    nestedValue(message, "chat", "type"),
+  ).toLowerCase();
+  const chatType = ["group", "p2p"].includes(explicitChatType)
+    ? explicitChatType
+    : event.isGroup === true || ctx.isGroup === true
+      ? "group"
+      : event.isGroup === false || ctx.isGroup === false
+        ? "p2p"
+        : "";
   const sendTarget = firstText(
     event.sendTarget,
     event.send_target,
@@ -299,6 +312,14 @@ export function createInboundClaimHandler(dependencies) {
     });
     if (context.channel !== "feishu" || !accountMatch) {
       record("pass", context.channel !== "feishu" ? "non_feishu_channel" : "account_not_targeted");
+      return undefined;
+    }
+    if (OPENCLAW_SESSION_COMMAND.test(context.text.trim())) {
+      record("pass", "openclaw_session_command");
+      return undefined;
+    }
+    if (OPENCLAW_CONVERSATION_MESSAGE.test(context.text.trim())) {
+      record("pass", "openclaw_conversation_message");
       return undefined;
     }
     if (context.isBot) {

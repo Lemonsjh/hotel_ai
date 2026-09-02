@@ -12,6 +12,16 @@ from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any
 
+
+def _configure_utf8_stdio() -> None:
+    for stream in (sys.stdout, sys.stderr):
+        reconfigure = getattr(stream, "reconfigure", None)
+        if callable(reconfigure):
+            reconfigure(encoding="utf-8", errors="replace")
+
+
+_configure_utf8_stdio()
+
 ROOT = Path(__file__).resolve().parents[1]
 SKILL_ROOT = ROOT / "skills" / "s14-operation-diagnosis"
 ENV_FILE = Path(os.environ.get("HOTEL_OTA_ENV_FILE", "/etc/hotel-ota-ai/hotel-ota.env"))
