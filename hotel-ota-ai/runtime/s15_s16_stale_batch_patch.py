@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import datetime as dt
+import re
+import unicodedata
 from collections import defaultdict
 from typing import Any, Mapping, Sequence
 
@@ -43,6 +45,80 @@ def _explicit_hour(value: Any) -> int | None:
 def _room_id(row: Mapping[str, Any]) -> str | None:
     value = row.get("room_type_id")
     return None if value in (None, "") else str(value)
+
+
+def _normalized_room_name(value: Any) -> str | None:
+    """Return a conservative, batch-local fallback key for read-only analysis."""
+    if value in (None, ""):
+        return None
+    text = unicodedata.normalize("NFKC", str(value)).casefold().strip()
+    text = re.sub(r"[\s\-_.·•()（）【】\[\]]+", "", text)
+    return text or None
+
+
+def _with_read_identity_fallback(row: Mapping[str, Any]) -> dict[str, Any]:
+    """Add a non-authoritative identity only for S15/S16 batch completeness.
+
+    A missing canonical mapping must not silently remove a room type from a
+    read-only whole-hotel curve.  The generated IDs are namespaced so they
+    cannot be mistaken for a canonical ``room_type_id`` by a writer.
+    """
+    copied = dict(row)
+    if _room_id(copied):
+        copied["room_type_identity_source"] = "canonical"
+        return copied
+    pms_id = copied.get("pms_room_type_id")
+    if pms_id not in (None, ""):
+        copied["room_type_id"] = f"read:pms:{pms_id}"
+        copied["room_type_identity_source"] = "pms_id_fallback"
+        copied["room_type_id_inferred"] = True
+        return copied
+    name = _normalized_room_name(copied.get("room_type_name"))
+    if name:
+        copied["room_type_id"] = f"read:name:{name}"
+        copied["room_type_identity_source"] = "name_fallback"
+        copied["room_type_id_inferred"] = True
+    return copied
+
+
+def prepare_read_only_hourly_rows(
+    rows: Sequence[Mapping[str, Any]],
+) -> list[dict[str, Any]]:
+    """Resolve missing or colliding canonical IDs for S15/S16 hourly reads.
+
+    A duplicated canonical ID is not silently trusted: every row in that
+    collision is re-keyed by its PMS-native identity.  This preserves whole-
+    hotel arithmetic while making the inference visible and keeping writers on
+    their existing exact-ID-only path.
+    """
+    grouped: dict[tuple[str, str, str], list[dict[str, Any]]] = defaultdict(list)
+    for source in rows:
+        row = dict(source)
+        grouped[
+            (
+                str(row.get("stay_date") or "")[:10],
+                str(row.get("snapshot_hour") or ""),
+                str(row.get("snapshot_time") or ""),
+            )
+        ].append(row)
+
+    prepared: list[dict[str, Any]] = []
+    for batch in grouped.values():
+        ids = [_room_id(row) for row in batch]
+        collisions = {value for value in ids if value and ids.count(value) > 1}
+        for source in batch:
+            row = _with_read_identity_fallback(source)
+            original_id = _room_id(source)
+            if original_id in collisions:
+                # Do not arbitrarily choose which duplicate owns the canonical
+                # ID.  Both become read-only PMS/name identities instead.
+                row["room_type_id"] = None
+                row = _with_read_identity_fallback(row)
+                if _room_id(row):
+                    row["room_type_identity_source"] = "canonical_id_conflict_fallback"
+                    row["room_type_id_inferred"] = True
+            prepared.append(row)
+    return prepared
 
 
 def select_batch(
@@ -102,11 +178,15 @@ def select_batch(
     candidates: list[
         tuple[int, dt.datetime, list[dict[str, Any]], bool, tuple[str, ...], bool]
     ] = []
-    for (hour, snapshot_text, is_current_forecast), batch in grouped.items():
+    for (hour, snapshot_text, is_current_forecast), source_batch in grouped.items():
         if hour is None:
             continue
         if requested_hour is not None and hour > requested_hour:
             continue
+        # S15/S16 is a read-only path.  Preserve the full hotel denominator when
+        # a canonical room mapping is pending, while retaining an explicit audit
+        # marker and rejecting duplicate/ambiguous fallback identities below.
+        batch = [_with_read_identity_fallback(row) for row in source_batch]
         ids = [_room_id(row) for row in batch]
         non_null = [value for value in ids if value]
         missing = tuple(sorted(expected - set(non_null))) if expected else ()

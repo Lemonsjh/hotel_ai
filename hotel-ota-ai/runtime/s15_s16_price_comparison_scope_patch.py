@@ -5,7 +5,10 @@ from typing import Any, Callable, Mapping, Sequence
 
 _INSTALLED = False
 VERSION = "s15-s16-price-comparison-scope.v1"
-BASELINE_PACKAGE_VERSION = "s15-baseline-package.v3"
+# v4 invalidates cached S15 packages produced before read-only PMS room
+# identity fallback was introduced.  Otherwise S16 can keep showing an empty
+# hourly curve for up to the cache TTL after a safe mapping recovery.
+BASELINE_PACKAGE_VERSION = "s15-baseline-package.v4"
 MIN_SELECTED_PRICE_DAYS = 3
 MIN_SELECTED_ROOM_NIGHTS = 3.0
 DATE_FACTOR_MIN = 0.90

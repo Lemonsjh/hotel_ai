@@ -4,7 +4,7 @@ import datetime as dt
 from typing import Any
 
 from .baseline_service import build_baseline as _build_baseline
-from .core import parse_datetime
+from .core import expected_room_type_set, parse_datetime
 from .deviation_service import build_deviation as _build_deviation
 from .hour_grid_evidence import VERSION as HOUR_GRID_VERSION
 from .hour_grid_evidence import attach_hour_grid_evidence
@@ -38,10 +38,17 @@ def _attach_exact_hour_grid(
                 as_of_datetime,
             )
         )
+        # Keep the evidence gate aligned with S15's read-only room-identity
+        # fallback.  The canonical IDs in ``result`` may be intentionally
+        # duplicated or absent in historical PMS snapshots.
+        from runtime.s15_s16_stale_batch_patch import prepare_read_only_hourly_rows
+
+        prepared_rows = prepare_read_only_hourly_rows(rows)
         return attach_hour_grid_evidence(
             result,
-            rows=rows,
+            rows=prepared_rows,
             decision_hour=decision_hour,
+            expected_room_type_ids=expected_room_type_set(prepared_rows),
         )
     except Exception as exc:
         copied = dict(result)

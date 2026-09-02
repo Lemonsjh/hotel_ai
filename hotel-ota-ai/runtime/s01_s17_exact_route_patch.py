@@ -55,7 +55,7 @@ _STANDARD_ROUTE_PHRASES = {
     "S13": "待回复评论",
     "S14": "酒店运营诊断",
     "S15": "销售基准线",
-    "S16": "销售进度",
+    "S16": "进度诊断",
     "S17": "客户订单分析",
 }
 
@@ -100,7 +100,7 @@ S12_DAILY_NEW_REVIEW_PHRASES = (
     "昨天评论数",
 )
 _S12_RECENT_NEW_REVIEW_RE = re.compile(
-    r"(?:近|最近|最新)\s*([23二两三])\s*天.*?(?:新增.*评论|评论.*新增|评论数)"
+    r"(?:近|最近|最新|这|过去)\s*([23二两三])\s*天.*?(?:新增.*评论|评论.*新增|评论数)"
 )
 _S12_YESTERDAY_REVIEW_STAT_RE = re.compile(
     r"(?:昨天|昨日).{0,12}(?:好评|差评|未回复|回复率|评论|评价)"
@@ -389,6 +389,8 @@ def install() -> None:
                 target = route_target_for_code(code)
                 if target["kind"] == "entry":
                     return str(target["intent"])
+                if target["kind"] == "rewrite":
+                    return original_detect(str(target["message"]))
             return original_detect(message)
 
         detect_intent._s09_s12_real_route = True  # type: ignore[attr-defined]

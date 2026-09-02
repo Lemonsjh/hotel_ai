@@ -97,13 +97,15 @@ def strict_hourly_facts(
         expected_room_type_set,
         select_complete_batch,
     )
+    from runtime.s15_s16_stale_batch_patch import prepare_read_only_hourly_rows
 
-    expected = expected_room_type_set(rows)
+    prepared_rows = prepare_read_only_hourly_rows(rows)
+    expected = expected_room_type_set(prepared_rows)
     if not expected:
         return {}, ()
     result: dict[tuple[str, int], list[dict[str, Any]]] = {}
     for day in selected_dates:
-        day_rows = [row for row in rows if date_part(row.get("stay_date")) == day]
+        day_rows = [row for row in prepared_rows if date_part(row.get("stay_date")) == day]
         for hour in range(24):
             selected = select_complete_batch(
                 day_rows,
@@ -113,10 +115,14 @@ def strict_hourly_facts(
             if not selected.complete or not selected.rows:
                 continue
             facts = [calculate_room_fact(row) for row in selected.rows]
-            for fact in facts:
+            for fact, source in zip(facts, selected.rows):
                 fact["source_observed_hour"] = selected.observed_hour
                 fact["checkpoint_gap_minutes"] = selected.checkpoint_gap_minutes or 0
                 fact["is_exact_hour"] = selected.observed_hour == hour
+                fact["room_type_identity_source"] = source.get(
+                    "room_type_identity_source", "canonical"
+                )
+                fact["room_type_id_inferred"] = bool(source.get("room_type_id_inferred"))
             result[(day, hour)] = facts
     return result, expected
 

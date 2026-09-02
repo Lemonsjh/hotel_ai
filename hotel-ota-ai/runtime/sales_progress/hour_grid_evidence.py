@@ -145,12 +145,17 @@ def attach_hour_grid_evidence(
     *,
     rows: Sequence[Mapping[str, Any]],
     decision_hour: int,
+    expected_room_type_ids: Sequence[str] | None = None,
 ) -> dict[str, Any]:
     copied = dict(result)
     evidence = compute_hour_grid_evidence(
         rows,
         selected_dates=copied.get("selected_dates") or [],
-        expected_room_type_ids=copied.get("expected_room_type_ids") or [],
+        expected_room_type_ids=(
+            expected_room_type_ids
+            if expected_room_type_ids is not None
+            else copied.get("expected_room_type_ids") or []
+        ),
         decision_hour=decision_hour,
     )
     copied.update(evidence)
