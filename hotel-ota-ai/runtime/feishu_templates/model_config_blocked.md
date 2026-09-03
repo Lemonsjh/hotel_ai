@@ -1,5 +1,14 @@
-模型配置变更已拦截
+[Configuration request blocked]
+Data label:
+- data_source_type: {data_source_type}
+- business_date: {business_date}
+- approval allowed: {approval_data_allowed}
+- live allowed: {live_allowed}
 
-飞书业务群不能直接切换或修改模型配置；本次没有更改任何配置。
+Configuration changes are blocked in Feishu business chat.
 
-如确需调整，请由管理员通过受控维护流程处理。
+Boundary:
+{boundaries}
+
+Next:
+Use an approved admin maintenance workflow. No configuration was changed.

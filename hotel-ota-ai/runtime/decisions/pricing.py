@@ -891,14 +891,22 @@ def execute_price(args: argparse.Namespace) -> None:
         )
         return
 
-    resolved_policy = resolve_price_guard_policy(
-        args.db,
-        hotel_id=args.hotel_id,
-        room_type_id=args.room_type_id,
-        at_time=now_local(),
-        channel_source=channel_source,
-        ota_product_id=getattr(args, "ota_product_id", None),
-    )
+    prevalidated_confirmation = bool(getattr(args, "prevalidated_confirmation", False))
+    prevalidated_policy = getattr(args, "prevalidated_policy", None)
+    if prevalidated_confirmation:
+        if args.dry_run or not isinstance(prevalidated_policy, dict):
+            emit({"status": "blocked", "reason": "prevalidated_preview_evidence_missing"})
+            return
+        resolved_policy = dict(prevalidated_policy)
+    else:
+        resolved_policy = resolve_price_guard_policy(
+            args.db,
+            hotel_id=args.hotel_id,
+            room_type_id=args.room_type_id,
+            at_time=now_local(),
+            channel_source=channel_source,
+            ota_product_id=getattr(args, "ota_product_id", None),
+        )
     live_policy: dict | None = resolved_policy if resolved_policy.get("source") == "active_price_guard_policy" else None
     execution_policy = live_policy or resolved_policy
     if not args.dry_run:
@@ -914,6 +922,9 @@ def execute_price(args: argparse.Namespace) -> None:
             )
             return
         payload = approval_record.get("payload") or {}
+        if prevalidated_confirmation and not payload.get("prevalidated_preview"):
+            emit({"status": "blocked", "reason": "prevalidated_preview_evidence_missing", "approval_id": approval_record.get("approval_id")})
+            return
         if approval_record.get("status") != "approved":
             emit(
                 {
@@ -964,7 +975,7 @@ def execute_price(args: argparse.Namespace) -> None:
                 }
             )
             return
-        if payload.get("price_guard_policy_id"):
+        if payload.get("price_guard_policy_id") and not prevalidated_confirmation:
             if not live_policy:
                 emit(
                     {
@@ -1096,16 +1107,20 @@ def execute_price(args: argparse.Namespace) -> None:
         )
         return
 
-    guard = price_guard(
-        old_price=getattr(args, "old_price", None),
-        new_price=args.normal_price,
-        floor_price=floor_price,
-        ceiling_price=ceiling_price,
-        max_increase_pct=execution_policy.get("max_increase_pct"),
-        max_decrease_pct=execution_policy.get("max_decrease_pct"),
-        min_increase_pct=execution_policy.get("min_increase_pct"),
-        min_decrease_pct=execution_policy.get("min_decrease_pct"),
-        require_old_price=not args.dry_run,
+    guard = (
+        {"passed": True, "prevalidated_preview": True}
+        if prevalidated_confirmation
+        else price_guard(
+            old_price=getattr(args, "old_price", None),
+            new_price=args.normal_price,
+            floor_price=floor_price,
+            ceiling_price=ceiling_price,
+            max_increase_pct=execution_policy.get("max_increase_pct"),
+            max_decrease_pct=execution_policy.get("max_decrease_pct"),
+            min_increase_pct=execution_policy.get("min_increase_pct"),
+            min_decrease_pct=execution_policy.get("min_decrease_pct"),
+            require_old_price=not args.dry_run,
+        )
     )
     guard["guard_source"] = guard_source
     guard["floor_price"] = floor_price
@@ -1168,6 +1183,19 @@ def execute_price(args: argparse.Namespace) -> None:
             now=now_local(),
             db_kind=os.environ.get("HOTEL_OTA_PRICE_TASK_DB_KIND") or os.environ.get("HOTEL_OTA_DB_KIND") or "sqlite",
             dsn=price_task_dsn,
+            prevalidated_product=(
+                {
+                    "hotel_id": args.hotel_id,
+                    "hotel_name": getattr(args, "hotel_name", None),
+                    "room_type_id": args.room_type_id,
+                    "room_type_name": getattr(args, "room_type_name", None),
+                    "ota_product_id": getattr(args, "ota_product_id", None),
+                    "ota_product_name": getattr(args, "ota_product_name", None),
+                    "current_sale_price": getattr(args, "old_price", None),
+                }
+                if prevalidated_confirmation
+                else None
+            ),
         )
         emit(
             {

@@ -10,7 +10,7 @@ from runtime.s13.contracts import RequestContext
 from runtime.s13.repository import S13ControlRepository
 from runtime.s13.service import S13Service
 from runtime.s13.source import MemoryReviewSourceRepository, MySQLReviewSourceRepository, SourceDataGap
-from runtime.s13.task_outbox import MySQLReviewTaskOutbox, TaskDataGap, UnavailableReviewTaskOutbox
+from runtime.s13.task_outbox import SQLiteReviewTaskOutbox
 
 
 SHANGHAI_TZ = timezone(timedelta(hours=8))
@@ -127,20 +127,18 @@ def _service(db_path: str, *, hotel_id: str, require_source: bool = True) -> S13
             source = MySQLReviewSourceRepository.from_env(hotel_id=hotel_id)
         except SourceDataGap:
             source = MemoryReviewSourceRepository([])
-    try:
-        outbox = MySQLReviewTaskOutbox.from_env(hotel_id=hotel_id)
-    except TaskDataGap as exc:
-        outbox = UnavailableReviewTaskOutbox(str(exc))
     return S13Service(
         control_repository=S13ControlRepository(db_path),
         source_repository=source,
-        task_outbox=outbox,
+        task_outbox=SQLiteReviewTaskOutbox(db_path),
     )
 
 
 def _render(result: dict[str, Any]) -> str:
     status = result.get("status")
     action = result.get("action")
+    if status == "data_gap":
+        return "评论明细暂不可用，当前不能列出未回复评论或生成回复草稿。"
     if action == "status_help":
         return "回复任务状态需要任务或评论引用。请发送“查询 REQ-*”；也可以发送“查询 REV-*”查看对应评论回复状态。"
     if action == "latest_pending":
@@ -242,6 +240,8 @@ def route_s13_message(
                 "text": "S13 评论回复未执行：缺少可信酒店、角色或用户身份。",
                 "card": None,
                 "send_allowed": True,
+                "delivery_mode": "verbatim",
+                "model_rewrite_allowed": False,
             },
         }
     action, fields = _parse_action(message)
@@ -312,6 +312,8 @@ def route_s13_message(
             "text": text,
             "card": None,
             "send_allowed": True,
+            "delivery_mode": "verbatim",
+            "model_rewrite_allowed": False,
             "warnings": result.get("risk_flags") or result.get("data_gaps") or [],
         },
     }

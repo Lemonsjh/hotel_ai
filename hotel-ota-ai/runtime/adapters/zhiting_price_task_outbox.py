@@ -517,6 +517,7 @@ def write_zhiting_price_tasks(
     now: str | None = None,
     db_kind: str | None = None,
     dsn: str | None = None,
+    prevalidated_product: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     channel = normalize_price_task_channel(channel_source)
     if channel not in SUPPORTED_CHANNELS:
@@ -533,17 +534,20 @@ def write_zhiting_price_tasks(
     table = _task_table(channel, dialect=dialect)
     with closing(conn):
         try:
-            products, mapping_warnings = _select_products(
-                conn,
-                dialect=dialect,
-                channel_source=channel,
-                hotel_id=hotel_id,
-                hotel_name=hotel_name,
-                room_type_id=room_type_id,
-                room_type_name=room_type_name,
-                business_date=business_date,
-                ota_product_id=ota_product_id,
-            )
+            if prevalidated_product is not None:
+                products, mapping_warnings = [dict(prevalidated_product)], []
+            else:
+                products, mapping_warnings = _select_products(
+                    conn,
+                    dialect=dialect,
+                    channel_source=channel,
+                    hotel_id=hotel_id,
+                    hotel_name=hotel_name,
+                    room_type_id=room_type_id,
+                    room_type_name=room_type_name,
+                    business_date=business_date,
+                    ota_product_id=ota_product_id,
+                )
             if not products:
                 return {
                     "status": "data_gap",
@@ -558,7 +562,7 @@ def write_zhiting_price_tasks(
             skipped: list[dict[str, Any]] = []
             eligible: list[dict[str, Any]] = []
             for product in products:
-                reason = _product_skip_reason(channel, product)
+                reason = None if prevalidated_product is not None else _product_skip_reason(channel, product)
                 if reason:
                     skipped.append({"ota_product_id": product.get("ota_product_id") or product.get("source_product_id"), "reason": reason})
                     continue

@@ -16,6 +16,7 @@ from runtime.s13_pending_performance_patch import (
     review_date_scope,
     review_platform_scope,
 )
+from runtime.s13_feishu_route_fix_patch import _contains_general_review_term
 
 
 SHANGHAI = dt.timezone(dt.timedelta(hours=8))
@@ -28,6 +29,12 @@ def test_review_date_scope_only_narrows_explicit_today_or_yesterday() -> None:
     assert review_date_scope("查看昨日未回复评论") == "yesterday"
     assert review_date_scope("还有哪些待回复评论") is None
     assert review_date_scope("现在有未回复评论吗") is None
+
+
+def test_recent_pending_review_question_routes_to_s13_with_a_two_day_scope() -> None:
+    message = "\u6700\u8fd1\u4e24\u5929\u6709\u54ea\u4e9b\u672a\u56de\u590d\u7684\u8bc4\u8bba\uff1f"
+    assert _contains_general_review_term(message)
+    assert review_date_scope(message) == "recent_2_days"
 
 
 def test_review_platform_scope_only_narrows_explicit_meituan_family_channel() -> None:

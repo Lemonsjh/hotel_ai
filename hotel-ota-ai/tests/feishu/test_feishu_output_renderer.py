@@ -138,6 +138,7 @@ class TestFeishuOutputRenderer(unittest.TestCase):
                 "batch_dry_run": True,
                 "batch_direction": "decrease",
                 "batch_change_amount": 30,
+                "data_snapshot_time": "2026-08-11T09:58:00",
                 "confirmation_command": "确认调价 PRC-BATCH01",
                 "confirmation_expires_at": "2026-08-11T10:00:00",
                 "batch_items": [
@@ -151,9 +152,27 @@ class TestFeishuOutputRenderer(unittest.TestCase):
             role="owner",
         )
 
-        self.assertIn("每个可执行房型挂牌价下调 ¥30", rendered["text"])
+        self.assertIn("每个可执行商品挂牌价下调 ¥30", rendered["text"])
+        self.assertIn("价格快照：2026-08-11T09:58:00", rendered["text"])
+        self.assertIn("通过预览 1 个，未通过 0 个", rendered["text"])
         self.assertIn("OTA 商品 ID 2360632683", rendered["text"])
         self.assertIn("确认调价 PRC-BATCH01", rendered["text"])
+
+    def test_s6_batch_preview_explains_actual_exclusions(self) -> None:
+        rendered = build_feishu_send_payload(
+            {
+                "intent": "price_execution_dry_run",
+                "status": "data_gap",
+                "batch_dry_run": True,
+                "blocked_reason": "no_eligible_standard_ota_products",
+                "excluded_product_reasons": ["hour_room", "hour_room", "mapping_not_ready"],
+            },
+            role="owner",
+        )
+
+        self.assertIn("钟点房 2 个", rendered["text"])
+        self.assertIn("商品映射未就绪 1 个", rendered["text"])
+        self.assertNotIn("no_eligible_standard_ota_products", rendered["text"])
 
     def test_s6_default_guard_dry_run_has_no_default_guard_confirmation_path(self) -> None:
         payload = build_feishu_send_payload(

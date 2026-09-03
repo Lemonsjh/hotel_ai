@@ -6,10 +6,21 @@ const GENERIC_DUPLICATE = "您好，重复消息已忽略，请稍后查看上�
 const GENERIC_FAILURE = "您好，服务暂时不可用，请稍后重试。";
 const GENERIC_MENU = "您好，暂未识别该请求。请发送“菜单”或直接发送功能名称。";
 const OPENCLAW_SESSION_COMMAND = /^\/(?:new|clear|stop|restart)(?:\s|$)/i;
-const OPENCLAW_CONVERSATION_MESSAGE = /^(?:hi|hey|hello|你好|嗨|在吗|你可以干什么|你能做什么|你能干什么|有什么能力|能提供什么帮助|你是谁|你是什么模型|当前模型|使用什么模型|你所部署的设备是|你当前运行在什么设备上|部署在哪|what can you do|who are you|what model)[?？!！。.\s]*$/i;
+const MENU_SELECTION = /^(?:[1-9]|1[0-7])(?:[\s,，、]+(?:[1-9]|1[0-7])){0,2}$/;
+const BUSINESS_MESSAGE = /(?:\b(?:business|revenue|price|booking|occupancy|review|calendar|role|bind|cfg)\b|经营|运营|收益|调价|价格|房价|房型|房态|出租率|销售|进度|间夜|库存|行情|天气|节假日|竞品|推广|流量|转化|口碑|评论|评价|排名|订单|入住|客房|护栏|审批|诊断|复盘|日报|快照|数据源|美团|携程|飞猪|抖音|菜单|确认|取消|角色|权限|绑定|会话|身份|配置|酒店|前台|\bS(?:[1-9]|1[0-7])\b)/i;
+const CONVERSATION_MESSAGE = /(?:\b(?:hi|hey|hello|what can you do|who are you|what model)\b|你好|嗨|在吗|你可以干什么|你能做什么|你能干什么|有什么能力|能提供什么帮助|你是谁|你是什么模型|当前模型|使用什么模型|设备|电脑|部署|什么意思|怎么回事|为什么|能不能|可以吗|请问|解释)/i;
 
 function asText(value) {
   return typeof value === "string" ? value.trim() : "";
+}
+
+export function classifyInboundIntent(value) {
+  const text = asText(value).replace(/\s+/g, " ");
+  if (!text) return "unknown";
+  if (OPENCLAW_SESSION_COMMAND.test(text)) return "control";
+  if (MENU_SELECTION.test(text) || BUSINESS_MESSAGE.test(text)) return "business";
+  if (CONVERSATION_MESSAGE.test(text)) return "conversation";
+  return "unknown";
 }
 
 function firstText(...values) {
@@ -314,17 +325,18 @@ export function createInboundClaimHandler(dependencies) {
       record("pass", context.channel !== "feishu" ? "non_feishu_channel" : "account_not_targeted");
       return undefined;
     }
-    if (OPENCLAW_SESSION_COMMAND.test(context.text.trim())) {
-      record("pass", "openclaw_session_command");
-      return undefined;
-    }
-    if (OPENCLAW_CONVERSATION_MESSAGE.test(context.text.trim())) {
-      record("pass", "openclaw_conversation_message");
-      return undefined;
-    }
     if (context.isBot) {
       record("claimed", "bot_echo");
       return { handled: true };
+    }
+    const intent = classifyInboundIntent(context.text);
+    if (intent === "control") {
+      record("pass", "openclaw_session_command");
+      return undefined;
+    }
+    if (intent !== "business") {
+      record("pass", intent === "conversation" ? "agent_conversation" : "agent_unmatched");
+      return undefined;
     }
 
     const key = dedupeKey(context);

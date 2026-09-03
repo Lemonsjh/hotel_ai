@@ -112,6 +112,8 @@ def test_s12_daily_new_review_phrases_route_to_real_s12() -> None:
     assert _s12_new_review_window_days("查看昨天的新增好评数") == 1
     assert _s12_new_review_window_days("最新两天的新增评论") == 2
     assert _s12_new_review_window_days("近3天新增评论") == 3
+    assert _s12_new_review_window_days("这两天新增了多少评论") == 2
+    assert _s12_new_review_window_days("过去3天新增评论") == 3
 
 
 def test_s12_daily_new_review_rerun_uses_quoted_context() -> None:

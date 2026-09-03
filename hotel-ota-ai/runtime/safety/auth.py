@@ -826,10 +826,7 @@ def build_auth_context(
         and (user_id or open_id or union_id)
         and auth_db_path
     ):
-        # A Feishu private conversation still has an ``oc_*`` conversation ID.
-        # It is not a hotel group binding: p2p authorization must always resolve
-        # the sender's active hotel membership from SQLite.
-        if resolved_chat_type == "p2p":
+        if resolved_chat_type == "p2p" and not chat_id:
             sqlite_context = _sqlite_dm_open_id_context(
                 auth_db_path,
                 user_id=user_id,

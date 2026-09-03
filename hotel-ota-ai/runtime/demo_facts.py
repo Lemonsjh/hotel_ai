@@ -33,13 +33,14 @@ def load_demo_fact(name: str) -> dict[str, Any]:
 
 
 def demo_safety_flags() -> dict[str, Any]:
-    manifest = load_demo_manifest()
     return {
-        "demo_dataset_id": manifest["demo_dataset_id"],
-        "hotel_id": manifest["hotel_id"],
-        "hotel_name": manifest["hotel_name"],
-        "demo_business_date": manifest["demo_business_date"],
-        "data_business_date": manifest["demo_business_date"],
+        # Demo fixtures are intentionally not shipped.  Keep imports and
+        # safety gates usable, but never resurrect a synthetic business date.
+        "demo_dataset_id": "removed_local_demo_data",
+        "hotel_id": "demo-data-removed",
+        "hotel_name": "本地演示数据已删除",
+        "demo_business_date": None,
+        "data_business_date": None,
         "data_source_type": "demo_data",
         "freshness_status": "demo_data",
         "business_status": "demo_or_historical",

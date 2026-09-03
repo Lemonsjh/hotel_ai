@@ -44,6 +44,7 @@ from runtime.s13_data_rules_patch import install as _install_s13_data_rules_patc
 from runtime.s01_s17_exact_route_patch import install as _install_s01_s17_exact_route_patch
 from runtime.s09_baseline_classification_patch import install as _install_s09_baseline_classification_patch
 from runtime.s13_pending_performance_patch import install as _install_s13_pending_performance_patch
+from runtime.s13_feishu_route_fix_patch import install as _install_s13_feishu_route_fix_patch
 from runtime.s15_s16_responsibility_patch import install as _install_s15_s16_responsibility_patch
 from runtime.s15_baseline_only_patch import install as _install_s15_baseline_only_patch
 from runtime.s15_cache_materialization_patch import install as _install_s15_cache_materialization_patch
@@ -141,6 +142,8 @@ _install_s11_promotion_execution_patch()
 _install_s11_per_plan_recommendation_patch()
 _install_s6_price_bounds_bypass_patch()
 _install_feishu_production_output_boundary_patch()
+_install_s13_feishu_route_fix_patch()
+_install_s13_pending_performance_patch()
 
 del _install_live_contract_patch
 del _install_historical_report_scope_pre_patch
@@ -178,6 +181,7 @@ del _install_s13_data_rules_patch
 del _install_s01_s17_exact_route_patch
 del _install_s09_baseline_classification_patch
 del _install_s13_pending_performance_patch
+del _install_s13_feishu_route_fix_patch
 del _install_s15_s16_responsibility_patch
 del _install_s15_baseline_only_patch
 del _install_s15_cache_materialization_patch

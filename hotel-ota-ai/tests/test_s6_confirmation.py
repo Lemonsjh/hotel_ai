@@ -141,11 +141,12 @@ def test_s5_triggered_candidate_creates_a_confirmable_s6_token(tmp_path) -> None
     assert claimed["payload"]["hotel_name"] == "真实酒店"
 
 
-def test_s6_task_hotel_name_requires_a_non_demo_control_plane_name(tmp_path) -> None:
+def test_s6_task_hotel_name_falls_back_to_trusted_hotel_id(tmp_path) -> None:
     db_path = str(tmp_path / "control-name.sqlite")
     _seed_hotel(db_path, "hotel-a", "璞悦酒店 Demo")
 
-    assert _trusted_s6_hotel_name(db_path, "hotel-a") is None
+    assert _trusted_s6_hotel_name(db_path, "hotel-a") == "hotel-a"
+    assert _trusted_s6_hotel_name(str(tmp_path / "missing.sqlite"), "hotel-b") == "hotel-b"
 
 
 def test_s6_confirmation_price_query_normalizes_legacy_filters() -> None:
@@ -192,12 +193,13 @@ def test_s6_confirmation_writes_outbox_without_waiting_for_plugin(tmp_path) -> N
             "requester_id": "user-1", "hotel_name": "璞悦酒店 Demo", "room_type_id": "rt-1", "room_type_name": "大床房",
             "channel": "meituan", "ota_product_id": "p-1", "old_price": 100, "target_price": 105,
             "target_stay_date": "2026-08-10", "data_snapshot_time": "2026-08-10T10:00:00",
+            "preview_guard_policy": {"source": "default_policy", "version": 1, "max_increase_pct": 0.12, "max_decrease_pct": 0.12},
         },
     )
     with mock.patch(
         "runtime.feishu_command_router.database_template_result",
         side_effect=lambda template, *_args, **_kwargs: (
-                {"status": "ok", "payload": {"price_snapshots": [{"hotel_name": "璞悦酒店 Demo", "channel": "meituan", "ota_product_id": "p-1", "current_price": 100, "room_type_id": "rt-1", "snapshot_time": "2026-08-10T10:00:00", "mapping_status": "AUTO", "mapping_active": True, "mapping_resolution_status": "mapped", "source_product_id": "p-1"}]}}
+                {"status": "ok", "payload": {"price_snapshots": [{"hotel_name": "璞悦酒店 Demo", "channel": "meituan", "ota_product_id": "p-1", "current_price": 100, "room_type_id": "rt-1", "snapshot_time": "2026-08-10T10:00:00", "mapping_id": "map-p-1", "mapping_status": "AUTO", "mapping_active": True, "mapping_resolution_status": "mapped", "source_product_id": "p-1"}]}}
             if template == "ota_price_mapping"
             else {"status": "ok", "payload": {"room_type_forecasts": [{"room_type_id": "rt-1", "available_rooms": 1}]}}
         ),
@@ -230,16 +232,16 @@ def test_s6_batch_confirmation_writes_each_preview_as_an_independent_task(tmp_pa
     db_path = str(tmp_path / "batch-control.sqlite")
     _seed_hotel(db_path, "hotel-a", "真实酒店")
     items = [
-        {"requester_id": "user-1", "room_type_id": "rt-1", "room_type_name": "大床房", "channel": "meituan", "ota_product_id": "p-1", "old_price": 100, "target_price": 105, "target_stay_date": "2026-08-10", "data_snapshot_time": "2026-08-10T10:00:00"},
-        {"requester_id": "user-1", "room_type_id": "rt-2", "room_type_name": "双床房", "channel": "meituan", "ota_product_id": "p-2", "old_price": 200, "target_price": 205, "target_stay_date": "2026-08-10", "data_snapshot_time": "2026-08-10T10:00:00"},
+        {"requester_id": "user-1", "room_type_id": "rt-1", "room_type_name": "大床房", "channel": "meituan", "ota_product_id": "p-1", "old_price": 100, "target_price": 105, "target_stay_date": "2026-08-10", "data_snapshot_time": "2026-08-10T10:00:00", "preview_guard_policy": {"source": "default_policy", "version": 1, "max_increase_pct": 0.12, "max_decrease_pct": 0.12}},
+        {"requester_id": "user-1", "room_type_id": "rt-2", "room_type_name": "双床房", "channel": "meituan", "ota_product_id": "p-2", "old_price": 200, "target_price": 205, "target_stay_date": "2026-08-10", "data_snapshot_time": "2026-08-10T10:00:00", "preview_guard_policy": {"source": "default_policy", "version": 1, "max_increase_pct": 0.12, "max_decrease_pct": 0.12}},
     ]
     created = create_confirmation(
         db_path, hotel_id="hotel-a", chat_id="oc_1", requester_id="user-1",
         payload={"requester_id": "user-1", "batch_items": items},
     )
     products = [
-        {"channel": "meituan", "ota_product_id": "p-1", "current_price": 100, "room_type_id": "rt-1", "snapshot_time": "2026-08-10T10:00:00", "mapping_status": "AUTO", "mapping_active": True, "mapping_resolution_status": "mapped", "source_product_id": "p-1"},
-        {"channel": "meituan", "ota_product_id": "p-2", "current_price": 200, "room_type_id": "rt-2", "snapshot_time": "2026-08-10T10:00:00", "mapping_status": "AUTO", "mapping_active": True, "mapping_resolution_status": "mapped", "source_product_id": "p-2"},
+        {"channel": "meituan", "ota_product_id": "p-1", "current_price": 100, "room_type_id": "rt-1", "snapshot_time": "2026-08-10T10:00:00", "mapping_id": "map-p-1", "mapping_status": "AUTO", "mapping_active": True, "mapping_resolution_status": "mapped", "source_product_id": "p-1"},
+        {"channel": "meituan", "ota_product_id": "p-2", "current_price": 200, "room_type_id": "rt-2", "snapshot_time": "2026-08-10T10:00:00", "mapping_id": "map-p-2", "mapping_status": "AUTO", "mapping_active": True, "mapping_resolution_status": "mapped", "source_product_id": "p-2"},
     ]
     with mock.patch(
         "runtime.feishu_command_router.database_template_result",
@@ -247,7 +249,7 @@ def test_s6_batch_confirmation_writes_each_preview_as_an_independent_task(tmp_pa
             {"status": "ok", "payload": {"price_snapshots": products}} if template == "ota_price_mapping"
             else {"status": "ok", "payload": {"room_type_forecasts": [{"room_type_id": "rt-1", "available_rooms": 1}, {"room_type_id": "rt-2", "available_rooms": 1}]}}
         ),
-    ), mock.patch(
+    ) as query, mock.patch(
         "runtime.feishu_command_router.resolve_price_guard_policy",
         return_value={"source": "default_policy", "version": 1, "max_increase_pct": 0.12, "max_decrease_pct": 0.12},
     ), mock.patch(
@@ -263,3 +265,6 @@ def test_s6_batch_confirmation_writes_each_preview_as_an_independent_task(tmp_pa
     assert result["batch_write"] is True
     assert result["task_count"] == 2
     assert capture.call_count == 2
+    # The approved preview is immutable; confirmation performs no remote
+    # price, inventory, mapping, or guard revalidation.
+    assert query.call_count == 0

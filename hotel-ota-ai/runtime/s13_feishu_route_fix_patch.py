@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import re
 import sys
 from typing import Any, Mapping
 
@@ -21,6 +22,9 @@ _GENERAL_REVIEW_TERMS = (
     "回复草稿",
     "生成评论回复",
     "帮我写评论回复",
+)
+_PENDING_REVIEW_RE = re.compile(
+    r"(?:未|待)\s*回复.{0,3}(?:评论|评价|点评)|(?:评论|评价|点评).{0,3}(?:未|待)\s*回复"
 )
 
 _AUTH_BLOCK_REASONS = frozenset(
@@ -66,7 +70,7 @@ _BASE_KEYS = frozenset(
 
 def _contains_general_review_term(message: str) -> bool:
     text = str(message or "").strip()
-    return any(term in text for term in _GENERAL_REVIEW_TERMS)
+    return bool(any(term in text for term in _GENERAL_REVIEW_TERMS) or _PENDING_REVIEW_RE.search(text))
 
 
 def _explicit_demo_requested(message: str) -> bool:
@@ -181,7 +185,7 @@ def _patch_feishu(feishu: Any) -> None:
 
 
 def _patch_router(router: Any) -> None:
-    if getattr(router, "_S13_REAL_ROUTE_OVERRIDE_PATCHED", False):
+    if getattr(router.route_feishu_command, "_s13_real_route_override", False):
         return
 
     original_route = router.route_feishu_command
@@ -249,11 +253,14 @@ def _apply_patch(module: Any) -> None:
 
 def install() -> None:
     global _INSTALLED
+    from runtime import live_contract_patch as live_patch
+
     if _INSTALLED:
+        loaded = sys.modules.get("runtime.feishu_command_router")
+        if loaded is not None:
+            _patch_router(loaded)
         return
     _INSTALLED = True
-
-    from runtime import live_contract_patch as live_patch
 
     live_patch._TARGETS.update(_TARGETS)
     original_apply = live_patch._apply_patch

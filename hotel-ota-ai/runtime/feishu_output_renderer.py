@@ -108,10 +108,34 @@ def _render_s6_batch_dry_run(result: dict[str, Any]) -> str:
     except (TypeError, ValueError):
         amount = "-"
     lines = ["S6 批量调价 dry-run（真实数据，只预览）"]
+    if result.get("data_snapshot_time"):
+        lines.append(f"价格快照：{result['data_snapshot_time']}")
     if result.get("status") in {"blocked", "data_gap"}:
+        if result.get("blocked_reason") == "no_eligible_standard_ota_products":
+            labels = {
+                "product_or_room_type_missing": "商品或房型标识不完整",
+                "hour_room": "钟点房",
+                "super_deal": "超级团购",
+                "not_editable": "不可编辑商品",
+                "pms_room_type_mapping_missing": "缺少 PMS 房型精确映射",
+                "mapping_not_ready": "商品映射未就绪",
+                "no_available_rooms": "无可售库存",
+                "price_or_inventory_missing": "价格或库存数据缺失",
+                "price_snapshot_missing": "价格快照缺失",
+            }
+            reasons = result.get("excluded_product_reasons") or []
+            details = [
+                f"{label} {reasons.count(reason)} 个"
+                for reason, label in labels.items()
+                if reasons.count(reason)
+            ]
+            suffix = f"已排除：{'；'.join(details)}。" if details else "未找到符合条件的普通全天房商品。"
+            return "\n".join([*lines, f"结论：当前没有可进入批量预览的普通全天房商品。{suffix}"])
         return "\n".join([*lines, f"结论：{'已阻断' if result.get('status') == 'blocked' else '数据不足'}，原因：{result.get('blocked_reason') or '-'}。"])
     items = result.get("batch_items") or []
-    lines.append(f"结论：每个可执行房型挂牌价{direction} ¥{amount}；已通过预览 {len(items)} 个。")
+    passed = [item for item in items if item.get("status") == "dry_run" and not item.get("confirmation_blocked_reason")]
+    failed = len(items) - len(passed)
+    lines.append(f"结论：每个可执行商品挂牌价{direction} ¥{amount}；通过预览 {len(passed)} 个，未通过 {failed} 个。")
     for item in items:
         product = item.get("selected_product") or {}
         product_name = _short_ota_product_name(
@@ -136,11 +160,12 @@ def _render_s6_batch_dry_run(result: dict[str, Any]) -> str:
         except (KeyError, TypeError, ValueError, ZeroDivisionError):
             pass
         lines.append(line + "。")
-    excluded = result.get("excluded_room_types") or []
+    excluded = result.get("excluded_products") or result.get("excluded_room_types") or []
     if excluded:
-        lines.append(f"未纳入：{len(excluded)} 个房型因存在多个标准商品，需指定 OTA 商品后单独预览。")
+        lines.append(f"未纳入：{len(excluded)} 个商品因数据或映射不满足预览条件。")
     lines.append("已排除钟点房、超级团购、不可编辑、无可售库存或映射不可信的商品；本次未创建审批、未写入调价任务。")
     if result.get("confirmation_command"):
+        lines.append(f"确认范围：{result.get('confirmable_product_count', len(passed))} 个通过预览的商品；未通过或未纳入项不会写入。")
         lines.append(f"确认写入：回复「{result['confirmation_command']}」；令牌有效至 {result.get('confirmation_expires_at') or '-'}。")
     elif result.get("confirmation_blocked_reason"):
         lines.append("未生成确认令牌：存在未通过执行校验的商品，请调整后重新预览。")
@@ -435,12 +460,8 @@ def _template_for_intent(result: dict[str, Any]) -> str:
         return "identity"
     if intent == "chat_binding_status":
         return "chat_binding_status"
-    if intent == "health_ping":
-        return "health_ping"
-    if intent == "runtime_status":
+    if intent in {"health_ping", "runtime_status"}:
         return "system_health"
-    if intent in {"model_info", "assistant_about", "unmatched_help"}:
-        return intent
     if intent == "model_config_request":
         return "model_config_blocked"
     if intent == "config_change_request":
@@ -518,7 +539,7 @@ def render_feishu_output(result: dict[str, Any], output_profile: str | None = No
             "message_send_attempted": False,
             "template": "guest_limited",
         }
-    if result.get("intent") in {"health_ping", "runtime_status", "model_info", "assistant_about", "unmatched_help", "model_config_request", "config_change_request", "maintenance_safety_refusal"}:
+    if result.get("intent") in {"health_ping", "runtime_status", "model_config_request", "config_change_request", "maintenance_safety_refusal"}:
         text = _render_template(system_template, _context(result))
         return {
             "status": "ok",

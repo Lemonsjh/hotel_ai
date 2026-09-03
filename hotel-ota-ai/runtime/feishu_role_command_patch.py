@@ -167,30 +167,6 @@ def _hotel_scoped_named_role_target(
     return {"status": "ok", "principal_id": principal_id, "source": "member_info"}
 
 
-_MENTION_TAG_RE = re.compile(r"<at[^>]*>(.*?)</at>", re.IGNORECASE | re.DOTALL)
-
-
-def _strip_mention_tags(text: str) -> str:
-    """Replace Feishu <at ...>name</at> mentions with their display name."""
-    return _MENTION_TAG_RE.sub(lambda m: (m.group(1) or "").strip(), text or "")
-
-
-def _normalize_named_role_message(message: str | None) -> str:
-    """Normalize named-role phrasing so targets resolve without agent-side fixes.
-
-    Handles Feishu mention markup and stray whitespace/particles, e.g.:
-      '将<at ...>杨毅</at> 的角色设为老板' -> '将杨毅设为老板'
-    Only touches 将/把 named-role phrasing; other command formats are untouched.
-    """
-    text = _strip_mention_tags(message)
-    text = re.sub(r"\s+", " ", text).strip()
-    if not re.match(r"^(?:帮我)?(?:将|把)", text):
-        return text
-    text = re.sub(r"\s*(?:的)?(?:身份|角色)?\s*(?=(?:分配角色|设置为|设为|设成|改成|改为|换成))", "", text)
-    text = re.sub(r"^(帮我)?(将|把)\s+", r"\1\2", text)
-    return text
-
-
 def _active_hotel_role(db_path: str, *, hotel_id: str, principal_id: str) -> str | None:
     from runtime.storage import connect, init_schema
 
@@ -227,7 +203,7 @@ def install() -> None:
         revoke = parse_named_role_revoke(message)
         if revoke is not None:
             return revoke
-        return previous_named_payload(_normalize_named_role_message(message))
+        return previous_named_payload(message)
 
     def create_chat_role_change_request_with_current_role(
         db_path: str,

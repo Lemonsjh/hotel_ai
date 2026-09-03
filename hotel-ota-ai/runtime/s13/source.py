@@ -261,9 +261,17 @@ class MySQLReviewSourceRepository:
         from runtime.adapters.database import resolve_hotel_dsn
 
         try:
-            dsn = explicit_dsn or resolve_hotel_dsn(hotel_id, "HOTEL_OTA_S13_SOURCE_DSN")
-        except RuntimeError as exc:
-            raise SourceDataGap("s13_source_dsn_not_configured") from exc
+            # S12 and S13 read the same fixed review-detail tables.  Keep one
+            # hotel-scoped reader configuration instead of requiring S13 to
+            # carry a second DSN.
+            dsn = explicit_dsn or resolve_hotel_dsn(hotel_id, "HOTEL_OTA_S12_SOURCE_DSN")
+        except RuntimeError:
+            # Existing deployments may only have the legacy S13 key.  It is a
+            # compatibility fallback, not a production requirement.
+            try:
+                dsn = resolve_hotel_dsn(hotel_id, "HOTEL_OTA_S13_SOURCE_DSN")
+            except RuntimeError as exc:
+                raise SourceDataGap("s13_source_dsn_not_configured") from exc
         if not dsn:
             raise SourceDataGap("s13_source_dsn_not_configured")
         return cls(dsn)

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import datetime as dt
+import re
 from collections import Counter
 from contextvars import ContextVar
 from typing import Any, Callable, Mapping
@@ -13,6 +14,12 @@ MAX_PENDING_ITEMS = 20
 MAX_SCAN_PER_TABLE = 200
 MYSQL_QUERY_TIMEOUT_MS = 3000
 EXCERPT_LIMIT = 96
+_RECENT_DAYS_RE = re.compile(r"(?:近|最近|过去)\s*([2-9二两三四五六七八九])\s*天")
+_RECENT_DAY_VALUES = {
+    "2": 2, "二": 2, "两": 2, "3": 3, "三": 3, "4": 4, "四": 4,
+    "5": 5, "五": 5, "6": 6, "六": 6, "7": 7, "七": 7, "8": 8,
+    "八": 8, "9": 9, "九": 9,
+}
 
 _ACTIVE_REVIEW_DATE_SCOPE: ContextVar[str | None] = ContextVar(
     "s13_review_date_scope",
@@ -60,9 +67,10 @@ def review_date_scope(message: Any) -> str | None:
         position = text.find(token)
         if position >= 0:
             matches.append((position, "yesterday"))
-    if not matches:
-        return None
-    return min(matches, key=lambda item: item[0])[1]
+    if matches:
+        return min(matches, key=lambda item: item[0])[1]
+    recent = _RECENT_DAYS_RE.search(text)
+    return f"recent_{_RECENT_DAY_VALUES[recent.group(1)]}_days" if recent else None
 
 
 def review_platform_scope(message: Any) -> str | None:
@@ -122,6 +130,9 @@ def _review_time_bounds(
         return today_start, local_as_of, True
     if scope == "yesterday":
         return today_start - dt.timedelta(days=1), today_start, False
+    recent = re.fullmatch(r"recent_([2-9])_days", scope)
+    if recent:
+        return today_start - dt.timedelta(days=int(recent.group(1)) - 1), local_as_of, True
     raise ValueError(f"unsupported_review_date_scope:{scope}")
 
 
@@ -415,6 +426,9 @@ def _scope_label(scope: str | None) -> str:
         return "今日"
     if scope == "yesterday":
         return "昨日"
+    recent = re.fullmatch(r"recent_([2-9])_days", str(scope or ""))
+    if recent:
+        return f"最近{recent.group(1)}天"
     return ""
 
 
@@ -544,6 +558,9 @@ def _patch_router(router: Any) -> None:
 def install() -> None:
     global _INSTALLED
     if _INSTALLED:
+        from runtime import feishu_command_router as router
+
+        _patch_router(router)
         return
     _INSTALLED = True
     from runtime import feishu_command_router as router

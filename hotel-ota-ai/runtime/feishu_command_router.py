@@ -15,7 +15,7 @@ import time
 from typing import Any
 import uuid
 from datetime import datetime, timedelta
-from decimal import Decimal, ROUND_HALF_UP
+from decimal import Decimal, ROUND_CEILING, ROUND_FLOOR, ROUND_HALF_UP
 
 from runtime.agent_mapping_loader import agent_id_for_node
 from runtime.common import DEFAULT_LOG_DIR, hotel_log_dir, json_dumps, now_local
@@ -83,10 +83,18 @@ def _base_result(intent: str, *, role: str, output_profile: str | None = None) -
         "intent": intent,
         "generated_by_runtime": True,
         "source": "feishu",
-        **demo_safety_flags(),
+        "data_source_type": "unavailable",
+        "freshness_status": "missing_real_data",
+        "business_status": "not_loaded",
+        "today_label_allowed": False,
+        "approval_data_allowed": False,
+        "formal_approval_allowed": False,
+        "live_allowed": False,
+        "formal_approval_created": False,
+        "live_execution_count": 0,
         "auth_role": role,
         "output_profile": default_output_profile(role, output_profile),
-        "blocked_reason": "demo_preview_allowed_formal_live_blocked",
+        "blocked_reason": "business_data_not_loaded",
     }
 
 
@@ -1798,21 +1806,11 @@ def _detect_intent(message: str) -> str:
         ],
     ):
         return "runtime_status"
-    if re.fullmatch(r"(?:hi|hey)[!,.!? ]*", text) or _contains_any(
-        text, ["ping", "health ping", "hello"]
-    ) or _contains_any(raw, ["\u5728\u5417", "\u4f60\u597d", "\u55e8", "\u5065\u5eb7\u68c0\u67e5"]):
+    if _contains_any(text, ["ping", "health ping", "hello"]) or _contains_any(raw, ["\u5728\u5417", "\u4f60\u597d", "\u5065\u5eb7\u68c0\u67e5"]):
         return "health_ping"
     if _config_change_request_detected(raw):
         return "config_change_request"
-    if _contains_any(raw, ["\u4f60\u662f\u4ec0\u4e48\u6a21\u578b", "\u5f53\u524d\u6a21\u578b", "\u4f7f\u7528\u4ec0\u4e48\u6a21\u578b", "\u6a21\u578b\u662f\u4ec0\u4e48"]) or _contains_any(
-        text, ["what model", "current model", "model info"]
-    ):
-        return "model_info"
-    if _contains_any(raw, ["\u4f60\u662f\u4ec0\u4e48", "\u4f60\u80fd\u505a\u4ec0\u4e48", "\u90e8\u7f72\u8bbe\u5907", "\u90e8\u7f72\u7684\u8bbe\u5907", "\u90e8\u7f72\u5728\u54ea", "\u8fd0\u884c\u5728\u54ea"]):
-        return "assistant_about"
-    if _contains_any(text, ["switch model", "change model", "configure model", "model config"]) or _contains_any(
-        raw, ["\u5207\u6362\u6a21\u578b", "\u66f4\u6362\u6a21\u578b", "\u914d\u7f6e\u6a21\u578b", "\u6a21\u578b\u914d\u7f6e"]
-    ):
+    if _contains_any(text, ["model", "provider", "flash"]) or _contains_any(raw, ["\u6a21\u578b", "\u5207\u6362"]):
         return "model_config_request"
     if _contains_any(
         text,
@@ -1915,7 +1913,7 @@ def _detect_intent(message: str) -> str:
         return "third_party_report_preview"
     if _contains_any(raw, ["\u7ecf\u9a8c"]) or "experience" in text:
         return "experience_candidates"
-    return "unmatched_help"
+    return "menu"
 
 
 def _priceable_product_platform(message: str) -> str | None:
@@ -1942,7 +1940,8 @@ S6_NET_TARGET_PRICE_PATTERNS = (
 )
 S6_DATE_PATTERN = re.compile(r"\b(20\d{2}-\d{2}-\d{2})\b")
 S6_BATCH_ROOM_PRICE_CHANGE_PATTERN = re.compile(
-    r"(?:每(?:个|间)房型|全部房型|所有房型)\s*(?:统一)?\s*"
+    r"(?:每(?:个|间)房型|全部房型|所有房型|全部商品|所有商品)\s*"
+    r"(?:的)?\s*(?:挂牌价|价格)?\s*(?:都|统一)?\s*"
     r"(?P<direction>下降|降低|降价|下调|上调|涨价|提高)\s*[¥￥]?\s*"
     r"(?P<amount>\d+(?:\.\d+)?)\s*元?",
     re.IGNORECASE,
@@ -1964,6 +1963,15 @@ def _s6_target_price(message: str) -> float | None:
 
 def _whole_yuan(value: float) -> float:
     return float(Decimal(str(value)).quantize(Decimal("1"), rounding=ROUND_HALF_UP))
+
+
+def _s6_batch_target_listing_price(current_price: float, *, direction: str, amount: float) -> float:
+    """Apply a whole-yuan channel target without rejecting a batch request."""
+    current = Decimal(str(current_price))
+    delta = Decimal(str(amount))
+    target = current - delta if direction == "decrease" else current + delta
+    rounding = ROUND_FLOOR if direction == "decrease" else ROUND_CEILING
+    return float(target.quantize(Decimal("1"), rounding=rounding))
 
 
 def _s6_net_target_price(message: str) -> float | None:
@@ -2107,6 +2115,8 @@ def _s6_direct_product_snapshot(
         return {"status": "blocked", "blocked_reason": "hour_room_not_supported_for_s6"}
     if _s6_truthy(row.get("is_super_deal")) or "超级团购" in name or "super deal" in name:
         return {"status": "blocked", "blocked_reason": "super_deal_not_supported_for_s6"}
+    if not row.get("mapping_id"):
+        return {"status": "blocked", "blocked_reason": "pms_room_type_mapping_missing"}
     mapping = is_price_task_mapping_ready({**row, "source_platform": channel})
     if not mapping.get("ready_for_price_task"):
         return {"status": "blocked", "blocked_reason": mapping.get("blocked_reason") or "price_task_mapping_not_ready"}
@@ -2465,6 +2475,7 @@ def _build_s6_real_dry_run(
                 "net_revenue_current": result.get("net_revenue_current"),
                 "net_revenue_multiplier": result.get("net_revenue_multiplier"),
                 "data_snapshot_time": candidate.get("price_observation_snapshot_time"),
+                "preview_guard_policy": result.get("price_guard_policy"),
                 "source_decision_id": f"S6D-{uuid.uuid4().hex[:16].upper()}",
             },
         )
@@ -2509,7 +2520,7 @@ def _build_s6_real_dry_run(
 def _s6_batch_standard_products(
     *, hotel_id: str, target_date: str, as_of_time: str | None, requested_channel: str | None
 ) -> tuple[list[dict[str, Any]], list[str]]:
-    """Select one safe full-day product per room type; ambiguity is excluded."""
+    """Select every safe, distinct full-day OTA product for batch preview."""
     with ThreadPoolExecutor(max_workers=2) as executor:
         source_future = executor.submit(
             database_template_result, "ota_price_mapping", hotel_id, date=target_date,
@@ -2529,7 +2540,7 @@ def _s6_batch_standard_products(
         for room in operating_payload.get("room_type_forecasts") or []
         if isinstance(room, dict) and room.get("room_type_id") is not None
     }
-    grouped: dict[str, dict[str, dict[str, Any]]] = {}
+    selected_by_product: dict[str, dict[str, Any]] = {}
     excluded: list[str] = []
     for row in payload.get("price_snapshots") or payload.get("rows") or []:
         if not isinstance(row, dict):
@@ -2537,41 +2548,50 @@ def _s6_batch_standard_products(
         product_id = str(row.get("ota_product_id") or "").strip()
         room_type_id = str(row.get("room_type_id") or "").strip()
         if not product_id or not room_type_id:
+            excluded.append("product_or_room_type_missing")
             continue
         channel = str(row.get("channel") or row.get("source_platform") or "").lower()
         if requested_channel and channel != requested_channel:
             continue
         name = str(row.get("ota_product_name") or "").lower()
-        if _s6_is_hour_room(row) or _s6_truthy(row.get("is_super_deal")) or "超级团购" in name or "super deal" in name:
+        if _s6_is_hour_room(row):
+            excluded.append("hour_room")
+            continue
+        if _s6_truthy(row.get("is_super_deal")) or "超级团购" in name or "super deal" in name:
+            excluded.append("super_deal")
             continue
         if row.get("price_editable_flag") is False or str(row.get("price_editable_flag") or "").lower() in {"0", "false", "no", "n"}:
+            excluded.append("not_editable")
+            continue
+        # A room_type_id carried by the OTA row is not proof of a PMS mapping.
+        # S6 writes must be backed by an exact mapping-table record.
+        if not row.get("mapping_id"):
+            excluded.append("pms_room_type_mapping_missing")
             continue
         mapping = is_price_task_mapping_ready({**row, "source_platform": channel})
         if not mapping.get("ready_for_price_task"):
+            excluded.append("mapping_not_ready")
             continue
         try:
             current_price = float(row.get("current_price") if row.get("current_price") is not None else row.get("ota_sale_price"))
             if float((rooms.get(room_type_id) or {}).get("available_rooms")) <= 0:
+                excluded.append("no_available_rooms")
                 continue
         except (TypeError, ValueError):
+            excluded.append("price_or_inventory_missing")
             continue
         snapshot_time = row.get("snapshot_time") or payload.get("data_snapshot_time")
         if not snapshot_time:
+            excluded.append("price_snapshot_missing")
             continue
         room = rooms.get(room_type_id) or {}
-        grouped.setdefault(room_type_id, {})[product_id] = {
+        selected_by_product[product_id] = {
             **row, "channel": channel, "current_price": current_price,
             "room_type_name": row.get("room_type_name") or room.get("room_type_name"),
             "price_observation_snapshot_time": snapshot_time,
             "s6_task_mapping_ready": True, "s6_task_mapping_trust_basis": mapping.get("mapping_trust_basis"),
         }
-    selected: list[dict[str, Any]] = []
-    for room_type_id, products in grouped.items():
-        if len(products) == 1:
-            selected.append(next(iter(products.values())))
-        else:
-            excluded.append(f"{room_type_id}:多个标准商品")
-    return selected, excluded
+    return list(selected_by_product.values()), excluded
 
 
 def _build_s6_batch_dry_run(
@@ -2579,7 +2599,7 @@ def _build_s6_batch_dry_run(
     chat_id: str | None, chat_type: str | None, user_id: str | None, open_id: str | None, union_id: str | None,
     role: str, requester_id: str | None = None,
 ) -> dict[str, Any]:
-    """Preview a fixed listing-price change for exactly one standard product per room type."""
+    """Preview a fixed listing-price change for every eligible OTA product."""
     change = _s6_batch_room_price_change(message)
     target_date = _s6_target_stay_date(message, (as_of_time or now_local())[:10])
     base = {
@@ -2595,19 +2615,27 @@ def _build_s6_batch_dry_run(
         requested_channel=_priceable_product_platform(message),
     )
     if not products:
-        return {**base, "status": "data_gap", "blocked_reason": excluded[0] if excluded else "no_unique_standard_ota_products"}
-    delta = -amount if direction == "decrease" else amount
+        return {
+            **base,
+            "status": "data_gap",
+            "blocked_reason": "no_eligible_standard_ota_products",
+            "excluded_product_reasons": excluded,
+        }
+    first_target = _s6_batch_target_listing_price(
+        float(products[0]["current_price"]), direction=direction, amount=amount
+    )
     # Prime the shared 30-second activity cache before worker threads start.
     # Without this, every worker can observe the empty cache and duplicate the
     # same two activity reads.
     _s6_listing_net_preview(
         candidate=products[0], hotel_id=hotel_id, target_date=target_date, as_of_time=as_of_time,
-        execution_price=float(products[0]["current_price"]) + delta,
+        execution_price=first_target,
     )
 
     def preview(row: dict[str, Any]) -> dict[str, Any]:
         try:
-            target = float(row.get("current_price") if row.get("current_price") is not None else row.get("ota_sale_price")) + delta
+            current = float(row.get("current_price") if row.get("current_price") is not None else row.get("ota_sale_price"))
+            target = _s6_batch_target_listing_price(current, direction=direction, amount=amount)
         except (TypeError, ValueError):
             return {"status": "data_gap", "blocked_reason": "current_price_missing", "selected_product": row}
         if target <= 0:
@@ -2621,16 +2649,33 @@ def _build_s6_batch_dry_run(
 
     with ThreadPoolExecutor(max_workers=min(8, len(products))) as executor:
         previews = list(executor.map(preview, products))
-    confirmable = all(
-        item.get("status") == "dry_run" and not item.get("confirmation_blocked_reason")
-        for item in previews
+    snapshot_times = sorted(
+        {
+            str((item.get("selected_product") or {}).get("price_observation_snapshot_time") or "")
+            for item in previews
+        }
+        - {""}
     )
+    confirmable_items = [
+        item
+        for item in previews
+        if item.get("status") == "dry_run" and not item.get("confirmation_blocked_reason")
+    ]
     result: dict[str, Any] = {
         **base, "status": "dry_run", "batch_direction": direction, "batch_change_amount": amount,
-        "batch_items": previews, "excluded_room_types": excluded, "eligible_room_type_count": len(previews),
+        "batch_items": previews, "excluded_products": excluded, "eligible_product_count": len(previews),
+        "confirmable_product_count": len(confirmable_items),
+        "freshness_status": "fresh" if snapshot_times else "not_available",
+        "business_status": "current",
+        "data_business_date": target_date,
+        "data_snapshot_time": snapshot_times[-1] if snapshot_times else None,
+        "blocked_reason": "dry_run_preview_only",
+        "approval_data_allowed": True,
+        "formal_approval_allowed": False,
+        "live_allowed": False,
     }
-    if not confirmable:
-        result["confirmation_blocked_reason"] = "batch_contains_non_confirmable_products"
+    if not confirmable_items:
+        result["confirmation_blocked_reason"] = "batch_has_no_confirmable_products"
         return result
     trusted_hotel_name = _trusted_s6_hotel_name(_s6_confirmation_db_path(db_path), hotel_id)
     if not trusted_hotel_name:
@@ -2638,7 +2683,7 @@ def _build_s6_batch_dry_run(
         return result
     requester = requester_id or open_id or user_id or union_id
     items = []
-    for item in previews:
+    for item in confirmable_items:
         product = item.get("selected_product") or {}
         items.append({
             "requester_id": requester, "hotel_name": trusted_hotel_name,
@@ -2649,6 +2694,7 @@ def _build_s6_batch_dry_run(
             "input_price_mode": "listing_price_target", "net_revenue_target": item.get("net_revenue_target"),
             "net_revenue_current": item.get("net_revenue_current"), "net_revenue_multiplier": item.get("net_revenue_multiplier"),
             "data_snapshot_time": product.get("price_observation_snapshot_time"),
+            "preview_guard_policy": item.get("price_guard_policy"),
             "source_decision_id": f"S6B-{uuid.uuid4().hex[:16].upper()}",
         })
     confirmation = create_confirmation(
@@ -2689,22 +2735,22 @@ def _s6_confirmation_db_path(db_path: str | None) -> str | None:
 
 
 def _trusted_s6_hotel_name(db_path: str | None, hotel_id: str) -> str | None:
-    """Return the control-plane hotel name safe to persist in a price task."""
-    if not db_path or not hotel_id:
+    """Return a task label; trusted ``hotel_id`` remains the tenant boundary."""
+    if not hotel_id:
         return None
-    try:
-        with connect(db_path) as conn:
-            init_schema(conn)
-            row = conn.execute(
-                "SELECT name FROM hotels WHERE hotel_id=? LIMIT 1",
-                (str(hotel_id),),
-            ).fetchone()
-    except (OSError, sqlite3.Error):
-        return None
+    row = None
+    if db_path:
+        try:
+            with connect(db_path) as conn:
+                init_schema(conn)
+                row = conn.execute(
+                    "SELECT name FROM hotels WHERE hotel_id=? LIMIT 1",
+                    (str(hotel_id),),
+                ).fetchone()
+        except (OSError, sqlite3.Error):
+            pass
     name = str(row["name"] or "").strip() if row else ""
-    if not name or re.search(r"(?:\bdemo\b|演示)", name, re.IGNORECASE):
-        return None
-    return name
+    return name if name and not re.search(r"(?:\bdemo\b|演示)", name, re.IGNORECASE) else str(hotel_id)
 
 
 def _create_s5_candidate_confirmations(
@@ -2767,6 +2813,15 @@ def _create_s5_candidate_confirmations(
                 "net_revenue_current": candidate.get("estimated_hotel_revenue"),
                 "net_revenue_target": candidate.get("proposed_estimated_hotel_revenue"),
                 "data_snapshot_time": snapshot_time,
+                "preview_guard_policy": {
+                    "policy_id": candidate.get("price_guard_policy_id"),
+                    "version": candidate.get("price_guard_policy_version"),
+                    "source": candidate.get("price_guard_source"),
+                    "max_increase_pct": candidate.get("max_increase_pct"),
+                    "max_decrease_pct": candidate.get("max_decrease_pct"),
+                    "min_increase_pct": candidate.get("min_increase_pct"),
+                    "min_decrease_pct": candidate.get("min_decrease_pct"),
+                },
                 "source_decision_id": (candidate.get("decision_ref") or {}).get("decision_id"),
             },
         )
@@ -2804,28 +2859,19 @@ def _write_s6_batch_confirmation_fast(
     auth_context: dict[str, Any], auth_config: str | None, chat_id: str | None, chat_type: str | None,
     user_id: str | None, open_id: str | None, union_id: str | None,
 ) -> dict[str, Any]:
-    """Recheck every preview before writing a controlled batch of independent outbox tasks."""
+    """Write the immutable, prevalidated batch preview as independent outbox tasks."""
     confirmation_db_path = _s6_confirmation_db_path(db_path)
     items = [item for item in payload.get("batch_items") or [] if isinstance(item, dict)]
     if not items:
         finish_confirmation(confirmation_db_path, confirmation_id, completed=False)
         return {"status": "blocked", "intent": "price_execution_confirm", "skill_id": "S6", "node_id": "N016", "blocked_reason": "batch_items_missing"}
+
     for item in items:
-        refreshed = _s6_direct_product_snapshot(
-            hotel_id=hotel_id, product_id=str(item.get("ota_product_id") or ""),
-            target_date=str(item.get("target_stay_date") or ""), as_of_time=None,
-            requested_channel=str(item.get("channel") or "") or None,
-        )
-        candidate = refreshed.get("candidate")
-        try:
-            changed = abs(float((candidate or {}).get("current_price")) - float(item["old_price"])) >= 0.005
-        except (TypeError, ValueError):
-            changed = True
-        if not isinstance(candidate, dict) or changed:
+        if not isinstance(item.get("preview_guard_policy"), dict):
             finish_confirmation(confirmation_db_path, confirmation_id, completed=False)
             return {
                 "status": "blocked", "intent": "price_execution_confirm", "skill_id": "S6", "node_id": "N016",
-                "blocked_reason": refreshed.get("blocked_reason") or "current_price_changed_rerun_dry_run",
+                "blocked_reason": "preview_guard_evidence_missing",
                 "confirmation_id": confirmation_id,
             }
     outcomes = []
@@ -2889,40 +2935,28 @@ def _write_s6_confirmation_fast(
             "status": "blocked", "intent": "price_execution_confirm", "skill_id": "S6", "node_id": "N016",
             "blocked_reason": "trusted_hotel_name_unavailable", "confirmation_id": confirmation_id,
         }
-    refreshed = _s6_direct_product_snapshot(
-        hotel_id=hotel_id, product_id=str(payload.get("ota_product_id") or ""),
-        target_date=str(payload.get("target_stay_date") or ""), as_of_time=None,
-        requested_channel=str(payload.get("channel") or "") or None,
-    )
-    refreshed_candidate = refreshed.get("candidate")
-    try:
-        price_changed = abs(float((refreshed_candidate or {}).get("current_price")) - float(payload["old_price"])) >= 0.005
-    except (TypeError, ValueError):
-        price_changed = True
-    if not isinstance(refreshed_candidate, dict) or price_changed:
+    preview_policy = payload.get("preview_guard_policy")
+    if not isinstance(preview_policy, dict):
         finish_confirmation(confirmation_db_path, confirmation_id, completed=False)
         return {
             "status": "blocked", "intent": "price_execution_confirm", "skill_id": "S6", "node_id": "N016",
-            "blocked_reason": refreshed.get("blocked_reason") or "current_price_changed_rerun_dry_run", "confirmation_id": confirmation_id,
+            "blocked_reason": "preview_guard_evidence_missing", "confirmation_id": confirmation_id,
         }
-    policy = resolve_price_guard_policy(
-        confirmation_db_path or ":memory:", hotel_id=hotel_id, room_type_id=payload["room_type_id"],
-        channel_source=payload["channel"], ota_product_id=payload["ota_product_id"], at_time=now_local(),
-    )
     execution_payload = price_execution_payload(
         hotel_id=hotel_id, room_type_id=payload["room_type_id"], channel=payload["channel"],
         ota_product_id=payload["ota_product_id"], normal_price=payload["target_price"], old_price=payload["old_price"],
-        price_guard_policy_id=None, begin_date=payload["target_stay_date"], end_date=payload["target_stay_date"],
-        max_increase_pct=policy.get("max_increase_pct"), max_decrease_pct=policy.get("max_decrease_pct"),
-        min_increase_pct=policy.get("min_increase_pct"), min_decrease_pct=policy.get("min_decrease_pct"),
-        freshness_status="fresh", guard_version=policy.get("version"),
+        price_guard_policy_id=preview_policy.get("policy_id"), begin_date=payload["target_stay_date"], end_date=payload["target_stay_date"],
+        max_increase_pct=preview_policy.get("max_increase_pct"), max_decrease_pct=preview_policy.get("max_decrease_pct"),
+        min_increase_pct=preview_policy.get("min_increase_pct"), min_decrease_pct=preview_policy.get("min_decrease_pct"),
+        freshness_status="fresh", guard_version=preview_policy.get("version"),
     )
     approval_payload = {
         **execution_payload, "approved_payload_hash": price_execution_payload_hash(execution_payload),
-        "price_guard_policy_version": policy.get("version"),
+        "price_guard_policy_version": preview_policy.get("version"),
         "dry_run_summary": f"S6 preview {payload['old_price']}->{payload['target_price']}",
         "data_business_date": payload["target_stay_date"], "data_snapshot_time": payload["data_snapshot_time"],
         "freshness_status": "fresh", "business_status": "current", "data_source_type": "mysql_db",
+        "prevalidated_preview": True,
     }
     validity = validate_approval_payload(approval_payload, "price_update")
     if not validity.get("allowed"):
@@ -2941,13 +2975,14 @@ def _write_s6_confirmation_fast(
         argparse.Namespace(
             db=confirmation_db_path, hotel_id=hotel_id, room_type_id=payload["room_type_id"], room_type_name=payload.get("room_type_name"),
             hotel_name=trusted_hotel_name, channel=payload["channel"], channel_source=payload["channel"],
-            ota_product_id=payload["ota_product_id"],
+            ota_product_id=payload["ota_product_id"], ota_product_name=payload.get("ota_product_name"),
             normal_price=payload["target_price"], weekend_price=None, begin_date=payload["target_stay_date"], end_date=payload["target_stay_date"],
             business_date=payload["target_stay_date"], approved_by=actor, approval_id=approval_id,
             approver_role=auth_context.get("user_role"), old_price=payload["old_price"], floor_price=None, ceiling_price=None,
             activity_discount_factors=None, pms_price=None, dry_run=False, no_log=True, timeout=5, auth_source="feishu",
             user_id=user_id, open_id=open_id, union_id=union_id, chat_id=chat_id, chat_type=chat_type, user_role=auth_context.get("user_role"),
             auth_config=auth_config, requested_by=payload.get("requester_id"), source_decision_id=payload.get("source_decision_id"),
+            prevalidated_confirmation=True, prevalidated_policy=preview_policy,
         ),
     )
     queued = outcome.get("status") == "queued"
@@ -3196,15 +3231,8 @@ def _health_ping(*, role: str, output_profile: str | None) -> dict[str, Any]:
         {
             "status": "ok",
             "runtime_command": "health-ping",
-            # A greeting is runtime status, not a demo business result.  Keeping
-            # the demo provenance inherited from _base_result makes the final
-            # Feishu output gate reject an otherwise safe health response.
-            "data_source_type": "runtime_status",
-            "business_result_generated": False,
-            "blocked_reason": None,
-            "summary": "Runtime reachable. I can answer hotel operations questions and provide controlled diagnostics.",
+            "summary": "Runtime reachable. Feishu can show status, demo chains, and dry-run previews; it does not grant live execution.",
             "environment_scope": "feishu_gateway_runtime",
-            "next_steps": "可直接询问经营快照、销售进度、OTA 运营或收益建议。",
         }
     )
     return result
@@ -3234,42 +3262,6 @@ def _model_config_refusal(*, role: str, output_profile: str | None) -> dict[str,
             "blocked_reason": "feishu_business_chat_cannot_change_model_config",
             "model_config_changed": False,
             "allowed_next_step": "Use an approved admin maintenance workflow for model configuration changes.",
-        }
-    )
-    return result
-
-
-def _model_info(*, role: str, output_profile: str | None) -> dict[str, Any]:
-    result = _base_result("model_info", role=role, output_profile=output_profile)
-    result.update(
-        {
-            "status": "ok",
-            "summary": "当前模型由网关统一配置；请以本消息页脚的 Model 字段为准。",
-            "live_allowed": False,
-        }
-    )
-    return result
-
-
-def _assistant_about(*, role: str, output_profile: str | None) -> dict[str, Any]:
-    result = _base_result("assistant_about", role=role, output_profile=output_profile)
-    result.update(
-        {
-            "status": "ok",
-            "summary": "我是酒店数字员工，提供经营分析、OTA 运营、收益建议和受控执行预览。",
-            "live_allowed": False,
-        }
-    )
-    return result
-
-
-def _unmatched_help(*, role: str, output_profile: str | None) -> dict[str, Any]:
-    result = _base_result("unmatched_help", role=role, output_profile=output_profile)
-    result.update(
-        {
-            "status": "ok",
-            "summary": "暂未识别该请求；可直接描述经营、OTA、评价、调价或推广问题。",
-            "live_allowed": False,
         }
     )
     return result
@@ -3816,12 +3808,6 @@ def route_feishu_command(
         )
     elif intent == "health_ping":
         result = _health_ping(role=role, output_profile=output_profile)
-    elif intent == "model_info":
-        result = _model_info(role=role, output_profile=output_profile)
-    elif intent == "assistant_about":
-        result = _assistant_about(role=role, output_profile=output_profile)
-    elif intent == "unmatched_help":
-        result = _unmatched_help(role=role, output_profile=output_profile)
     elif intent == "maintenance_safety_refusal":
         result = _maintenance_refusal(role=role, output_profile=output_profile)
     elif intent == "model_config_request":

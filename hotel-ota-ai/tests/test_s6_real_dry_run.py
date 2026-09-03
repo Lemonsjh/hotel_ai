@@ -28,7 +28,7 @@ def _query(template: str, _hotel_id: str, **_kwargs: object) -> dict:
             {"committed_occupancy_rate": 0.9, "room_type_forecasts": [{"room_type_id": "py01", "total_rooms": 4, "committed_sold_rooms": 3, "available_rooms": 1}]}
         ),
         "ota_price_mapping": _result(
-            {"price_snapshots": [{"hotel_name": "测试酒店", "channel": "meituan", "ota_product_id": "mt-1", "ota_product_name": "挂牌大床房", "room_type_id": "py01", "room_type_name": "大床房", "current_price": 404, "snapshot_time": "2026-08-04T09:58:00", "mapping_status": "AUTO", "mapping_active": True, "mapping_resolution_status": "mapped", "source_product_id": "mt-1"}]}
+            {"price_snapshots": [{"hotel_name": "测试酒店", "channel": "meituan", "ota_product_id": "mt-1", "ota_product_name": "挂牌大床房", "room_type_id": "py01", "room_type_name": "大床房", "current_price": 404, "snapshot_time": "2026-08-04T09:58:00", "mapping_id": "map-mt-1", "mapping_status": "AUTO", "mapping_active": True, "mapping_resolution_status": "mapped", "source_product_id": "mt-1"}]}
         ),
         "ota_business_metrics": _result({"rows": []}),
         "sales_baseline": _result({"rows": []}),
@@ -165,18 +165,13 @@ def test_s6_listing_price_command_routes_to_dry_run() -> None:
 
 def test_s6_per_room_type_price_change_builds_one_batch_preview_and_token(tmp_path) -> None:
     control_db = str(tmp_path / "control.sqlite")
-    with connect(control_db) as conn:
-        init_schema(conn)
-        conn.execute(
-            "INSERT INTO hotels (hotel_id, name, created_at, updated_at) VALUES (?, ?, ?, ?)",
-            ("puyue", "测试酒店", "2026-08-04T10:00:00", "2026-08-04T10:00:00"),
-        )
 
     def batch_query(template: str, _hotel_id: str, **_kwargs: object) -> dict:
         products = [
-            {"hotel_name": "测试酒店", "channel": "meituan", "ota_product_id": "mt-1", "ota_product_name": "大床房挂牌", "room_type_id": "py01", "room_type_name": "大床房", "current_price": 404, "snapshot_time": "2026-08-04T09:58:00", "mapping_status": "AUTO", "mapping_active": True, "mapping_resolution_status": "mapped", "source_product_id": "mt-1", "commission_rate": 0.12},
-            {"hotel_name": "测试酒店", "channel": "meituan", "ota_product_id": "mt-hour", "ota_product_name": "大床房 4小时", "room_type_id": "py01", "room_type_name": "大床房", "current_price": 98, "snapshot_time": "2026-08-04T09:58:00", "mapping_status": "AUTO", "mapping_active": True, "mapping_resolution_status": "mapped", "source_product_id": "mt-hour", "commission_rate": 0.12},
-            {"hotel_name": "测试酒店", "channel": "meituan", "ota_product_id": "mt-2", "ota_product_name": "双床房挂牌", "room_type_id": "py02", "room_type_name": "双床房", "current_price": 380, "snapshot_time": "2026-08-04T09:58:00", "mapping_status": "AUTO", "mapping_active": True, "mapping_resolution_status": "mapped", "source_product_id": "mt-2", "commission_rate": 0.12},
+            {"hotel_name": "测试酒店", "channel": "meituan", "ota_product_id": "mt-1", "ota_product_name": "大床房挂牌", "room_type_id": "py01", "room_type_name": "大床房", "current_price": 404, "snapshot_time": "2026-08-04T09:58:00", "mapping_id": "map-mt-1", "mapping_status": "AUTO", "mapping_active": True, "mapping_resolution_status": "mapped", "source_product_id": "mt-1", "commission_rate": 0.12},
+            {"hotel_name": "测试酒店", "channel": "meituan", "ota_product_id": "mt-1b", "ota_product_name": "大床房含早餐挂牌", "room_type_id": "py01", "room_type_name": "大床房", "current_price": 390, "snapshot_time": "2026-08-04T09:58:00", "mapping_id": "map-mt-1b", "mapping_status": "AUTO", "mapping_active": True, "mapping_resolution_status": "mapped", "source_product_id": "mt-1b", "commission_rate": 0.12},
+            {"hotel_name": "测试酒店", "channel": "meituan", "ota_product_id": "mt-hour", "ota_product_name": "大床房 4小时", "room_type_id": "py01", "room_type_name": "大床房", "current_price": 98, "snapshot_time": "2026-08-04T09:58:00", "mapping_id": "map-mt-hour", "mapping_status": "AUTO", "mapping_active": True, "mapping_resolution_status": "mapped", "source_product_id": "mt-hour", "commission_rate": 0.12},
+            {"hotel_name": "测试酒店", "channel": "meituan", "ota_product_id": "mt-2", "ota_product_name": "双床房挂牌", "room_type_id": "py02", "room_type_name": "双床房", "current_price": 380, "snapshot_time": "2026-08-04T09:58:00", "mapping_id": "map-mt-2", "mapping_status": "AUTO", "mapping_active": True, "mapping_resolution_status": "mapped", "source_product_id": "mt-2", "commission_rate": 0.12},
         ]
         if template == "ota_price_mapping":
             return _result({"price_snapshots": products})
@@ -188,20 +183,140 @@ def test_s6_per_room_type_price_change_builds_one_batch_preview_and_token(tmp_pa
         "runtime.feishu_command_router._capture_runtime_emit", return_value={"status": "dry_run", "guard": {"passed": True}}
     ):
         result = _build_s6_batch_dry_run(
-            message="每个房型下降30元 2026-08-04", hotel_id="puyue", db_path=control_db,
+            message="所有房型挂牌价下降30元 2026-08-04", hotel_id="puyue", db_path=control_db,
             as_of_time="2026-08-04T10:00:00", auth_config=None, chat_id="oc_test", chat_type="group",
             user_id="user-1", open_id="open-1", union_id=None, role="owner", requester_id="owner-1",
         )
 
-    assert _detect_intent("每个房型下降30元") == "price_execution_dry_run"
+    assert _detect_intent("所有房型挂牌价下降30元") == "price_execution_dry_run"
+    assert _detect_intent("所有商品都下调30元") == "price_execution_dry_run"
     assert result["status"] == "dry_run"
     assert result["batch_dry_run"] is True
-    assert [item["ota_product_id"] for item in result["batch_items"]] == ["mt-1", "mt-2"]
-    assert [item["execution_price"] for item in result["batch_items"]] == [374.0, 350.0]
+    assert result["freshness_status"] == "fresh"
+    assert result["business_status"] == "current"
+    assert result["data_business_date"] == "2026-08-04"
+    assert result["data_snapshot_time"] == "2026-08-04T09:58:00"
+    assert result["blocked_reason"] == "dry_run_preview_only"
+    assert result["approval_data_allowed"] is True
+    assert result["formal_approval_allowed"] is False
+    assert "demo_business_date" not in result
+    assert [item["ota_product_id"] for item in result["batch_items"]] == ["mt-1", "mt-1b", "mt-2"]
+    assert result["eligible_product_count"] == 3
+    assert [item["execution_price"] for item in result["batch_items"]] == [374.0, 360.0, 350.0]
     assert result["confirmation_command"].startswith("确认调价 PRC-")
     templates = [call.args[0] for call in query.call_args_list]
     assert templates.count("ota_price_mapping") == 1
     assert templates.count("operating_snapshot") == 1
+
+
+def test_s6_batch_price_change_normalizes_decimal_targets_to_whole_yuan(tmp_path) -> None:
+    control_db = str(tmp_path / "control.sqlite")
+    with connect(control_db) as conn:
+        init_schema(conn)
+        conn.execute(
+            "INSERT INTO hotels (hotel_id, name, created_at, updated_at) VALUES (?, ?, ?, ?)",
+            ("puyue", "测试酒店", "2026-08-04T10:00:00", "2026-08-04T10:00:00"),
+        )
+
+    def decimal_price_query(template: str, hotel_id: str, **kwargs: object) -> dict:
+        result = _query(template, hotel_id, **kwargs)
+        if template == "ota_price_mapping":
+            result["payload"]["price_snapshots"][0]["current_price"] = 309.1
+        return result
+
+    with mock.patch("runtime.feishu_command_router.database_template_result", side_effect=decimal_price_query), mock.patch(
+        "runtime.feishu_command_router._capture_runtime_emit", return_value={"status": "dry_run", "guard": {"passed": True}}
+    ):
+        result = _build_s6_batch_dry_run(
+            message="所有房型挂牌价下降10元 2026-08-04", hotel_id="puyue", db_path=control_db,
+            as_of_time="2026-08-04T10:00:00", auth_config=None, chat_id="oc_test", chat_type="group",
+            user_id="user-1", open_id="open-1", union_id=None, role="owner", requester_id="owner-1",
+        )
+
+    assert result["batch_items"][0]["status"] == "dry_run"
+    assert result["batch_items"][0]["execution_price"] == 299.0
+
+
+def test_s6_batch_confirmation_contains_only_products_that_pass_preview(tmp_path) -> None:
+    def partial_query(template: str, hotel_id: str, **kwargs: object) -> dict:
+        result = _query(template, hotel_id, **kwargs)
+        if template == "ota_price_mapping":
+            result["payload"]["price_snapshots"].append(
+                {
+                    **result["payload"]["price_snapshots"][0],
+                    "ota_product_id": "mt-2",
+                    "ota_product_name": "双床房挂牌",
+                    "room_type_id": "py02",
+                    "room_type_name": "双床房",
+                    "current_price": 380,
+                }
+            )
+        elif template == "operating_snapshot":
+            result["payload"]["room_type_forecasts"].append({"room_type_id": "py02", "available_rooms": 1})
+        return result
+
+    def preview_result(_func: object, args: object) -> dict:
+        return {"status": "blocked", "blocked_reason": "price_guard_rejected"} if args.ota_product_id == "mt-2" else {"status": "dry_run"}
+
+    with mock.patch("runtime.feishu_command_router.database_template_result", side_effect=partial_query), mock.patch(
+        "runtime.feishu_command_router._capture_runtime_emit", side_effect=preview_result
+    ), mock.patch(
+        "runtime.feishu_command_router.create_confirmation",
+        return_value={"status": "pending", "confirmation_id": "PRC-PARTIAL", "expires_at": "2026-08-04T10:10:00"},
+    ) as create:
+        result = _build_s6_batch_dry_run(
+            message="所有房型挂牌价下降20元 2026-08-04", hotel_id="puyue", db_path=str(tmp_path / "control.sqlite"),
+            as_of_time="2026-08-04T10:00:00", auth_config=None, chat_id="oc_test", chat_type="group",
+            user_id="user-1", open_id="open-1", union_id=None, role="owner", requester_id="owner-1",
+        )
+
+    assert result["confirmation_command"] == "确认调价 PRC-PARTIAL"
+    assert result["confirmable_product_count"] == 1
+    assert [item["ota_product_id"] for item in create.call_args.kwargs["payload"]["batch_items"]] == ["mt-1"]
+
+
+def test_s6_batch_reports_actual_exclusions_when_no_standard_product_is_eligible(tmp_path) -> None:
+    def hour_room_query(template: str, _hotel_id: str, **_kwargs: object) -> dict:
+        if template == "ota_price_mapping":
+            return _result({"price_snapshots": [{
+                "channel": "meituan", "ota_product_id": "mt-hour", "ota_product_name": "4小时钟点房",
+                "room_type_id": "py01", "current_price": 98, "snapshot_time": "2026-08-04T09:58:00",
+                "mapping_status": "AUTO", "mapping_active": True, "mapping_resolution_status": "mapped",
+                "source_product_id": "mt-hour", "is_hour_room": 1,
+            }]})
+        return _result({"room_type_forecasts": [{"room_type_id": "py01", "available_rooms": 1}]})
+
+    with mock.patch("runtime.feishu_command_router.database_template_result", side_effect=hour_room_query):
+        result = _build_s6_batch_dry_run(
+            message="所有房型挂牌价下降30元 2026-08-04", hotel_id="puyue", db_path=str(tmp_path / "control.sqlite"),
+            as_of_time="2026-08-04T10:00:00", auth_config=None, chat_id="oc_test", chat_type="group",
+            user_id="user-1", open_id="open-1", union_id=None, role="owner", requester_id="owner-1",
+        )
+
+    assert result["blocked_reason"] == "no_eligible_standard_ota_products"
+    assert result["excluded_product_reasons"] == ["hour_room"]
+
+
+def test_s6_batch_excludes_products_without_an_exact_pms_mapping(tmp_path) -> None:
+    def missing_mapping_query(template: str, _hotel_id: str, **_kwargs: object) -> dict:
+        if template == "ota_price_mapping":
+            return _result({"price_snapshots": [{
+                "channel": "meituan", "ota_product_id": "mt-unmapped", "ota_product_name": "全日房挂牌",
+                "room_type_id": "py01", "current_price": 298, "snapshot_time": "2026-08-04T09:58:00",
+                "mapping_status": "AUTO", "mapping_active": True, "mapping_resolution_status": "mapped",
+                "source_product_id": "mt-unmapped",
+            }]})
+        return _result({"room_type_forecasts": [{"room_type_id": "py01", "available_rooms": 1}]})
+
+    with mock.patch("runtime.feishu_command_router.database_template_result", side_effect=missing_mapping_query):
+        result = _build_s6_batch_dry_run(
+            message="所有房型下调10元 2026-08-04", hotel_id="puyue", db_path=str(tmp_path / "control.sqlite"),
+            as_of_time="2026-08-04T10:00:00", auth_config=None, chat_id="oc_test", chat_type="group",
+            user_id="user-1", open_id="open-1", union_id=None, role="owner", requester_id="owner-1",
+        )
+
+    assert result["blocked_reason"] == "no_eligible_standard_ota_products"
+    assert result["excluded_product_reasons"] == ["pms_room_type_mapping_missing"]
 
 
 def test_s6_hour_room_detection_requires_an_explicit_hour_room_pattern() -> None:

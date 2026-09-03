@@ -554,11 +554,7 @@ def _install_renderer_patch() -> None:
     renderer.build_feishu_send_payload = build_feishu_send_payload
 
     router = sys.modules.get("runtime.feishu_command_router")
-    if (
-        router is not None
-        and getattr(router, "build_feishu_send_payload", None)
-        is previous
-    ):
+    if router is not None:
         router.build_feishu_send_payload = build_feishu_send_payload
 
 
