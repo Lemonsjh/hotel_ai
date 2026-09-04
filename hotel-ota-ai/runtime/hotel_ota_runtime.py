@@ -23,4 +23,14 @@ from runtime.cli import main
 
 
 if __name__ == "__main__":
+    # Force UTF-8 on stdout/stderr so emoji and Chinese in runtime output do
+    # not crash on Windows' default GBK codec. The plugin path already sets
+    # PYTHONUTF8=1 when spawning, but the LLM/agent path invokes this CLI
+    # directly and previously hit `UnicodeEncodeError: 'gbk' codec can't
+    # encode '\U0001f3e8'`.
+    for _stream in (sys.stdout, sys.stderr):
+        try:
+            _stream.reconfigure(encoding="utf-8")
+        except Exception:
+            pass
     raise SystemExit(main())

@@ -103,6 +103,20 @@ export function extractInboundContext(event = {}, ctx = {}) {
     message.openId,
     message.open_id,
   );
+  const userId = firstText(
+    sender.userId,
+    sender.user_id,
+    nestedValue(sender, "sender_id", "user_id"),
+    nestedValue(event, "sender_id", "user_id"),
+    event.userId,
+    event.user_id,
+    message.userId,
+    message.user_id,
+  );
+  // Feishu open ids use the ``ou_`` prefix. Some p2p event shapes deliver the
+  // sender's open id inside the user_id field (or omit open_id entirely); mirror
+  // the runtime's ``ou_`` fallback so direct messages resolve the same identity.
+  const effectiveOpenId = openId || (userId.startsWith("ou_") ? userId : "");
   // Prefer Feishu's explicit chat type. The host-level isGroup flag can be
   // inherited from a dispatch context and has misclassified p2p events.
   const explicitChatType = firstText(
@@ -130,7 +144,7 @@ export function extractInboundContext(event = {}, ctx = {}) {
     message.send_target,
     message.target,
     nestedValue(event, "recipient", "target"),
-    chatType === "p2p" && openId ? `user:${openId}` : "",
+    chatType === "p2p" && effectiveOpenId ? `user:${effectiveOpenId}` : "",
     chatId,
   );
   return {
@@ -154,17 +168,8 @@ export function extractInboundContext(event = {}, ctx = {}) {
     authChatId: chatId,
     sendTarget,
     chatType,
-    openId,
-    userId: firstText(
-      sender.userId,
-      sender.user_id,
-      nestedValue(sender, "sender_id", "user_id"),
-      nestedValue(event, "sender_id", "user_id"),
-      event.userId,
-      event.user_id,
-      message.userId,
-      message.user_id,
-    ),
+    openId: effectiveOpenId,
+    userId,
     unionId: firstText(
       sender.unionId,
       sender.union_id,

@@ -380,6 +380,32 @@ def bootstrap_active_auth(db_path: str, *, config_path: str) -> dict[str, Any]:
     return {"status": "ok", "auth_backend": "sqlite_active"}
 
 
+def _fetch_active_principal(conn, *, user_id, open_id, union_id):
+    """Look up an active auth principal.
+
+    Feishu events sometimes deliver the sender's open id (``ou_*``) inside the
+    user_id field instead of open_id.  Mirror the JSON role-map fallback in
+    ``_role_match_from_feishu_user`` so a ``ou_*`` user_id also matches the
+    ``open_id`` column of the SQLite active-auth principal.
+    """
+    open_candidates = []
+    if open_id:
+        open_candidates.append(open_id)
+    if user_id and str(user_id).startswith("ou_") and user_id not in open_candidates:
+        open_candidates.append(user_id)
+    if open_candidates:
+        placeholders = ",".join("?" for _ in open_candidates)
+        sql = (
+            "SELECT * FROM auth_principals WHERE status='active' AND "
+            f"(open_id IN ({placeholders}) OR user_id=? OR union_id=?) LIMIT 1"
+        )
+        params = list(open_candidates) + [user_id, union_id]
+    else:
+        sql = "SELECT * FROM auth_principals WHERE status='active' AND (user_id=? OR union_id=?) LIMIT 1"
+        params = [user_id, union_id]
+    return conn.execute(sql, params).fetchone()
+
+
 def _sqlite_auth_context(db_path: str, *, chat_id: str, chat_type: str, user_id: str | None, open_id: str | None, union_id: str | None) -> dict[str, Any]:
     chat_id = normalize_feishu_chat_id(chat_id) or ""
     try:
@@ -392,7 +418,7 @@ def _sqlite_auth_context(db_path: str, *, chat_id: str, chat_type: str, user_id:
             binding = conn.execute("SELECT hotel_id, chat_type FROM chat_bindings WHERE chat_id=? AND status='active'", (chat_id,)).fetchone()
             if not binding:
                 binding = conn.execute("SELECT hotel_id, 'group' AS chat_type FROM group_chat_bindings WHERE chat_id=? AND status='active'", (chat_id,)).fetchone()
-            principal = conn.execute("SELECT * FROM auth_principals WHERE status='active' AND (open_id=? OR user_id=? OR union_id=?) LIMIT 1", (open_id, user_id, union_id)).fetchone()
+            principal = _fetch_active_principal(conn, user_id=user_id, open_id=open_id, union_id=union_id)
             # Hotel-bound groups establish tenant scope.  Group members who
             # are not yet role-mapped may read, but remain guests for all
             # state-changing operations.
@@ -478,10 +504,7 @@ def _sqlite_dm_open_id_context(
             ).fetchone()
             if not state or state["status"] != "active":
                 return {"auth_status": "unavailable", "reason": "sqlite_active_auth_unavailable"}
-            principal = conn.execute(
-                "SELECT * FROM auth_principals WHERE status='active' AND (open_id=? OR user_id=? OR union_id=?) LIMIT 1",
-                (open_id, user_id, union_id),
-            ).fetchone()
+            principal = _fetch_active_principal(conn, user_id=user_id, open_id=open_id, union_id=union_id)
             if not principal:
                 return {"auth_status": "unauthorized", "reason": "sqlite_principal_not_found"}
             item = dict(principal)

@@ -11,6 +11,7 @@ from pathlib import Path
 import re
 import sqlite3
 import tempfile
+import threading
 import time
 from typing import Any
 import uuid
@@ -1855,7 +1856,7 @@ def _detect_intent(message: str) -> str:
         return "frontdesk_today_tasks"
     if _contains_any(raw, ["\u63a8\u5e7f\u5efa\u8bae", "\u751f\u6210\u63a8\u5e7f"]):
         return "promotion_suggestion"
-    if _contains_any(raw, ["\u7ade\u5bf9", "\u7ade\u4e89\u76d1\u63a7", "\u7ade\u54c1", "\u540c\u884c\u4ef7\u683c"]):
+    if _contains_any(raw, ["\u7ade\u5bf9", "\u7ade\u4e89\u76d1\u63a7", "\u7ade\u54c1", "\u540c\u884c\u4ef7\u683c", "\u7ade\u4e89\u5708", "\u7ade\u4e89\u5206\u6790", "\u7ade\u4e89\u5bf9\u624b", "\u5e02\u573a\u7ade\u6001"]):
         return "competition_alert"
     if _contains_any(raw, ["\u83dc\u5355", "\u547d\u4ee4\u83dc\u5355", "\u947f"]) or "menu" in text or "command menu" in text:
         return "menu"
@@ -2711,10 +2712,18 @@ def _build_s6_batch_dry_run(
     return result
 
 
+_EMIT_CAPTURE_LOCK = threading.Lock()
+
+
 def _capture_runtime_emit(func: Any, namespace: argparse.Namespace) -> dict[str, Any]:
     buffer = io.StringIO()
-    with contextlib.redirect_stdout(buffer):
-        func(namespace)
+    # redirect_stdout mutates the global sys.stdout and is NOT thread-safe.
+    # _build_s6_batch_dry_run calls this concurrently via ThreadPoolExecutor,
+    # so serialize captures to keep execute_price JSON from leaking into the
+    # runtime's own stdout (which corrupts the CLI/plugin JSON envelope).
+    with _EMIT_CAPTURE_LOCK:
+        with contextlib.redirect_stdout(buffer):
+            func(namespace)
     output = buffer.getvalue().strip()
     if not output:
         return {"status": "error", "message": "runtime_command_returned_empty_output"}
@@ -4010,6 +4019,8 @@ def route_feishu_command(
                 "live_allowed": False,
             }
         )
+        if result.get("status") == "ok":
+            result["blocked_reason"] = None
     elif intent in {name for name, _ in MANAGEMENT_READ_INTENTS}:
         result.update(
             build_tenant_management_read_model(
