@@ -247,7 +247,7 @@ TENANT_AUTH_REQUIRED_ISOLATED_INTENTS = {
 
 
 NUMERIC_MENU_INTENTS = {
-    "1": "run_s02_demo",
+    "1": "run_s02",
     "2": "sales_baseline_demo",
     "3": "progress_deviation_demo",
     "4": "market_context_demo",
@@ -1781,7 +1781,7 @@ def _detect_intent(message: str) -> str:
     if _historical_room_type_performance_days(raw) is not None:
         return "historical_room_type_performance"
     if _contains_any(raw, BUSINESS_SNAPSHOT_PHRASES) or any(term in text for term in ["adr", "revpar"]):
-        return "run_s02_demo"
+        return "run_s02_demo" if _explicit_demo_requested(raw) else "run_s02"
     if _contains_any(raw, BASELINE_PHRASES):
         return "sales_baseline_demo"
     if _contains_any(raw, BUSINESS_CALENDAR_PHRASES):

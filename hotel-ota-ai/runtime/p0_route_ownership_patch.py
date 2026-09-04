@@ -461,7 +461,7 @@ def install() -> None:
             if _is_s8_display_request(message):
                 return "s8_promotion_display"
             if normalized in _S2_EXACT:
-                return "run_s02_demo"
+                return "run_s02"
             if normalized in _S4_EXACT:
                 return "market_context_demo"
             if normalized in _S16_EXACT:

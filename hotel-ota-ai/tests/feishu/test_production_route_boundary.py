@@ -79,7 +79,7 @@ class TestProductionRouteBoundary(unittest.TestCase):
 
         self.assertEqual(result.get("generated_by_runtime"), True)
         self.assertEqual(result.get("resolved_hotel_id"), "xingfeng")
-        self.assertIn(result.get("intent"), {"run_s02", "run_s02_demo"})
+        self.assertEqual(result.get("intent"), "run_s02")
         self.assertNotIn(result.get("data_source_type"), {"demo_data", "sample_data", "synthetic_today_demo"})
         self.assertIn("send_payload", result)
 

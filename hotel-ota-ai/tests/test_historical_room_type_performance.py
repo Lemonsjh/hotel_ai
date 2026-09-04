@@ -28,7 +28,7 @@ class HistoricalRoomTypePerformanceTests(unittest.TestCase):
             _detect_intent("帮我分析一下各房型最近15天的出租率和成交价格"),
             "historical_room_type_performance",
         )
-        self.assertEqual(_detect_intent("今天 ADR 多少"), "run_s02_demo")
+        self.assertEqual(_detect_intent("今天 ADR 多少"), "run_s02")
 
     def test_uses_completed_days_and_deduplicates_each_room_day(self) -> None:
         repository = _Repository(

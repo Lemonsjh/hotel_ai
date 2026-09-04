@@ -41,7 +41,7 @@ class MenuCommand:
 # Keep this list aligned with MENU.md and NUMERIC_MENU_INTENTS in
 # runtime.feishu_command_router. Number 5 remains retired from the visible menu.
 COMMANDS: tuple[MenuCommand, ...] = (
-    MenuCommand("1", "经营快照 / 日报", "view_diagnosis", "low", True, False, False, "1", "run_s02_demo", "N005", "S2", "A1", output_template="business-summary"),
+    MenuCommand("1", "经营快照 / 日报", "view_diagnosis", "low", True, False, False, "1", "run_s02", "N005", "S2", "A1", output_template="business-summary"),
     MenuCommand("2", "销售基准线", "view_diagnosis", "low", True, False, False, "2", "sales_baseline_demo", "N010", "S15", "A2", output_template="business-summary"),
     MenuCommand("3", "进度诊断", "view_diagnosis", "low", True, False, False, "3", "progress_deviation_demo", "N011", "S16", "A2", output_template="business-summary"),
     MenuCommand("4", "环境行情", "view_diagnosis", "low", True, False, False, "4", "market_context_demo", "N006", "S4", "A1", output_template="business-summary"),

@@ -76,7 +76,8 @@ def _wrap_s14_main_request(previous: Callable[[Any], bool]) -> Callable[[Any], b
 def _wrap_intent_detector(previous: Callable[[str], str]) -> Callable[[str], str]:
     def detect_intent(message: str) -> str:
         if is_s2_daily_report_request(message):
-            return "run_s02_demo"
+            normalized = _normalize(message)
+            return "run_s02_demo" if "demo" in normalized or "演示" in normalized else "run_s02"
         return previous(message)
 
     # Preserve wrapper markers used by existing route-regression tests while
